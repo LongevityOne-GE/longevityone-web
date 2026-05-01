@@ -9,7 +9,13 @@
       "Bash(cat:*)",
       "Bash(mkdir:*)",
       "Bash(cp:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(rm:*)",
+      "Bash(echo:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(supabase:*)",
+      "Bash(docker:*)"
     ]
   }
 }
