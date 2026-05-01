@@ -1,34 +1,5 @@
 @import "tailwindcss";
 
-/* ─── Mersad self-hosted font ─────────────────────────────────────────────── */
-@font-face {
-  font-family: 'Mersad';
-  src: url('/fonts/Mersad-Thin.woff2') format('woff2');
-  font-weight: 100;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Mersad';
-  src: url('/fonts/Mersad-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Mersad';
-  src: url('/fonts/Mersad-SemiBold.woff2') format('woff2');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Mersad';
-  src: url('/fonts/Mersad-Black.woff2') format('woff2');
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
 
 /* ─── Brand design tokens ──────────────────────────────────────────────────── */
 :root {
@@ -59,9 +30,12 @@
   --color-blue-light:   #cce3f0;
   --color-blue-dark:    #7fb5d4;
 
-  /* Font families — base Mersad + Google Font fallbacks via CSS vars injected by next/font */
-  --font-sans:     'Mersad', system-ui, sans-serif;
-  --font-primary:  var(--font-dm-sans), system-ui, sans-serif;
+  /* Font families
+     --font-mersad / --font-noto-georgian / --font-playfair / --font-allura
+     are CSS custom properties injected by next/font into the <html> element.
+     They hold hashed font-family names generated at build time — never
+     reference the literal string 'Mersad' here, it won't match. */
+  --font-sans:     var(--font-mersad), system-ui, sans-serif;
   --font-georgian: var(--font-noto-georgian), system-ui, sans-serif;
   --font-display:  var(--font-playfair), Georgia, serif;
   --font-script:   var(--font-allura), cursive;
@@ -135,7 +109,9 @@ html {
 }
 
 body {
-  font-feature-settings: 'ss01', 'cv11';
+  font-kerning: normal;
+  font-variant-ligatures: common-ligatures;
+  text-rendering: optimizeLegibility;
 }
 
 img,

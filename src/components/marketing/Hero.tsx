@@ -29,15 +29,15 @@ export function Hero() {
             Longevity · Tbilisi, Georgia
           </Eyebrow>
 
-          <h1 className="font-sans text-bone mb-8 max-w-4xl">
+          <h1 className="font-sans font-thin text-bone mb-8 max-w-4xl">
             <SplitWords
               text="Live longer."
-              className="block text-[clamp(4.5rem,12vw,9rem)] leading-[1.0] tracking-[-0.02em]"
+              className="block text-[clamp(4.5rem,12vw,9rem)] leading-[1.0] tracking-[-0.03em]"
             />
             <SplitWords
               text="Live better."
               delay={0.15}
-              className="block text-[clamp(4.5rem,12vw,9rem)] leading-[1.0] tracking-[-0.02em]"
+              className="block text-[clamp(4.5rem,12vw,9rem)] leading-[1.0] tracking-[-0.03em]"
             />
             <span className="block mt-3">
               <ScriptAccent className="text-[clamp(3rem,7vw,6rem)]">

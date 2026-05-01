@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { fontPrimary, fontGeorgian, fontDisplay, fontScript } from './fonts'
+import { mersad, fontGeorgian, fontDisplay, fontScript } from './fonts'
 import { LenisProvider } from './providers/LenisProvider'
 import './globals.css'
 
@@ -46,7 +46,7 @@ export default function RootLayout({
     <html
       lang="ka"
       className={[
-        fontPrimary.variable,
+        mersad.variable,
         fontGeorgian.variable,
         fontDisplay.variable,
         fontScript.variable,
