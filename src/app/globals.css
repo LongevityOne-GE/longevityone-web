@@ -37,7 +37,7 @@
   --color-orange: #D45800;
   --color-blue:   #AFD1E6;
 
-  --ease-luxury:  cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-luxury:  cubic-bezier(0.16, 1, 0.3, 1);
   --ease-reveal:  cubic-bezier(0.76, 0, 0.24, 1);
 
   --duration-fast: 200ms;
@@ -59,40 +59,60 @@
   --color-blue-light:   #cce3f0;
   --color-blue-dark:    #7fb5d4;
 
-  /* Typography */
-  --font-sans: 'Mersad', system-ui, sans-serif;
+  /* Font families — base Mersad + Google Font fallbacks via CSS vars injected by next/font */
+  --font-sans:     'Mersad', system-ui, sans-serif;
+  --font-primary:  var(--font-dm-sans), system-ui, sans-serif;
+  --font-georgian: var(--font-noto-georgian), system-ui, sans-serif;
+  --font-display:  var(--font-playfair), Georgia, serif;
+  --font-script:   var(--font-allura), cursive;
 
-  /* Font sizes with line-height / letter-spacing */
-  --font-size-display:    clamp(3rem, 8vw, 7rem);
-  --line-height-display:  1.05;
-  --letter-spacing-display: -0.02em;
+  /* Font sizes */
+  --font-size-display:   clamp(4.5rem, 12vw, 9rem);
+  --font-size-h1:        clamp(3.5rem, 8vw, 7rem);
+  --font-size-h2:        clamp(2.5rem, 5vw, 4.5rem);
+  --font-size-h3:        clamp(1.75rem, 3vw, 2.5rem);
+  --font-size-h4:        clamp(1.25rem, 2vw, 1.5rem);
+  --font-size-body-lg:   1.125rem;
+  --font-size-body:      1rem;
+  --font-size-small:     0.875rem;
+  --font-size-label:     0.75rem;
 
-  --font-size-display-sm:   clamp(2rem, 5vw, 4rem);
-  --line-height-display-sm: 1.1;
-  --letter-spacing-display-sm: -0.01em;
+  /* Line heights */
+  --line-height-display: 1.0;
+  --line-height-h1:      1.05;
+  --line-height-h2:      1.1;
+  --line-height-h3:      1.2;
+  --line-height-h4:      1.3;
+  --line-height-body:    1.7;
+  --line-height-small:   1.6;
+  --line-height-label:   1.5;
 
-  --font-size-heading:    clamp(1.5rem, 3vw, 2.5rem);
-  --line-height-heading:  1.15;
-
-  --font-size-body-lg:    1.125rem;
-  --line-height-body-lg:  1.7;
-
-  --font-size-body:       1rem;
-  --line-height-body:     1.7;
-
-  --font-size-caption:    0.75rem;
-  --line-height-caption:  1.5;
-  --letter-spacing-caption: 0.1em;
+  /* Letter spacings */
+  --letter-spacing-tightest: -0.02em;
+  --letter-spacing-tighter:  -0.01em;
+  --letter-spacing-normal:    0em;
+  --letter-spacing-wider:     0.04em;
+  --letter-spacing-widest:    0.1em;
+  --letter-spacing-widest-x:  0.18em;
+  --letter-spacing-ultra:     0.28em;
 
   /* Spacing */
-  --spacing-section:    5rem;
-  --spacing-section-lg: 8rem;
+  --spacing-section-y:    clamp(5rem, 12vw, 12rem);
+  --spacing-section-y-sm: clamp(3rem, 8vw, 7rem);
 
   /* Max widths */
-  --max-width-site: 1400px;
+  --max-width-site:       1400px;
+  --max-width-prose-luxe: 60ch;
+  --max-width-wide:       85rem;
+
+  /* Durations */
+  --duration-fast:    200ms;
+  --duration-base:    600ms;
+  --duration-slow:    800ms;
+  --duration-luxury:  700ms;
 
   /* Easing */
-  --ease-luxury: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-reveal:  cubic-bezier(0.76, 0, 0.24, 1);
 }
 
@@ -111,6 +131,11 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: auto; /* Lenis handles smooth scroll */
+  scrollbar-gutter: stable;
+}
+
+body {
+  font-feature-settings: 'ss01', 'cv11';
 }
 
 img,
@@ -122,4 +147,58 @@ video {
 :focus-visible {
   outline: 2px solid var(--color-orange);
   outline-offset: 3px;
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--color-orange) 20%, transparent);
+  color: var(--color-brown);
+}
+
+/* ─── Georgian locale typography ───────────────────────────────────────────── */
+:lang(ka) body,
+:lang(ka) p,
+:lang(ka) li,
+:lang(ka) td {
+  font-family: var(--font-georgian);
+  line-height: 1.85;
+}
+
+:lang(ka) h1,
+:lang(ka) h2,
+:lang(ka) h3,
+:lang(ka) h4,
+:lang(ka) h5,
+:lang(ka) h6 {
+  font-family: var(--font-georgian);
+}
+
+:lang(ka) input,
+:lang(ka) textarea,
+:lang(ka) select,
+:lang(ka) button {
+  font-family: var(--font-georgian);
+}
+
+/* ─── Reduced motion ────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Utilities ─────────────────────────────────────────────────────────────── */
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* ─── Components ────────────────────────────────────────────────────────────── */
+.rule-luxe {
+  border: none;
+  border-top: 0.5px solid color-mix(in srgb, var(--color-brown) 20%, transparent);
+  width: 100%;
 }
