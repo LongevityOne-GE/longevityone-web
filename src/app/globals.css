@@ -1,26 +1,125 @@
 @import "tailwindcss";
 
+/* ─── Mersad self-hosted font ─────────────────────────────────────────────── */
+@font-face {
+  font-family: 'Mersad';
+  src: url('/fonts/Mersad-Thin.woff2') format('woff2');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Mersad';
+  src: url('/fonts/Mersad-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Mersad';
+  src: url('/fonts/Mersad-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Mersad';
+  src: url('/fonts/Mersad-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─── Brand design tokens ──────────────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-bone:   #E7DECC;
+  --color-brown:  #422922;
+  --color-orange: #D45800;
+  --color-blue:   #AFD1E6;
+
+  --ease-luxury:  cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-reveal:  cubic-bezier(0.76, 0, 0.24, 1);
+
+  --duration-fast: 200ms;
+  --duration-base: 600ms;
+  --duration-slow: 800ms;
 }
 
+/* ─── Tailwind v4 theme extension ──────────────────────────────────────────── */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Colors */
+  --color-bone:         #E7DECC;
+  --color-brown:        #422922;
+  --color-brown-dark:   #2a1a14;
+  --color-brown-light:  #6b4a3a;
+  --color-orange:       #D45800;
+  --color-orange-light: #e07a33;
+  --color-orange-dark:  #a84600;
+  --color-blue:         #AFD1E6;
+  --color-blue-light:   #cce3f0;
+  --color-blue-dark:    #7fb5d4;
+
+  /* Typography */
+  --font-sans: 'Mersad', system-ui, sans-serif;
+
+  /* Font sizes with line-height / letter-spacing */
+  --font-size-display:    clamp(3rem, 8vw, 7rem);
+  --line-height-display:  1.05;
+  --letter-spacing-display: -0.02em;
+
+  --font-size-display-sm:   clamp(2rem, 5vw, 4rem);
+  --line-height-display-sm: 1.1;
+  --letter-spacing-display-sm: -0.01em;
+
+  --font-size-heading:    clamp(1.5rem, 3vw, 2.5rem);
+  --line-height-heading:  1.15;
+
+  --font-size-body-lg:    1.125rem;
+  --line-height-body-lg:  1.7;
+
+  --font-size-body:       1rem;
+  --line-height-body:     1.7;
+
+  --font-size-caption:    0.75rem;
+  --line-height-caption:  1.5;
+  --letter-spacing-caption: 0.1em;
+
+  /* Spacing */
+  --spacing-section:    5rem;
+  --spacing-section-lg: 8rem;
+
+  /* Max widths */
+  --max-width-site: 1400px;
+
+  /* Easing */
+  --ease-luxury: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-reveal:  cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Base reset ───────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+html {
+  background-color: var(--color-bone);
+  color: var(--color-brown);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
+}
+
+img,
+video {
+  max-width: 100%;
+  display: block;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-orange);
+  outline-offset: 3px;
 }
