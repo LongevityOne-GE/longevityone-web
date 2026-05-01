@@ -46,3 +46,4 @@ next-env.d.ts
 .env.sentry-build-plugin
 .claude/skills/ui-ux-pro-max
 .claude/skills/everything-claude-code
+supabase/.temp
