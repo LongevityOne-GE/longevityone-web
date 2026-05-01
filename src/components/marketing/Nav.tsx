@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion'
 import { cn } from '@/lib/utils'
@@ -45,7 +45,7 @@ export function Nav() {
             <li key={href}>
               <Link
                 href={href}
-                className="font-sans text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-brown/70 hover:text-brown transition-colors duration-200"
+                className="font-sans text-[0.75rem] font-normal uppercase tracking-[0.12em] text-brown/60 hover:text-brown transition-colors duration-200"
               >
                 {label}
               </Link>
