@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import { headers } from 'next/headers'
 import { mersad, fontGeorgian, fontDisplay, fontScript } from './fonts'
 import { LenisProvider } from './providers/LenisProvider'
 import './globals.css'
@@ -8,26 +9,18 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL ?? 'https://longevityone.ge'
   ),
   title: {
-    default: 'Longevity One — Luxury Longevity Clinic, Tbilisi',
+    default: 'Longevity One — პრევენციული მედიცინის ცენტრი, თბილისი',
     template: '%s | Longevity One',
   },
   description:
-    'Longevity One is a luxury preventive medicine and longevity clinic in Tbilisi, Georgia. Advanced diagnostics, personalised programmes, world-class care.',
+    'Longevity One — პრევენციული მედიცინის ცენტრი თბილისში. მოწინავე დიაგნოსტიკა, პერსონალიზებული პროგრამები, სამეცნიერო სიზუსტე.',
   openGraph: {
     type: 'website',
-    locale: 'ka_GE',
-    alternateLocale: 'en_US',
     siteName: 'Longevity One',
     images: [{ url: '/og-image.jpg', width: 1200, height: 630 }],
   },
-  twitter: {
-    card: 'summary_large_image',
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true },
-  },
+  twitter: { card: 'summary_large_image' },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
 }
 
 export const viewport: Viewport = {
@@ -37,14 +30,17 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
+  const hdrs = await headers()
+  const lang = hdrs.get('x-lang') ?? 'ka'
+
   return (
     <html
-      lang="ka"
+      lang={lang}
       className={[
         mersad.variable,
         fontGeorgian.variable,
