@@ -15,17 +15,15 @@ interface ButtonBaseProps {
 }
 
 type ButtonAsButton = ButtonBaseProps &
-  React.ButtonHTMLAttributes<HTMLButtonElement> & { as?: 'button'; href?: never }
+  React.ButtonHTMLAttributes<HTMLButtonElement> & { href?: never; external?: never }
 
-type ButtonAsLink = ButtonBaseProps & { as: typeof Link; href: string } & Omit<
-    React.ComponentPropsWithoutRef<typeof Link>,
-    'href'
-  >
+type ButtonAsLink = ButtonBaseProps &
+  Omit<React.ComponentPropsWithoutRef<typeof Link>, 'href'> & {
+    href: string
+    external?: boolean
+  }
 
-type ButtonAsAnchor = ButtonBaseProps &
-  React.AnchorHTMLAttributes<HTMLAnchorElement> & { as: 'a'; href: string }
-
-type ButtonProps = ButtonAsButton | ButtonAsLink | ButtonAsAnchor
+type ButtonProps = ButtonAsButton | ButtonAsLink
 
 const variantMap: Record<ButtonVariant, string> = {
   primary:
@@ -47,19 +45,25 @@ const base =
 export const Button = forwardRef<
   HTMLButtonElement | HTMLAnchorElement,
   ButtonProps
->(function Button({ as, variant = 'primary', size = 'md', className, children, ...props }, ref) {
+>(function Button({ variant = 'primary', size = 'md', className, children, ...props }, ref) {
   const classes = cn(base, variantMap[variant], sizeMap[size], className)
 
-  if (as === 'a') {
-    return (
-      <a ref={ref as React.Ref<HTMLAnchorElement>} className={classes} {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}>
-        {children}
-      </a>
-    )
-  }
-
-  if (as === Link) {
-    const { href, ...rest } = props as ButtonAsLink
+  if ('href' in props && props.href !== undefined) {
+    const { href, external, ...rest } = props as ButtonAsLink
+    if (external) {
+      return (
+        <a
+          ref={ref as React.Ref<HTMLAnchorElement>}
+          href={href}
+          className={classes}
+          target="_blank"
+          rel="noopener noreferrer"
+          {...(rest as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+        >
+          {children}
+        </a>
+      )
+    }
     return (
       <Link href={href} className={classes} {...rest}>
         {children}
@@ -68,7 +72,11 @@ export const Button = forwardRef<
   }
 
   return (
-    <button ref={ref as React.Ref<HTMLButtonElement>} className={classes} {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}>
+    <button
+      ref={ref as React.Ref<HTMLButtonElement>}
+      className={classes}
+      {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+    >
       {children}
     </button>
   )

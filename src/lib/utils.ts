@@ -6,6 +6,7 @@ export function cn(...inputs: ClassValue[]): string {
 }
 
 export type Locale = 'ka' | 'en'
+export type Lang = Locale
 
 export function isLocale(value: string): value is Locale {
   return value === 'ka' || value === 'en'

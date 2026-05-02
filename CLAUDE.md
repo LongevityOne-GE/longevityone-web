@@ -1,27 +1,26 @@
-# LongevityOne — Claude Code Master Configuration
+# Longevity One — Claude Code Master Configuration
 
 > Read this file completely before writing any code, modifying any file, or making any architectural decision.
 > This is the single source of truth for the entire project.
+> Display name: **Longevity One** (two words). Domain/code/URLs: `longevityone.ge` (no space — never change).
 
 ---
 
 ## Project Identity
 
-**Project:** LongevityOne — Longevity-focused medical clinic website
+**Display name:** Longevity One
+**Georgian logo name:** ლონჯევითი უან (logo assets only — never in body copy)
 **Domain:** www.longevityone.ge
 **Location:** Tbilisi, Georgia
-**Design reference:** https://www.cliniquelaprairie.com (match this level of motion and luxury)
-**Tagline:** The Art of Living Longer
-
----
-
-## Repository
-
-- **GitHub org:** LongevityOne-GE
-- **Repo:** longevityone-web (public)
-- **Branch strategy:** `dev` → `staging` → `main` (production)
-- **Never commit directly to `main`** — always PR from staging
-- **Vercel:** auto-deploys `main` → production, `staging` → preview
+**Tagline (en):** The Art of Living Longer
+**Tagline (ka):** დღეგრძელობის ხელოვნება
+**Category:** Preventive Medicine Center
+**Design reference:** https://www.cliniquelaprairie.com — match this level exactly
+**Phone:** +995 577 26 05 57
+**Email:** info@longevityone.ge
+**Address (ka):** თამარაშვილის 4ა, თბილისი
+**Address (en):** 4a Tamarashvili St, Tbilisi, Georgia
+**Hours:** ყოველდღე 09:00–21:00 / Daily 09:00–21:00
 
 ---
 
@@ -32,38 +31,71 @@
 | Framework | Next.js 14 App Router | No Pages Router patterns ever |
 | Language | TypeScript strict | No `any` — ever |
 | Styling | Tailwind CSS | No inline styles, no CSS modules unless unavoidable |
-| Animation | Framer Motion + GSAP ScrollTrigger | FM for component animations, GSAP for scroll-driven |
-| Smooth scroll | Lenis | Wrap entire app — makes site feel luxury |
-| CMS | Sanity (project: icuuryo0, dataset: production) | All copy comes from Sanity — nothing hardcoded |
-| Database | Supabase EU Frankfurt | Patient data only — never health data in Vercel |
+| Smooth scroll | Lenis (`@studio-freight/lenis`) | Wrap entire app — foundational luxury feel |
+| Scroll animation | GSAP + ScrollTrigger | Hero parallax, pinned sections, scroll-driven reveals |
+| Component animation | Framer Motion | Entrances, hover states, page transitions |
+| CMS | Sanity (project: `icuuryo0`, dataset: `production`) | All copy from Sanity — nothing hardcoded |
+| Database | Supabase EU Frankfurt (`xnhsbktgahausldzrkoo`) | Patient data only |
 | Auth | Supabase Magic Link | No passwords |
 | Email | Resend | All transactional email |
-| Booking | Cal.com | Embed, do not redirect |
+| Booking | Cal.com Atoms embed | Embed inline — do not redirect |
 | Analytics | GA4 + PostHog EU | Both gated behind cookie consent |
-| Error tracking | Sentry | Tunnel at /monitoring — never change this |
+| Error tracking | Sentry | Tunnel at `/monitoring` — never change |
 | Deployment | Vercel Pro | |
 | DNS/CDN | Cloudflare | Full strict SSL |
+
+---
+
+## How to Use Claude Code Tools
+
+### At session start — always do this first:
+Read CLAUDE.md, BRAND.md, MOTION.md before writing any code.
+
+### MCP tools — when to use each:
+
+| Tool | When to use | How to invoke |
+|---|---|---|
+| **context7** | Every time you use a library API | Auto-invoked via ~/.claude.json rules |
+| **21st-magic** | Need a production-ready animated component | `/ui [describe component]` |
+| **sequential-thinking** | Complex architecture or debugging | Say "use sequential-thinking" |
+| **supabase MCP** | Before any Supabase query | "use supabase MCP to show current schema" |
+| **sanity MCP** | Before writing GROQ queries | "use sanity MCP to list document types" |
+| **github MCP** | Commit, push, branches, PRs | "use github MCP to commit to dev" |
+| **playwright** | After building any page | "use playwright to screenshot at 375px, 768px, 1440px" |
+| **memory** | Store cross-session decisions | `/mem store: [decision]` |
+| **seo** | Any page — JSON-LD, meta audit | "use seo MCP to generate schema for this page" |
+
+### Skills in .claude/skills/ (Claude Code reads these automatically):
+- `brand/` — colour system, typography, component patterns
+- `motion/` + `motion-principles/` — animation spec
+- `project-context/` — project rules (this file)
+- `frontend-design/` — luxury web design patterns
+- `ui-ux-pro-max/` — premium UI decision-making
+- `everything-claude-code/` — Claude Code workflow best practices
 
 ---
 
 ## Critical Architecture Rules
 
 1. **Vercel never stores health data** — only renders and proxies to Supabase
-2. **Supabase EU Frankfurt** (eu-central-1) stores all patient data
+2. **Supabase EU Frankfurt** (`eu-central-1`) stores all patient data
 3. **RLS must be enabled** on every Supabase table before writing any query
-4. **Cookie consent fires before** GA4 or PostHog initialise — gate behind `window.__consentGranted`
-5. **SUPABASE_SERVICE_ROLE_KEY** is server-only — never in NEXT_PUBLIC_ vars, never in client bundle
-6. **All text content from Sanity** — no hardcoded Georgian or English strings in components (except fallback error states)
-7. **Server Components by default** — Client Components only when you need interactivity, scroll listeners, or browser APIs
-8. **Sentry tunnel at /monitoring** — do not change this route ever
-9. **Never expose secrets** — run `grep -r "SERVICE_ROLE\|RESEND_API\|CALCOM" .next/` after every build
+4. **Cookie consent fires before** GA4 or PostHog initialise
+5. **SUPABASE_SERVICE_ROLE_KEY** is server-only — never in `NEXT_PUBLIC_` vars
+6. **All text content from Sanity** — no hardcoded strings in components
+7. **Server Components by default** — Client Components only when needed
+8. **Sentry tunnel at `/monitoring`** — do not change this route ever
+9. **Never expose secrets** — `grep -r "SERVICE_ROLE\|RESEND_API\|CALCOM" .next/` after every build
+10. **Georgian (ka) first** — always implement Georgian before English
 
 ---
 
 ## Environment Variables
 
-### Client-safe (NEXT_PUBLIC_)
+### Client-safe (`NEXT_PUBLIC_`)
 ```
+NEXT_PUBLIC_SUPABASE_URL=https://xnhsbktgahausldzrkoo.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=[set in Vercel]
 NEXT_PUBLIC_SANITY_PROJECT_ID=icuuryo0
 NEXT_PUBLIC_SANITY_DATASET=production
 NEXT_PUBLIC_GA_MEASUREMENT_ID=G-HKPCD01DS6
@@ -74,9 +106,7 @@ NEXT_PUBLIC_SENTRY_DSN=https://cc6c932f47d17b0715c74504bf51d496@o451130370070937
 
 ### Server-only (never expose to client)
 ```
-SUPABASE_URL=https://xnhsbktgahausldzrkoo.supabase.co
-SUPABASE_ANON_KEY=[set in Vercel]
-SUPABASE_SERVICE_ROLE_KEY=[set in Vercel — NEVER touch client side]
+SUPABASE_SERVICE_ROLE_KEY=[set in Vercel — NEVER client side]
 RESEND_API_KEY=[set in Vercel]
 SANITY_API_TOKEN=[set in Vercel]
 CALCOM_API_KEY=[set in Vercel]
@@ -85,306 +115,221 @@ SENTRY_AUTH_TOKEN=[set in Vercel]
 
 ---
 
-## Folder Structure
+## Folder Structure (matches actual repo)
 
 ```
 longevityone-web/
-├── app/
-│   ├── [lang]/                    # (ka) and (en) routing
-│   │   ├── page.tsx               # Homepage
-│   │   ├── services/
-│   │   │   ├── longevity/
-│   │   │   ├── metabolic/
-│   │   │   └── performance/
-│   │   ├── packages/
-│   │   ├── team/
-│   │   ├── technologies/
-│   │   ├── journey/
-│   │   ├── blog/
-│   │   │   └── [slug]/
-│   │   ├── book/
-│   │   ├── contact/
-│   │   └── legal/
-│   │       ├── privacy/
-│   │       ├── terms/
-│   │       ├── cookies/
-│   │       └── disclaimer/
-│   ├── api/
-│   │   ├── intake/route.ts        # Intake form → Supabase
-│   │   ├── contact/route.ts       # Contact form → Resend
-│   │   └── revalidate/route.ts    # Sanity webhook revalidation
-│   ├── studio/[[...tool]]/        # Sanity Studio embedded
-│   ├── monitoring/route.ts        # Sentry tunnel — DO NOT CHANGE
-│   ├── sitemap.ts
-│   ├── robots.ts
-│   ├── layout.tsx
-│   └── globals.css
-├── components/
-│   ├── ui/                        # Reusable primitives (Button, Input, etc.)
-│   ├── layout/                    # Navbar, Footer, CookieBanner
-│   ├── sections/                  # Page sections (Hero, Services, etc.)
-│   ├── animations/                # Reusable animation wrappers
-│   └── sanity/                    # Sanity-specific components (PortableText, etc.)
-├── lib/
-│   ├── sanity/
-│   │   ├── client.ts
-│   │   ├── queries.ts
-│   │   └── image.ts
-│   ├── supabase/
-│   │   ├── server.ts              # Server-side client (service role)
-│   │   └── client.ts              # Client-side (anon key + RLS)
-│   ├── resend/
-│   │   └── emails.ts
-│   └── utils.ts
+├── src/
+│   ├── app/
+│   │   ├── (ka)/                      # Georgian route group — primary/default
+│   │   │   ├── page.tsx               # Homepage /
+│   │   │   ├── about/page.tsx
+│   │   │   ├── services/
+│   │   │   │   ├── longevity/page.tsx
+│   │   │   │   ├── metabolic/page.tsx
+│   │   │   │   └── performance/page.tsx
+│   │   │   ├── technologies/
+│   │   │   │   └── [slug]/page.tsx
+│   │   │   ├── packages/page.tsx
+│   │   │   ├── team/page.tsx
+│   │   │   ├── journey/page.tsx
+│   │   │   ├── blog/
+│   │   │   │   ├── page.tsx
+│   │   │   │   └── [slug]/page.tsx
+│   │   │   ├── book/page.tsx
+│   │   │   ├── faq/page.tsx
+│   │   │   ├── corporate/page.tsx
+│   │   │   ├── contact/page.tsx
+│   │   │   └── legal/
+│   │   │       ├── privacy/page.tsx
+│   │   │       ├── terms/page.tsx
+│   │   │       ├── cookies/page.tsx
+│   │   │       └── disclaimer/page.tsx
+│   │   ├── en/                        # English route group
+│   │   │   └── [...slug]/page.tsx
+│   │   ├── api/
+│   │   │   ├── intake/route.ts
+│   │   │   ├── contact/route.ts
+│   │   │   └── revalidate/route.ts
+│   │   ├── studio/[[...tool]]/page.tsx
+│   │   ├── monitoring/route.ts        # Sentry tunnel — DO NOT CHANGE
+│   │   ├── sitemap.ts
+│   │   ├── robots.ts
+│   │   ├── layout.tsx
+│   │   └── globals.css
+│   ├── components/
+│   │   ├── ui/
+│   │   ├── layout/
+│   │   ├── sections/
+│   │   ├── animations/
+│   │   └── sanity/
+│   ├── lib/
+│   │   ├── sanity/client.ts
+│   │   ├── sanity/queries.ts
+│   │   ├── sanity/image.ts
+│   │   ├── supabase/server.ts
+│   │   ├── supabase/client.ts
+│   │   ├── resend/emails.ts
+│   │   ├── gsap.ts
+│   │   └── utils.ts
+│   ├── hooks/
+│   ├── types/
+│   └── providers/
+│       └── LenisProvider.tsx
 ├── sanity/
-│   ├── schemaTypes/               # All Sanity schemas
+│   ├── schemaTypes/
 │   ├── structure.ts
 │   └── sanity.config.ts
-├── supabase/
-│   └── migrations/                # All SQL migrations with RLS policies
-├── hooks/                         # Custom React hooks
-├── types/                         # Shared TypeScript types
+├── supabase/migrations/
 ├── public/
-│   ├── fonts/                     # Self-hosted Mersad font files
+│   ├── fonts/mersad/               # 9 .woff2 files — see BRAND.md for paths
 │   └── images/
-├── CLAUDE.md                      # This file
+├── .claude/
+│   ├── settings.json
+│   └── skills/
+├── CLAUDE.md
 ├── ARCHITECTURE.md
-├── CONTENT.md
+├── BRAND.md
 ├── MOTION.md
-└── BRAND.md
+└── CONTENT.md
 ```
 
 ---
 
 ## Language & i18n
 
-- **Georgian (ka)** is the primary language — always implement ka first
-- **English (en)** is secondary
-- Route structure: `/` defaults to Georgian, `/en/...` for English
-- All Sanity schemas have `title_ka`, `title_en`, `body_ka`, `body_en` fields
-- Georgian text runs approximately 30% longer than English — design must accommodate this
-- Never use machine translation — all content comes from the client
-- `<html lang="ka">` / `<html lang="en">` must switch correctly
+- **Georgian (ka)** is primary — always implement ka first, en second
+- Route groups: `(ka)` is default (no URL prefix), `en/` adds `/en` prefix
+- All Sanity schemas: `_ka` fields are required, `_en` optional but always filled
+- Georgian text runs ~30% longer than English — every layout must accommodate this
+- Never machine-translate — all content from CONTENT.md / Sanity
+- In Georgian body text, brand name stays as `Longevity One` in Latin script
 
 ---
 
-## Design System (from Brand Guidelines)
+## Design System — Quick Reference (full spec in BRAND.md)
 
-### Colours
 ```css
---color-bone-white: #E7DECC;    /* Primary background */
---color-dark-brown: #422922;    /* Primary text, headings */
---color-burnt-orange: #D45800;  /* Accent, CTAs, highlights */
---color-light-blue: #AFD1E6;    /* Secondary accent */
---color-black: #000000;         /* High contrast elements */
+/* Brand colours */
+bone:   #E7DECC   /* primary background */
+brown:  #422922   /* all text and headings */
+orange: #D45800   /* CTAs, accent — use sparingly */
+blue:   #AFD1E6   /* secondary accent — very sparingly */
+black:  #000000   /* dark overlays only */
 ```
 
-### Typography
-- **Primary font:** Mersad (Thin, Regular, Semi-bold, Black) — self-hosted in /public/fonts/
-- **Georgian script:** Mersad Georgian weights (same family)
-- **Usage:** Headings in Mersad Black/Semi-bold, body in Mersad Regular, captions in Mersad Thin
-- **Letter-spacing:** generous tracking on headings (0.05em to 0.1em) — luxury feel
-- **Line-height:** 1.1 to 1.2 on large headings, 1.6 to 1.7 on body
-
-### Visual Language
-- Classical Greek/Roman sculpture imagery — the brand uses these as hero visuals
-- High contrast: bone white backgrounds with dark brown typography
-- Burnt orange used sparingly as accent — not for backgrounds of large areas
-- Light blue used for subtle UI states and secondary elements
-- No gradients — flat, editorial, typographic
-- Generous whitespace — luxury brands breathe
-- Cinematic crop on images — tight, dramatic
+Font: Mersad, 9 weights, `/public/fonts/mersad/mersad-[weight].woff2`
+- thin(100), extralight(200), light(300), regular(400), medium(500)
+- semibold(600), bold(700), extrabold(800), black(900)
 
 ---
 
-## Animation Principles (see MOTION.md for full spec)
+## Animation — Quick Reference (full spec in MOTION.md)
 
-**Target:** Match Clinique La Prairie — cinematic scroll experience, no jarring transitions.
-
-### Stack
-- **Lenis** — smooth scrolling, wrap the entire app
-- **Framer Motion** — component entrance animations, hover states, page transitions
-- **GSAP + ScrollTrigger** — hero parallax, pinned scroll sequences, text reveals
-- **Intersection Observer** — lightweight trigger for simple fade-ins
-
-### Rules
-- Every page transition: 600ms ease fade + subtle upward shift (8px)
-- Hero section: full-screen, image parallax on scroll (GSAP), headline splits and animates in
-- Text reveals: words or lines, not letters (too slow at luxury scale)
-- Never animate more than 3 elements simultaneously
-- All animations respect `prefers-reduced-motion` — wrap in `useReducedMotion()` check
-- Performance budget: animations must not cause CLS or drop below 60fps on mid-range Android
+- Lenis wraps app in `src/app/layout.tsx` via `LenisProvider`
+- GSAP registered once in `src/lib/gsap.ts` — always import from there
+- All animations respect `prefers-reduced-motion`
+- Only animate `transform` and `opacity` — never width/height/top/left
+- Always `kill()` GSAP ScrollTrigger instances on unmount
 
 ---
 
 ## Coding Standards
 
-### TypeScript
 ```typescript
-// Always strict — no any
-interface Service {
-  id: string
-  title_ka: string
-  title_en: string
-  slug: { current: string }
-}
+// Utility
+import { clsx, type ClassValue } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+export function cn(...inputs: ClassValue[]) { return twMerge(clsx(inputs)) }
 
-// Use Zod for runtime validation on all API routes
-import { z } from 'zod'
-const IntakeSchema = z.object({
-  firstName: z.string().min(2).max(100),
-  email: z.string().email(),
-  consentGiven: z.literal(true), // Must be explicitly true
-})
-```
-
-### Components
-```typescript
 // Server Component (default)
-export default async function ServicePage({ params }: { params: { lang: string; slug: string } }) {
-  const data = await getServiceFromSanity(params.slug, params.lang)
+export default async function ServicePage({ params }: { params: { slug: string } }) {
+  const data = await getServiceFromSanity(params.slug)
   return <ServiceView data={data} />
 }
 
-// Client Component (only when necessary)
+// Client Component (only when needed)
 'use client'
-export function AnimatedHero({ title }: { title: string }) {
-  // Framer Motion, scroll listeners, browser APIs only here
-}
-```
+export function AnimatedHero({ headline }: { headline: string }) { ... }
 
-### API Routes
-```typescript
-// Always validate input with Zod
-// Always handle errors explicitly
-// Always return typed responses
-// Rate limit with Vercel Edge middleware
+// API route
 export async function POST(request: Request) {
   try {
-    const body = await request.json()
-    const validated = IntakeSchema.parse(body) // throws if invalid
-    // ... process
+    const validated = IntakeSchema.parse(await request.json())
     return Response.json({ success: true }, { status: 201 })
   } catch (error) {
-    if (error instanceof z.ZodError) {
-      return Response.json({ error: error.errors }, { status: 400 })
-    }
+    if (error instanceof z.ZodError) return Response.json({ error: error.errors }, { status: 400 })
     return Response.json({ error: 'Internal error' }, { status: 500 })
   }
 }
-```
-
-### Supabase queries (server-side only)
-```typescript
-import { createServerClient } from '@/lib/supabase/server'
-
-// Always check RLS is enabled before querying
-// Always use server client for sensitive operations
-const supabase = createServerClient()
-const { data, error } = await supabase
-  .from('patients')
-  .insert({ ... })
-  .select()
 ```
 
 ---
 
 ## Sanity Schema Conventions
 
-All schemas must follow this bilingual pattern:
 ```typescript
-// Every text field has _ka and _en variants
-// Georgian (_ka) is always required
-// English (_en) is optional but should always be filled
-{
-  name: 'title_ka',
-  title: 'Title (Georgian)',
-  type: 'string',
-  validation: Rule => Rule.required(),
-},
-{
-  name: 'title_en',
-  title: 'Title (English)',
-  type: 'string',
-},
+// _ka required, _en always filled
+{ name: 'title_ka', type: 'string', validation: (Rule) => Rule.required() }
+{ name: 'title_en', type: 'string' }
 ```
 
-### Schema list to build
-- `service` — the 3 service pillars
-- `package` — pricing tiers and memberships
-- `teamMember` — physicians and staff
-- `technology` — PNOE, Visbody, IHHT, etc.
-- `blogPost` — bilingual articles
-- `legalPage` — privacy, terms, cookies, disclaimer
-- `homePage` — singleton for homepage content
-- `siteSettings` — global settings (clinic name, address, phone, social links)
+Build schemas in this order: siteSettings → homePage → service → technology → package → teamMember → blogPost → legalPage
 
 ---
 
-## Supabase Schema
+## Security Checklist (every PR)
 
-### Tables (all with RLS)
-```sql
--- patients: intake form submissions
--- assessments: PNOE, Visbody, VO2 Max results
--- biomarker_readings: lab results
--- consent_log: GDPR consent timestamps with version
-
--- RLS rule pattern:
--- Patients see only their own rows (auth.uid() = patient_id)
--- Service role (server-only) can read all
-```
-
----
-
-## Security Checklist (enforce on every PR)
-
-- [ ] No NEXT_PUBLIC_ vars contain secrets
+- [ ] No `NEXT_PUBLIC_` vars contain secrets
 - [ ] All API routes have Zod validation
-- [ ] All Supabase tables queried have RLS enabled
-- [ ] Health data never logged to console or Sentry
-- [ ] Cookie consent checked before analytics fire
-- [ ] CSP headers present in next.config.ts
-- [ ] Rate limiting on /api/intake and /api/contact
+- [ ] All Supabase tables have RLS enabled
+- [ ] Health data never in console or Sentry logs
+- [ ] Cookie consent before GA4/PostHog
+- [ ] CSP headers in `next.config.ts`
+- [ ] Rate limiting on `/api/intake` (5/min) and `/api/contact` (3/min)
 
 ---
 
-## Cal.com Integration
+## Forbidden — Claude Code must never do these
+
+- Hardcode Georgian or English copy in components
+- Use `any` in TypeScript
+- Write to Supabase from a Client Component
+- Expose `SUPABASE_SERVICE_ROLE_KEY`
+- Disable RLS on any table
+- Store full medical records in Supabase
+- Change the `/monitoring` Sentry tunnel route
+- Use Pages Router patterns
+- Use inline styles (Tailwind only)
+- Commit secrets to the repo
+- Skip error handling on API routes
+- Skip GDPR consent checkbox on health data forms
+- Animate `width`, `height`, `top`, `left`, `margin`, `padding`
+- Use `rounded-full` on buttons
+- Use box shadows
+- Use gradients
+- Hardcode prices (always from Sanity)
+
+---
+
+## Session Starter Prompt
 
 ```
-Event types:
-- Initial Consultation: cal.eu/longevityone/consultation (60min)
-- Follow-up: cal.eu/longevityone/followup (30min)
-- PNOE Assessment: cal.eu/longevityone/pnoe (45min)
+You are building Longevity One (longevityone.ge) — a luxury longevity medical clinic in Tbilisi, Georgia.
 
-Embed as inline widget on /book page — do not redirect to cal.com
-Use Cal.com Atoms (React embed) for seamless UI integration
+Before writing any code, read:
+1. CLAUDE.md — all project rules, stack, folder structure
+2. BRAND.md — colours, Mersad 9-weight typography, component patterns
+3. MOTION.md — Lenis + GSAP + Framer Motion animation spec
+
+Rules: TypeScript strict · Georgian (ka) first · all copy from Sanity · 
+Lenis+GSAP+FramerMotion · bone/brown/orange palette · Mersad font ·
+Server Components default · RLS on all tables · consent before analytics ·
+/monitoring never changes · target: cliniquelaprairie.com quality
+
+Tools: context7 auto (library docs) · /ui for components (21st-magic) ·
+sequential-thinking for architecture · playwright to verify ·
+/mem for cross-session decisions · seo MCP for JSON-LD
+
+Current task: [DESCRIBE EXACTLY WHAT YOU ARE BUILDING]
 ```
-
----
-
-## Performance Targets
-
-- Lighthouse Performance ≥ 90 on all key pages
-- LCP < 2.5s, CLS < 0.1, INP < 200ms
-- Animations must not cause CLS
-- All images: WebP, next/image, lazy below fold, priority on hero
-- Fonts: self-hosted, font-display: swap, preloaded in <head>
-- Third-party scripts: strategy="afterInteractive" via next/script
-
----
-
-## What Claude Code must never do
-
-- Never hardcode Georgian or English copy in components
-- Never use `any` in TypeScript
-- Never write to Supabase from a Client Component
-- Never expose SUPABASE_SERVICE_ROLE_KEY
-- Never disable RLS on a table
-- Never store full medical records in Supabase
-- Never change the /monitoring Sentry tunnel route
-- Never use Pages Router patterns
-- Never use inline styles (Tailwind only)
-- Never commit secrets to the repo
-- Never skip error handling on API routes
-- Never skip the GDPR consent checkbox on forms that collect health data
