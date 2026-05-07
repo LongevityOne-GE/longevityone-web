@@ -1,180 +1,82 @@
 @import "tailwindcss";
 
+@theme {
+  --color-bone-white: #E7DECC;
+  --color-dark-brown: #422922;
+  --color-burnt-orange: #D45800;
 
-/* ─── Brand design tokens ──────────────────────────────────────────────────── */
-:root {
-  --color-bone:   #E7DECC;
-  --color-brown:  #422922;
-  --color-orange: #D45800;
-  --color-blue:   #AFD1E6;
+  --font-sans: var(--font-mersad), var(--font-noto-georgian), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
+  --font-script: var(--font-allura), cursive;
 
-  --ease-luxury:  cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-reveal:  cubic-bezier(0.76, 0, 0.24, 1);
+  --animate-fade-in: fade-in 0.8s ease-out forwards;
+  --animate-slide-up: slide-up 0.8s ease-out forwards;
+  --animate-hero-in: hero-in 0.7s ease-out both;
 
-  --duration-fast: 200ms;
-  --duration-base: 600ms;
-  --duration-slow: 800ms;
-}
-
-/* ─── Tailwind v4 theme extension ──────────────────────────────────────────── */
-@theme inline {
-  /* Colors */
-  --color-bone:         #E7DECC;
-  --color-brown:        #422922;
-  --color-brown-dark:   #2a1a14;
-  --color-brown-light:  #6b4a3a;
-  --color-orange:       #D45800;
-  --color-orange-light: #e07a33;
-  --color-orange-dark:  #a84600;
-  --color-blue:         #AFD1E6;
-  --color-blue-light:   #cce3f0;
-  --color-blue-dark:    #7fb5d4;
-
-  /* Font families
-     --font-mersad / --font-noto-georgian / --font-playfair / --font-allura
-     are CSS custom properties injected by next/font into the <html> element.
-     They hold hashed font-family names generated at build time — never
-     reference the literal string 'Mersad' here, it won't match. */
-  --font-sans:     var(--font-mersad), system-ui, sans-serif;
-  --font-georgian: var(--font-noto-georgian), system-ui, sans-serif;
-  --font-display:  var(--font-playfair), Georgia, serif;
-  --font-script:   var(--font-allura), cursive;
-
-  /* Font sizes */
-  --font-size-display:   clamp(4.5rem, 12vw, 9rem);
-  --font-size-h1:        clamp(3.5rem, 8vw, 7rem);
-  --font-size-h2:        clamp(2.5rem, 5vw, 4.5rem);
-  --font-size-h3:        clamp(1.75rem, 3vw, 2.5rem);
-  --font-size-h4:        clamp(1.25rem, 2vw, 1.5rem);
-  --font-size-body-lg:   1.125rem;
-  --font-size-body:      1rem;
-  --font-size-small:     0.875rem;
-  --font-size-label:     0.75rem;
-
-  /* Line heights */
-  --line-height-display: 1.0;
-  --line-height-h1:      1.05;
-  --line-height-h2:      1.1;
-  --line-height-h3:      1.2;
-  --line-height-h4:      1.3;
-  --line-height-body:    1.7;
-  --line-height-small:   1.6;
-  --line-height-label:   1.5;
-
-  /* Letter spacings */
-  --letter-spacing-tightest: -0.02em;
-  --letter-spacing-tighter:  -0.01em;
-  --letter-spacing-normal:    0em;
-  --letter-spacing-wider:     0.04em;
-  --letter-spacing-widest:    0.1em;
-  --letter-spacing-widest-x:  0.18em;
-  --letter-spacing-ultra:     0.28em;
-
-  /* Spacing */
-  --spacing-section-y:    clamp(5rem, 12vw, 12rem);
-  --spacing-section-y-sm: clamp(3rem, 8vw, 7rem);
-
-  /* Max widths */
-  --max-width-site:       1400px;
-  --max-width-prose-luxe: 60ch;
-  --max-width-wide:       85rem;
-
-  /* Durations */
-  --duration-fast:    200ms;
-  --duration-base:    600ms;
-  --duration-slow:    800ms;
-  --duration-luxury:  700ms;
-
-  /* Easing */
-  --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-reveal:  cubic-bezier(0.76, 0, 0.24, 1);
-}
-
-/* ─── Base reset ───────────────────────────────────────────────────────────── */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  background-color: var(--color-bone);
-  color: var(--color-brown);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: auto; /* Lenis handles smooth scroll */
-  scrollbar-gutter: stable;
-}
-
-body {
-  font-kerning: normal;
-  font-variant-ligatures: common-ligatures;
-  text-rendering: optimizeLegibility;
-}
-
-img,
-video {
-  max-width: 100%;
-  display: block;
-}
-
-:focus-visible {
-  outline: 2px solid var(--color-orange);
-  outline-offset: 3px;
-}
-
-::selection {
-  background-color: color-mix(in srgb, var(--color-orange) 20%, transparent);
-  color: var(--color-brown);
-}
-
-/* ─── Georgian locale typography ───────────────────────────────────────────── */
-:lang(ka) body,
-:lang(ka) p,
-:lang(ka) li,
-:lang(ka) td {
-  font-family: var(--font-georgian);
-  line-height: 1.85;
-}
-
-:lang(ka) h1,
-:lang(ka) h2,
-:lang(ka) h3,
-:lang(ka) h4,
-:lang(ka) h5,
-:lang(ka) h6 {
-  font-family: var(--font-georgian);
-}
-
-:lang(ka) input,
-:lang(ka) textarea,
-:lang(ka) select,
-:lang(ka) button {
-  font-family: var(--font-georgian);
-}
-
-/* ─── Reduced motion ────────────────────────────────────────────────────────── */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes hero-in {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 }
 
-/* ─── Utilities ─────────────────────────────────────────────────────────────── */
-.text-pretty {
-  text-wrap: pretty;
+@layer base {
+  body {
+    @apply bg-bone-white text-dark-brown font-sans selection:bg-burnt-orange selection:text-white antialiased overflow-x-hidden;
+  }
+
+  :lang(ka) {
+    font-family: var(--font-noto-georgian), var(--font-mersad), ui-sans-serif, system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, .font-serif {
+    @apply font-serif;
+  }
 }
 
-/* ─── Components ────────────────────────────────────────────────────────────── */
-.rule-luxe {
-  border: none;
-  border-top: 0.5px solid color-mix(in srgb, var(--color-brown) 20%, transparent);
-  width: 100%;
+@layer utilities {
+  .animate-hero-in {
+    animation: var(--animate-hero-in);
+  }
+
+  .card-ornamental {
+    --notch: 36px;
+    mask-image:
+      radial-gradient(circle at 0 0, transparent var(--notch), black var(--notch)),
+      radial-gradient(circle at 100% 0, transparent var(--notch), black var(--notch)),
+      radial-gradient(circle at 100% 100%, transparent var(--notch), black var(--notch)),
+      radial-gradient(circle at 0 100%, transparent var(--notch), black var(--notch));
+    mask-composite: intersect;
+    -webkit-mask-image:
+      radial-gradient(circle at 0 0, transparent var(--notch), black var(--notch)),
+      radial-gradient(circle at 100% 0, transparent var(--notch), black var(--notch)),
+      radial-gradient(circle at 100% 100%, transparent var(--notch), black var(--notch)),
+      radial-gradient(circle at 0 100%, transparent var(--notch), black var(--notch));
+    -webkit-mask-composite: destination-in;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-between px-6 py-4 bg-burnt-orange text-white text-[11px] font-bold uppercase tracking-[0.15em] transition-all hover:bg-dark-brown;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-between px-6 py-4 border border-dark-brown text-dark-brown text-[11px] font-bold uppercase tracking-[0.15em] transition-all hover:bg-dark-brown hover:text-white;
+  }
+
+  .eyebrow {
+    @apply text-[11px] uppercase tracking-[0.2em] text-burnt-orange font-bold mb-4;
+  }
+
+  .section-container {
+    @apply max-w-[1400px] mx-auto px-4 md:px-12 lg:px-16;
+  }
 }
