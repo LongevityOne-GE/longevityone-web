@@ -17,7 +17,6 @@ export function TechSection({ locale, tech, index }: TechSectionProps) {
   const howItWorks = locale === 'ka' ? tech.howItWorks_ka : tech.howItWorks_en
   const whatItShows = locale === 'ka' ? tech.whatItShows_ka : tech.whatItShows_en
   const yourBenefit = locale === 'ka' ? tech.yourBenefit_ka : tech.yourBenefit_en
-  const benefits = locale === 'ka' ? tech.benefits_ka : tech.benefits_en
 
   const detailLabel1 = locale === 'ka' ? 'რა არის' : 'What It Is'
   const detailLabel2 = howItWorks
@@ -91,23 +90,6 @@ export function TechSection({ locale, tech, index }: TechSectionProps) {
               )}
             </div>
 
-            {benefits && (
-              <Reveal delay={0.35}>
-                <div className="mt-12">
-                  <h4 className="text-xs uppercase tracking-widest font-bold text-dark-brown mb-4">
-                    {locale === 'ka' ? 'სარგებელი' : 'Benefits'}
-                  </h4>
-                  <ul className="space-y-3">
-                    {benefits.filter(Boolean).map((benefit, i) => (
-                      <li key={i} className="flex items-start gap-3 text-sm text-dark-brown/80">
-                        <span className="text-burnt-orange mt-1">●</span>
-                        <span>{benefit}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </Reveal>
-            )}
           </div>
 
           <div className={`${isOdd ? 'lg:order-2' : 'lg:order-1'} flex items-center justify-center`}>
