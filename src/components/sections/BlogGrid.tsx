@@ -23,17 +23,17 @@ function getCategoryLabel(slug: string | null, locale: Locale): string | null {
   return slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 }
 
+const KA_MONTHS = ['იანვარი','თებერვალი','მარტი','აპრილი','მაისი','ივნისი','ივლისი','აგვისტო','სექტემბერი','ოქტომბერი','ნოემბერი','დეკემბერი']
+const EN_MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December']
+
 function formatDate(dateStr: string | null, locale: Locale) {
   if (!dateStr) return ''
-  try {
-    return new Date(dateStr).toLocaleDateString(locale === 'ka' ? 'ka-GE' : 'en-GB', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    })
-  } catch {
-    return dateStr
-  }
+  const d = new Date(dateStr)
+  if (isNaN(d.getTime())) return dateStr
+  const day = d.getUTCDate()
+  const month = locale === 'ka' ? KA_MONTHS[d.getUTCMonth()] : EN_MONTHS[d.getUTCMonth()]
+  const year = d.getUTCFullYear()
+  return locale === 'ka' ? `${day} ${month}, ${year}` : `${day} ${month} ${year}`
 }
 
 export function BlogGrid({ locale, posts }: BlogGridProps) {
