@@ -5,10 +5,12 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   const lang = pathname.startsWith('/en') ? 'en' : 'ka'
 
-  const response = NextResponse.next()
-  response.headers.set('x-lang', lang)
-  response.headers.set('x-pathname', pathname)
-  return response
+  // Forward as request headers so server-component headers() can read them
+  const requestHeaders = new Headers(request.headers)
+  requestHeaders.set('x-lang', lang)
+  requestHeaders.set('x-pathname', pathname)
+
+  return NextResponse.next({ request: { headers: requestHeaders } })
 }
 
 export const config = {
