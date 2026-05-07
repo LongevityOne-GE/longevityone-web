@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 interface RevealProps {
   children: ReactNode
@@ -9,47 +9,31 @@ interface RevealProps {
   direction?: 'up' | 'down' | 'left' | 'right'
 }
 
+const fromTransforms: Record<string, string> = {
+  up: 'translateY(16px)',
+  down: 'translateY(-16px)',
+  left: 'translateX(16px)',
+  right: 'translateX(-16px)',
+}
+
+/**
+ * Pure-CSS reveal: every mount triggers the animation,
+ * so back-navigation, hard refresh, and initial load all behave identically.
+ * No IntersectionObserver, no client state, no useEffect timing surprises.
+ */
 export function Reveal({
   children,
   delay = 0,
   className = '',
   direction = 'up',
 }: RevealProps) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-
-    const obs = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) {
-          setVisible(true)
-          obs.disconnect()
-        }
-      },
-      { threshold: 0.05, rootMargin: '0px 0px 0px 0px' }
-    )
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [])
-
-  const transforms: Record<string, string> = {
-    up: 'translateY(24px)',
-    down: 'translateY(-24px)',
-    left: 'translateX(24px)',
-    right: 'translateX(-24px)',
-  }
-
   return (
     <div
-      ref={ref}
-      className={className}
+      className={`reveal-anim ${className}`}
       style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? 'translate(0)' : transforms[direction],
-        transition: `opacity 0.8s ease-out ${delay}s, transform 0.8s ease-out ${delay}s`,
+        animationDelay: `${delay}s`,
+        // CSS custom prop the keyframe reads
+        ['--reveal-from' as string]: fromTransforms[direction],
       }}
     >
       {children}
