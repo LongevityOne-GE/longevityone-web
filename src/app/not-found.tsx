@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { headers } from 'next/headers'
 import Link from 'next/link'
 import { sanityClient, siteSettingsQuery } from '@/lib/sanity'
 import type { SiteSettings } from '@/lib/sanity/types'
@@ -12,11 +11,9 @@ export const metadata: Metadata = {
 }
 
 export default async function NotFound() {
-  const [settings, hdrs] = await Promise.all([
-    sanityClient.fetch<SiteSettings>(siteSettingsQuery, {}, { next: { tags: ['sanity'] } }),
-    headers(),
-  ])
-  const pathname = hdrs.get('x-pathname') ?? '/'
+  const settings = await sanityClient.fetch<SiteSettings>(
+    siteSettingsQuery, {}, { next: { tags: ['sanity'] } }
+  )
 
   const h1 = settings?.notFound_h1_ka || 'გვერდი ვერ მოიძებნა'
   const body = settings?.notFound_body_ka || 'სამწუხაროდ, თქვენ მიერ მოძიებული გვერდი არ არსებობს.'
@@ -24,7 +21,7 @@ export default async function NotFound() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Nav locale="ka" siteSettings={settings} pathname={pathname} />
+      <Nav locale="ka" siteSettings={settings} />
       <main id="main-content" className="flex-1 bg-bone-white flex flex-col items-center justify-center px-6 text-center">
         <div className="mb-10 opacity-60">
           <Logo />
