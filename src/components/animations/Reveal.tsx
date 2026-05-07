@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 
 interface RevealProps {
   children: ReactNode
@@ -17,22 +17,30 @@ export function Reveal({
 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
+  const [instant, setInstant] = useState(false)
 
+  // Runs synchronously before the browser paints.
+  // If the element is already in the viewport (page hero, back-navigation, etc.)
+  // we mark it visible immediately with no transition — zero flash, zero delay.
+  useLayoutEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      setInstant(true)
+      setVisible(true)
+    }
+  }, [])
+
+  // For elements that start below the fold, use IntersectionObserver.
   useEffect(() => {
+    if (visible) return
     const el = ref.current
     if (!el) return
 
-    // Already in the viewport (e.g. page hero, back-navigation) — show immediately
-    const rect = el.getBoundingClientRect()
-    if (rect.top < window.innerHeight && rect.bottom > 0) {
-      setVisible(true)
-      return
-    }
-
     const obs = new IntersectionObserver(
       (entries) => {
-        const entry = entries[0]
-        if (entry?.isIntersecting) {
+        if (entries[0]?.isIntersecting) {
           setVisible(true)
           obs.disconnect()
         }
@@ -41,7 +49,7 @@ export function Reveal({
     )
     obs.observe(el)
     return () => obs.disconnect()
-  }, [])
+  }, [visible])
 
   const transforms: Record<string, string> = {
     up: 'translateY(24px)',
@@ -57,7 +65,9 @@ export function Reveal({
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? 'translate(0)' : transforms[direction],
-        transition: `opacity 0.8s ease-out ${delay}s, transform 0.8s ease-out ${delay}s`,
+        transition: instant
+          ? 'none'
+          : `opacity 0.8s ease-out ${delay}s, transform 0.8s ease-out ${delay}s`,
       }}
     >
       {children}
