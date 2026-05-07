@@ -3,6 +3,7 @@ import type { Locale } from '@/lib/utils'
 import type { SiteSettings } from '@/lib/sanity/types'
 import { Logo } from '@/components/shared/Logo'
 import { BookingButton } from '@/components/booking'
+import { LanguageSwitcher } from './LanguageSwitcher'
 
 const navLinks = [
   { ka: 'მთავარი', en: 'Home', href: '/' },
@@ -19,22 +20,13 @@ const navLinks = [
 interface NavProps {
   locale: Locale
   siteSettings?: SiteSettings | null
-  pathname?: string
 }
 
-export function Nav({ locale, siteSettings, pathname = '/' }: NavProps) {
+export function Nav({ locale, siteSettings }: NavProps) {
   const prefix = locale === 'en' ? '/en' : ''
   const ctaLabel = locale === 'ka'
     ? siteSettings?.nav_cta_ka
     : siteSettings?.nav_cta_en
-
-  // Build language-switch URLs preserving current path
-  const kaPath = locale === 'en'
-    ? (pathname.startsWith('/en') ? pathname.slice(3) || '/' : pathname)
-    : pathname
-  const enPath = locale === 'en'
-    ? pathname
-    : `/en${pathname === '/' ? '' : pathname}`
 
   return (
     <>
@@ -89,23 +81,10 @@ export function Nav({ locale, siteSettings, pathname = '/' }: NavProps) {
           </div>
 
           <div className="flex items-center gap-4 flex-shrink-0">
-            <div className="hidden sm:flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest">
-              <Link
-                href={kaPath}
-                aria-current={locale === 'ka' ? 'true' : undefined}
-                className={locale === 'ka' ? 'text-burnt-orange' : 'text-dark-brown/40 hover:text-dark-brown/70 transition-colors'}
-              >
-                GE
-              </Link>
-              <span className="text-dark-brown/20" aria-hidden="true">/</span>
-              <Link
-                href={enPath}
-                aria-current={locale === 'en' ? 'true' : undefined}
-                className={locale === 'en' ? 'text-burnt-orange' : 'text-dark-brown/40 hover:text-dark-brown/70 transition-colors'}
-              >
-                EN
-              </Link>
-            </div>
+            <LanguageSwitcher
+              locale={locale}
+              className="hidden sm:flex items-center text-[11px] font-bold uppercase tracking-widest"
+            />
 
             {ctaLabel && (
               <BookingButton
@@ -143,23 +122,10 @@ export function Nav({ locale, siteSettings, pathname = '/' }: NavProps) {
                 ))}
 
                 <div className="pt-4 mt-2 border-t border-dark-brown/10 flex items-center justify-between">
-                  <div className="flex items-center gap-3 text-sm font-bold">
-                    <Link
-                      href={kaPath}
-                      aria-current={locale === 'ka' ? 'true' : undefined}
-                      className={locale === 'ka' ? 'text-burnt-orange' : 'text-dark-brown/40'}
-                    >
-                      GE
-                    </Link>
-                    <span className="text-dark-brown/20" aria-hidden="true">/</span>
-                    <Link
-                      href={enPath}
-                      aria-current={locale === 'en' ? 'true' : undefined}
-                      className={locale === 'en' ? 'text-burnt-orange' : 'text-dark-brown/40'}
-                    >
-                      EN
-                    </Link>
-                  </div>
+                  <LanguageSwitcher
+                    locale={locale}
+                    className="flex items-center text-sm font-bold"
+                  />
                   {ctaLabel && (
                     <BookingButton
                       lang={locale}
