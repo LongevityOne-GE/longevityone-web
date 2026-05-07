@@ -23,6 +23,31 @@ function getCategoryLabel(slug: string | null, locale: Locale): string | null {
   return slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 }
 
+// Curated fallback imagery by category — used when Sanity coverImage is missing.
+const fallbackImages: Record<string, string> = {
+  'longevity-science':
+    'https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=1600&q=80',
+  'metabolic-health':
+    'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=1600&q=80',
+  'elite-performance':
+    'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=1600&q=80',
+  'technologies':
+    'https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&w=1600&q=80',
+}
+
+const defaultFallbackImage =
+  'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1600&q=80'
+
+function getCoverImage(post: BlogPost, locale: Locale): string {
+  if (post.coverImage?.asset?.url) return post.coverImage.asset.url
+  const cat = locale === 'ka' ? post.category_ka : post.category_en
+  if (cat && fallbackImages[cat]) return fallbackImages[cat]
+  // also check the other locale's category in case only one is set
+  const altCat = locale === 'ka' ? post.category_en : post.category_ka
+  if (altCat && fallbackImages[altCat]) return fallbackImages[altCat]
+  return defaultFallbackImage
+}
+
 const KA_MONTHS = ['იანვარი','თებერვალი','მარტი','აპრილი','მაისი','ივნისი','ივლისი','აგვისტო','სექტემბერი','ოქტომბერი','ნოემბერი','დეკემბერი']
 const EN_MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December']
 
@@ -62,17 +87,11 @@ export function BlogGrid({ locale, posts }: BlogGridProps) {
           >
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
               <div className="aspect-[4/3] rounded-lg overflow-hidden bg-dark-brown/5">
-                {featured.coverImage?.asset?.url ? (
-                  <img
-                    src={featured.coverImage.asset.url}
-                    alt={locale === 'ka' ? featured.title_ka || '' : featured.title_en || ''}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <span className="text-6xl font-black text-dark-brown/10 font-serif">L</span>
-                  </div>
-                )}
+                <img
+                  src={getCoverImage(featured, locale)}
+                  alt={locale === 'ka' ? featured.title_ka || '' : featured.title_en || ''}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
               </div>
               <div>
                 {getCategoryLabel(locale === 'ka' ? featured.category_ka : featured.category_en, locale) && (
@@ -106,17 +125,11 @@ export function BlogGrid({ locale, posts }: BlogGridProps) {
                   className="group block"
                 >
                   <div className="aspect-[4/3] rounded-lg overflow-hidden bg-dark-brown/5 mb-5">
-                    {post.coverImage?.asset?.url ? (
-                      <img
-                        src={post.coverImage.asset.url}
-                        alt={locale === 'ka' ? post.title_ka || '' : post.title_en || ''}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center">
-                        <span className="text-4xl font-black text-dark-brown/10 font-serif">L</span>
-                      </div>
-                    )}
+                    <img
+                      src={getCoverImage(post, locale)}
+                      alt={locale === 'ka' ? post.title_ka || '' : post.title_en || ''}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
                   </div>
                   {getCategoryLabel(locale === 'ka' ? post.category_ka : post.category_en, locale) && (
                     <p className="text-[10px] uppercase tracking-widest font-bold text-burnt-orange mb-2">

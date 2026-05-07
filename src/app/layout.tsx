@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { headers } from 'next/headers'
 import { mersad, fontGeorgian, fontDisplay, fontScript } from './fonts'
-import { LenisProvider } from './providers/LenisProvider'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -49,7 +48,7 @@ export default async function RootLayout({
       ].join(' ')}
     >
       <body>
-        <LenisProvider>{children}</LenisProvider>
+        {children}
       </body>
     </html>
   )
