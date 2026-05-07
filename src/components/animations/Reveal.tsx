@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 
 interface RevealProps {
   children: ReactNode
@@ -17,24 +17,8 @@ export function Reveal({
 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
-  const [instant, setInstant] = useState(false)
 
-  // Runs synchronously before the browser paints.
-  // If the element is already in the viewport (page hero, back-navigation, etc.)
-  // we mark it visible immediately with no transition — zero flash, zero delay.
-  useLayoutEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const rect = el.getBoundingClientRect()
-    if (rect.top < window.innerHeight && rect.bottom > 0) {
-      setInstant(true)
-      setVisible(true)
-    }
-  }, [])
-
-  // For elements that start below the fold, use IntersectionObserver.
   useEffect(() => {
-    if (visible) return
     const el = ref.current
     if (!el) return
 
@@ -45,11 +29,11 @@ export function Reveal({
           obs.disconnect()
         }
       },
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.05, rootMargin: '0px 0px 0px 0px' }
     )
     obs.observe(el)
     return () => obs.disconnect()
-  }, [visible])
+  }, [])
 
   const transforms: Record<string, string> = {
     up: 'translateY(24px)',
@@ -65,9 +49,7 @@ export function Reveal({
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? 'translate(0)' : transforms[direction],
-        transition: instant
-          ? 'none'
-          : `opacity 0.8s ease-out ${delay}s, transform 0.8s ease-out ${delay}s`,
+        transition: `opacity 0.8s ease-out ${delay}s, transform 0.8s ease-out ${delay}s`,
       }}
     >
       {children}
