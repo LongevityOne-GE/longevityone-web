@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,200..900;1,6..72,200..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-bone-white: #E7DECC;
+  --color-dark-brown: #422922;
+  --color-burnt-orange: #D45800;
+  
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Newsreader", ui-serif, Georgia, serif;
+  --font-display: "Newsreader", ui-serif, Georgia, serif;
+
+  --animate-fade-in: fade-in 0.8s ease-out forwards;
+  --animate-slide-up: slide-up 0.8s ease-out forwards;
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-bone-white text-dark-brown font-sans selection:bg-burnt-orange selection:text-white antialiased;
+  }
+
+  h1, h2, h3, h4, .font-serif {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-between px-6 py-4 bg-burnt-orange text-white text-[11px] font-bold uppercase tracking-[0.15em] transition-all hover:bg-dark-brown;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-between px-6 py-4 border border-dark-brown text-dark-brown text-[11px] font-bold uppercase tracking-[0.15em] transition-all hover:bg-dark-brown hover:text-white;
+  }
+
+  .eyebrow {
+    @apply text-[11px] uppercase tracking-[0.2em] text-burnt-orange font-bold mb-4;
+  }
+
+  .section-container {
+    @apply max-w-[1400px] mx-auto px-6 md:px-16;
+  }
+}
