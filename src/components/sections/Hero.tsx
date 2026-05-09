@@ -25,7 +25,7 @@ export function Hero({ locale, data }: HeroProps) {
         playsInline
         className="absolute inset-0 w-full h-full object-cover opacity-50 pointer-events-none"
       >
-        <source src="/videos/gods/webm/godess1-boomerang.webm" type="video/webm" />
+        <source src="/videos/gods/webm/god-discobolus-original-boomerang.webm" type="video/webm" />
         
       </video>
 
