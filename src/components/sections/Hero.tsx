@@ -23,7 +23,7 @@ export function Hero({ locale, data }: HeroProps) {
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover object-top opacity-50 pointer-events-none"
+        className="absolute inset-0 w-full h-full object-cover object-top opacity-15 pointer-events-none"
       >
         <source src="/videos/gods/webm/god-discobolus-original-boomerang.webm" type="video/webm" />
         

@@ -15,6 +15,7 @@ export function Pricing({ locale, packages, data }: PricingProps) {
   const pkgs = packages ?? []
 
   return (
+    
     <section className="py-16 md:py-32 bg-bone-white border-y border-dark-brown/5">
       <div className="section-container text-center mb-24">
         <SectionHeader
@@ -25,6 +26,7 @@ export function Pricing({ locale, packages, data }: PricingProps) {
           subtitleEn={data?.packages_subtext_en}
         />
       </div>
+      
 
       {pkgs.length > 0 && (
         <div className="section-container">
