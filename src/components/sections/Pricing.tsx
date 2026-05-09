@@ -16,18 +16,8 @@ export function Pricing({ locale, packages, data }: PricingProps) {
 
   return (
     
-    <section className="relative py-16 md:py-32 bg-bone-white border-y border-dark-brown/5 overflow-hidden">
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover opacity-15 pointer-events-none"
-      >
-        <source src="/videos/DNA_boomerang.webm" type="video/webm" />
-        <source src="/videos/DNA_boomerang.mp4" type="video/mp4" />
-      </video>
-      <div className="relative z-10 section-container text-center mb-24">
+    <section className="py-16 md:py-32 bg-bone-white border-y border-dark-brown/5">
+      <div className="section-container text-center mb-24">
         <SectionHeader
           locale={locale}
           titleKa={data?.packages_heading_ka}
@@ -39,7 +29,7 @@ export function Pricing({ locale, packages, data }: PricingProps) {
       
 
       {pkgs.length > 0 && (
-        <div className="relative z-10 section-container">
+        <div className="section-container">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {pkgs.map((pkg, idx) => (
               <PackageCard
