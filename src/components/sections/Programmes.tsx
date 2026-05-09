@@ -28,6 +28,7 @@ export function Programmes({ locale, programmes }: ProgrammesProps) {
 
   return (
     <section className="py-20 md:py-32 bg-bone-white">
+      
       <div className="section-container">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {programmes.map((prog, idx) => {
