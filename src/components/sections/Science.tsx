@@ -23,7 +23,7 @@ export function Science({ locale, technologies, data }: ScienceProps) {
         playsInline
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       >
-        <source src="/videos/gods/webm/god-discobolus-original-boomerang.webm" type="video/webm" />
+        <source src="/videos/gods/webm/god-apollo-original-boomerang.webm" type="video/webm" />
         
       </video>
       <div className="absolute inset-0 bg-bone-white/80 pointer-events-none" />
