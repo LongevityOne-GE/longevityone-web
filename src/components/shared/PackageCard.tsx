@@ -39,7 +39,7 @@ export function PackageCard({
     <Reveal delay={delay} className={`h-full ${className}`}>
       <div className="filter drop-shadow-lg group h-full">
         <div
-          className={`card-ornamental overflow-hidden transition-colors duration-300 px-10 md:px-12 lg:px-16 py-8 md:py-10 lg:py-14 flex flex-col h-full ${
+          className={`card-ornamental overflow-hidden transition-colors duration-300 px-10 md:px-12 lg:px-16 pt-16 md:pt-20 lg:pt-24 pb-16 md:pb-20 lg:pb-24 flex flex-col h-full ${
             isLight
               ? 'bg-bone-white text-dark-brown group-hover:bg-dark-brown group-hover:text-bone-white'
               : 'bg-dark-brown text-bone-white group-hover:bg-bone-white group-hover:text-dark-brown'
