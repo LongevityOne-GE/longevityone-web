@@ -56,19 +56,12 @@
 
 @layer utilities {
   .card-ornamental {
-    --notch: 36px;
-    mask-image:
-      radial-gradient(circle at 0 0, transparent var(--notch), black var(--notch)),
-      radial-gradient(circle at 100% 0, transparent var(--notch), black var(--notch)),
-      radial-gradient(circle at 100% 100%, transparent var(--notch), black var(--notch)),
-      radial-gradient(circle at 0 100%, transparent var(--notch), black var(--notch));
-    mask-composite: intersect;
-    -webkit-mask-image:
-      radial-gradient(circle at 0 0, transparent var(--notch), black var(--notch)),
-      radial-gradient(circle at 100% 0, transparent var(--notch), black var(--notch)),
-      radial-gradient(circle at 100% 100%, transparent var(--notch), black var(--notch)),
-      radial-gradient(circle at 0 100%, transparent var(--notch), black var(--notch));
-    -webkit-mask-composite: destination-in;
+    -webkit-mask-image: url('/card-mask.svg');
+    -webkit-mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-image: url('/card-mask.svg');
+    mask-size: 100% 100%;
+    mask-repeat: no-repeat;
   }
 }
 

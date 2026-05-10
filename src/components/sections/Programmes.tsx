@@ -36,8 +36,8 @@ export function Programmes({ locale, programmes }: ProgrammesProps) {
             const body = locale === 'ka' ? prog.body_ka : prog.body_en
 
             return (
-              <Reveal key={idx} delay={0.1 * idx}>
-                <div className="filter drop-shadow-lg">
+              <Reveal key={idx} delay={0.1 * idx} className="h-full">
+                <div className="filter drop-shadow-lg h-full">
                   <div className="card-ornamental overflow-hidden p-8 md:p-10 bg-bone-white flex flex-col h-full border border-dark-brown/8">
                     <ProgrammeIcon name={prog.icon} />
                     <span className="text-5xl font-black text-dark-brown/8 font-serif leading-none mb-3 select-none">

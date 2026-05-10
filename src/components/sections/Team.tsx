@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import type { Locale } from '@/lib/utils'
 import type { HomePageData } from '@/lib/sanity/types'
 import { Reveal } from '@/components/animations/Reveal'
@@ -15,6 +16,11 @@ export function Team({ locale, data }: TeamProps) {
 
   return (
     <section className="py-20 md:py-40 bg-dark-brown text-bone-white text-center relative overflow-hidden">
+      {/* Smooth fade-in from previous (bone-white) section */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-32 md:h-48 bg-gradient-to-b from-bone-white to-transparent pointer-events-none z-20"
+      />
       <video
         autoPlay
         muted
@@ -41,6 +47,14 @@ export function Team({ locale, data }: TeamProps) {
             </div>
           </Reveal>
         )}
+        <Reveal delay={0.3}>
+          <Link
+            href={`${locale === 'en' ? '/en' : ''}/about`}
+            className="inline-block mt-10 px-8 py-3 border border-bone-white/60 text-bone-white text-sm font-medium uppercase tracking-widest rounded hover:bg-bone-white hover:text-dark-brown transition-colors"
+          >
+            {locale === 'ka' ? 'გუნდის გაცნობა' : 'Meet the Team'}
+          </Link>
+        </Reveal>
       </div>
     </section>
   )
