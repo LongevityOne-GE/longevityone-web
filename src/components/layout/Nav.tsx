@@ -1,4 +1,7 @@
+'use client'
+
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import type { Locale } from '@/lib/utils'
 import type { SiteSettings } from '@/lib/sanity/types'
 import { Logo } from '@/components/shared/Logo'
@@ -27,6 +30,13 @@ export function Nav({ locale, siteSettings }: NavProps) {
   const ctaLabel = locale === 'ka'
     ? siteSettings?.nav_cta_ka
     : siteSettings?.nav_cta_en
+
+  const rawPath = usePathname() ?? '/'
+  const currentPath = rawPath.startsWith('/en')
+    ? (rawPath.slice(3) || '/')
+    : rawPath
+  const isActive = (href: string) =>
+    href === '/' ? currentPath === '/' : currentPath === href || currentPath.startsWith(`${href}/`)
 
   return (
     <>
@@ -69,15 +79,19 @@ export function Nav({ locale, siteSettings }: NavProps) {
           </Link>
 
           <div className="hidden xl:flex items-center gap-3 flex-1 justify-center min-w-0">
-            {navLinks.map((link) => (
-              <Link
-                key={link.en}
-                href={`${prefix}${link.href}`}
-                className="text-[10px] font-medium uppercase tracking-[0.05em] text-dark-brown hover:text-burnt-orange transition-colors whitespace-nowrap"
-              >
-                {locale === 'ka' ? link.ka : link.en}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const active = isActive(link.href)
+              return (
+                <Link
+                  key={link.en}
+                  href={`${prefix}${link.href}`}
+                  aria-current={active ? 'page' : undefined}
+                  className={`text-[10px] font-medium uppercase tracking-[0.05em] hover:text-burnt-orange transition-colors whitespace-nowrap ${active ? 'text-burnt-orange' : 'text-dark-brown'}`}
+                >
+                  {locale === 'ka' ? link.ka : link.en}
+                </Link>
+              )
+            })}
           </div>
 
           <div className="flex items-center gap-4 flex-shrink-0">
@@ -111,15 +125,19 @@ export function Nav({ locale, siteSettings }: NavProps) {
               </summary>
 
               <div className="fixed left-0 right-0 top-[60px] bg-bone-white border-t border-dark-brown/10 py-8 px-6 md:px-12 flex flex-col gap-3 shadow-lg z-50">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.en}
-                    href={`${prefix}${link.href}`}
-                    className="text-sm font-medium uppercase tracking-[0.1em] text-dark-brown hover:text-burnt-orange transition-colors py-1"
-                  >
-                    {locale === 'ka' ? link.ka : link.en}
-                  </Link>
-                ))}
+                {navLinks.map((link) => {
+                  const active = isActive(link.href)
+                  return (
+                    <Link
+                      key={link.en}
+                      href={`${prefix}${link.href}`}
+                      aria-current={active ? 'page' : undefined}
+                      className={`text-sm font-medium uppercase tracking-[0.1em] hover:text-burnt-orange transition-colors py-1 ${active ? 'text-burnt-orange' : 'text-dark-brown'}`}
+                    >
+                      {locale === 'ka' ? link.ka : link.en}
+                    </Link>
+                  )
+                })}
 
                 <div className="pt-4 mt-2 border-t border-dark-brown/10 flex items-center justify-between">
                   <LanguageSwitcher
