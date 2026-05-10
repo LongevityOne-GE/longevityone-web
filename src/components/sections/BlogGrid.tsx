@@ -26,9 +26,9 @@ function getCategoryLabel(slug: string | null, locale: Locale): string | null {
 // Curated fallback imagery by category — used when Sanity coverImage is missing.
 const fallbackImages: Record<string, string> = {
   'longevity-science':
-    'https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=1600&q=80',
+    '/images/blog images/blog 1-2.jpeg',
   'metabolic-health':
-    'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=1600&q=80',
+    '/images/blog images/Blog 3.png',
   'elite-performance':
     'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=1600&q=80',
   'technologies':
@@ -38,8 +38,14 @@ const fallbackImages: Record<string, string> = {
 const defaultFallbackImage =
   'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1600&q=80'
 
+const slugImages: Record<string, string> = {
+  'biological-age-vs-chronological-age': '/images/blog images/age.png',
+}
+
 function getCoverImage(post: BlogPost, locale: Locale): string {
   if (post.coverImage?.asset?.url) return post.coverImage.asset.url
+  const slug = post.slug ?? ''
+  if (slug && slugImages[slug]) return slugImages[slug]
   const cat = locale === 'ka' ? post.category_ka : post.category_en
   if (cat && fallbackImages[cat]) return fallbackImages[cat]
   // also check the other locale's category in case only one is set
@@ -74,7 +80,12 @@ export function BlogGrid({ locale, posts }: BlogGridProps) {
     )
   }
 
-  const [featured, ...rest] = posts as [BlogPost, ...BlogPost[]]
+  // Put "biological-age" post as featured if it exists, otherwise use first post
+  const bioIdx = posts.findIndex((p) => p.slug === 'biological-age-vs-chronological-age')
+  const reordered = bioIdx > 0
+    ? [posts[bioIdx], ...posts.slice(0, bioIdx), ...posts.slice(bioIdx + 1)]
+    : posts
+  const [featured, ...rest] = reordered as [BlogPost, ...BlogPost[]]
 
   return (
     <section className="py-20 md:py-32 bg-bone-white">
@@ -86,11 +97,11 @@ export function BlogGrid({ locale, posts }: BlogGridProps) {
             className="group block mb-16 md:mb-20"
           >
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-              <div className="aspect-[4/3] rounded-lg overflow-hidden bg-dark-brown/5">
+              <div className="rounded-lg overflow-hidden bg-dark-brown/5">
                 <img
                   src={getCoverImage(featured, locale)}
                   alt={locale === 'ka' ? featured.title_ka || '' : featured.title_en || ''}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
               <div>
@@ -117,18 +128,18 @@ export function BlogGrid({ locale, posts }: BlogGridProps) {
 
         {/* grid */}
         {rest.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 border-t border-dark-brown/10 pt-16">
+          <div className={`grid grid-cols-1 ${rest.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'} gap-8 md:gap-10 border-t border-dark-brown/10 pt-16`}>
             {rest.map((post, idx) => (
               <Reveal key={post._id} delay={0.08 * idx}>
                 <a
                   href={`${locale === 'en' ? '/en' : ''}/blog/${post.slug}`}
                   className="group block"
                 >
-                  <div className="aspect-[4/3] rounded-lg overflow-hidden bg-dark-brown/5 mb-5">
+                  <div className="rounded-lg overflow-hidden bg-dark-brown/5 mb-5">
                     <img
                       src={getCoverImage(post, locale)}
                       alt={locale === 'ka' ? post.title_ka || '' : post.title_en || ''}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-700"
                     />
                   </div>
                   {getCategoryLabel(locale === 'ka' ? post.category_ka : post.category_en, locale) && (

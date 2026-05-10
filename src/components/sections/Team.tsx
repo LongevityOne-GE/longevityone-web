@@ -16,11 +16,6 @@ export function Team({ locale, data }: TeamProps) {
 
   return (
     <section className="py-20 md:py-40 bg-dark-brown text-bone-white text-center relative overflow-hidden">
-      {/* Smooth fade-in from previous (bone-white) section */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-32 md:h-48 bg-gradient-to-b from-bone-white to-transparent pointer-events-none z-20"
-      />
       <video
         autoPlay
         muted
