@@ -69,15 +69,12 @@ export function PageLoader() {
           <img
             src="/logos/logo-mark.svg"
             alt=""
-            width={96}
-            height={106}
+            width={120}
+            height={132}
             draggable={false}
           />
         </div>
-        <div className="page-loader__wordmark" aria-hidden="true">
-          <span>LONGEVITY</span>
-          <span>ONE</span>
-        </div>
+        <span className="sr-only">Loading</span>
       </div>
     </div>
   )
