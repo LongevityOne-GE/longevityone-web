@@ -5,7 +5,6 @@ import type { HomePageData } from '@/lib/sanity/types'
 import { SectionHeader } from '@/components/shared/SectionHeader'
 import { Reveal } from '@/components/animations/Reveal'
 import { GodVideo } from '@/components/shared/GodVideo'
-import { JourneyConnector } from './JourneyConnector'
 
 interface JourneyProps {
   locale: Locale
@@ -34,7 +33,6 @@ export function Journey({ locale, data }: JourneyProps) {
 
         {stages.length > 0 && (
           <div className="relative mt-20">
-            <JourneyConnector count={stages.length} />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 relative">
               {stages.map((stage, idx) => {
                 const num = String(stage.number).padStart(2, '0')
