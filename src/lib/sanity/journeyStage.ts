@@ -49,13 +49,13 @@ export const journeyStage = defineType({
       type: 'array',
       of: [{ type: 'block' }],
     }),
-    // Technologies / tools used in this stage (e.g. Visbody, PNOE)
+    // Technologies / tools used in this stage (e.g. PNOE, IHHT)
     defineField({
       name: 'tools',
       title: 'Tools / Technologies Used',
       type: 'array',
       of: [{ type: 'string' }],
-      description: 'e.g. ["Visbody 3D", "VO₂ Max", "PSQI", "IPAQ", "WHO-5"]',
+      description: 'e.g. ["VO₂ Max", "PSQI", "IPAQ", "WHO-5"]',
     }),
     defineField({
       name: 'icon',

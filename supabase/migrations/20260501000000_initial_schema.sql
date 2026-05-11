@@ -36,7 +36,7 @@ CREATE POLICY "Service role only" ON consent_log
 CREATE TABLE assessments (
   id               UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   patient_id       UUID REFERENCES patients(id) ON DELETE CASCADE,
-  assessment_type  TEXT NOT NULL, -- 'pnoe' | 'visbody' | 'vo2max' | 'intake'
+  assessment_type  TEXT NOT NULL, -- 'pnoe' | 'vo2max' | 'intake'
   data             JSONB NOT NULL DEFAULT '{}',
   assessed_at      TIMESTAMPTZ DEFAULT NOW()
 );

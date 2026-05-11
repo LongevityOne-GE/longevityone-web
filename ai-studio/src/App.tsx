@@ -425,7 +425,6 @@ export default function App() {
             <div className="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
               {[
                 { name: "PNOE", ka: "მეტაბოლიზმის „ოქროს სტანდარტი\"", en: "The gold standard of metabolism testing" },
-                { name: "Visbody", ka: "თქვენს სხეულზე სამ განზომილებაში", en: "Your body in three dimensions" },
                 { name: "IHHT", ka: "უჯრედული გაკაჟება", en: "Train your cells, not just your muscles" },
                 { name: "Red Light", ka: "ფოტო-ბიომოდულაცია", en: "Cellular regeneration through light" },
                 { name: "TrueDiagnostic", ka: "გაიგეთ თქვენი ბიოლოგიური ასაკი", en: "Know your biological age" },
@@ -464,7 +463,6 @@ export default function App() {
               </div>
               <ul className="space-y-6 text-sm font-medium text-dark-brown/80 mb-12 flex-grow">
                 <li>PNOE Diagnostics</li>
-                <li>Visbody 3D Body Scan</li>
                 <li>{lang === "KA" ? "დინამომეტრია" : "Dynamometry"}</li>
               </ul>
               <button className="btn-secondary w-full">{lang === "KA" ? "არჩევა" : "SELECT"}</button>

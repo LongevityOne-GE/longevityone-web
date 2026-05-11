@@ -313,7 +313,7 @@ All schemas must follow this bilingual pattern:
 - `service` — the 3 service pillars
 - `package` — pricing tiers and memberships
 - `teamMember` — physicians and staff
-- `technology` — PNOE, Visbody, IHHT, etc.
+- `technology` — PNOE, IHHT, Red Light, TrueDiagnostic, Enbiosis
 - `blogPost` — bilingual articles
 - `legalPage` — privacy, terms, cookies, disclaimer
 - `homePage` — singleton for homepage content
@@ -326,7 +326,7 @@ All schemas must follow this bilingual pattern:
 ### Tables (all with RLS)
 ```sql
 -- patients: intake form submissions
--- assessments: PNOE, Visbody, VO2 Max results
+-- assessments: PNOE, VO2 Max results
 -- biomarker_readings: lab results
 -- consent_log: GDPR consent timestamps with version
 
