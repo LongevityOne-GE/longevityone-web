@@ -76,7 +76,21 @@ export function Footer({ locale, siteSettings }: FooterProps) {
             {locale === 'ka' ? 'კონტაქტი' : 'Contact'}
           </h2>
           <div className="text-sm font-light space-y-4">
-            {address && <p>{address}</p>}
+            {address && (
+              siteSettings?.maps_url ? (
+                <a
+                  href={siteSettings.maps_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Open in Google Maps"
+                  className="hover:text-burnt-orange transition-colors duration-200"
+                >
+                  {address}
+                </a>
+              ) : (
+                <p>{address}</p>
+              )
+            )}
             {hours && <p>{hours}</p>}
             {(siteSettings?.phone || siteSettings?.email) && (
               <p className="font-bold">

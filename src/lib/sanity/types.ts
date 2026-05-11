@@ -24,6 +24,7 @@ export interface SiteSettings {
   tagline_en: string | null
   address_ka: string | null
   address_en: string | null
+  maps_url: string | null
   phone: string | null
   email: string | null
   openingHours_ka: string[] | null

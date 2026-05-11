@@ -33,7 +33,19 @@ export function ContactSection({ locale, settings }: ContactSectionProps) {
                     <h3 className="text-xs uppercase tracking-widest font-bold text-burnt-orange mb-3">
                       {addressLabel}
                     </h3>
-                    <p className="text-sm text-dark-brown/75 leading-relaxed">{address}</p>
+                    {settings?.maps_url ? (
+                      <a
+                        href={settings.maps_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Open in Google Maps"
+                        className="text-sm text-dark-brown/75 leading-relaxed hover:text-burnt-orange transition-colors duration-200"
+                      >
+                        {address}
+                      </a>
+                    ) : (
+                      <p className="text-sm text-dark-brown/75 leading-relaxed">{address}</p>
+                    )}
                   </div>
                 </Reveal>
               )}

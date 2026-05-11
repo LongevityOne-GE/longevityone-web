@@ -5,7 +5,7 @@ export const siteSettingsQuery = groq`
   *[_type == "siteSettings"][0] {
     clinicName_ka, clinicName_en,
     tagline_ka, tagline_en,
-    address_ka, address_en,
+    address_ka, address_en, maps_url,
     phone, email,
     openingHours_ka, openingHours_en,
     socialFacebook, socialInstagram, socialLinkedIn,

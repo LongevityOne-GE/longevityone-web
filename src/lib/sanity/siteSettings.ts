@@ -46,6 +46,12 @@ export const siteSettings = defineType({
       rows: 2,
     }),
     defineField({
+      name: 'maps_url',
+      title: 'Google Maps URL',
+      type: 'url',
+      description: 'Paste the Google Maps link for the clinic location. Use google.com/maps/search/?api=1&query=LAT,LNG format for best cross-platform support.',
+    }),
+    defineField({
       name: 'phone',
       title: 'Phone',
       type: 'string',
