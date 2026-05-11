@@ -6,7 +6,6 @@ import type { HomeTech, HomePageData } from '@/lib/sanity/types'
 import { SectionHeader } from '@/components/shared/SectionHeader'
 import { Reveal } from '@/components/animations/Reveal'
 import { GodVideo } from '@/components/shared/GodVideo'
-import { JourneyConnector } from './JourneyConnector'
 
 interface ScienceProps {
   locale: Locale
@@ -36,7 +35,6 @@ export function Science({ locale, technologies, data }: ScienceProps) {
 
         {techs.length > 0 && (
           <div className="relative mt-20">
-            <JourneyConnector count={techs.length} />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 md:gap-12 relative">
               {techs.map((tech, idx) => {
                 const href = `${locale === 'en' ? '/en' : ''}/technologies${
