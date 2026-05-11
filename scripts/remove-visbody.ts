@@ -8,7 +8,9 @@
  *   3. Patches any `journeyStage` doc whose body_ka / body_en portable text
  *      mentions Visbody — rewrites the affected spans.
  *   4. Patches the `faq-first-visit` FAQ doc to drop the Visbody mention.
- *   5. Shifts `order` values for the remaining technology docs so there is no
+ *   5. Patches `legalPage` docs (privacy, terms) — drops bullet items and
+ *      "— Visbody …" clauses from the body portable text.
+ *   6. Shifts `order` values for the remaining technology docs so there is no
  *      gap where Visbody used to sit (order: 2).
  *
  * Idempotent — safe to re-run.
@@ -78,13 +80,15 @@ function hasVisbodyInBlocks(blocks: PortableBlock[] | null | undefined): boolean
 /** Remove "Visbody ..." clauses from plain sentences while keeping grammar OK. */
 function stripVisbodyFromText(text: string): string {
   return text
+    // " — Visbody 3D ... [up to sentence end]." → "."
+    .replace(/\s*[—–-]\s*[^.]*Visbody[^.]*\./gi, '.')
     // "X, Visbody 3D, Y" → "X, Y"
     .replace(/,\s*Visbody[^,.]*(?=,|\.)/gi, '')
     // "Visbody 3D, " at start → ""
     .replace(/^Visbody[^,.]*,\s*/i, '')
-    // "- Visbody ..." list item → empty line
-    .replace(/\s*[-—]?\s*Visbody[^.]*\./gi, '')
-    // "Visbody scanning" or bare "Visbody" → drop token
+    // "- Visbody ... ." standalone item → empty
+    .replace(/\s*[-—]?\s*Visbody[^.]*\.\s*/gi, '')
+    // bare "Visbody ..." (no terminating period) → drop token + trailing words up to comma/semi
     .replace(/\bVisbody[^.,;]*/gi, '')
     .replace(/\s{2,}/g, ' ')
     .replace(/\s+([,.;])/g, '$1')
@@ -93,15 +97,28 @@ function stripVisbodyFromText(text: string): string {
 
 function patchBlocks(blocks: PortableBlock[] | null | undefined): PortableBlock[] | null {
   if (!blocks) return blocks ?? null
-  return blocks.map((block) => {
-    if (!block.children) return block
-    const newChildren = block.children.map((c) =>
-      typeof c.text === 'string' && VISBODY_REGEX.test(c.text)
-        ? { ...c, text: stripVisbodyFromText(c.text) }
-        : c
-    )
-    return { ...block, children: newChildren }
-  })
+  return blocks
+    // Drop entire blocks (e.g. bullet items) whose joined text is purely a Visbody mention.
+    .filter((block) => {
+      if (!block.children) return true
+      const joined = block.children
+        .map((c) => (typeof c.text === 'string' ? c.text : ''))
+        .join('')
+      if (!VISBODY_REGEX.test(joined)) return true
+      const cleaned = stripVisbodyFromText(joined)
+      // If after stripping there's no meaningful content left (just punctuation/dashes),
+      // drop the whole block (list items become empty bullets otherwise).
+      return /[\p{L}\p{N}]/u.test(cleaned)
+    })
+    .map((block) => {
+      if (!block.children) return block
+      const newChildren = block.children.map((c) =>
+        typeof c.text === 'string' && VISBODY_REGEX.test(c.text)
+          ? { ...c, text: stripVisbodyFromText(c.text) }
+          : c
+      )
+      return { ...block, children: newChildren }
+    })
 }
 
 async function main() {
@@ -184,6 +201,31 @@ async function main() {
     }>
   console.log(`faqItem docs to patch: ${faqPatches.length} ${faqPatches.map((f) => f._id)}`)
 
+  // 4b. Patch legalPage docs (privacy, terms) — same body_ka / body_en structure.
+  const legals: Array<{
+    _id: string
+    body_ka: PortableBlock[] | null
+    body_en: PortableBlock[] | null
+  }> = await client.fetch(
+    `*[_type == "legalPage"]{_id, body_ka, body_en}`
+  )
+  const legalPatches = legals
+    .map((l) => {
+      const changed = hasVisbodyInBlocks(l.body_ka) || hasVisbodyInBlocks(l.body_en)
+      if (!changed) return null
+      return {
+        _id: l._id,
+        body_ka: patchBlocks(l.body_ka),
+        body_en: patchBlocks(l.body_en),
+      }
+    })
+    .filter(Boolean) as Array<{
+      _id: string
+      body_ka: PortableBlock[] | null
+      body_en: PortableBlock[] | null
+    }>
+  console.log(`legalPage docs to patch: ${legalPatches.length} ${legalPatches.map((l) => l._id)}`)
+
   // 5. Shift remaining technology orders so there is no gap at 2.
   const remainingTechs: Array<{ _id: string; order: number | null }> = await client.fetch(
     `*[_type == "technology" && !(_id in $ids)] | order(order asc){_id, order}`,
@@ -219,6 +261,11 @@ async function main() {
   for (const f of faqPatches) {
     tx.patch(f._id, (patch) =>
       patch.set({ answer_ka: f.answer_ka, answer_en: f.answer_en })
+    )
+  }
+  for (const l of legalPatches) {
+    tx.patch(l._id, (patch) =>
+      patch.set({ body_ka: l.body_ka, body_en: l.body_en })
     )
   }
   for (const o of orderPatches) {
