@@ -4,6 +4,7 @@ import type { Locale } from '@/lib/utils'
 import type { HomeTech, HomePageData } from '@/lib/sanity/types'
 import { SectionHeader } from '@/components/shared/SectionHeader'
 import { Reveal } from '@/components/animations/Reveal'
+import { GodVideo } from '@/components/shared/GodVideo'
 
 interface ScienceProps {
   locale: Locale
@@ -16,17 +17,12 @@ export function Science({ locale, technologies, data }: ScienceProps) {
 
   return (
     <section className="py-32 bg-bone-white relative overflow-hidden">
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-      >
-        <source src="/videos/gods/webm/god-apollo-original-boomerang.webm" type="video/webm" />
-        
-      </video>
-      <div className="absolute inset-0 bg-bone-white/80 pointer-events-none" />
+      <GodVideo
+        src="/videos/gods/webm/god-apollo-original-boomerang.webm"
+        overlay="tint"
+        tint="light"
+        tintOpacity={0.8}
+      />
       <div className="section-container relative z-10">
         <div className="flex flex-col md:flex-row gap-20">
           <div className="md:w-1/3">

@@ -4,6 +4,7 @@ import { ArrowRight } from 'lucide-react'
 import type { Locale } from '@/lib/utils'
 import type { HomeService, HomePageData } from '@/lib/sanity/types'
 import { Reveal } from '@/components/animations/Reveal'
+import { GodVideo } from '@/components/shared/GodVideo'
 
 interface PillarsProps {
   locale: Locale
@@ -16,17 +17,12 @@ export function Pillars({ locale, services, data }: PillarsProps) {
 
   return (
     <section className="py-16 md:py-32 bg-dark-brown text-bone-white relative overflow-hidden">
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-      >
-        <source src="/videos/columns-bg_boomerang.webm" type="video/webm" />
-        <source src="/videos/columns-bg_boomerang.mp4" type="video/mp4" />
-      </video>
-      <div className="absolute inset-0 bg-dark-brown/60 pointer-events-none" />
+      <GodVideo
+        src={{ webm: '/videos/columns-bg_boomerang.webm', mp4: '/videos/columns-bg_boomerang.mp4' }}
+        overlay="tint"
+        tint="dark"
+        tintOpacity={0.6}
+      />
       <div className="section-container relative z-10 text-center">
         {(data?.pillars_heading_ka || data?.pillars_heading_en) && (
           <Reveal>
