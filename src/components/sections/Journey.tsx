@@ -18,7 +18,7 @@ export function Journey({ locale, data }: JourneyProps) {
     <section className="py-16 md:py-32 relative overflow-hidden bg-bone-white">
       <GodVideo
         src="/videos/DNA_boomerang.webm"
-        opacity={0.35}
+        opacity={0.15}
         filter="grayscale(1) contrast(1.1)"
         overlay="fade"
         tint="light"
