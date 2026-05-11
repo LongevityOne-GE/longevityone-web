@@ -24,7 +24,7 @@ Services
 ├── /services/metabolic
 └── /services/performance
 Technologies (/technologies)
-└── #pnoe · #visbody · #ihht · #red-light · #truediagnostic · #enbiosis
+└── #pnoe · #ihht · #red-light · #truediagnostic · #enbiosis
 Packages & Pricing (/packages)
 Corporate (/corporate)
 Team (/team)
@@ -150,7 +150,6 @@ Legal
 | Tech | Tagline (ka) | Tagline (en) | Anchor |
 |---|---|---|---|
 | PNOE | მეტაბოლიზმის „ოქროს სტანდარტი" | The gold standard of metabolism testing | #pnoe |
-| Visbody | თქვენი სხეული სამ განზომილებაში | Your body in three dimensions | #visbody |
 | IHHT | უჯრედული გაკაჟება | Train your cells, not just your muscles | #ihht |
 | Red Light | ფოტო-ბიომოდულაცია | Cellular regeneration through light | #red-light |
 | TrueDiagnostic | გაიგეთ თქვენი ბიოლოგიური ასაკი | Know your biological age | #truediagnostic |
@@ -169,8 +168,8 @@ Legal
 | | STARTER | PERFORMANCE | ELITE |
 |---|---|---|---|
 | Price | 550 GEL | 1,850 GEL | 3,200 GEL |
-| Includes (en) | PNOE + Visbody 3D + Dynamometry | STARTER + 5 Red Light + 5 IHHT | STARTER + 10 Red Light + 10 IHHT + Personal Longevity Plan |
-| Includes (ka) | PNOE + Visbody 3D + დინამომეტრია | STARTER + 5 Red Light + 5 IHHT | STARTER + 10 Red Light + 10 IHHT + პერსონალური გეგმა |
+| Includes (en) | PNOE + Dynamometry | STARTER + 5 Red Light + 5 IHHT | STARTER + 10 Red Light + 10 IHHT + Personal Longevity Plan |
+| Includes (ka) | PNOE + დინამომეტრია | STARTER + 5 Red Light + 5 IHHT | STARTER + 10 Red Light + 10 IHHT + პერსონალური გეგმა |
 
 ---
 
@@ -258,7 +257,7 @@ They founded Longevity One on a single conviction: medicine should not stop at t
 **Full body (ka):** ჩვენი დღეგრძელობის პროგრამა განკუთვნილია C-level მენეჯერებისთვის, ბიზნეს ლიდერებისთვის და 40+ ასაკის პირებისთვის, ვინც ორიენტირებულია მაღალ პროდუქტიულობაზე. ჩვენ ვაერთიანებთ PNOE მეტაბოლურ ანალიზს, TrueDiagnostic-ის TrueAge ეპიგენეტიკურ ტესტირებასა და Enbiosis მიკრობიომის კვლევას — რათა ზუსტად გავიგოთ, რა სიჩქარით ბერდება თქვენი ორგანიზმი და როგორ შევანელოთ ეს პროცესი. შედეგი: თქვენი რეალური ბიოლოგიური ასაკი და ზუსტი, მოქმედებაზე ორიენტირებული გეგმა მის შესამცირებლად.
 **Full body (en):** Our Longevity programme is designed for C-level executives, business leaders, and high-performers over 40. We combine PNOE metabolic analysis, TrueDiagnostic's TrueAge epigenetic testing, and Enbiosis microbiome research to understand precisely how fast your body is ageing — and how to slow that process. The result: your real biological age and a precise, action-oriented plan to reduce it.
 
-**Technologies used:** PNOE, Visbody 3D, TrueDiagnostic/TrueAge (add-on), Enbiosis (add-on)
+**Technologies used:** PNOE, TrueDiagnostic/TrueAge (add-on), Enbiosis (add-on)
 **Related packages:** PERFORMANCE, ELITE + Elite Platinum membership
 
 ---
@@ -274,7 +273,7 @@ They founded Longevity One on a single conviction: medicine should not stop at t
 **Differentiator (ka):** ჩვენი ცენტრი ფოკუსირებულია არა სტანდარტულ დიეტებზე, არამედ ნივთიერებათა ცვლის ბიოლოგიურ ოპტიმიზაციაზე. PNOE მეტაბოლური ტესტირებისა და Enbiosis მიკრობიომის ანალიზის კომბინაცია გამორიცხავს ვარაუდს — ეფუძნება ზუსტ გაზომვებს — და „იო-იო" ეფექტს სრულად გამორიცხავს.
 **Differentiator (en):** Our centre focuses on the biological optimisation of metabolism rather than generic diets. Combining PNOE metabolic testing with Enbiosis microbiome analysis eliminates guesswork, relies on precise measurements, and fully prevents the yo-yo effect during weight loss.
 
-**Technologies used:** PNOE, Visbody 3D, Enbiosis (add-on)
+**Technologies used:** PNOE, Enbiosis (add-on)
 
 ---
 
@@ -291,7 +290,7 @@ They founded Longevity One on a single conviction: medicine should not stop at t
 **Full body (ka):** ᲚᲝᲜᲯᲔᲕᲘᲗᲘ ᲣᲐᲜ-ის Elite Performance პროგრამა გთავაზობთ მეცნიერულ უპირატესობას — პროფესიონალი სპორტსმენისთვის და მაღალი ეფექტიანობის მქონე ლიდერისთვის. IHHT თერაპია ქმნის „მაღალმთიანი შეკრების" ეფექტს თბილისში, განაახლებს მიტოქონდრიებს და ზრდის ენერგეტიკულ გამომავლობას. Red Light თერაპია კი უზრუნველყოფს კუნთოვანი ქსოვილის სწრაფ რეგენერაციას ფიზიკური დატვირთვის შემდეგ. PNOE-ს VO₂ Max ტესტი გვიჩვენებს თქვენს ზუსტ ფიზიკურ პოტენციალს — და სად არის ზრდის ყველაზე დიდი რეზერვი.
 **Full body (en):** Longevity One's Elite Performance programme delivers a scientific edge for professional athletes and high-performing leaders alike. IHHT creates an altitude training effect in Tbilisi, renewing mitochondria and boosting energy output. Red Light therapy ensures rapid muscle tissue regeneration post-exertion. PNOE VO₂ Max testing reveals your precise physical potential — and where the greatest room for growth lies.
 
-**Technologies used:** PNOE (VO₂ Max), Visbody 3D, IHHT, Red Light Therapy
+**Technologies used:** PNOE (VO₂ Max), IHHT, Red Light Therapy
 
 ---
 
@@ -315,19 +314,6 @@ They founded Longevity One on a single conviction: medicine should not stop at t
 
 **Your benefit (ka):** ჩვენ ვწყვეტთ ვარაუდს და ზუსტად გეტყვით, რომელი კვება და ვარჯიში არის ეფექტური სწორედ თქვენი მეტაბოლიზმისთვის — „იო-იო" ეფექტის გარეშე.
 **Your benefit (en):** We eliminate guesswork and tell you precisely which nutrition and exercise approach is effective for your specific metabolism — preventing the yo-yo effect.
-
----
-
-### #visbody — Visbody 3D Body Scanner
-
-**What it is (ka):** Visbody არის უახლესი 3D სხეულის სკანირების სისტემა, რომელიც ერთ სკანირებაში გვაძლევს თქვენი სხეულის კომპოზიციის სრულ სურათს. პროცედურა სწრაფი, უმტკივნეულო და გამოსხივების გარეშეა — სკანირება მხოლოდ რამდენიმე წამს სჭირდება.
-**What it is (en):** Visbody is a state-of-the-art 3D body scanning system that provides a complete picture of your body composition in a single scan. The procedure is fast, painless, and radiation-free — taking only a few seconds.
-
-**What you discover (ka):** სხეულის ცხიმის პროცენტი, კუნთოვანი მასა, ვისცერალური ცხიმი, ჩონჩხის სიმეტრია და კუნთების ბალანსი სხეულის სხვადასხვა ნაწილში.
-**What you discover (en):** Body fat percentage, muscle mass, visceral fat, skeletal symmetry, and muscle balance across different body segments.
-
-**Your benefit (ka):** ობიექტური, ციფრული „ბაზური სურათი" თქვენი სხეულის — ვარაუდებისა და სუბიექტური შეფასებების გარეშე. ეს გაზომვა გამოიყენება პროგრესის თვალყურისდევნებისთვის ყოველ ვიზიტზე.
-**Your benefit (en):** An objective, digital baseline of your body — free from assumption or subjective assessment. This measurement becomes your progress benchmark at every visit.
 
 ---
 
@@ -428,8 +414,8 @@ They founded Longevity One on a single conviction: medicine should not stop at t
 | Price | 550 GEL | 1,850 GEL | 3,200 GEL |
 | Description (ka) | საბაზისო ბიოლოგიური და მეტაბოლური შეფასება | მეტაბოლური ოპტიმიზაცია + IHHT და Red Light თერაპია | ყველაზე სრულყოფილი ანალიზი + ინტენსიური თერაპია + პირადი გეგმა |
 | Description (en) | Foundational biological and metabolic assessment | Metabolic optimisation + IHHT and Red Light therapy | Most comprehensive analysis + intensive therapy + personal plan |
-| Includes (ka) | PNOE მეტაბოლური ტესტი + Visbody 3D ანალიზი + დინამომეტრია | STARTER-ის სრული შემადგენლობა + 5 სესია Red Light Therapy + 5 სესია IHHT | STARTER-ის სრული შემადგენლობა + 10 სესია Red Light Therapy + 10 სესია IHHT + პერსონალური დღეგრძელობის გეგმა |
-| Includes (en) | PNOE metabolic test + Visbody 3D analysis + Dynamometry | All of STARTER + 5 Red Light Therapy sessions + 5 IHHT sessions | All of STARTER + 10 Red Light Therapy sessions + 10 IHHT sessions + Personal Longevity Plan |
+| Includes (ka) | PNOE მეტაბოლური ტესტი + დინამომეტრია | STARTER-ის სრული შემადგენლობა + 5 სესია Red Light Therapy + 5 სესია IHHT | STARTER-ის სრული შემადგენლობა + 10 სესია Red Light Therapy + 10 სესია IHHT + პერსონალური დღეგრძელობის გეგმა |
+| Includes (en) | PNOE metabolic test + Dynamometry | All of STARTER + 5 Red Light Therapy sessions + 5 IHHT sessions | All of STARTER + 10 Red Light Therapy sessions + 10 IHHT sessions + Personal Longevity Plan |
 
 > **IMPORTANT:** TrueAge and Enbiosis are NOT included in any tier. They are add-on modules only.
 
@@ -477,15 +463,13 @@ They founded Longevity One on a single conviction: medicine should not stop at t
 **Goal (en):** For those who want to maintain the results they've achieved.
 
 **Includes (ka):**
-- 4 სესია Red Light Therapy — უჯრედული რეგენერაცია და კანის სიჯანსაღე
-- Visbody 3D სკანირება — შეუზღუდავი, ნებისმიერ დროს
-- პრიორიტეტული ჯავშნა — ექსკლუზიური წვდომა პიკის საათებზე
+- 4 სესია Red Light Therapy — უჯრედული რეგენერაცია და კანის სიჯანსაება
+- პრიორიტეტული ჯავშანა — ექსკლუზიური წვდომა პიკის საათებზე
 - 10% ფასდაკლება ლაბორატორიულ ტესტებზე (Enbiosis, TrueAge)
 - ყოველთვიური „დღეგრძელობის ბიულეტენი" — მხოლოდ წევრებისთვის
 
 **Includes (en):**
 - 4 Red Light Therapy sessions — cellular regeneration and skin health
-- Unlimited Visbody 3D scans
 - Priority booking — exclusive access during peak hours
 - 10% discount on all laboratory tests (Enbiosis, TrueAge)
 - Monthly Longevity Newsletter — members only
@@ -499,14 +483,14 @@ They founded Longevity One on a single conviction: medicine should not stop at t
 
 **Includes (ka):**
 - 4 სესია IHHT + 4 სესია Red Light Therapy — სრული უჯრედული წვრთნა და აღდგენა
-- ყოველთვიური Performance Audit: Visbody + დინამომეტრია
+- ყოველთვიური Performance Audit: დინამომეტრია
 - კვარტალური PNOE RMR შემოწმება — მეტაბოლიზმის 3-თვიანი ვერიფიკაცია
 - 15% ფასდაკლება საერთაშორისო ტესტებზე (Enbiosis, TrueAge)
 - სტუმრის ბარათი — თვეში 1 მეგობარი STARTER-ზე 50%-იანი ფასდაკლებით
 
 **Includes (en):**
 - 4 IHHT sessions + 4 Red Light Therapy sessions
-- Monthly Performance Audit: Visbody + Dynamometry
+- Monthly Performance Audit: Dynamometry
 - Quarterly PNOE RMR check
 - 15% discount on all international tests (Enbiosis, TrueAge)
 - Guest Pass — one friend per month on STARTER at 50% off
@@ -520,14 +504,14 @@ They founded Longevity One on a single conviction: medicine should not stop at t
 
 **Includes (ka):**
 - 8 სესია IHHT + 8 სესია Red Light Therapy
-- სრული სხეულის მონიტორინგი: ყოველთვიური Visbody + დინამომეტრია + კვარტალური PNOE აუდიტი
+- სრული სხეულის მონიტორინგი: ყოველთვიური დინამომეტრია + კვარტალური PNOE აუდიტი
 - უფასო TrueAge ტესტი — წელიწადში ერთხელ
 - Personal Health Concierge — პირდაპირი ხაზი კლინიკის ექსპერტთან
 - Elite Network — მოწვევა დახურულ „Longevity One-on-One" სემინარებზე
 
 **Includes (en):**
 - 8 IHHT sessions + 8 Red Light Therapy sessions
-- Full body monitoring: monthly Visbody + Dynamometry + quarterly PNOE audit
+- Full body monitoring: monthly Dynamometry + quarterly PNOE audit
 - Complimentary TrueAge test — once per year
 - Personal Health Concierge — direct line to a clinic expert
 - Elite Network — invitation to exclusive Longevity One-on-One seminars
@@ -627,8 +611,8 @@ They founded Longevity One on a single conviction: medicine should not stop at t
 - en: Our care manager contacts you, explains the visit structure, and guides you through a digital pre-assessment (15–20 min). Includes questionnaires on sleep (PSQI), physical activity (IPAQ), and wellbeing (WHO-5).
 
 **Stage 2 — სხეულის და ენერგიის შეფასება / Body & Energy Assessment**
-- ka: 35–45 წუთის განმავლობაში ვასრულებთ Visbody 3D სკანირებას, ვიტალური ნიშნების გაზომვას, დინამომეტრიასა და VO₂ Max ტესტს. სხეულის კომპოზიცია და ჟანგბადის გამოყენების უნარი — ეს არის თქვენი ჯანმრთელობის ბირთვი.
-- en: Over 35–45 minutes: Visbody 3D scan, vital signs, dynamometry, and VO₂ Max test. Body composition and oxygen utilisation capacity are the core of your health baseline.
+- ka: 35–45 წუთის განმავლობაში ვასრულებთ ვიტალური ნიშნების გაზომვას, დინამომეტრიასა და VO₂ Max ტესტს. ჟანგბადის გამოყენების უნარი — ეს არის თქვენი ჯანმრთელობის ბირთვი.
+- en: Over 35–45 minutes: vital signs, dynamometry, and VO₂ Max test. Oxygen utilisation capacity is the core of your health baseline.
 
 **Stage 3 — მონაცემებზე დაფუძნებული კონსულტაცია / Data-Driven Consultation**
 - ka: 45–60 წუთიანი კონსულტაცია დღეგრძელობის ექიმთან, რომელსაც უკვე გააჩნია თქვენი ყველა საბაზისო მონაცემი. ექიმი ნიშნავს ლაბორატორიულ ანალიზებს და, საჭიროებისამებრ, გთავაზობს TrueAge ან Enbiosis მოდულებს.
@@ -651,8 +635,8 @@ They founded Longevity One on a single conviction: medicine should not stop at t
 - en: Via WhatsApp — 2–3 short messages per week from your care manager, one monthly physician check-in. Minimal time investment, maximum adherence. This is where real change happens.
 
 **Stage 8 — ხელახალი შეფასება / Follow-Up & Re-Test**
-- ka: 12 კვირის შემდეგ — VO₂ Max-ის, Visbody-სა და ლაბორატორიული ანალიზების გამეორება. Before/After შედარება: ენერგია, გამძლეობა, სხეულის კომპოზიცია. ეს არის მტკიცებულება.
-- en: After 12 weeks — repeat VO₂ Max, Visbody, and relevant laboratory tests. Before/After comparison: energy, endurance, body composition. This is the proof.
+- ka: 12 კვირის შემდეგ — VO₂ Max-ის და ლაბორატორიული ანალიზების გამეორება. Before/After შედარება: ენერგია, გამძლეობა. ეს არის მტკიცებულება.
+- en: After 12 weeks — repeat VO₂ Max and relevant laboratory tests. Before/After comparison: energy, endurance. This is the proof.
 
 ---
 

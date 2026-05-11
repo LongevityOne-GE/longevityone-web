@@ -9,7 +9,7 @@ export const technology = defineType({
       name: 'name',
       title: 'Technology Name',
       type: 'string',
-      description: 'e.g. PNOE, Visbody 3D, IHHT',
+      description: 'e.g. PNOE, IHHT, Red Light',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -17,7 +17,7 @@ export const technology = defineType({
       title: 'Slug / Anchor',
       type: 'slug',
       options: { source: 'name' },
-      description: 'Used as #anchor on /technologies page. e.g. pnoe, visbody, ihht',
+      description: 'Used as #anchor on /technologies page. e.g. pnoe, ihht, red-light',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -102,7 +102,7 @@ export const technology = defineType({
       title: 'Your Benefit / Patient Value (Georgian)',
       type: 'text',
       rows: 2,
-      description: 'Used for PNOE, Visbody, TrueDiagnostic, Enbiosis.',
+      description: 'Used for PNOE, TrueDiagnostic, Enbiosis.',
     }),
     defineField({
       name: 'yourBenefit_en',
