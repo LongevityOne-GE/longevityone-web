@@ -75,14 +75,11 @@
 
   .page-loader__inner,
   .page-loader__mark,
-  .page-loader__mark img,
-  .page-loader__wordmark {
+  .page-loader__mark img {
     animation: none !important;
-    clip-path: none !important;
     opacity: 1 !important;
     transform: none !important;
   }
-  .page-loader__wordmark { opacity: 0.72 !important; }
 
   video[autoplay] {
     display: none !important;
@@ -106,52 +103,26 @@
   animation: pl-enter 700ms ease-out both;
 }
 .page-loader__mark {
-  width: 96px;
+  width: 120px;
   height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Reveal the silhouette from bottom to top, then a soft, slow float. */
-  animation: pl-mark-float 3.6s ease-in-out 1100ms infinite;
+  /* Soft, slow breathing pulse — distinct from the in-page Logo component. */
+  animation: pl-mark-pulse 1800ms ease-in-out infinite;
 }
 .page-loader__mark img {
   width: 100%;
   height: auto;
   display: block;
-  animation: pl-mark-reveal 1100ms cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-.page-loader__wordmark {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  font-family: var(--font-sans);
-  text-transform: uppercase;
-  letter-spacing: 0.32em;
-  font-size: 11px;
-  font-weight: 300;
-  color: var(--color-dark-brown);
-  opacity: 0;
-  animation: pl-wordmark-in 600ms ease-out 700ms forwards;
-}
-.page-loader__wordmark span {
-  display: block;
-  line-height: 1.25;
 }
 @keyframes pl-enter {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-@keyframes pl-mark-reveal {
-  from { clip-path: inset(100% 0 0 0); }
-  to   { clip-path: inset(0 0 0 0); }
-}
-@keyframes pl-mark-float {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-4px); }
-}
-@keyframes pl-wordmark-in {
-  to { opacity: 0.72; }
+@keyframes pl-mark-pulse {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%      { opacity: 1;    transform: scale(1.04); }
 }
 
 @layer utilities {
