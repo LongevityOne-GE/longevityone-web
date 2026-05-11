@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import type { Locale } from '@/lib/utils'
 import type { HomeTech, HomePageData } from '@/lib/sanity/types'
 import { SectionHeader } from '@/components/shared/SectionHeader'
@@ -37,16 +38,26 @@ export function Science({ locale, technologies, data }: ScienceProps) {
 
           {techs.length > 0 && (
             <div className="md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
-              {techs.map((tech, idx) => (
-                <Reveal key={tech.name} delay={0.1 * idx}>
-                  <div className="border-t border-dark-brown/10 pt-6">
-                    <h4 className="text-2xl font-bold mb-1">{tech.name}</h4>
-                    <p className="text-sm font-bold text-dark-brown leading-tight mb-1">
-                      {locale === 'ka' ? tech.tagline_ka : tech.tagline_en}
-                    </p>
-                  </div>
-                </Reveal>
-              ))}
+              {techs.map((tech, idx) => {
+                const href = `${locale === 'en' ? '/en' : ''}/technologies${
+                  tech.anchor ? `#${tech.anchor}` : ''
+                }`
+                return (
+                  <Reveal key={tech.name} delay={0.1 * idx}>
+                    <Link
+                      href={href}
+                      className="block border-t border-dark-brown/10 pt-6 group transition-colors duration-300 hover:border-burnt-orange/60"
+                    >
+                      <h4 className="text-2xl font-bold mb-1 transition-colors duration-300 group-hover:text-burnt-orange">
+                        {tech.name}
+                      </h4>
+                      <p className="text-sm font-bold text-dark-brown leading-tight mb-1">
+                        {locale === 'ka' ? tech.tagline_ka : tech.tagline_en}
+                      </p>
+                    </Link>
+                  </Reveal>
+                )
+              })}
             </div>
           )}
         </div>

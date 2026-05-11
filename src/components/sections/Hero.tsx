@@ -23,7 +23,7 @@ export function Hero({ locale, data }: HeroProps) {
         src="/videos/gods/webm/god-discobolus-original-boomerang.webm"
         opacity={0.15}
         position="center top"
-        preload="auto"
+        preload="none"
       />
 
       <div className="section-container relative z-10 text-center">
