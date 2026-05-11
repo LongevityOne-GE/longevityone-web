@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { headers } from 'next/headers'
 import { mersad, fontGeorgian, fontDisplay, fontScript } from './fonts'
-import { PageLoader } from '@/components/shared/PageLoader'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -49,7 +48,6 @@ export default async function RootLayout({
       ].join(' ')}
     >
       <body>
-        <PageLoader />
         {children}
       </body>
     </html>
