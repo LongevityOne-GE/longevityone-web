@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { Locale } from '@/lib/utils'
 import type { HomePageData } from '@/lib/sanity/types'
+import { GodVideo } from '@/components/shared/GodVideo'
 
 interface HeroProps {
   locale: Locale
@@ -18,16 +19,12 @@ export function Hero({ locale, data }: HeroProps) {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden">
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover object-top opacity-15 pointer-events-none"
-      >
-        <source src="/videos/gods/webm/god-discobolus-original-boomerang.webm" type="video/webm" />
-        
-      </video>
+      <GodVideo
+        src="/videos/gods/webm/god-discobolus-original-boomerang.webm"
+        opacity={0.15}
+        position="center top"
+        preload="auto"
+      />
 
       <div className="section-container relative z-10 text-center">
         {h1 && (

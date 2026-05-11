@@ -2,10 +2,12 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useEffect, useRef, useState } from 'react'
 import type { Locale } from '@/lib/utils'
 import type { SiteSettings } from '@/lib/sanity/types'
 import { Logo } from '@/components/shared/Logo'
 import { BookingButton } from '@/components/booking'
+import { useScrollProgress } from '@/lib/motion'
 import { LanguageSwitcher } from './LanguageSwitcher'
 
 const navLinks = [
@@ -37,6 +39,28 @@ export function Nav({ locale, siteSettings }: NavProps) {
     : rawPath
   const isActive = (href: string) =>
     href === '/' ? currentPath === '/' : currentPath === href || currentPath.startsWith(`${href}/`)
+
+  // Scroll-driven nav state: progress bar + solid/blur background + hide on scroll down.
+  const progress = useScrollProgress()
+  const [scrolled, setScrolled] = useState(false)
+  const [hidden, setHidden] = useState(false)
+  const lastYRef = useRef(0)
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const onScroll = () => {
+      const y = window.scrollY
+      setScrolled(y > 80)
+      const delta = y - lastYRef.current
+      // Only hide after clearing the hero and when scrolling down meaningfully.
+      if (y > 200 && delta > 6) setHidden(true)
+      else if (delta < -6 || y < 100) setHidden(false)
+      lastYRef.current = y
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
     <>
@@ -72,7 +96,21 @@ export function Nav({ locale, siteSettings }: NavProps) {
       <a href="#main-content" className="skip-link">
         {locale === 'ka' ? 'მთავარ კონტენტზე გადასვლა' : 'Skip to main content'}
       </a>
-      <nav className="fixed top-0 w-full z-50 bg-bone-white/95 backdrop-blur-sm py-4 px-4 md:px-12 lg:px-16 border-b border-dark-brown/5" aria-label={locale === 'ka' ? 'მთავარი ნავიგაცია' : 'Main navigation'}>
+      <nav
+        className={`fixed top-0 w-full z-50 py-4 px-4 md:px-12 lg:px-16 border-b transition-[transform,background-color,backdrop-filter,border-color,box-shadow] duration-300 ease-out will-change-transform ${
+          hidden ? '-translate-y-full' : 'translate-y-0'
+        } ${
+          scrolled
+            ? 'bg-bone-white/70 backdrop-blur-lg border-dark-brown/10 shadow-sm'
+            : 'bg-bone-white/95 backdrop-blur-sm border-dark-brown/5'
+        }`}
+        aria-label={locale === 'ka' ? 'მთავარი ნავიგაცია' : 'Main navigation'}
+      >
+        <div
+          aria-hidden="true"
+          className="absolute left-0 top-0 h-[2px] bg-burnt-orange origin-left transition-[width] duration-150 ease-out"
+          style={{ width: `${progress * 100}%` }}
+        />
         <div className="max-w-[1400px] mx-auto flex items-center justify-between gap-4">
           <Link href={`${prefix}/`} className="flex-shrink-0">
             <Logo />

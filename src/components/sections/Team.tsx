@@ -4,6 +4,7 @@ import Link from 'next/link'
 import type { Locale } from '@/lib/utils'
 import type { HomePageData } from '@/lib/sanity/types'
 import { Reveal } from '@/components/animations/Reveal'
+import { GodVideo } from '@/components/shared/GodVideo'
 
 interface TeamProps {
   locale: Locale
@@ -16,17 +17,12 @@ export function Team({ locale, data }: TeamProps) {
 
   return (
     <section className="py-20 md:py-40 bg-dark-brown text-bone-white text-center relative overflow-hidden">
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-      >
-        <source src="/videos/Monogram_boomerang.webm" type="video/webm" />
-        <source src="/videos/Monogram_boomerang.mp4" type="video/mp4" />
-      </video>
-      <div className="absolute inset-0 bg-dark-brown/90 pointer-events-none" />
+      <GodVideo
+        src={{ webm: '/videos/Monogram_boomerang.webm', mp4: '/videos/Monogram_boomerang.mp4' }}
+        overlay="tint"
+        tint="dark"
+        tintOpacity={0.9}
+      />
       <div className="max-w-4xl mx-auto px-4 md:px-6 relative z-10">
         {heading && (
           <Reveal>

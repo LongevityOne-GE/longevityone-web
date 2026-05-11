@@ -2,6 +2,7 @@ import Link from 'next/link'
 import type { Locale } from '@/lib/utils'
 import type { HomePageData } from '@/lib/sanity/types'
 import { Reveal } from '@/components/animations/Reveal'
+import { GodVideo } from '@/components/shared/GodVideo'
 
 interface CTAProps {
   locale: Locale
@@ -17,16 +18,9 @@ export function CTA({ locale, data }: CTAProps) {
 
   return (
     <section className="py-20 md:py-40 relative overflow-hidden bg-black text-bone-white text-center">
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-      >
-        <source src="/videos/video1_boomerang.webm" type="video/webm" />
-        <source src="/videos/video1_boomerang.mp4" type="video/mp4" />
-      </video>
+      <GodVideo
+        src={{ webm: '/videos/video1_boomerang.webm', mp4: '/videos/video1_boomerang.mp4' }}
+      />
       <div className="section-container relative z-10 max-w-4xl">
         {heading && (
           <Reveal>
