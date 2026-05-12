@@ -32,10 +32,6 @@ export function AboutHero() {
         </video>
 
         {/* Soft fade into the next section so the transition feels deliberate */}
-        <div
-          className="absolute inset-x-0 bottom-0 h-48 md:h-64 bg-gradient-to-b from-transparent via-bone-white/40 to-bone-white pointer-events-none"
-          aria-hidden="true"
-        />
 
         {/* Scroll cue */}
         <div className="absolute bottom-10 inset-x-0 flex justify-center pointer-events-none">
