@@ -53,7 +53,7 @@ export function Pillars({ locale, services, data }: PillarsProps) {
                     </div>
                   )}
                   <a
-                    href={`${locale === 'en' ? '/en' : ''}/services/${pillar.slug}`}
+                    href={`${locale === 'en' ? '/en' : ''}/services#${pillar.slug}`}
                     className="flex items-center text-burnt-orange font-bold uppercase tracking-[0.2em] text-[10px] group-hover:pl-2 transition-all"
                   >
                     {locale === 'ka' ? 'გაიგეთ მეტი' : 'EXPLORE'} <ArrowRight size={14} className="ml-2" />
