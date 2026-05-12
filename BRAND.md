@@ -9,7 +9,7 @@
 ## Brand Essence
 
 - **Display name:** Longevity One (two words, space between)
-- **Georgian logo name:** ლონჯევითი უან — logo/brand assets ONLY, never in body copy
+- **Georgian logo name:** Longevity One — logo/brand assets ONLY, never in body copy
 - **Tagline (en):** The Art of Living Longer
 - **Tagline (ka):** დღეგრძელობის ხელოვნება
 - **Category:** Preventive Medicine Center — luxury longevity clinic
@@ -185,7 +185,7 @@ transitionTimingFunction: {
 
 ## Logo
 
-- **On Georgian pages:** use ლონჯევითი უან version (logo asset)
+- **On Georgian pages:** use Longevity One version (logo asset)
 - **On English pages:** use Longevity One version (logo asset)
 - **Minimum sizes:** 120px (full lockup), 80px (compact), 32px (icon only)
 - **Exclusion zone:** clear space equal to the height of the "L" in LONGEVITY on all sides
