@@ -39,9 +39,9 @@ const defaultFallbackImage =
   'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1600&q=80'
 
 const slugImages: Record<string, string> = {
-  'biological-age-vs-chronological-age': '/images/blog images/age.png',
-  'why-traditional-diets-dont-work': '/images/blog images/diets.png',
-  'vo2-max-longevity-predictor': '/images/blog images/vo2.png',
+  'biological-age-vs-chronological-age': '/images/blog images/age.png?v=2',
+  'why-traditional-diets-dont-work': '/images/blog images/diets.png?v=2',
+  'vo2-max-longevity-predictor': '/images/blog images/vo2.png?v=2',
 }
 
 function getCoverImage(post: BlogPost, locale: Locale): string {
