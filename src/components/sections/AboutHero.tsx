@@ -33,7 +33,7 @@ export function AboutHero() {
 
         {/* Soft fade into the next section so the transition feels deliberate */}
         <div
-          className="absolute inset-x-0 bottom-0 h-24 md:h-32 bg-gradient-to-b from-transparent to-bone-white pointer-events-none"
+          className="absolute inset-x-0 bottom-0 h-48 md:h-64 bg-gradient-to-b from-transparent via-bone-white/40 to-bone-white pointer-events-none"
           aria-hidden="true"
         />
 
