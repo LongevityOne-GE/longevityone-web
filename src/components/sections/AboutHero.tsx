@@ -36,6 +36,27 @@ export function AboutHero() {
           className="absolute inset-x-0 bottom-0 h-24 md:h-32 bg-gradient-to-b from-transparent to-bone-white pointer-events-none"
           aria-hidden="true"
         />
+
+        {/* Scroll cue */}
+        <div className="absolute bottom-10 inset-x-0 flex justify-center pointer-events-none">
+          <div className="flex flex-col items-center gap-1 animate-bounce">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-white/60"
+              aria-hidden="true"
+            >
+              <path d="M12 5v14M5 12l7 7 7-7" />
+            </svg>
+          </div>
+        </div>
       </div>
     </section>
   )
