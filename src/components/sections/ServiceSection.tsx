@@ -26,6 +26,21 @@ const GOD_VIDEOS: Record<string, string> = {
 
 const GOD_VIDEO_FALLBACK = '/videos/gods/webm/godess1-boomerang.webm'
 
+const GOD_CAPTIONS: Record<string, { ka: string; en: string }> = {
+  longevity: {
+    ka: 'ასკლეპიოსი, მკურნალობის ღმერთი',
+    en: 'Asclepius, god of medicine',
+  },
+  metabolic: {
+    ka: 'ჰიგიეია, ჯანმრთელობის ქალღმერთი',
+    en: 'Hygieia, goddess of health',
+  },
+  performance: {
+    ka: 'დისკოსმტყორცნელი, კლასიკური ათლეტური იდეალი',
+    en: 'Discobolus, the classical athletic ideal',
+  },
+}
+
 function ServiceIcon({ icon }: { icon: string | null }) {
   const path = icon ? (ICON_PATHS[icon] ?? ICON_PATHS.dna) : ICON_PATHS.dna
   return (
@@ -35,8 +50,9 @@ function ServiceIcon({ icon }: { icon: string | null }) {
   )
 }
 
-function GodVideoPanel({ slug }: { slug: string }) {
+function GodVideoPanel({ slug, locale }: { slug: string; locale: Locale }) {
   const videoSrc = GOD_VIDEOS[slug] ?? GOD_VIDEO_FALLBACK
+  const caption = GOD_CAPTIONS[slug]?.[locale]
   return (
     <div className="relative w-full aspect-[4/5] overflow-hidden rounded-sm bg-dark-brown/10 group">
       <video
@@ -50,13 +66,18 @@ function GodVideoPanel({ slug }: { slug: string }) {
       >
         <source src={videoSrc} type="video/webm" />
       </video>
-      <div className="absolute inset-0 bg-gradient-to-t from-dark-brown/50 via-dark-brown/10 to-dark-brown/20 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-dark-brown/60 via-dark-brown/10 to-dark-brown/20 pointer-events-none" />
+      {caption && (
+        <p className="absolute bottom-4 left-5 right-5 z-10 text-xs md:text-sm italic font-serif text-bone-white/90 tracking-wide pointer-events-none drop-shadow-md">
+          {caption}
+        </p>
+      )}
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-burnt-orange/60 to-transparent" />
     </div>
   )
 }
 
-function ServiceImage({ src, alt, slug, icon }: { src: string; alt: string; slug: string; icon: string | null }) {
+function ServiceImage({ src, alt, slug, icon, locale }: { src: string; alt: string; slug: string; icon: string | null; locale: Locale }) {
   const staticSrc = `/images/services/${slug}.jpg`
   const [currentSrc, setCurrentSrc] = useState(src || staticSrc)
   const [errored, setErrored] = useState(false)
@@ -70,7 +91,7 @@ function ServiceImage({ src, alt, slug, icon }: { src: string; alt: string; slug
   }
 
   if (errored) {
-    return <GodVideoPanel slug={slug} />
+    return <GodVideoPanel slug={slug} locale={locale} />
   }
 
   return (
@@ -192,6 +213,7 @@ export function ServiceSection({ locale, service, index }: ServiceSectionProps) 
                   alt={title ?? ''}
                   slug={service.slug}
                   icon={service.icon}
+                  locale={locale}
                 />
                 <div className="absolute top-4 right-4 z-20 bg-bone-white/90 backdrop-blur-sm border border-dark-brown/10 rounded-sm px-3 py-1.5 flex items-center gap-2 shadow-sm">
                   <span className="text-burnt-orange">
