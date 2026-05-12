@@ -45,9 +45,10 @@ const slugImages: Record<string, string> = {
 }
 
 function getCoverImage(post: BlogPost, locale: Locale): string {
-  if (post.coverImage?.asset?.url) return post.coverImage.asset.url
   const slug = post.slug ?? ''
+  // Curated local overrides take precedence over Sanity's coverImage
   if (slug && slugImages[slug]) return slugImages[slug]
+  if (post.coverImage?.asset?.url) return post.coverImage.asset.url
   const cat = locale === 'ka' ? post.category_ka : post.category_en
   if (cat && fallbackImages[cat]) return fallbackImages[cat]
   // also check the other locale's category in case only one is set
