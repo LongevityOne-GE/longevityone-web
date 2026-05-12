@@ -40,6 +40,7 @@ const defaultFallbackImage =
 
 const slugImages: Record<string, string> = {
   'biological-age-vs-chronological-age': '/images/blog images/age.png',
+  'why-traditional-diets-dont-work': '/images/blog images/diets.png',
 }
 
 function getCoverImage(post: BlogPost, locale: Locale): string {
