@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
-import { sanityClient, aboutPageQuery } from '@/lib/sanity'
-import type { AboutPage as AboutPageData } from '@/lib/sanity/types'
+import { sanityClient, aboutPageQuery, aboutTeamQuery } from '@/lib/sanity'
+import type { AboutPage as AboutPageData, TeamMember } from '@/lib/sanity/types'
 import { AboutPage } from '@/components/pages/AboutPage'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -17,11 +17,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function EnAboutPage() {
-  const data = await sanityClient.fetch<AboutPageData>(
-    aboutPageQuery,
-    {},
-    { next: { tags: ['sanity'] } }
-  )
+  const [data, team] = await Promise.all([
+    sanityClient.fetch<AboutPageData>(aboutPageQuery, {}, { next: { tags: ['sanity'] } }),
+    sanityClient.fetch<TeamMember[]>(aboutTeamQuery, {}, { next: { tags: ['sanity'] } }),
+  ])
 
-  return <AboutPage locale="en" data={data} />
+  return <AboutPage locale="en" data={data} team={team ?? []} />
 }

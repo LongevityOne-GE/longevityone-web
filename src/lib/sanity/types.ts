@@ -382,8 +382,11 @@ export interface TeamMember {
   role_en: string | null
   specialty_ka: string | null
   specialty_en: string | null
+  tagline_ka: string | null
+  tagline_en: string | null
   bio_ka: string | null
   bio_en: string | null
+  isFounder?: boolean | null
   photo: SanityImage | null
   credentials: string[] | null
 }

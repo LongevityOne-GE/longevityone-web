@@ -43,6 +43,20 @@ export const teamMember = defineType({
       description: 'e.g. Preventive Medicine',
     }),
     defineField({
+      name: 'tagline_ka',
+      title: 'Tagline (Georgian)',
+      type: 'text',
+      rows: 2,
+      description: 'Short editorial line, shown large in italic serif.',
+    }),
+    defineField({
+      name: 'tagline_en',
+      title: 'Tagline (English)',
+      type: 'text',
+      rows: 2,
+      description: 'Short editorial line, shown large in italic serif.',
+    }),
+    defineField({
       name: 'bio_ka',
       title: 'Bio (Georgian)',
       type: 'array',
