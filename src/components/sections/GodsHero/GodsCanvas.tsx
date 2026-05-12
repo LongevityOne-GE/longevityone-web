@@ -75,7 +75,7 @@ export function GodsCanvas() {
         ref={stickyRef}
         className="sticky top-0 h-screen w-full overflow-hidden bg-bone-white"
         role="img"
-        aria-label="LongevityOne — Greek gods and goddesses representing health, longevity, athletic performance and medical precision"
+        aria-label="Longevity One — Greek gods and goddesses representing health, longevity, athletic performance and medical precision"
       >
         {/* Monogram watermark */}
         <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">

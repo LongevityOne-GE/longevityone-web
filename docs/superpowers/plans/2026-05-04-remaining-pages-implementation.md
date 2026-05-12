@@ -1,4 +1,4 @@
-# LongevityOne — Remaining Pages Implementation Plan
+# Longevity One — Remaining Pages Implementation Plan
 
 **Date:** 2026-05-04  
 **Spec:** `docs/superpowers/specs/2026-05-04-remaining-pages-design.md`  

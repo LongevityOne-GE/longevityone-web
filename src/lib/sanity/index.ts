@@ -6,7 +6,7 @@ export * from './types'
 
 // ─── Schema registry (imported by sanity.config.ts) ──────────────────────────
 /**
- * LongevityOne — Sanity Schema Index
+ * Longevity One — Sanity Schema Index
  *
  * Register all schemas here. Import this in sanity.config.ts:
  *
