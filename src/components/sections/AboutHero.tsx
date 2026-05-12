@@ -1,14 +1,16 @@
 'use client'
 
-/**
- * Full-bleed cinematic intro video for the About page.
- *
- * Plays through once and rests on the final frame (the baked-in
- * "Longevity One — The Art of Living Longer" logo card). No loop —
- * the film has a clear narrative arc, so the last frame is the
- * intended resting state.
- */
+import { useEffect, useRef } from 'react'
+
 export function AboutHero() {
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 2
+    }
+  }, [])
+
   return (
     <section
       className="relative w-full overflow-hidden bg-dark-brown"
@@ -16,6 +18,7 @@ export function AboutHero() {
     >
       <div className="relative aspect-video w-full max-h-[100vh]">
         <video
+          ref={videoRef}
           autoPlay
           muted
           playsInline
