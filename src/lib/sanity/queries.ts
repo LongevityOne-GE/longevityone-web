@@ -214,6 +214,22 @@ export const journeyPageQuery = groq`
   }
 `
 
+// ─── Team (used by About page) ────────────────────────────────────────────────
+// Filter by defined(tagline_ka) so legacy placeholder docs without taglines
+// are excluded — only fully populated, current team members appear here.
+export const aboutTeamQuery = groq`
+  *[_type == "teamMember" && defined(tagline_ka)] | order(isFounder desc, order asc) {
+    _id, name, name_en,
+    role_ka, role_en,
+    specialty_ka, specialty_en,
+    tagline_ka, tagline_en,
+    bio_ka, bio_en,
+    isFounder,
+    photo { asset->{ url, metadata { lqip, dimensions } } },
+    credentials,
+  }
+`
+
 // ─── Team Page ────────────────────────────────────────────────────────────────
 export const teamPageQuery = groq`
   {
@@ -228,6 +244,7 @@ export const teamPageQuery = groq`
       _id, name, name_en,
       role_ka, role_en,
       specialty_ka, specialty_en,
+      tagline_ka, tagline_en,
       bio_ka, bio_en,
       photo { asset->{ url, metadata { lqip, dimensions } } },
       credentials,
@@ -236,6 +253,7 @@ export const teamPageQuery = groq`
       _id, name, name_en,
       role_ka, role_en,
       specialty_ka, specialty_en,
+      tagline_ka, tagline_en,
       bio_ka, bio_en,
       photo { asset->{ url, metadata { lqip, dimensions } } },
       credentials,
