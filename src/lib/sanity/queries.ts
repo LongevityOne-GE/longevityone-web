@@ -79,6 +79,32 @@ export const servicesQuery = groq`
   }
 `
 
+export const servicesFullQuery = groq`
+  *[_type == "service"] | order(order asc) {
+    _id, "slug": slug.current,
+    title_ka, title_en,
+    summary_ka, summary_en,
+    intro_ka, intro_en,
+    body_ka, body_en,
+    differentiator_ka, differentiator_en,
+    targetAudience_ka, targetAudience_en,
+    heroImage { asset->{ url, metadata { lqip, dimensions } } },
+    icon,
+    technologies[]-> {
+      name, "slug": slug.current,
+      tagline_ka, tagline_en,
+      heroImage { asset->{ url } },
+    },
+    relatedPackages[]-> {
+      _id, name_ka, name_en,
+      price, priceLabel_ka, priceLabel_en,
+      category,
+    },
+    seo_title_ka, seo_title_en,
+    seo_description_ka, seo_description_en,
+  }
+`
+
 export const serviceBySlugQuery = groq`
   *[_type == "service" && slug.current == $slug][0] {
     _id, "slug": slug.current,
