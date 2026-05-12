@@ -9,7 +9,7 @@
 ## Project Identity
 
 **Display name:** Longevity One
-**Georgian logo name:** ლონჯევითი უან (logo assets only — never in body copy)
+**Georgian logo name:** Longevity One (logo assets only — never in body copy)
 **Domain:** www.longevityone.ge
 **Location:** Tbilisi, Georgia
 **Tagline (en):** The Art of Living Longer

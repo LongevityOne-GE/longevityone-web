@@ -10,13 +10,15 @@ export const aboutPage = defineType({
     defineField({
       name: 'h1_ka',
       title: 'H1 (Georgian)',
-      type: 'string',
+      type: 'text',
+      rows: 3,
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'h1_en',
       title: 'H1 (English)',
-      type: 'string',
+      type: 'text',
+      rows: 3,
     }),
     defineField({
       name: 'philosophy_ka',

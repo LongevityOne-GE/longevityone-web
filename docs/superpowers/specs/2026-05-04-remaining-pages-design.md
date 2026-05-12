@@ -1,4 +1,4 @@
-# LongevityOne — Remaining Pages Design Spec
+# Longevity One — Remaining Pages Design Spec
 
 **Date:** 2026-05-04  
 **Status:** Approved  

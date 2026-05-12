@@ -1,4 +1,4 @@
-# LongevityOne — Brand Guidelines for Claude Code
+# Longevity One — Brand Guidelines for Claude Code
 
 > Source of truth: Visual Identity Guidelines.pdf in project files
 > Claude Code must follow these rules on every component it creates

@@ -368,8 +368,8 @@ export default function App() {
           <p className="text-burnt-orange uppercase tracking-[0.3em] font-bold text-xs mb-6">
             {lang === "KA" ? "სამი მიმართულება. ერთი მიზანი." : "THREE PILLARS. ONE PURPOSE."}
           </p>
-          <h2 className="text-4xl md:text-6xl font-black mb-24 font-serif">
-            {lang === "KA" ? "სამი საყრდენი. ერთი მიზანი." : "Three Pillars. One Purpose."}
+          <h2 className="text-4xl md:text-6xl font-black mb-24 font-serif whitespace-pre-line">
+            {lang === "KA" ? "სამი საყრდენი\nერთი მიზანი" : "Three Pillars\nOne Purpose"}
           </h2>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 text-left">

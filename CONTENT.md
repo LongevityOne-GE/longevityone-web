@@ -71,7 +71,7 @@ Legal
 **H1 (ka):** მართეთ თქვენი ბიოლოგიური დრო.
 **H1 (en):** Master Your Biological Time.
 
-**H2 (ka):** ᲚᲝᲜᲯᲔᲕᲘᲗᲘ ᲣᲐᲜ — პრევენციული მედიცინის ცენტრი, სადაც სამეცნიერო სიზუსტე შეხვდება დღეგრძელობის ხელოვნებას.
+**H2 (ka):** Longevity One — პრევენციული მედიცინის ცენტრი, სადაც სამეცნიერო სიზუსტე შეხვდება დღეგრძელობის ხელოვნებას.
 **H2 (en):** Longevity One — a preventive medicine centre where scientific precision meets the art of longevity.
 
 **Body (ka):** ჩვენი მიზანია არა მხოლოდ დაავადების არარსებობა, არამედ ადამიანის ბიოლოგიური პოტენციალის მაქსიმიზაცია — ზუსტ მონაცემებსა და მეცნიერებაზე დაყრდნობით.
@@ -113,8 +113,8 @@ Legal
 
 ### Service Pillars
 
-**Section heading (ka):** სამი მიმართულება. ერთი მიზანი.
-**Section heading (en):** Three Pillars. One Purpose.
+**Section heading (ka):** სამი მიმართულება / ერთი მიზანი _(rendered on two lines)_
+**Section heading (en):** Three Pillars / One Purpose _(rendered on two lines)_
 
 **Pillar 1 — დღეგრძელობა / Longevity**
 - Title (ka): დღეგრძელობა | Title (en): Longevity
@@ -199,8 +199,8 @@ Legal
 
 ### Final CTA — Homepage
 
-**Heading (ka):** შეწყვიტეთ ვარაუდი. დაიწყეთ გაზომვა.
-**Heading (en):** Stop Guessing. Start Measuring.
+**Heading (ka):** შეწყვიტეთ ვარაუდი / დაიწყეთ გაზომვა _(rendered on two lines)_
+**Heading (en):** Stop Guessing / Start Measuring _(rendered on two lines)_
 
 **Subtext (ka):** დაჯავშნეთ პირველი კონსულტაცია და მიიღეთ სრული ბიოლოგიური შეფასება.
 **Subtext (en):** Book your initial consultation and receive a complete biological assessment.
@@ -212,10 +212,10 @@ Legal
 
 ## ABOUT / PHILOSOPHY (/about)
 
-**H1 (ka):** ერთი მეცნიერება. ერთი ჯანმრთელობა. ერთი მომავალი.
-**H1 (en):** One Science. One Health. One Future.
+**H1 (ka):** ერთი მეცნიერება / ერთი ჯანმრთელობა / ერთი მომავალი _(rendered on three lines)_
+**H1 (en):** One Science / One Health / One Future _(rendered on three lines)_
 
-**Philosophy (ka):** ᲚᲝᲜᲯᲔᲕᲘᲗᲘ ᲣᲐᲜ არის ინოვაციური პრევენციული მედიცინის ცენტრი, რომელიც სცილდება ტრადიციული მედიცინის ჩარჩოებს. ჩვენი მიზანია ადამიანის ბიოლოგიური პოტენციალის მაქსიმიზაცია — ზუსტი მონაცემებისა და სამეცნიერო მიდგომის საფუძველზე.
+**Philosophy (ka):** Longevity One არის ინოვაციური პრევენციული მედიცინის ცენტრი, რომელიც სცილდება ტრადიციული მედიცინის ჩარჩოებს. ჩვენი მიზანია ადამიანის ბიოლოგიური პოტენციალის მაქსიმიზაცია — ზუსტი მონაცემებისა და სამეცნიერო მიდგომის საფუძველზე.
 **Philosophy (en):** Longevity One is an innovative preventive medicine centre that steps beyond the boundaries of traditional medicine. Our aim is the maximisation of human biological potential — grounded in precise data and a rigorous scientific approach.
 
 **Why Longevity One — 3 pillars:**
@@ -238,11 +238,11 @@ The choice of field was clear. Longevity medicine — preventive, data-driven, d
 They founded Longevity One on a single conviction: medicine should not stop at the absence of disease. Its true purpose is to help people live not just longer — but better.
 
 **Georgian:**
-ᲚᲝᲜᲯᲔᲕᲘᲗᲘ ᲣᲐᲜ ხუთი ქართველი ექიმის მიერ დაარსდა, რომელთაც სამედიცინო უნივერსიტეტიდან მოყოლებული მრავალწლიანი მეგობრობა აკავშირებთ. თითოეულმა მათგანმა გამორჩეული კარიერა შექმნა — ზოგმა საქართველოში, ზოგმა კი საზღვარგარეთ — თუმცა წლების განმავლობაში მათ ერთი საერთო მიზანი აერთიანებდათ: საკუთარი ცოდნის სამშობლოში დაბრუნება და ადამიანების ჯანმრთელობაზე ნამდვილი, გრძელვადიანი გავლენის მოხდენა.
+Longevity One ხუთი ქართველი ექიმის მიერ დაარსდა, რომელთაც სამედიცინო უნივერსიტეტიდან მოყოლებული მრავალწლიანი მეგობრობა აკავშირებთ. თითოეულმა მათგანმა გამორჩეული კარიერა შექმნა — ზოგმა საქართველოში, ზოგმა კი საზღვარგარეთ — თუმცა წლების განმავლობაში მათ ერთი საერთო მიზანი აერთიანებდათ: საკუთარი ცოდნის სამშობლოში დაბრუნება და ადამიანების ჯანმრთელობაზე ნამდვილი, გრძელვადიანი გავლენის მოხდენა.
 
 სამუშაო სფეროს არჩევანი ბუნებრივი იყო. სიცოცხლის ხანგრძლივობის მედიცინა — პრევენციული, მონაცემებზე დაფუძნებული და პერსონალიზებული — სწორედ ის მიმართულება აღმოჩნდა, რომლის ნაკლებობასაც საქართველო განიცდიდა. მეცნიერება და ტექნოლოგია უკვე არსებობდა, ჩვენი მისია კი ამ ყველაფრისთვის რეალური ფორმის მიცემა და მისი ქვეყანაში დანერგვა გახდა.
 
-ᲚᲝᲜᲯᲔᲕᲘᲗᲘ ᲣᲐᲜ ერთი ურყევი რწმენით შეიქმნა: მედიცინა მხოლოდ დაავადების არარსებობით არ უნდა შემოიფარგლებოდეს. მისი ჭეშმარიტი დანიშნულებაა, დაეხმაროს ადამიანს იცხოვროს არა მხოლოდ უფრო დიდხანს — არამედ უკეთესად.
+Longevity One ერთი ურყევი რწმენით შეიქმნა: მედიცინა მხოლოდ დაავადების არარსებობით არ უნდა შემოიფარგლებოდეს. მისი ჭეშმარიტი დანიშნულებაა, დაეხმაროს ადამიანს იცხოვროს არა მხოლოდ უფრო დიდხანს — არამედ უკეთესად.
 
 ---
 
@@ -287,7 +287,7 @@ They founded Longevity One on a single conviction: medicine should not stop at t
 **Intro (ka):** ფიზიკური შესაძლებლობების პიკი და სწრაფი აღდგენა — მეცნიერული უპირატესობით.
 **Intro (en):** Peak physical capability and accelerated recovery, backed by science.
 
-**Full body (ka):** ᲚᲝᲜᲯᲔᲕᲘᲗᲘ ᲣᲐᲜ-ის Elite Performance პროგრამა გთავაზობთ მეცნიერულ უპირატესობას — პროფესიონალი სპორტსმენისთვის და მაღალი ეფექტიანობის მქონე ლიდერისთვის. IHHT თერაპია ქმნის „მაღალმთიანი შეკრების" ეფექტს თბილისში, განაახლებს მიტოქონდრიებს და ზრდის ენერგეტიკულ გამომავლობას. Red Light თერაპია კი უზრუნველყოფს კუნთოვანი ქსოვილის სწრაფ რეგენერაციას ფიზიკური დატვირთვის შემდეგ. PNOE-ს VO₂ Max ტესტი გვიჩვენებს თქვენს ზუსტ ფიზიკურ პოტენციალს — და სად არის ზრდის ყველაზე დიდი რეზერვი.
+**Full body (ka):** Longevity One-ის Elite Performance პროგრამა გთავაზობთ მეცნიერულ უპირატესობას — პროფესიონალი სპორტსმენისთვის და მაღალი ეფექტიანობის მქონე ლიდერისთვის. IHHT თერაპია ქმნის „მაღალმთიანი შეკრების" ეფექტს თბილისში, განაახლებს მიტოქონდრიებს და ზრდის ენერგეტიკულ გამომავლობას. Red Light თერაპია კი უზრუნველყოფს კუნთოვანი ქსოვილის სწრაფ რეგენერაციას ფიზიკური დატვირთვის შემდეგ. PNOE-ს VO₂ Max ტესტი გვიჩვენებს თქვენს ზუსტ ფიზიკურ პოტენციალს — და სად არის ზრდის ყველაზე დიდი რეზერვი.
 **Full body (en):** Longevity One's Elite Performance programme delivers a scientific edge for professional athletes and high-performing leaders alike. IHHT creates an altitude training effect in Tbilisi, renewing mitochondria and boosting energy output. Red Light therapy ensures rapid muscle tissue regeneration post-exertion. PNOE VO₂ Max testing reveals your precise physical potential — and where the greatest room for growth lies.
 
 **Technologies used:** PNOE (VO₂ Max), IHHT, Red Light Therapy

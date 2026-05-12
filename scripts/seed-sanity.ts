@@ -1,5 +1,5 @@
 /**
- * Sanity CMS Seed Script for LongevityOne
+ * Sanity CMS Seed Script for Longevity One
  * 
  * Populates all 21 pages worth of content from CONTENT.md into Sanity CMS.
  * 
@@ -128,7 +128,7 @@ const siteSettingsDoc = {
   footer_copyright_en: '© 2026 Longevity One. All rights reserved.',
   default_seo_title_ka: 'Longevity One — პრევენციული მედიცინის ცენტრი',
   default_seo_title_en: 'Longevity One — Preventive Medicine Centre',
-  default_seo_description_ka: 'ᲚᲝᲜᲯᲔᲕᲘᲗᲘ ᲣᲐᲜ — პრევენციული მედიცინის ცენტრი, სადაც სამეცნიერო სიზუსტე შეხვდება დღეგრძელობის ხელოვნებას.',
+  default_seo_description_ka: 'Longevity One — პრევენციული მედიცინის ცენტრი, სადაც სამეცნიერო სიზუსტე შეხვდება დღეგრძელობის ხელოვნებას.',
   default_seo_description_en: 'Longevity One — a preventive medicine centre where scientific precision meets the art of longevity.',
 }
 
@@ -140,7 +140,7 @@ const homePageDoc = {
   hero_slogan_en: 'The Art of Living Longer',
   hero_h1_ka: 'მართეთ თქვენი ბიოლოგიური დრო.',
   hero_h1_en: 'Master Your Biological Time.',
-  hero_h2_ka: 'ᲚᲝᲜᲯᲔᲕᲘᲗᲘ ᲣᲐᲜ — პრევენციული მედიცინის ცენტრი, სადაც სამეცნიერო სიზუსტე შეხვდება დღეგრძელობის ხელოვნებას.',
+  hero_h2_ka: 'Longevity One — პრევენციული მედიცინის ცენტრი, სადაც სამეცნიერო სიზუსტე შეხვდება დღეგრძელობის ხელოვნებას.',
   hero_h2_en: 'Longevity One — a preventive medicine centre where scientific precision meets the art of longevity.',
   hero_body_ka: 'ჩვენი მიზანია არა მხოლოდ დაავადების არარსებობა, არამედ ადამიანის ბიოლოგიური პოტენციალის მაქსიმიზაცია — ზუსტ მონაცემებსა და მეცნიერებაზე დაყრდნობით.',
   hero_body_en: 'Our goal is not merely the absence of disease, but the maximisation of human biological potential — grounded in precise data and science.',
@@ -184,8 +184,8 @@ const homePageDoc = {
       body_en: 'Our experts regularly assess your progress and refine the strategy — for continuous, measurable improvement.',
     },
   ],
-  pillars_heading_ka: 'სამი მიმართულება. ერთი მიზანი.',
-  pillars_heading_en: 'Three Pillars. One Purpose.',
+  pillars_heading_ka: 'სამი მიმართულება\nერთი მიზანი',
+  pillars_heading_en: 'Three Pillars\nOne Purpose',
   tech_heading_ka: 'ინოვაციური დიაგნოსტიკა — სიზუსტის ხელოვნება',
   tech_heading_en: 'The Science Behind the Results',
   tech_intro_ka: 'ოპტიმიზაციის დაწყებამდე ჩვენ ზუსტად ვზომავთ თქვენს ბიოლოგიურ საწყის მდგომარეობას — მსოფლიოს წამყვანი ტექნოლოგიებით.',
@@ -200,8 +200,8 @@ const homePageDoc = {
   team_heading_en: 'Your Longevity Team',
   team_subtext_ka: 'ხუთი ექიმი. ერთი საერთო ხედვა. საქართველოსა და საერთაშორისო სცენაზე დაგროვილი გამოცდილება — გაერთიანებული ქვეყნის პირველი სპეციალიზებული დღეგრძელობის კლინიკის შესაქმნელად.',
   team_subtext_en: "Five physicians. One shared vision. Years of combined experience across Georgia and internationally — brought together to build the country's first dedicated longevity clinic.",
-  cta_heading_ka: 'შეწყვიტეთ ვარაუდი. დაიწყეთ გაზომვა.',
-  cta_heading_en: 'Stop Guessing. Start Measuring.',
+  cta_heading_ka: 'შეწყვიტეთ ვარაუდი\nდაიწყეთ გაზომვა',
+  cta_heading_en: 'Stop Guessing\nStart Measuring',
   cta_subtext_ka: 'დაჯავშნეთ პირველი კონსულტაცია და მიიღეთ სრული ბიოლოგიური შეფასება.',
   cta_subtext_en: 'Book your initial consultation and receive a complete biological assessment.',
   cta_button_ka: 'კონსულტაციის დაჯავშნა',
@@ -212,9 +212,9 @@ const homePageDoc = {
 const aboutPageDoc = {
   _type: 'aboutPage',
   _id: 'aboutPage-singleton',
-  h1_ka: 'ერთი მეცნიერება. ერთი ჯანმრთელობა. ერთი მომავალი.',
-  h1_en: 'One Science. One Health. One Future.',
-  philosophy_ka: 'ᲚᲝᲜᲯᲔᲕᲘᲗᲘ ᲣᲐᲜ არის ინოვაციური პრევენციული მედიცინის ცენტრი, რომელიც სცილდება ტრადიციული მედიცინის ჩარჩოებს. ჩვენი მიზანია ადამიანის ბიოლოგიური პოტენციალის მაქსიმიზაცია — ზუსტი მონაცემებისა და სამეცნიერო მიდგომის საფუძველზე.',
+  h1_ka: 'ერთი მეცნიერება\nერთი ჯანმრთელობა\nერთი მომავალი',
+  h1_en: 'One Science\nOne Health\nOne Future',
+  philosophy_ka: 'Longevity One არის ინოვაციური პრევენციული მედიცინის ცენტრი, რომელიც სცილდება ტრადიციული მედიცინის ჩარჩოებს. ჩვენი მიზანია ადამიანის ბიოლოგიური პოტენციალის მაქსიმიზაცია — ზუსტი მონაცემებისა და სამეცნიერო მიდგომის საფუძველზე.',
   philosophy_en: 'Longevity One is an innovative preventive medicine centre that steps beyond the boundaries of traditional medicine. Our aim is the maximisation of human biological potential — grounded in precise data and a rigorous scientific approach.',
   why_pillars: [
     {
@@ -241,11 +241,11 @@ const aboutPageDoc = {
   ],
   founding_story_heading_ka: 'დაარსების ისტორია',
   founding_story_heading_en: 'Our Story',
-  founding_story_ka: textToPortableText(`ᲚᲝᲜᲯᲔᲕᲘᲗᲘ ᲣᲐᲜ ხუთი ქართველი ექიმის მიერ დაარსდა, რომელთაც სამედიცინო უნივერსიტეტიდან მოყოლებული მრავალწლიანი მეგობრობა აკავშირებთ. თითოეულმა მათგანმა გამორჩეული კარიერა შექმნა — ზოგმა საქართველოში, ზოგმა კი საზღვარგარეთ — თუმცა წლების განმავლობაში მათ ერთი საერთო მიზანი აერთიანებდათ: საკუთარი ცოდნის სამშობლოში დაბრუნება და ადამიანების ჯანმრთელობაზე ნამდვილი, გრძელვადიანი გავლენის მოხდენა.
+  founding_story_ka: textToPortableText(`Longevity One ხუთი ქართველი ექიმის მიერ დაარსდა, რომელთაც სამედიცინო უნივერსიტეტიდან მოყოლებული მრავალწლიანი მეგობრობა აკავშირებთ. თითოეულმა მათგანმა გამორჩეული კარიერა შექმნა — ზოგმა საქართველოში, ზოგმა კი საზღვარგარეთ — თუმცა წლების განმავლობაში მათ ერთი საერთო მიზანი აერთიანებდათ: საკუთარი ცოდნის სამშობლოში დაბრუნება და ადამიანების ჯანმრთელობაზე ნამდვილი, გრძელვადიანი გავლენის მოხდენა.
 
 სამუშაო სფეროს არჩევანი ბუნებრივი იყო. სიცოცხლის ხანგრძლივობის მედიცინა — პრევენციული, მონაცემებზე დაფუძნებული და პერსონალიზებული — სწორედ ის მიმართულება აღმოჩნდა, რომლის ნაკლებობასაც საქართველო განიცდიდა. მეცნიერება და ტექნოლოგია უკვე არსებობდა, ჩვენი მისია კი ამ ყველაფრისთვის რეალური ფორმის მიცემა და მისი ქვეყანაში დანერგვა გახდა.
 
-ᲚᲝᲜᲯᲔᲕᲘᲗᲘ ᲣᲐᲜ ერთი ურყევი რწმენით შეიქმნა: მედიცინა მხოლოდ დაავადების არარსებობით არ უნდა შემოიფარგლებოდეს. მისი ჭეშმარიტი დანიშნულებაა, დაეხმაროს ადამიანს იცხოვროს არა მხოლოდ უფრო დიდხანს — არამედ უკეთესად.`),
+Longevity One ერთი ურყევი რწმენით შეიქმნა: მედიცინა მხოლოდ დაავადების არარსებობით არ უნდა შემოიფარგლებოდეს. მისი ჭეშმარიტი დანიშნულებაა, დაეხმაროს ადამიანს იცხოვროს არა მხოლოდ უფრო დიდხანს — არამედ უკეთესად.`),
   founding_story_en: textToPortableText(`Longevity One was founded by five Georgian physicians who have been close friends since medical school. Each built a distinguished career — some in Georgia, some abroad — and for years they shared one ambition: to bring their collective expertise home and make a genuine, lasting contribution to people's health in their country.
 
 The choice of field was clear. Longevity medicine — preventive, data-driven, deeply personalised — was a discipline Georgia simply lacked. The science existed. The technology existed. The commitment to build something real around it did too.
@@ -370,7 +370,7 @@ const serviceDocs = [
     intro_en: 'Peak physical capability and accelerated recovery, backed by science.',
     targetAudience_ka: 'პროფესიონალი სპორტსმენები (რაგბი, ჭიდაობა, ფეხბურთი), სპორტული ფედერაციები, ოლიმპიური რეზერვი, მაღალი ეფექტიანობის მქონე აღმასრულებლები',
     targetAudience_en: 'Professional athletes (rugby, wrestling, football), sports federations, Olympic reserves, high-performing executives',
-    body_ka: textToPortableText('ᲚᲝᲜᲯᲔᲕᲘᲗᲘ ᲣᲐᲜ-ის Elite Performance პროგრამა გთავაზობთ მეცნიერულ უპირატესობას — პროფესიონალი სპორტსმენისთვის და მაღალი ეფექტიანობის მქონე ლიდერისთვის. IHHT თერაპია ქმნის „მაღალმთიანი შეკრების" ეფექტს თბილისში, განაახლებს მიტოქონდრიებს და ზრდის ენერგეტიკულ გამომავლობას. Red Light თერაპია კი უზრუნველყოფს კუნთოვანი ქსოვილის სწრაფ რეგენერაციას ფიზიკური დატვირთვის შემდეგ. PNOE-ს VO₂ Max ტესტი გვიჩვენებს თქვენს ზუსტ ფიზიკურ პოტენციალს — და სად არის ზრდის ყველაზე დიდი რეზერვი.'),
+    body_ka: textToPortableText('Longevity One-ის Elite Performance პროგრამა გთავაზობთ მეცნიერულ უპირატესობას — პროფესიონალი სპორტსმენისთვის და მაღალი ეფექტიანობის მქონე ლიდერისთვის. IHHT თერაპია ქმნის „მაღალმთიანი შეკრების" ეფექტს თბილისში, განაახლებს მიტოქონდრიებს და ზრდის ენერგეტიკულ გამომავლობას. Red Light თერაპია კი უზრუნველყოფს კუნთოვანი ქსოვილის სწრაფ რეგენერაციას ფიზიკური დატვირთვის შემდეგ. PNOE-ს VO₂ Max ტესტი გვიჩვენებს თქვენს ზუსტ ფიზიკურ პოტენციალს — და სად არის ზრდის ყველაზე დიდი რეზერვი.'),
     body_en: textToPortableText("Longevity One's Elite Performance programme delivers a scientific edge for professional athletes and high-performing leaders alike. IHHT creates an altitude training effect in Tbilisi, renewing mitochondria and boosting energy output. Red Light therapy ensures rapid muscle tissue regeneration post-exertion. PNOE VO₂ Max testing reveals your precise physical potential — and where the greatest room for growth lies."),
     icon: 'zap',
     order: 3,

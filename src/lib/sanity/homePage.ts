@@ -125,12 +125,14 @@ export const homePage = defineType({
     defineField({
       name: 'pillars_heading_ka',
       title: 'Service Pillars Heading (Georgian)',
-      type: 'string',
+      type: 'text',
+      rows: 2,
     }),
     defineField({
       name: 'pillars_heading_en',
       title: 'Service Pillars Heading (English)',
-      type: 'string',
+      type: 'text',
+      rows: 2,
     }),
 
     // ─── Technology Showcase ──────────────────────────────────────────────────
@@ -221,12 +223,14 @@ export const homePage = defineType({
     defineField({
       name: 'cta_heading_ka',
       title: 'Final CTA Heading (Georgian)',
-      type: 'string',
+      type: 'text',
+      rows: 2,
     }),
     defineField({
       name: 'cta_heading_en',
       title: 'Final CTA Heading (English)',
-      type: 'string',
+      type: 'text',
+      rows: 2,
     }),
     defineField({
       name: 'cta_subtext_ka',
