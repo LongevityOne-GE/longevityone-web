@@ -68,8 +68,8 @@ Legal
 **Slogan (ka):** დღეგრძელობის ხელოვნება
 **Slogan (en):** The Art of Living Longer
 
-**H1 (ka):** მართეთ თქვენი ბიოლოგიური დრო.
-**H1 (en):** Master Your Biological Time.
+**H1 (ka):** მართეთ თქვენი ბიოლოგიური დრო
+**H1 (en):** Master Your Biological Time
 
 **H2 (ka):** Longevity One — პრევენციული მედიცინის ცენტრი, სადაც სამეცნიერო სიზუსტე შეხვდება დღეგრძელობის ხელოვნებას.
 **H2 (en):** Longevity One — a preventive medicine centre where scientific precision meets the art of longevity.
