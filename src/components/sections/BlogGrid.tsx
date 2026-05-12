@@ -137,11 +137,11 @@ export function BlogGrid({ locale, posts }: BlogGridProps) {
                   href={`${locale === 'en' ? '/en' : ''}/blog/${post.slug}`}
                   className="group block"
                 >
-                  <div className="rounded-lg overflow-hidden bg-dark-brown/5 mb-5">
+                  <div className="rounded-lg overflow-hidden bg-dark-brown/5 mb-5 aspect-[16/9]">
                     <img
                       src={getCoverImage(post, locale)}
                       alt={locale === 'ka' ? post.title_ka || '' : post.title_en || ''}
-                      className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-700"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                   </div>
                   {getCategoryLabel(locale === 'ka' ? post.category_ka : post.category_en, locale) && (
