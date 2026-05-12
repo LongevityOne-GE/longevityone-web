@@ -3,6 +3,7 @@
 import type { Locale } from '@/lib/utils'
 import type { AboutPage as AboutPageData } from '@/lib/sanity/types'
 import { PageHero } from '@/components/shared/PageHero'
+import { AboutHero } from '@/components/sections/AboutHero'
 import { WhyPillars } from '@/components/sections/WhyPillars'
 import { FoundingStory } from '@/components/sections/FoundingStory'
 
@@ -20,6 +21,7 @@ export function AboutPage({ locale, data }: AboutPageProps) {
 
   return (
     <main className="flex flex-col">
+      <AboutHero />
       <PageHero
         locale={locale}
         title={title || (locale === 'ka' ? 'ჩვენს შესახებ' : 'About Us')}
