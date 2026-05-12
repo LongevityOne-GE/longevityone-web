@@ -265,7 +265,7 @@ const corporatePageDoc = {
     {
       _key: 'prog-1',
       number: 1,
-      title_ka: 'Executive Longevity',
+      title_ka: 'აღმასრულებლების დღეგრძელობა',
       title_en: 'Executive Longevity',
       body_ka: 'C-level მენეჯერებისთვის — ენერგიის მართვისა და გონებრივი სიცხადის სპეციალიზებული პროგრამები.',
       body_en: 'Advanced energy management and mental clarity programmes tailored for C-level leadership.',
@@ -274,7 +274,7 @@ const corporatePageDoc = {
     {
       _key: 'prog-2',
       number: 2,
-      title_ka: 'Health & Productivity',
+      title_ka: 'ჯანმრთელობა და პროდუქტიულობა',
       title_en: 'Health & Productivity',
       body_ka: 'გუნდური მეტაბოლური აუდიტი პროფესიული გადაღლის რისკების შემცირებისა და შრომისუნარიანობის გაზრდისთვის.',
       body_en: 'Team-wide metabolic audits to significantly reduce burnout risk and improve sustained performance.',
@@ -283,7 +283,7 @@ const corporatePageDoc = {
     {
       _key: 'prog-3',
       number: 3,
-      title_ka: 'Strategic Partnerships',
+      title_ka: 'სტრატეგიული პარტნიორობა',
       title_en: 'Strategic Partnerships',
       body_ka: 'კლინიკებთან, სპორტულ ფედერაციებთან და კორპორაციებთან სტრატეგიული თანამშრომლობა.',
       body_en: 'Strategic collaborations with clinics, sports federations, and corporations.',
