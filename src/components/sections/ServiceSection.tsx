@@ -113,6 +113,7 @@ export function ServiceSection({ locale, service, index }: ServiceSectionProps) 
   const title = locale === 'ka' ? service.title_ka : service.title_en
   const summary = locale === 'ka' ? service.summary_ka : service.summary_en
   const intro = locale === 'ka' ? service.intro_ka : service.intro_en
+  const showSummary = summary && summary.trim() !== (intro ?? '').trim()
   const body = locale === 'ka' ? service.body_ka : service.body_en
   const differentiator = locale === 'ka' ? service.differentiator_ka : service.differentiator_en
   const targetAudience = locale === 'ka' ? service.targetAudience_ka : service.targetAudience_en
@@ -150,7 +151,7 @@ export function ServiceSection({ locale, service, index }: ServiceSectionProps) 
               </h2>
             </Reveal>
 
-            {summary && (
+            {showSummary && (
               <Reveal delay={0.15}>
                 <p className="text-base md:text-lg text-dark-brown/70 leading-relaxed mb-8">
                   {summary}
