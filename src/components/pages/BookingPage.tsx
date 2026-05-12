@@ -198,7 +198,15 @@ function CalSkeleton() {
 // ─── Calendar embed with linkReady/linkFailed handling ───────────────────────
 const CAL_TIMEOUT_MS = 45_000
 
-function CalEmbed({ activeEventType, copy }: { activeEventType: EventType; copy: typeof COPY['ka'] | typeof COPY['en'] }) {
+function CalEmbed({
+  activeEventType,
+  copy,
+  locale,
+}: {
+  activeEventType: EventType
+  copy: typeof COPY['ka'] | typeof COPY['en']
+  locale: Locale
+}) {
   // 'loading' until linkReady fires; 'failed' on linkFailed or timeout.
   const [status, setStatus] = useState<'loading' | 'ready' | 'failed'>('loading')
   // Bump on retry to remount the <Cal> component and restart the timeout.
@@ -332,7 +340,7 @@ function CalEmbed({ activeEventType, copy }: { activeEventType: EventType; copy:
         <Cal
           key={namespace}
           namespace={namespace}
-          calLink={`longevityone/${activeEventType}`}
+          calLink={`longevityone/${activeEventType}?lang=${locale}&defaultCountry=GE`}
           calOrigin="https://www.cal.eu"
           embedJsUrl="https://www.cal.eu/embed/embed.js"
           style={{ width: '100%', height: '100%', minHeight: '650px', overflow: 'scroll' }}
@@ -340,6 +348,15 @@ function CalEmbed({ activeEventType, copy }: { activeEventType: EventType; copy:
             layout: 'month_view',
             theme: 'light',
             hideEventTypeDetails: '1',
+            // Locale forwarding — Cal.com forwards unknown config keys to the
+            // booker iframe as query params. Both `lang` and `embedLocale` are
+            // observed in Cal.com's locale-detection code paths.
+            lang: locale,
+            embedLocale: locale,
+            // Default the phone-number country picker to Georgia (+995).
+            // Users can still change it from the country dropdown.
+            country: 'GE',
+            defaultCountry: 'GE',
           }}
         />
       </Suspense>
@@ -470,7 +487,7 @@ function BookingPageInner({ locale }: { locale: Locale }) {
 
             {/* ── Right side: calendar embed ────────────────────────────── */}
             <div className="relative bg-bone-white min-h-[650px]">
-              <CalEmbed key={activeEventType} activeEventType={activeEventType} copy={copy} />
+              <CalEmbed key={activeEventType} activeEventType={activeEventType} copy={copy} locale={locale} />
               {/* Mask the Cal.com branding footer with a bone overlay.
                   Sized to cover the powered-by strip at the bottom of the iframe. */}
               <div
