@@ -2,7 +2,7 @@
 
 import type { Locale } from '@/lib/utils'
 import type { SiteSettings } from '@/lib/sanity/types'
-import { PageHero } from '@/components/shared/PageHero'
+import { ContactHero } from '@/components/sections/ContactHero'
 import { ContactSection } from '@/components/sections/ContactSection'
 
 interface ContactPageProps {
@@ -11,11 +11,9 @@ interface ContactPageProps {
 }
 
 export function ContactPage({ locale, settings }: ContactPageProps) {
-  const title = locale === 'ka' ? 'კონტაქტი' : 'Contact'
-
   return (
     <main className="flex flex-col">
-      <PageHero locale={locale} title={title} />
+      <ContactHero />
       <ContactSection locale={locale} settings={settings} />
     </main>
   )
