@@ -2,7 +2,7 @@
 
 import type { Locale } from '@/lib/utils'
 import type { CorporatePage as CorporatePageData } from '@/lib/sanity/types'
-import { PageHero } from '@/components/shared/PageHero'
+import { CorporateHero } from '@/components/sections/CorporateHero'
 import { Programmes } from '@/components/sections/Programmes'
 import { CorporateCTA } from '@/components/sections/CorporateCTA'
 
@@ -20,7 +20,7 @@ export function CorporatePage({ locale, data }: CorporatePageProps) {
 
   return (
     <main className="flex flex-col">
-      <PageHero locale={locale} title={title} subtitle={subtitle} />
+      <CorporateHero locale={locale} title={title} subtitle={subtitle} />
       <Programmes locale={locale} programmes={data?.programmes} />
       <CorporateCTA locale={locale} ctaLabel={ctaLabel} />
     </main>
