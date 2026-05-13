@@ -2,9 +2,8 @@
 
 import type { Locale } from '@/lib/utils'
 import type { AboutPage as AboutPageData, TeamMember } from '@/lib/sanity/types'
-import { PageHero } from '@/components/shared/PageHero'
 import { AboutHero } from '@/components/sections/AboutHero'
-import { WhyPillars } from '@/components/sections/WhyPillars'
+import { AboutIntro } from '@/components/sections/AboutIntro'
 import { FoundingStory } from '@/components/sections/FoundingStory'
 import { AboutTeamSection } from '@/components/sections/AboutTeamSection'
 
@@ -24,12 +23,12 @@ export function AboutPage({ locale, data, team = [] }: AboutPageProps) {
   return (
     <main className="flex flex-col">
       <AboutHero />
-      <PageHero
+      <AboutIntro
         locale={locale}
         title={title || (locale === 'ka' ? 'ჩვენს შესახებ' : 'About Us')}
         subtitle={subtitle}
+        pillars={data?.why_pillars}
       />
-      <WhyPillars locale={locale} pillars={data?.why_pillars} />
       <AboutTeamSection locale={locale} members={team} />
       <FoundingStory locale={locale} heading={foundingHeading} story={foundingStory} />
     </main>
