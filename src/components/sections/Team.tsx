@@ -29,20 +29,11 @@ export function Team({ locale, data, founders }: TeamProps) {
         loop
         playsInline
         aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-60"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       >
         <source src="/videos/team-bg.mp4" type="video/mp4" />
       </video>
 
-      {/* Strong vignette so portraits and copy stand out */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        aria-hidden="true"
-        style={{
-          background:
-            'radial-gradient(ellipse 80% 80% at center, rgba(66,41,34,0.55) 0%, rgba(66,41,34,0.85) 60%, rgba(66,41,34,0.98) 100%)',
-        }}
-      />
 
       <div className="section-container relative z-10">
         {/* ─── Centered editorial header ─────────────────────────── */}
