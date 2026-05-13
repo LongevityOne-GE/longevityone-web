@@ -16,8 +16,38 @@ export function DiagnosticTiers({ locale, packages, heading, subtext }: Diagnost
   if (!packages.length) return null
 
   return (
-    <section className="py-20 md:py-32 bg-bone-white">
-      <div className="section-container">
+    <section className="py-20 md:py-32 bg-bone-white relative overflow-hidden isolate">
+      {/* Background video */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+      >
+        <source src="/videos/longevity-one-medical-light-bg.mp4" type="video/mp4" />
+      </video>
+      {/* Smooth fade into and out of adjacent bone-white sections */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-64 md:h-80 pointer-events-none z-[1]"
+        style={{
+          background:
+            'linear-gradient(to bottom, rgba(231,222,204,1) 0%, rgba(231,222,204,0.85) 30%, rgba(231,222,204,0) 100%)',
+        }}
+      />
+      {/* Bottom fades into the dark-brown section that follows */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-64 md:h-80 pointer-events-none z-[1]"
+        style={{
+          background:
+            'linear-gradient(to top, rgba(66,41,34,1) 0%, rgba(66,41,34,0.5) 40%, rgba(66,41,34,0) 100%)',
+        }}
+      />
+
+      <div className="section-container relative z-10">
         {(heading || subtext) && (
           <div className="text-center mb-16">
             {heading && (

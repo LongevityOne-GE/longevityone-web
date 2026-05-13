@@ -34,6 +34,15 @@ export function MembershipPlans({ locale, memberships, heading }: MembershipPlan
         className="absolute inset-0 pointer-events-none bg-dark-brown/70"
         aria-hidden="true"
       />
+      {/* Top fade from dark-brown for a smooth handoff from the section above */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-48 md:h-64 pointer-events-none z-[1]"
+        style={{
+          background:
+            'linear-gradient(to bottom, rgba(66,41,34,1) 0%, rgba(66,41,34,0) 100%)',
+        }}
+      />
 
       <div className="section-container relative z-10">
         <Reveal>
