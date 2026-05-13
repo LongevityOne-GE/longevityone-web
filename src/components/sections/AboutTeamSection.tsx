@@ -12,39 +12,19 @@ interface AboutTeamSectionProps {
 export function AboutTeamSection({ locale, members }: AboutTeamSectionProps) {
   if (!members.length) return null
 
-  const sectionLabel = locale === 'ka' ? 'გუნდი' : 'The Team'
-  const heading =
-    locale === 'ka'
-      ? 'ექიმები, რომელთა ხელშიც გადადიხართ.'
-      : 'The physicians you are entrusting yourself to.'
-  const subhead =
-    locale === 'ka'
-      ? 'ცოდნა, რომელიც ათწლეულებში დაგროვდა. ყურადღება, რომელიც ერთ პაციენტს ეთმობა.'
-      : 'Knowledge built over decades. Attention given to one patient at a time.'
+  const heading = locale === 'ka' ? 'Longevity One-ის გუნდი' : 'The Longevity One Team'
 
   return (
-    <section className="relative bg-bone-white text-dark-brown py-24 md:py-40 overflow-hidden">
+    <section className="relative bg-bone-white text-dark-brown py-20 md:py-28 overflow-hidden">
       {/* Subtle decorative top rule */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 h-px w-24 bg-burnt-orange/40" />
 
       <div className="section-container">
-        <div className="max-w-3xl mb-20 md:mb-28">
-          <Reveal>
-            <span className="block text-[11px] uppercase tracking-[0.3em] text-burnt-orange font-bold mb-6">
-              {sectionLabel}
-            </span>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl leading-[1.05] text-dark-brown">
-              {heading}
-            </h2>
-          </Reveal>
-          <Reveal delay={0.16}>
-            <p className="mt-6 text-lg md:text-xl text-dark-brown/65 leading-relaxed max-w-2xl">
-              {subhead}
-            </p>
-          </Reveal>
-        </div>
+        <Reveal>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-dark-brown text-center mb-14 md:mb-20">
+            {heading}
+          </h2>
+        </Reveal>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-10 lg:gap-14 items-start">
           {members.map((member, idx) => (
