@@ -59,15 +59,15 @@ export const teamMember = defineType({
     defineField({
       name: 'bio_ka',
       title: 'Bio (Georgian)',
-      type: 'array',
-      of: [{ type: 'block' }],
-      description: '80–120 words.',
+      type: 'text',
+      rows: 6,
+      description: '80 to 120 words.',
     }),
     defineField({
       name: 'bio_en',
       title: 'Bio (English)',
-      type: 'array',
-      of: [{ type: 'block' }],
+      type: 'text',
+      rows: 6,
     }),
     defineField({
       name: 'photo',
