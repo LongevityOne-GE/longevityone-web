@@ -30,8 +30,8 @@ export function AboutPage({ locale, data, team = [] }: AboutPageProps) {
         subtitle={subtitle}
       />
       <WhyPillars locale={locale} pillars={data?.why_pillars} />
-      <FoundingStory locale={locale} heading={foundingHeading} story={foundingStory} />
       <AboutTeamSection locale={locale} members={team} />
+      <FoundingStory locale={locale} heading={foundingHeading} story={foundingStory} />
     </main>
   )
 }
