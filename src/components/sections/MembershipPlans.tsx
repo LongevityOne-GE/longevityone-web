@@ -17,8 +17,25 @@ export function MembershipPlans({ locale, memberships, heading }: MembershipPlan
   const defaultHeading = locale === 'ka' ? 'საწევრო პროგრამები' : 'Membership Programmes'
 
   return (
-    <section className="py-20 md:py-32 bg-dark-brown text-bone-white">
-      <div className="section-container">
+    <section className="py-20 md:py-32 bg-dark-brown text-bone-white relative overflow-hidden isolate">
+      {/* Background video */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+      >
+        <source src="/videos/team-bg.mp4" type="video/mp4" />
+      </video>
+      {/* Dark tint so cards stay readable */}
+      <div
+        className="absolute inset-0 pointer-events-none bg-dark-brown/70"
+        aria-hidden="true"
+      />
+
+      <div className="section-container relative z-10">
         <Reveal>
           <h2 className="text-3xl md:text-4xl font-black font-serif text-bone-white text-center mb-16">
             {heading || defaultHeading}
