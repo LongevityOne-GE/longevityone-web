@@ -10,8 +10,21 @@ interface FoundingStoryProps {
   story: unknown[] | null | undefined
 }
 
-export function FoundingStory({ heading, story }: FoundingStoryProps) {
+export function FoundingStory({ locale, heading, story }: FoundingStoryProps) {
   if (!heading && (!story || story.length === 0)) return null
+
+  const stats =
+    locale === 'ka'
+      ? [
+          { value: '5', label: 'დამფუძნებელი ექიმი' },
+          { value: '20+', label: 'წლიანი მეგობრობა' },
+          { value: '1', label: 'საერთო მისია' },
+        ]
+      : [
+          { value: '5', label: 'Founding physicians' },
+          { value: '20+', label: 'Years of friendship' },
+          { value: '1', label: 'Shared mission' },
+        ]
 
   return (
     <section className="py-24 md:py-40 bg-bone-white text-dark-brown relative overflow-hidden isolate">
@@ -22,7 +35,7 @@ export function FoundingStory({ heading, story }: FoundingStoryProps) {
         loop
         playsInline
         aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-25 mix-blend-multiply"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-50 mix-blend-multiply"
       >
         <source src="/videos/columns-bg_boomerang.webm" type="video/webm" />
         <source src="/videos/columns-bg_boomerang.mp4" type="video/mp4" />
@@ -34,7 +47,7 @@ export function FoundingStory({ heading, story }: FoundingStoryProps) {
         aria-hidden="true"
         style={{
           background:
-            'radial-gradient(ellipse 70% 80% at center, rgba(231,222,204,1) 0%, rgba(231,222,204,0.92) 45%, rgba(231,222,204,0.3) 100%)',
+            'radial-gradient(ellipse 60% 70% at center, rgba(231,222,204,0.92) 0%, rgba(231,222,204,0.7) 50%, rgba(231,222,204,0.15) 100%)',
         }}
       />
 
@@ -50,30 +63,8 @@ export function FoundingStory({ heading, story }: FoundingStoryProps) {
         style={{ background: 'linear-gradient(to top, rgba(231,222,204,1), transparent)' }}
       />
 
-      {/* Large faded ornamental serif glyph as background flourish */}
-      <div
-        aria-hidden="true"
-        className="absolute -left-8 top-1/2 -translate-y-1/2 font-serif text-[28rem] leading-none text-burnt-orange/[0.06] select-none pointer-events-none hidden lg:block"
-      >
-        L
-      </div>
-      <div
-        aria-hidden="true"
-        className="absolute -right-8 top-1/2 -translate-y-1/2 font-serif text-[28rem] leading-none text-burnt-orange/[0.06] select-none pointer-events-none hidden lg:block"
-      >
-        1
-      </div>
-
       <div className="section-container relative z-10">
         <div className="mx-auto max-w-3xl text-center">
-          <Reveal>
-            <p className="eyebrow !mb-6">
-              <span aria-hidden="true" className="inline-block w-8 h-px bg-burnt-orange align-middle mr-3" />
-              Our Story
-              <span aria-hidden="true" className="inline-block w-8 h-px bg-burnt-orange align-middle ml-3" />
-            </p>
-          </Reveal>
-
           {heading && (
             <Reveal delay={0.08}>
               <h2 className="font-serif font-black leading-[1.05] tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-dark-brown">
@@ -126,20 +117,18 @@ export function FoundingStory({ heading, story }: FoundingStoryProps) {
 
         {/* Stat row */}
         <Reveal delay={0.4}>
-          <div className="mt-20 flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-14 max-w-3xl mx-auto">
-            {[
-              { value: '5', label: 'Founding physicians' },
-              { value: '20+', label: 'Years of friendship' },
-              { value: '1', label: 'Shared mission' },
-            ].map((stat, i) => (
-              <div key={i} className="flex items-center gap-3">
-                {i > 0 && (
-                  <span aria-hidden="true" className="hidden md:block w-px h-8 bg-dark-brown/20 -ml-7" />
-                )}
+          <div className="mt-20 flex flex-wrap items-center justify-center gap-x-16 md:gap-x-24 lg:gap-x-32 gap-y-8 max-w-5xl mx-auto">
+            {stats.map((stat, i) => (
+              <div key={i} className="flex items-center gap-4">
                 <span className="font-serif font-black text-3xl md:text-4xl text-burnt-orange leading-none">
                   {stat.value}
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.25em] text-dark-brown/70 leading-tight whitespace-nowrap">
+                <span
+                  className={[
+                    'text-[10px] uppercase tracking-[0.25em] text-dark-brown/70 leading-tight whitespace-nowrap',
+                    locale === 'ka' ? 'normal-case tracking-[0.1em] text-[11px]' : '',
+                  ].join(' ')}
+                >
                   {stat.label}
                 </span>
               </div>
@@ -147,19 +136,6 @@ export function FoundingStory({ heading, story }: FoundingStoryProps) {
           </div>
         </Reveal>
 
-        {/* Closing flourish */}
-        <Reveal delay={0.5}>
-          <div
-            className="mt-16 flex items-center justify-center gap-3"
-            aria-hidden="true"
-          >
-            <span className="h-px w-10 bg-dark-brown/30" />
-            <span className="text-[10px] uppercase tracking-[0.4em] font-sans text-dark-brown/50">
-              Longevity One
-            </span>
-            <span className="h-px w-10 bg-dark-brown/30" />
-          </div>
-        </Reveal>
       </div>
     </section>
   )
