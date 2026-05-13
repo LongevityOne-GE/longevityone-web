@@ -46,7 +46,7 @@ export function AboutTeamSection({ locale, members }: AboutTeamSectionProps) {
           </Reveal>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-10 lg:gap-14">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-10 lg:gap-14 items-start">
           {members.map((member, idx) => (
             <PortraitCard
               key={member._id}
@@ -80,13 +80,13 @@ function PortraitCard({
   return (
     <Reveal delay={delay}>
       <article className="group flex flex-col h-full">
-        {/* Portrait */}
+        {/* Portrait — identical 3:4 frame, faces anchored to upper-center */}
         <div className="relative aspect-[3/4] overflow-hidden bg-dark-brown/[0.04] mb-7">
           {member.photo?.asset?.url ? (
             <img
               src={member.photo.asset.url}
               alt={name}
-              className="w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
+              className="w-full h-full object-cover object-[center_20%] transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
@@ -105,23 +105,27 @@ function PortraitCard({
           )}
         </div>
 
-        {/* Tagline — the editorial hero line */}
-        {tagline && (
-          <p className="font-serif italic text-xl md:text-2xl leading-snug text-dark-brown mb-6">
-            “{tagline}”
-          </p>
-        )}
+        {/* Tagline — fixed height block so hairline + name align across all cards */}
+        <div className="min-h-[5.5rem] md:min-h-[6rem] mb-5">
+          {tagline && (
+            <p className="font-serif italic text-xl md:text-2xl leading-snug text-dark-brown">
+              “{tagline}”
+            </p>
+          )}
+        </div>
 
         {/* Hairline */}
         <div className="h-px w-10 bg-burnt-orange mb-5" />
 
-        {/* Name + role */}
-        <h3 className="font-serif text-2xl text-dark-brown leading-tight">{name}</h3>
-        {role && (
-          <p className="mt-2 text-[11px] uppercase tracking-[0.22em] text-dark-brown/55 font-bold">
-            {role}
-          </p>
-        )}
+        {/* Name + role — fixed slot keeps bios starting at same Y across cards */}
+        <div className="min-h-[4.5rem]">
+          <h3 className="font-serif text-2xl text-dark-brown leading-tight">{name}</h3>
+          {role && (
+            <p className="mt-2 text-[11px] uppercase tracking-[0.22em] text-dark-brown/55 font-bold">
+              {role}
+            </p>
+          )}
+        </div>
 
         {/* Bio */}
         {bio && (
