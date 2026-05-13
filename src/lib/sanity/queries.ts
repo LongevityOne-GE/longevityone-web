@@ -361,3 +361,13 @@ export const homeMembershipsTeaserQuery = groq`
     tagline_ka, tagline_en,
   }
 `
+
+// Team teaser for the homepage Team section (all members)
+export const homeFoundersQuery = groq`
+  *[_type == "teamMember"] | order(isFounder desc, order asc) {
+    _id, name, name_en,
+    role_ka, role_en,
+    isFounder,
+    photo { asset->{ url, metadata { lqip } } },
+  }
+`

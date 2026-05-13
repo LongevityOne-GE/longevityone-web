@@ -7,6 +7,7 @@ import type {
   HomeTech,
   HomePackage,
   HomeMembership,
+  HomeFounder,
 } from '@/lib/sanity/types'
 import { Hero } from '@/components/sections/Hero'
 import { Journey } from '@/components/sections/Journey'
@@ -23,6 +24,7 @@ interface HomePageProps {
   technologies?: HomeTech[] | null
   packages?: HomePackage[] | null
   memberships?: HomeMembership[] | null
+  founders?: HomeFounder[] | null
 }
 
 export function HomePage({
@@ -31,6 +33,7 @@ export function HomePage({
   services,
   technologies,
   packages,
+  founders,
 }: HomePageProps) {
   return (
     <main className="flex flex-col">
@@ -39,7 +42,7 @@ export function HomePage({
       <Pillars locale={locale} services={services} data={homePage} />
       <Science locale={locale} technologies={technologies} data={homePage} />
       <Pricing locale={locale} packages={packages} data={homePage} />
-      <Team locale={locale} data={homePage} />
+      <Team locale={locale} data={homePage} founders={founders} />
       <CTA locale={locale} data={homePage} />
     </main>
   )
