@@ -391,6 +391,11 @@ export interface TeamMember {
   credentials: string[] | null
 }
 
+export type HomeFounder = Pick<
+  TeamMember,
+  '_id' | 'name' | 'name_en' | 'role_ka' | 'role_en' | 'photo' | 'isFounder'
+>
+
 export interface TeamData {
   page: {
     h1_ka: string | null
