@@ -39,12 +39,45 @@ export function Programmes({ locale, programmes }: ProgrammesProps) {
   return (
     <section
       id="programmes"
-      className="relative py-24 md:py-32 bg-bone-white overflow-hidden"
+      className="relative py-24 md:py-32 bg-dark-brown text-dark-brown overflow-hidden isolate"
     >
-      {/* Decorative top hairline */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 h-px w-24 bg-burnt-orange/40" />
+      {/* Medical background video — softened against dark bg */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-30"
+      >
+        <source src="/videos/longevity-one-medical-light-bg.mp4" type="video/mp4" />
+      </video>
 
-      <div className="section-container">
+      {/* Soft dark overlay so video reads as ambient texture */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none bg-dark-brown/40"
+      />
+
+      {/* Subtle edge fades — light, just enough to imply continuity */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-20 md:h-28 pointer-events-none z-[1]"
+        style={{
+          background:
+            'linear-gradient(to bottom, rgba(66,41,34,0.6) 0%, rgba(66,41,34,0) 100%)',
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-20 md:h-28 pointer-events-none z-[1]"
+        style={{
+          background:
+            'linear-gradient(to top, rgba(66,41,34,0.6) 0%, rgba(66,41,34,0) 100%)',
+        }}
+      />
+
+      <div className="section-container relative z-10">
         {/* Section header */}
         <div className="max-w-3xl mx-auto text-center mb-16 md:mb-20">
           <Reveal>
@@ -70,13 +103,13 @@ export function Programmes({ locale, programmes }: ProgrammesProps) {
             </div>
           </Reveal>
           <Reveal delay={0.18}>
-            <p className="text-base md:text-lg text-dark-brown/70 leading-relaxed max-w-xl mx-auto">
+            <p className="text-base md:text-lg text-dark-brown/75 leading-relaxed max-w-xl mx-auto">
               {subhead}
             </p>
           </Reveal>
         </div>
 
-        {/* Programme cards */}
+        {/* Programme cards (dark glassy variant) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {programmes.map((prog, idx) => {
             const title = locale === 'ka' ? prog.title_ka : prog.title_en
@@ -85,11 +118,11 @@ export function Programmes({ locale, programmes }: ProgrammesProps) {
             return (
               <Reveal key={idx} delay={0.1 * idx} className="h-full">
                 <div className="group h-full">
-                  <div className="relative card-ornamental overflow-hidden p-8 md:p-10 bg-bone-white flex flex-col h-full border border-dark-brown/10 transition-all duration-500 group-hover:border-burnt-orange/40 group-hover:shadow-[0_20px_60px_-20px_rgba(66,41,34,0.25)] group-hover:-translate-y-1">
-                    {/* Oversized number watermark */}
+                  <div className="relative card-ornamental overflow-hidden p-8 md:p-10 bg-bone-white/40 backdrop-blur-sm flex flex-col h-full border border-dark-brown/10 transition-all duration-500 group-hover:border-burnt-orange/50 group-hover:bg-bone-white/60 group-hover:shadow-[0_20px_60px_-20px_rgba(66,41,34,0.25)] group-hover:-translate-y-1">
+                    {/* Number badge — small, top-right, doesn't overlap copy */}
                     <span
                       aria-hidden="true"
-                      className="absolute top-4 right-6 text-[110px] leading-none font-black text-dark-brown/[0.05] font-serif select-none transition-colors duration-500 group-hover:text-burnt-orange/15"
+                      className="absolute top-6 right-7 text-xs font-bold tracking-[0.2em] text-burnt-orange/70 font-sans select-none transition-colors duration-500 group-hover:text-burnt-orange"
                     >
                       {String(prog.number).padStart(2, '0')}
                     </span>
@@ -100,7 +133,7 @@ export function Programmes({ locale, programmes }: ProgrammesProps) {
                       {title}
                     </h3>
                     {body && (
-                      <p className="relative text-sm md:text-base text-dark-brown/70 leading-relaxed flex-grow">
+                      <p className="relative text-sm md:text-base text-dark-brown/75 leading-relaxed flex-grow">
                         {body}
                       </p>
                     )}

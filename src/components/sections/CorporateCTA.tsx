@@ -20,12 +20,49 @@ export function CorporateCTA({ locale, ctaLabel }: CorporateCTAProps) {
   const label = ctaLabel || (locale === 'ka' ? 'დაგვიკავშირდით' : 'Get in Touch')
 
   return (
-    <section className="py-20 md:py-32 bg-dark-brown text-bone-white relative overflow-hidden">
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+    <section className="py-20 md:py-32 bg-dark-brown text-bone-white relative overflow-hidden isolate">
+      {/* Helix background video — softened so it sits subtly behind copy */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-50"
+      >
+        <source src="/videos/longevity-helix-v2.mp4" type="video/mp4" />
+      </video>
+
+      {/* Dark tint + central vignette so headline reads cleanly */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none bg-dark-brown/70"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(ellipse 70% 60% at center, rgba(66,41,34,0.5) 0%, rgba(66,41,34,0) 70%)',
+        }}
+      />
+
+      {/* Soft top fade so the helix reveals smoothly from the section above */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-20 md:h-28 pointer-events-none z-[1]"
+        style={{
+          background:
+            'linear-gradient(to bottom, rgba(66,41,34,0.6) 0%, rgba(66,41,34,0) 100%)',
+        }}
+      />
+
+      {/* Subtle logo-mark watermark on top of the video */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-[1]">
         <img
           src="/logos/logo-mark.svg"
           alt=""
-          className="w-80 md:w-[480px] h-auto opacity-[0.04]"
+          className="w-80 md:w-[480px] h-auto opacity-[0.06]"
         />
       </div>
 
