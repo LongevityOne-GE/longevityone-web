@@ -40,13 +40,13 @@ export function CorporateHero({ locale, title, subtitle }: CorporateHeroProps) {
         }}
       />
 
-      {/* Bottom fade into next bone-white section */}
+      {/* Soft bottom fade so the next section's video reveals naturally */}
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 h-32 md:h-48 pointer-events-none z-[1]"
+        className="absolute inset-x-0 bottom-0 h-20 md:h-28 pointer-events-none z-[1]"
         style={{
           background:
-            'linear-gradient(to bottom, rgba(231,222,204,0) 0%, rgba(231,222,204,1) 100%)',
+            'linear-gradient(to bottom, rgba(66,41,34,0) 0%, rgba(66,41,34,0.6) 100%)',
         }}
       />
 
