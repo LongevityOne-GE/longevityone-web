@@ -13,7 +13,7 @@ import { Hero } from '@/components/sections/Hero'
 import { Journey } from '@/components/sections/Journey'
 import { Pillars } from '@/components/sections/Pillars'
 import { Science } from '@/components/sections/Science'
-import { Pricing } from '@/components/sections/Pricing'
+import { ProgrammesPreview } from '@/components/sections/ProgrammesPreview'
 import { Team } from '@/components/sections/Team'
 import { CTA } from '@/components/sections/CTA'
 
@@ -41,7 +41,7 @@ export function HomePage({
       <Journey locale={locale} data={homePage} />
       <Pillars locale={locale} services={services} data={homePage} />
       <Science locale={locale} technologies={technologies} data={homePage} />
-      <Pricing locale={locale} packages={packages} data={homePage} />
+      <ProgrammesPreview locale={locale} packages={packages} data={homePage} />
       <Team locale={locale} data={homePage} founders={founders} />
       <CTA locale={locale} data={homePage} />
     </main>
