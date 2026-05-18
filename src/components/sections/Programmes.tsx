@@ -18,10 +18,10 @@ function ProgrammeIcon({ name }: { name: string | null }) {
     return (
       <Icon
         size={28}
-        className="text-burnt-orange mb-6 transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-rotate-3"
+        className="text-burnt-orange transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-rotate-3"
       />
     )
-  return <span className="text-3xl mb-6 block">{name}</span>
+  return <span className="text-3xl block">{name}</span>
 }
 
 interface ProgrammesProps {
@@ -136,15 +136,16 @@ export function Programmes({ locale, programmes }: ProgrammesProps) {
                       className="pointer-events-none absolute -inset-y-8 -left-1/2 w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-bone-white/40 to-transparent opacity-0 transition-all duration-[900ms] ease-out group-hover:left-[150%] group-hover:opacity-100"
                     />
 
-                    {/* Number badge — small, top-right, doesn't overlap copy */}
-                    <span
-                      aria-hidden="true"
-                      className="absolute top-10 right-12 md:right-14 text-xs font-bold tracking-[0.2em] text-burnt-orange/70 font-sans select-none transition-all duration-500 group-hover:text-burnt-orange group-hover:scale-110 group-hover:-translate-x-0.5"
-                    >
-                      {String(prog.number).padStart(2, '0')}
-                    </span>
-
-                    <ProgrammeIcon name={prog.icon} />
+                    {/* Top row: icon + number on opposite sides, no overlap */}
+                    <div className="relative flex items-center justify-between mb-6">
+                      <ProgrammeIcon name={prog.icon} />
+                      <span
+                        aria-hidden="true"
+                        className="text-xs font-bold tracking-[0.2em] text-burnt-orange/70 font-sans select-none transition-all duration-500 group-hover:text-burnt-orange group-hover:scale-110"
+                      >
+                        {String(prog.number).padStart(2, '0')}
+                      </span>
+                    </div>
 
                     <h3 className="relative text-xl md:text-2xl font-black font-serif text-dark-brown leading-tight mb-4 transition-colors duration-500 group-hover:text-burnt-orange">
                       {title}
