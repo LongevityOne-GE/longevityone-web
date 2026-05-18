@@ -14,7 +14,13 @@ const iconMap: Record<string, LucideIcon> = {
 function ProgrammeIcon({ name }: { name: string | null }) {
   if (!name) return null
   const Icon = iconMap[name.toLowerCase()]
-  if (Icon) return <Icon size={28} className="text-burnt-orange mb-6" />
+  if (Icon)
+    return (
+      <Icon
+        size={28}
+        className="text-burnt-orange mb-6 transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-rotate-3"
+      />
+    )
   return <span className="text-3xl mb-6 block">{name}</span>
 }
 
@@ -48,32 +54,26 @@ export function Programmes({ locale, programmes }: ProgrammesProps) {
         loop
         playsInline
         aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-30"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-90"
       >
         <source src="/videos/longevity-one-medical-light-bg.mp4" type="video/mp4" />
       </video>
 
-      {/* Soft dark overlay so video reads as ambient texture */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none bg-dark-brown/40"
-      />
-
       {/* Subtle edge fades — light, just enough to imply continuity */}
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-20 md:h-28 pointer-events-none z-[1]"
+        className="absolute inset-x-0 top-0 h-16 md:h-20 pointer-events-none z-[1]"
         style={{
           background:
-            'linear-gradient(to bottom, rgba(66,41,34,0.6) 0%, rgba(66,41,34,0) 100%)',
+            'linear-gradient(to bottom, rgba(66,41,34,0.35) 0%, rgba(66,41,34,0) 100%)',
         }}
       />
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 h-20 md:h-28 pointer-events-none z-[1]"
+        className="absolute inset-x-0 bottom-0 h-16 md:h-20 pointer-events-none z-[1]"
         style={{
           background:
-            'linear-gradient(to top, rgba(66,41,34,0.6) 0%, rgba(66,41,34,0) 100%)',
+            'linear-gradient(to top, rgba(66,41,34,0.35) 0%, rgba(66,41,34,0) 100%)',
         }}
       />
 
@@ -96,9 +96,20 @@ export function Programmes({ locale, programmes }: ProgrammesProps) {
               aria-hidden="true"
             >
               <span className="h-px w-12 bg-gradient-to-r from-transparent to-burnt-orange/70" />
-              <svg width="12" height="12" viewBox="0 0 14 14" fill="none" className="rotate-45">
-                <rect x="3" y="3" width="8" height="8" stroke="currentColor" strokeWidth="1.2" />
-              </svg>
+              <span
+                aria-hidden="true"
+                className="inline-block h-6 w-6 bg-burnt-orange"
+                style={{
+                  WebkitMaskImage: 'url(/logos/logo-mark.svg)',
+                  maskImage: 'url(/logos/logo-mark.svg)',
+                  WebkitMaskRepeat: 'no-repeat',
+                  maskRepeat: 'no-repeat',
+                  WebkitMaskPosition: 'center',
+                  maskPosition: 'center',
+                  WebkitMaskSize: 'contain',
+                  maskSize: 'contain',
+                }}
+              />
               <span className="h-px w-12 bg-gradient-to-l from-transparent to-burnt-orange/70" />
             </div>
           </Reveal>
@@ -118,18 +129,24 @@ export function Programmes({ locale, programmes }: ProgrammesProps) {
             return (
               <Reveal key={idx} delay={0.1 * idx} className="h-full">
                 <div className="group h-full">
-                  <div className="relative card-ornamental overflow-hidden p-8 md:p-10 bg-bone-white/40 backdrop-blur-sm flex flex-col h-full border border-dark-brown/10 transition-all duration-500 group-hover:border-burnt-orange/50 group-hover:bg-bone-white/60 group-hover:shadow-[0_20px_60px_-20px_rgba(66,41,34,0.25)] group-hover:-translate-y-1">
+                  <div className="relative card-ornamental overflow-hidden p-8 md:p-10 bg-bone-white/40 backdrop-blur-sm flex flex-col h-full border border-dark-brown/10 transition-all duration-500 ease-out group-hover:border-burnt-orange/50 group-hover:bg-bone-white/70 group-hover:shadow-[0_30px_70px_-20px_rgba(212,88,0,0.35)] group-hover:-translate-y-2">
+                    {/* Sheen sweep on hover */}
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute -inset-y-8 -left-1/2 w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-bone-white/40 to-transparent opacity-0 transition-all duration-[900ms] ease-out group-hover:left-[150%] group-hover:opacity-100"
+                    />
+
                     {/* Number badge — small, top-right, doesn't overlap copy */}
                     <span
                       aria-hidden="true"
-                      className="absolute top-6 right-7 text-xs font-bold tracking-[0.2em] text-burnt-orange/70 font-sans select-none transition-colors duration-500 group-hover:text-burnt-orange"
+                      className="absolute top-10 right-12 md:right-14 text-xs font-bold tracking-[0.2em] text-burnt-orange/70 font-sans select-none transition-all duration-500 group-hover:text-burnt-orange group-hover:scale-110 group-hover:-translate-x-0.5"
                     >
                       {String(prog.number).padStart(2, '0')}
                     </span>
 
                     <ProgrammeIcon name={prog.icon} />
 
-                    <h3 className="relative text-xl md:text-2xl font-black font-serif text-dark-brown leading-tight mb-4">
+                    <h3 className="relative text-xl md:text-2xl font-black font-serif text-dark-brown leading-tight mb-4 transition-colors duration-500 group-hover:text-burnt-orange">
                       {title}
                     </h3>
                     {body && (
@@ -141,7 +158,7 @@ export function Programmes({ locale, programmes }: ProgrammesProps) {
                     {/* Bottom hairline accent on hover */}
                     <span
                       aria-hidden="true"
-                      className="mt-8 block h-px w-10 bg-burnt-orange/60 transition-all duration-500 group-hover:w-20"
+                      className="mt-8 block h-px w-10 bg-burnt-orange/60 transition-all duration-500 group-hover:w-24 group-hover:bg-burnt-orange"
                     />
                   </div>
                 </div>

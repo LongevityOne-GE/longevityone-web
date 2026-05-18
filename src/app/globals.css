@@ -25,6 +25,28 @@
     from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+  @keyframes arrow-bob {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(4px); }
+  }
+  @keyframes slow-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  @keyframes glow-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(212, 88, 0, 0.35); }
+    50%      { box-shadow: 0 0 0 12px rgba(212, 88, 0, 0); }
+  }
+}
+
+.animate-arrow-bob { animation: arrow-bob 1.8s ease-in-out infinite; }
+.animate-slow-spin { animation: slow-spin 90s linear infinite; }
+.animate-glow-pulse { animation: glow-pulse 2.4s ease-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-arrow-bob,
+  .animate-slow-spin,
+  .animate-glow-pulse { animation: none !important; }
 }
 
 @layer base {
@@ -167,7 +189,7 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-between px-6 py-4 bg-burnt-orange text-white text-[11px] font-bold uppercase tracking-[0.15em] transition-all hover:bg-dark-brown;
+    @apply relative inline-flex items-center justify-between gap-3 px-6 py-4 bg-burnt-orange text-white text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 ease-out hover:bg-dark-brown hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-12px_rgba(212,88,0,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burnt-orange focus-visible:ring-offset-2 focus-visible:ring-offset-dark-brown;
   }
 
   .btn-secondary {

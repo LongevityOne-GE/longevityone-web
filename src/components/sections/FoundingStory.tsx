@@ -80,9 +80,20 @@ export function FoundingStory({ locale, heading, story }: FoundingStoryProps) {
               aria-hidden="true"
             >
               <span className="h-px w-16 sm:w-24 bg-gradient-to-r from-transparent to-burnt-orange/70" />
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="rotate-45">
-                <rect x="3" y="3" width="8" height="8" stroke="currentColor" strokeWidth="1.2" />
-              </svg>
+              <span
+                aria-hidden="true"
+                className="inline-block h-6 w-6 bg-burnt-orange"
+                style={{
+                  WebkitMaskImage: 'url(/logos/logo-mark.svg)',
+                  maskImage: 'url(/logos/logo-mark.svg)',
+                  WebkitMaskRepeat: 'no-repeat',
+                  maskRepeat: 'no-repeat',
+                  WebkitMaskPosition: 'center',
+                  maskPosition: 'center',
+                  WebkitMaskSize: 'contain',
+                  maskSize: 'contain',
+                }}
+              />
               <span className="h-px w-16 sm:w-24 bg-gradient-to-l from-transparent to-burnt-orange/70" />
             </div>
           </Reveal>

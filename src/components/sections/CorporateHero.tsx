@@ -76,14 +76,14 @@ export function CorporateHero({ locale, title, subtitle }: CorporateHeroProps) {
 
           <a
             href="#programmes"
-            className="inline-flex items-center gap-3 group text-bone-white animate-hero-in"
+            className="inline-flex items-center gap-3 group text-bone-white animate-hero-in transition-colors duration-300 hover:text-burnt-orange"
             style={{ animationDelay: '240ms' }}
           >
-            <span className="h-px w-8 bg-burnt-orange transition-all duration-300 group-hover:w-14" />
-            <span className="text-[11px] uppercase tracking-[0.3em] font-bold">
+            <span className="h-px w-8 bg-burnt-orange transition-[width,background-color] duration-500 ease-out group-hover:w-20 group-hover:bg-bone-white" />
+            <span className="text-[11px] uppercase tracking-[0.3em] font-bold transition-transform duration-300 group-hover:translate-x-1">
               {scrollText}
             </span>
-            <span className="text-burnt-orange text-lg leading-none transition-transform duration-300 group-hover:translate-y-1">
+            <span className="text-burnt-orange text-lg leading-none animate-arrow-bob transition-transform duration-300 group-hover:scale-125">
               ↓
             </span>
           </a>
