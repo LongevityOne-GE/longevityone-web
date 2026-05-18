@@ -62,7 +62,7 @@ export function CorporateCTA({ locale, ctaLabel }: CorporateCTAProps) {
         <img
           src="/logos/logo-mark.svg"
           alt=""
-          className="w-80 md:w-[480px] h-auto opacity-[0.06]"
+          className="w-80 md:w-[480px] h-auto opacity-[0.06] animate-slow-spin"
         />
       </div>
 
@@ -76,8 +76,17 @@ export function CorporateCTA({ locale, ctaLabel }: CorporateCTAProps) {
           <p className="text-bone-white/70 mb-10 text-lg leading-relaxed">{subtext}</p>
         </Reveal>
         <Reveal delay={0.2}>
-          <a href={locale === 'en' ? '/en/contact' : '/contact'} className="btn-primary">
-            {label}
+          <a
+            href={locale === 'en' ? '/en/contact' : '/contact'}
+            className="btn-primary group animate-glow-pulse"
+          >
+            <span>{label}</span>
+            <span
+              aria-hidden="true"
+              className="text-base leading-none transition-transform duration-300 ease-out group-hover:translate-x-1"
+            >
+              →
+            </span>
           </a>
         </Reveal>
       </div>
