@@ -68,7 +68,7 @@ export const service = defineType({
       title: 'Differentiator / What Makes Us Different (Georgian)',
       type: 'text',
       rows: 3,
-      description: 'Optional — used on Metabolic page specifically.',
+      description: 'Optional - used on Metabolic page specifically.',
     }),
     defineField({
       name: 'differentiator_en',
@@ -82,7 +82,7 @@ export const service = defineType({
       title: 'Target Audience (Georgian)',
       type: 'text',
       rows: 2,
-      description: 'Optional — used on Performance page.',
+      description: 'Optional - used on Performance page.',
     }),
     defineField({
       name: 'targetAudience_en',

@@ -5,7 +5,7 @@ type VideoSource = string | { webm?: string; mp4?: string }
 interface GodVideoProps {
   /** Single URL, or an object of format-specific URLs. Webm preferred when both provided. */
   src: VideoSource
-  /** Video element opacity, 0..1. Default 1 — use overlay/tint to darken. */
+  /** Video element opacity, 0..1. Default 1 - use overlay/tint to darken. */
   opacity?: number
   /** Overlay treatment on top of the video. */
   overlay?: 'none' | 'fade' | 'vignette' | 'tint'
@@ -41,7 +41,7 @@ function normalizeSources(src: VideoSource): { url: string; type: string }[] {
  * Absolutely-positioned background video with configurable overlay treatments.
  * Parent must be `position: relative` + `overflow: hidden`.
  * Respects `prefers-reduced-motion` via a global rule in globals.css that
- * hides autoplaying videos — callers should still set a fallback bg colour.
+ * hides autoplaying videos - callers should still set a fallback bg colour.
  */
 export function GodVideo({
   src,

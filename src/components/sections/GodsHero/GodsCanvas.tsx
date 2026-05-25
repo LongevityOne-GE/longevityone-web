@@ -22,7 +22,7 @@ export function GodsCanvas() {
     return () => mq.removeEventListener('change', handler)
   }, [])
 
-  // IntersectionObserver — play/pause videos when section enters/leaves viewport
+  // IntersectionObserver - play/pause videos when section enters/leaves viewport
   useEffect(() => {
     const section = sectionRef.current
     if (!section) return
@@ -75,7 +75,7 @@ export function GodsCanvas() {
         ref={stickyRef}
         className="sticky top-0 h-screen w-full overflow-hidden bg-bone-white"
         role="img"
-        aria-label="Longevity One — Greek gods and goddesses representing health, longevity, athletic performance and medical precision"
+        aria-label="Longevity One - Greek gods and goddesses representing health, longevity, athletic performance and medical precision"
       >
         {/* Monogram watermark */}
         <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">
@@ -116,7 +116,7 @@ export function GodsCanvas() {
         </div>
 
         {/* Text overlay */}
-        {/* TODO: Sanity — heading and CTA content will come from Sanity */}
+        {/* TODO: Sanity - heading and CTA content will come from Sanity */}
         <div
           ref={textRef}
           className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none max-md:justify-end max-md:pb-[30%] md:justify-center"

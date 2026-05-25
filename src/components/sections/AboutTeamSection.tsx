@@ -60,7 +60,7 @@ function PortraitCard({
   return (
     <Reveal delay={delay}>
       <article className="group flex flex-col h-full">
-        {/* Portrait — identical 3:4 frame, faces anchored to upper-center */}
+        {/* Portrait - identical 3:4 frame, faces anchored to upper-center */}
         <div className="relative aspect-[3/4] overflow-hidden bg-dark-brown/[0.04] mb-7">
           {member.photo?.asset?.url ? (
             <img
@@ -85,7 +85,7 @@ function PortraitCard({
           )}
         </div>
 
-        {/* Tagline — fixed height block so hairline + name align across all cards */}
+        {/* Tagline - fixed height block so hairline + name align across all cards */}
         <div className="min-h-[5.5rem] md:min-h-[6rem] mb-5">
           {tagline && (
             <p className="font-serif italic text-xl md:text-2xl leading-snug text-dark-brown">
@@ -97,7 +97,7 @@ function PortraitCard({
         {/* Hairline */}
         <div className="h-px w-10 bg-burnt-orange mb-5" />
 
-        {/* Name + role — fixed slot keeps bios starting at same Y across cards */}
+        {/* Name + role - fixed slot keeps bios starting at same Y across cards */}
         <div className="min-h-[4.5rem]">
           <h3 className="font-serif text-2xl text-dark-brown leading-tight">{name}</h3>
           {role && (

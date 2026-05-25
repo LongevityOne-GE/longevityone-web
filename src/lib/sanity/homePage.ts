@@ -4,7 +4,7 @@ export const homePage = defineType({
   name: 'homePage',
   title: 'Homepage',
   type: 'document',
-  // Singleton — enforce via access control in Sanity Studio
+  // Singleton - enforce via access control in Sanity Studio
   // @ts-expect-error __experimental_actions is valid in Sanity Studio but not yet typed
   __experimental_actions: ['update', 'publish'],
   fields: [
@@ -13,7 +13,7 @@ export const homePage = defineType({
       name: 'hero_slogan_ka',
       title: 'Hero Slogan (Georgian)',
       type: 'string',
-      description: 'Short eyebrow line — e.g. დღეგრძელობის ხელოვნება',
+      description: 'Short eyebrow line - e.g. დღეგრძელობის ხელოვნება',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -80,7 +80,7 @@ export const homePage = defineType({
       name: 'hero_image',
       title: 'Hero Image',
       type: 'image',
-      description: 'Classical sculpture — from brand guidelines',
+      description: 'Classical sculpture - from brand guidelines',
       options: { hotspot: true },
       fields: [
         defineField({ name: 'alt', title: 'Alt text', type: 'string' }),

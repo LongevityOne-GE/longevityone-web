@@ -91,10 +91,10 @@ export function BookingButton({
 // Hero CTA
 // <BookingButton lang={lang} variant="primary" size="lg" />
 //
-// Package card — pre-selects consultation
+// Package card - pre-selects consultation
 // <BookingButton lang={lang} variant="secondary" eventType="consultation">
 //   {lang === 'ka' ? 'ამ პაკეტით დაწყება' : 'Start with this package'}
 // </BookingButton>
 //
-// PNOE service page — pre-selects PNOE
+// PNOE service page - pre-selects PNOE
 // <BookingButton lang={lang} variant="ghost" eventType="pnoe" />

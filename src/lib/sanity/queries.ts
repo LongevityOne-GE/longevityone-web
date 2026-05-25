@@ -196,19 +196,74 @@ export const corporatePageQuery = groq`
 `
 
 // ─── Patient Journey ──────────────────────────────────────────────────────────
+// Singleton heading + intro + CTA block + SEO.
+export const JOURNEY_PAGE_QUERY = groq`
+  *[_type == "journeyPage"] | order(_createdAt asc)[0] {
+    eyebrow_ka, eyebrow_en,
+    h1_ka, h1_en,
+    intro_ka, intro_en,
+    hero_image {
+      alt_ka, alt_en,
+      asset->{ url, metadata { lqip, dimensions } }
+    },
+    ctaHeading_ka, ctaHeading_en,
+    ctaBody_ka, ctaBody_en,
+    primaryCtaLabel_ka, primaryCtaLabel_en,
+    secondaryCtaLabel_ka, secondaryCtaLabel_en,
+    seo_title_ka, seo_title_en,
+    seo_description_ka, seo_description_en,
+  }
+`
+
+// All 8 stages, ordered by stageNumber asc, with relatedTechnologies
+// projected for in-body link rendering and MedicalProcedure JSON-LD.
+export const JOURNEY_STAGES_QUERY = groq`
+  *[_type == "journeyStage"] | order(stageNumber asc) {
+    _id, stageNumber,
+    title_ka, title_en,
+    subtitle_ka, subtitle_en,
+    duration_ka, duration_en,
+    deliveredBy_ka, deliveredBy_en,
+    body_ka, body_en,
+    included_ka, included_en,
+    deliverable_ka, deliverable_en,
+    relatedTechnologies[]-> {
+      name,
+      "slug": slug.current,
+      tagline_ka, tagline_en,
+    },
+    tools, icon,
+  }
+`
+
+// Back-compat combined query (still used by older callers / studio previews).
 export const journeyPageQuery = groq`
   {
-    "page": *[_type == "journeyPage"][0] {
+    "page": *[_type == "journeyPage"] | order(_createdAt asc)[0] {
+      eyebrow_ka, eyebrow_en,
       h1_ka, h1_en,
       intro_ka, intro_en,
+      ctaHeading_ka, ctaHeading_en,
+      ctaBody_ka, ctaBody_en,
+      primaryCtaLabel_ka, primaryCtaLabel_en,
+      secondaryCtaLabel_ka, secondaryCtaLabel_en,
       seo_title_ka, seo_title_en,
       seo_description_ka, seo_description_en,
     },
     "stages": *[_type == "journeyStage"] | order(stageNumber asc) {
       _id, stageNumber,
       title_ka, title_en,
+      subtitle_ka, subtitle_en,
       duration_ka, duration_en,
+      deliveredBy_ka, deliveredBy_en,
       body_ka, body_en,
+      included_ka, included_en,
+      deliverable_ka, deliverable_en,
+      relatedTechnologies[]-> {
+        name,
+        "slug": slug.current,
+        tagline_ka, tagline_en,
+      },
       tools, icon,
     },
   }
@@ -216,7 +271,7 @@ export const journeyPageQuery = groq`
 
 // ─── Team (used by About page) ────────────────────────────────────────────────
 // Filter by defined(tagline_ka) so legacy placeholder docs without taglines
-// are excluded — only fully populated, current team members appear here.
+// are excluded - only fully populated, current team members appear here.
 export const aboutTeamQuery = groq`
   *[_type == "teamMember" && defined(tagline_ka)] | order(isFounder desc, order asc) {
     _id, name, name_en,

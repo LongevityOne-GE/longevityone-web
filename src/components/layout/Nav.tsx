@@ -17,6 +17,7 @@ const navLinks = [
   { ka: 'მეცნიერება და ტექნოლოგია', en: 'Science & Technology', href: '/technologies' },
   { ka: 'პაკეტები', en: 'Packages', href: '/packages' },
   { ka: 'კორპორატიული', en: 'Corporate', href: '/corporate' },
+  { ka: 'პაციენტის გზა', en: 'Patient Journey', href: '/journey' },
   { ka: 'სტატიები', en: 'Blog', href: '/blog' },
   { ka: 'ხშირი კითხვები', en: 'FAQ', href: '/faq' },
   { ka: 'კონტაქტი', en: 'Contact', href: '/contact' },

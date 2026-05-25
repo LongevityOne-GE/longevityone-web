@@ -29,7 +29,7 @@ function buildSchema(locale: Locale) {
     email: z.string().email(m.emailInvalid).max(254, m.tooLong),
     phone: z.string().max(40, m.tooLong).optional(),
     message: z.string().min(10, m.messageMin).max(5000, m.tooLong),
-    // Honeypot — must remain empty.
+    // Honeypot - must remain empty.
     company: z.string().max(0).optional(),
   })
 }

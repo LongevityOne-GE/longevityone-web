@@ -6,11 +6,11 @@ import { useEffect, useState } from 'react'
  * Industry-standard "delay + min-duration" loader pattern (à la React Suspense,
  * Material guidelines, NN/g):
  *
- *   • SHOW_AFTER_MS  — only reveal the loader if the page is *still* loading
+ *   • SHOW_AFTER_MS  - only reveal the loader if the page is *still* loading
  *                      after this threshold (fast/cached loads → no loader).
- *   • MIN_VISIBLE_MS — once shown, keep it visible at least this long to
+ *   • MIN_VISIBLE_MS - once shown, keep it visible at least this long to
  *                      prevent strobing.
- *   • FADE_MS        — quick fade-out.
+ *   • FADE_MS        - quick fade-out.
  */
 const SHOW_AFTER_MS = 200
 const MIN_VISIBLE_MS = 400
@@ -55,7 +55,7 @@ export function PageLoader() {
     }
 
     if (document.readyState === 'complete') {
-      // Page already loaded by the time we mounted — don't show at all.
+      // Page already loaded by the time we mounted - don't show at all.
       clearTimeout(showTimer)
       setPhase('gone')
     } else {

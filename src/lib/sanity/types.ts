@@ -1,5 +1,5 @@
 // TypeScript types derived from GROQ query projections.
-// Each type matches exactly what the query returns — not the full schema document.
+// Each type matches exactly what the query returns - not the full schema document.
 
 // ─── Shared ───────────────────────────────────────────────────────────────────
 
@@ -345,30 +345,63 @@ export interface CorporatePage {
 
 // ─── Patient Journey ──────────────────────────────────────────────────────────
 
+export interface JourneyStageTechRef {
+  name: string
+  slug: string
+  tagline_ka: string | null
+  tagline_en: string | null
+}
+
 export interface JourneyStage {
   _id: string
   stageNumber: number
   title_ka: string | null
   title_en: string | null
+  subtitle_ka: string | null
+  subtitle_en: string | null
   duration_ka: string | null
   duration_en: string | null
+  deliveredBy_ka: string | null
+  deliveredBy_en: string | null
   body_ka: unknown[] | null
   body_en: unknown[] | null
+  included_ka: string[] | null
+  included_en: string[] | null
+  deliverable_ka: string | null
+  deliverable_en: string | null
+  relatedTechnologies: JourneyStageTechRef[] | null
   tools: string[] | null
   icon: string | null
 }
 
-export interface JourneyData {
-  page: {
-    h1_ka: string | null
-    h1_en: string | null
-    intro_ka: string | null
-    intro_en: string | null
-    seo_title_ka: string | null
-    seo_title_en: string | null
-    seo_description_ka: string | null
-    seo_description_en: string | null
+export interface JourneyPage {
+  eyebrow_ka: string | null
+  eyebrow_en: string | null
+  h1_ka: string | null
+  h1_en: string | null
+  intro_ka: string | null
+  intro_en: string | null
+  hero_image: {
+    alt_ka: string | null
+    alt_en: string | null
+    asset: SanityImageAsset
   } | null
+  ctaHeading_ka: string | null
+  ctaHeading_en: string | null
+  ctaBody_ka: string | null
+  ctaBody_en: string | null
+  primaryCtaLabel_ka: string | null
+  primaryCtaLabel_en: string | null
+  secondaryCtaLabel_ka: string | null
+  secondaryCtaLabel_en: string | null
+  seo_title_ka: string | null
+  seo_title_en: string | null
+  seo_description_ka: string | null
+  seo_description_en: string | null
+}
+
+export interface JourneyData {
+  page: JourneyPage | null
   stages: JourneyStage[]
 }
 

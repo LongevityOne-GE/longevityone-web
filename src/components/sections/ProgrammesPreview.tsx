@@ -26,7 +26,7 @@ export function ProgrammesPreview({ locale }: ProgrammesPreviewProps) {
 
   return (
     <section className="relative py-16 md:py-32 bg-bone-white border-y border-dark-brown/5 overflow-hidden isolate">
-      {/* Blurred amphora-pour background video — clearly visible */}
+      {/* Blurred amphora-pour background video - clearly visible */}
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none"
@@ -43,7 +43,7 @@ export function ProgrammesPreview({ locale }: ProgrammesPreviewProps) {
         </video>
       </div>
 
-      {/* Behind-text scrim — concentrated wash directly under the headline */}
+      {/* Behind-text scrim - concentrated wash directly under the headline */}
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none"

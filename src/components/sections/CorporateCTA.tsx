@@ -21,7 +21,7 @@ export function CorporateCTA({ locale, ctaLabel }: CorporateCTAProps) {
 
   return (
     <section className="py-20 md:py-32 bg-dark-brown text-bone-white relative overflow-hidden isolate">
-      {/* Helix background video — softened so it sits subtly behind copy */}
+      {/* Helix background video - softened so it sits subtly behind copy */}
       <video
         autoPlay
         muted

@@ -175,7 +175,7 @@ export const blogPost = defineType({
       media: 'coverImage',
     },
     prepare: ({ title, subtitle, media }) => ({
-      title: title ?? '—',
+      title: title ?? '-',
       subtitle: subtitle ? new Date(subtitle).toLocaleDateString('en-GB') : 'Draft',
       media,
     }),

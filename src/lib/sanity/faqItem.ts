@@ -1,6 +1,6 @@
 import { defineField, defineType } from 'sanity'
 
-// FAQ items — reusable across /faq page and service page accordions
+// FAQ items - reusable across /faq page and service page accordions
 export const faqItem = defineType({
   name: 'faqItem',
   title: 'FAQ Item',
@@ -71,7 +71,7 @@ export const faqItem = defineType({
       subtitle: 'category',
     },
     prepare: ({ title, subtitle }) => ({
-      title: title ?? '—',
+      title: title ?? '-',
       subtitle: subtitle ?? '',
     }),
   },

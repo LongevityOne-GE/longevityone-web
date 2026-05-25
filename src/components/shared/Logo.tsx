@@ -10,7 +10,7 @@ export function Logo({ variant = 'compact', inverted = false }: LogoProps) {
 
   return (
     <div className="flex items-center gap-3">
-      {/* Brand mark — logo-mark.svg per brand guidelines */}
+      {/* Brand mark - logo-mark.svg per brand guidelines */}
       <img
         src="/logos/logo-mark.svg"
         alt=""

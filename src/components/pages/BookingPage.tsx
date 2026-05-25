@@ -7,13 +7,13 @@ import Link from 'next/link'
 import type { Locale } from '@/lib/utils'
 import { cn } from '@/lib/utils'
 
-// ─── Cal.com dynamic import — SSR must be false ───────────────────────────────
+// ─── Cal.com dynamic import - SSR must be false ───────────────────────────────
 const Cal = dynamic(
   () => import('@calcom/embed-react').then((mod) => mod.default),
   { ssr: false, loading: () => <CalSkeleton /> }
 )
 
-// ─── Brand tokens — must match BRAND.md & globals.css ─────────────────────────
+// ─── Brand tokens - must match BRAND.md & globals.css ─────────────────────────
 const BRAND = {
   bone:   '#E7DECC',
   brown:  '#422922',
@@ -25,7 +25,7 @@ const BRAND = {
 // Cal.com CSS variables (light theme) mapped to brand palette.
 // These pierce the embed iframe via cal("ui", { cssVarsPerTheme }).
 const CAL_BRAND_VARS: Record<string, string> = {
-  // Brand / accent — used by selected day, primary CTAs
+  // Brand / accent - used by selected day, primary CTAs
   'cal-brand':            BRAND.brown,
   'cal-brand-emphasis':   BRAND.brownDark,
   'cal-brand-text':       BRAND.bone,
@@ -245,7 +245,7 @@ function CalEmbed({
     }
 
     const safeApplyUi = (cal: CalApi) => {
-      try { cal('ui', UI_CONFIG) } catch { /* iframe not ready yet — linkReady will retry */ }
+      try { cal('ui', UI_CONFIG) } catch { /* iframe not ready yet - linkReady will retry */ }
     }
 
     const onReady = () => {
@@ -271,7 +271,7 @@ function CalEmbed({
         if (cancelled) return
         calRef = cal
 
-        // Listeners first — these never touch the iframe, so they're safe.
+        // Listeners first - these never touch the iframe, so they're safe.
         cal('on', { action: 'linkReady',  callback: onReady  })
         cal('on', { action: 'linkFailed', callback: onFailed })
 
@@ -348,7 +348,7 @@ function CalEmbed({
             layout: 'month_view',
             theme: 'light',
             hideEventTypeDetails: '1',
-            // Locale forwarding — Cal.com forwards unknown config keys to the
+            // Locale forwarding - Cal.com forwards unknown config keys to the
             // booker iframe as query params. Both `lang` and `embedLocale` are
             // observed in Cal.com's locale-detection code paths.
             lang: locale,

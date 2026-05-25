@@ -242,7 +242,7 @@ export function CookieBanner({ locale, strings }: CookieBannerProps) {
 
   return (
     <>
-      {/* Backdrop — blurs page and blocks all interaction until consent is given */}
+      {/* Backdrop - blurs page and blocks all interaction until consent is given */}
       <div
         aria-hidden="true"
         className="fixed inset-0 z-[99] backdrop-blur-sm bg-dark-brown/20 pointer-events-all"

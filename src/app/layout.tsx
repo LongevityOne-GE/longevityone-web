@@ -8,11 +8,11 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL ?? 'https://longevityone.ge'
   ),
   title: {
-    default: 'Longevity One — პრევენციული მედიცინის ცენტრი, თბილისი',
+    default: 'Longevity One - პრევენციული მედიცინის ცენტრი, თბილისი',
     template: '%s | Longevity One',
   },
   description:
-    'Longevity One — პრევენციული მედიცინის ცენტრი თბილისში. მოწინავე დიაგნოსტიკა, პერსონალიზებული პროგრამები, სამეცნიერო სიზუსტე.',
+    'Longevity One - პრევენციული მედიცინის ცენტრი თბილისში. მოწინავე დიაგნოსტიკა, პერსონალიზებული პროგრამები, სამეცნიერო სიზუსტე.',
   openGraph: {
     type: 'website',
     siteName: 'Longevity One',
