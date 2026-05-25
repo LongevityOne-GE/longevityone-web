@@ -42,7 +42,7 @@ export function AdvisoryMemberDialog({
         <button
           className="mt-5 text-[11px] uppercase tracking-[0.18em] font-medium text-burnt-orange
                      hover:text-dark-brown transition-colors duration-200 flex items-center gap-2 group"
-          aria-label={`${triggerLabel} — ${name}`}
+          aria-label={`${triggerLabel} - ${name}`}
         >
           {triggerLabel}
           <span
