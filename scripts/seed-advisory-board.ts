@@ -61,8 +61,11 @@ function paragraph(text: string, key: string): Block {
 
 // ─── Page singleton ───────────────────────────────────────────────────────────
 
+// The page singleton holds only editorial copy (no personal data) and is
+// published immediately so the route renders before members are added.
+// Member documents below stay as drafts and only appear after GDPR consent.
 const advisoryBoardPageDraft = {
-  _id: 'drafts.advisoryBoardPage',
+  _id: 'advisoryBoardPage',
   _type: 'advisoryBoardPage',
   eyebrow_ka: 'სამეცნიერო ზედამხედველობა',
   eyebrow_en: 'Scientific Oversight',
