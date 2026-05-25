@@ -30,6 +30,8 @@ export { corporatePage } from './corporatePage'
 export { journeyPage, journeyStage } from './journeyStage'
 export { faqPage, faqItem } from './faqItem'
 export { teamPage, teamMember } from './teamMember'
+export { advisoryBoardPage } from './advisoryBoardPage'
+export { advisoryBoardMember } from './advisoryBoardMember'
 
 // ─── Repeatable documents ─────────────────────────────────────────────────────
 export { service } from './service'
@@ -48,6 +50,8 @@ import { corporatePage } from './corporatePage'
 import { journeyPage, journeyStage } from './journeyStage'
 import { faqPage, faqItem } from './faqItem'
 import { teamPage, teamMember } from './teamMember'
+import { advisoryBoardPage } from './advisoryBoardPage'
+import { advisoryBoardMember } from './advisoryBoardMember'
 import { service } from './service'
 import { technology } from './technology'
 import { packageDoc } from './package'
@@ -60,6 +64,7 @@ export const schemaTypes = [
   siteSettings,
   homePage,
   aboutPage,
+  advisoryBoardPage,
   corporatePage,
   journeyPage,
   teamPage,
@@ -73,5 +78,6 @@ export const schemaTypes = [
   journeyStage,
   faqItem,
   teamMember,
+  advisoryBoardMember,
   legalPage,
 ]

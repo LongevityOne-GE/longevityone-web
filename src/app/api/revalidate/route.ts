@@ -9,6 +9,8 @@ interface SanityWebhookBody {
 const TAG_BY_TYPE: Record<string, string[]> = {
   journeyPage: ['journeyPage'],
   journeyStage: ['journeyStage'],
+  advisoryBoardPage: ['advisoryBoardPage'],
+  advisoryBoardMember: ['advisoryBoardMember'],
 }
 
 export async function POST(req: NextRequest) {
