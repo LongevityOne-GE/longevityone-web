@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import type { Locale } from '@/lib/utils'
 import type { HomePackage, HomePageData } from '@/lib/sanity/types'
-import { SectionHeader } from '@/components/shared/SectionHeader'
 import { Reveal } from '@/components/animations/Reveal'
 
 interface ProgrammesPreviewProps {
@@ -10,16 +9,20 @@ interface ProgrammesPreviewProps {
   data?: HomePageData | null
 }
 
-export function ProgrammesPreview({ locale, packages, data }: ProgrammesPreviewProps) {
+export function ProgrammesPreview({ locale }: ProgrammesPreviewProps) {
   const prefix = locale === 'en' ? '/en' : ''
   const packagesHref = `${prefix}/packages`
-  const pkgs = packages ?? []
 
-  const viewAll =
+  const headline =
     locale === 'ka'
-      ? 'ნახე ყველა პროგრამა და ფასი'
-      : 'Explore programmes & pricing'
-  const learnMore = locale === 'ka' ? 'გაიგე მეტი' : 'Learn more'
+      ? 'ინვესტიცია თქვენს მომავალში'
+      : 'An investment in your future'
+  const subtext =
+    locale === 'ka'
+      ? 'პროგრამები შემუშავებულია თქვენი ჯანმრთელობისა და დღეგრძელობის ყველა ეტაპისთვის.'
+      : 'Programmes designed for every stage of your health and longevity journey.'
+  const cta =
+    locale === 'ka' ? 'ნახე პროგრამები' : 'Explore programmes'
 
   return (
     <section className="relative py-16 md:py-32 bg-bone-white border-y border-dark-brown/5 overflow-hidden isolate">
@@ -40,21 +43,13 @@ export function ProgrammesPreview({ locale, packages, data }: ProgrammesPreviewP
         </video>
       </div>
 
-      {/* Behind-text scrims only — keep the rest of the video fully clear */}
+      {/* Behind-text scrim — concentrated wash directly under the headline */}
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse 70% 28% at center 18%, rgba(231,222,204,0.85) 0%, rgba(231,222,204,0) 70%)',
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse 90% 35% at center 65%, rgba(231,222,204,0.7) 0%, rgba(231,222,204,0) 70%)',
+            'radial-gradient(ellipse 60% 50% at center 50%, rgba(231,222,204,0.92) 0%, rgba(231,222,204,0.7) 45%, rgba(231,222,204,0) 80%)',
         }}
       />
 
@@ -76,78 +71,28 @@ export function ProgrammesPreview({ locale, packages, data }: ProgrammesPreviewP
         }}
       />
 
-      <div className="section-container relative z-10 text-center mb-16 md:mb-20">
-        <SectionHeader
-          locale={locale}
-          titleKa={data?.packages_heading_ka}
-          titleEn={data?.packages_heading_en}
-          subtitleKa={data?.packages_subtext_ka}
-          subtitleEn={data?.packages_subtext_en}
-        />
-      </div>
-
-      {pkgs.length > 0 && (
-        <div className="section-container relative z-10">
-          {/* Lightweight programmes strip — name + tagline only, no per-item CTA */}
-          <ul className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-dark-brown/10 border-y border-dark-brown/10">
-            {pkgs.map((pkg, idx) => {
-              const name = locale === 'ka' ? pkg.name_ka : pkg.name_en
-              const includes = (locale === 'ka' ? pkg.includes_ka : pkg.includes_en) ?? []
-              const tagline = includes[0] ?? null
-
-              return (
-                <Reveal key={pkg._id} delay={0.1 * idx}>
-                  <li className="py-10 md:py-14 px-6 md:px-10 text-left h-full">
-                    <span
-                      aria-hidden="true"
-                      className="block text-xs font-bold tracking-[0.3em] text-burnt-orange/80 mb-5"
-                    >
-                      {String(idx + 1).padStart(2, '0')}
-                    </span>
-                    <h3 className="text-2xl md:text-3xl font-black font-serif text-dark-brown leading-tight mb-4">
-                      {name}
-                    </h3>
-                    {tagline && (
-                      <p className="text-base text-dark-brown/70 leading-relaxed max-w-sm mb-6">
-                        {tagline}
-                      </p>
-                    )}
-                    <Link
-                      href={packagesHref}
-                      className="inline-flex items-center gap-2 group/link text-burnt-orange text-xs uppercase tracking-[0.2em] font-bold"
-                    >
-                      <span className="border-b border-transparent group-hover/link:border-burnt-orange transition-colors duration-300">
-                        {learnMore}
-                      </span>
-                      <span className="leading-none transition-transform duration-300 group-hover/link:translate-x-1">
-                        →
-                      </span>
-                    </Link>
-                  </li>
-                </Reveal>
-              )
-            })}
-          </ul>
-
-          {/* Single section-level CTA → /packages */}
-          <Reveal delay={0.25}>
-            <div className="text-center mt-14 md:mt-20">
-              <Link
-                href={packagesHref}
-                className="inline-flex items-center gap-3 group text-dark-brown"
-              >
-                <span className="h-px w-8 bg-burnt-orange transition-all duration-300 group-hover:w-14" />
-                <span className="text-xs uppercase tracking-[0.3em] font-bold">
-                  {viewAll}
-                </span>
-                <span className="text-burnt-orange text-lg leading-none transition-transform duration-300 group-hover:translate-x-1">
-                  →
-                </span>
+      <div className="section-container relative z-10">
+        <div className="max-w-2xl mx-auto text-center">
+          <Reveal delay={0.08}>
+            <h2 className="font-serif font-black leading-[1.05] tracking-tight text-4xl sm:text-5xl md:text-6xl text-dark-brown">
+              {headline}
+            </h2>
+          </Reveal>
+          <Reveal delay={0.16}>
+            <p className="mt-6 text-base md:text-lg leading-relaxed text-dark-brown/75">
+              {subtext}
+            </p>
+          </Reveal>
+          <Reveal delay={0.24}>
+            <div className="mt-10">
+              <Link href={packagesHref} className="btn-primary">
+                <span>{cta}</span>
+                <span className="ml-3">→</span>
               </Link>
             </div>
           </Reveal>
         </div>
-      )}
+      </div>
     </section>
   )
 }
