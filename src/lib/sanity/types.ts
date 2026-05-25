@@ -417,8 +417,12 @@ export interface TeamMember {
   specialty_en: string | null
   tagline_ka: string | null
   tagline_en: string | null
+  pullQuote_ka: string | null
+  pullQuote_en: string | null
   bio_ka: string | null
   bio_en: string | null
+  fullBio_ka: unknown[] | null
+  fullBio_en: unknown[] | null
   isFounder?: boolean | null
   photo: SanityImage | null
   credentials: string[] | null

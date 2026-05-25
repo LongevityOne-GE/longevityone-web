@@ -11,6 +11,8 @@ const TAG_BY_TYPE: Record<string, string[]> = {
   journeyStage: ['journeyStage'],
   advisoryBoardPage: ['advisoryBoardPage'],
   advisoryBoardMember: ['advisoryBoardMember'],
+  teamMember: ['sanity'],
+  teamPage: ['sanity'],
 }
 
 export async function POST(req: NextRequest) {
