@@ -48,13 +48,13 @@ export const packageDoc = defineType({
       name: 'priceLabel_ka',
       title: 'Price Label (Georgian)',
       type: 'string',
-      description: 'Display string — e.g. "550 ₾" or "650 ₾/თვე"',
+      description: 'Display string - e.g. "550 ₾" or "650 ₾/თვე"',
     }),
     defineField({
       name: 'priceLabel_en',
       title: 'Price Label (English)',
       type: 'string',
-      description: 'Display string — e.g. "550 GEL" or "650 GEL/mo"',
+      description: 'Display string - e.g. "550 GEL" or "650 GEL/mo"',
     }),
     defineField({
       name: 'priceSuffix_ka',
@@ -94,14 +94,14 @@ export const packageDoc = defineType({
     }),
     defineField({
       name: 'includes_ka',
-      title: 'Includes — Feature List (Georgian)',
+      title: 'Includes - Feature List (Georgian)',
       type: 'array',
       of: [{ type: 'string' }],
       description: 'Each item becomes one line in the feature list.',
     }),
     defineField({
       name: 'includes_en',
-      title: 'Includes — Feature List (English)',
+      title: 'Includes - Feature List (English)',
       type: 'array',
       of: [{ type: 'string' }],
     }),
@@ -123,7 +123,7 @@ export const packageDoc = defineType({
       name: 'cta_label_ka',
       title: 'CTA Button Label (Georgian)',
       type: 'string',
-      description: 'e.g. "დაჯავშნა" — override per package if needed',
+      description: 'e.g. "დაჯავშნა" - override per package if needed',
     }),
     defineField({
       name: 'cta_label_en',
@@ -149,7 +149,7 @@ export const packageDoc = defineType({
       price: 'price',
     },
     prepare: ({ title, subtitle, price }) => ({
-      title: title ?? '—',
+      title: title ?? '-',
       subtitle: `${subtitle ?? ''} · ${price ?? 0} GEL`,
     }),
   },

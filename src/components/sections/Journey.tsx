@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import type { Locale } from '@/lib/utils'
 import type { HomePageData } from '@/lib/sanity/types'
 import { SectionHeader } from '@/components/shared/SectionHeader'
@@ -61,6 +62,21 @@ export function Journey({ locale, data }: JourneyProps) {
             </div>
           </div>
         )}
+
+        {/* Link to the full 8-stage operational Patient Journey page. */}
+        <div className="mt-16 md:mt-20 flex justify-center">
+          <Link
+            href={locale === 'en' ? '/en/journey' : '/journey'}
+            className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] text-burnt-orange font-bold border-b border-burnt-orange/40 hover:border-burnt-orange pb-1 transition-colors"
+          >
+            <span>
+              {locale === 'ka'
+                ? 'ნახე სრული 8-საფეხურიანი გზა'
+                : 'Discover the full journey'}
+            </span>
+            <span aria-hidden="true">→</span>
+          </Link>
+        </div>
       </div>
     </section>
   )

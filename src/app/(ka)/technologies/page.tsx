@@ -6,7 +6,7 @@ import { TechnologiesPage } from '@/components/pages/TechnologiesPage'
 export const metadata: Metadata = {
   title: 'მეცნიერება და ტექნოლოგია',
   description:
-    'მოწინავე დიაგნოსტიკური ტექნოლოგიები — PNOE, IHHT, Red Light Therapy, TrueDiagnostic, Enbiosis.',
+    'მოწინავე დიაგნოსტიკური ტექნოლოგიები - PNOE, IHHT, Red Light Therapy, TrueDiagnostic, Enbiosis.',
 }
 
 export default async function KaTechnologiesPage() {

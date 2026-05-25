@@ -30,7 +30,7 @@ export const technology = defineType({
       name: 'tagline_ka',
       title: 'Tagline (Georgian)',
       type: 'string',
-      description: 'Short one-line hook — used in homepage tech showcase grid.',
+      description: 'Short one-line hook - used in homepage tech showcase grid.',
     }),
     defineField({
       name: 'tagline_en',
@@ -58,7 +58,7 @@ export const technology = defineType({
       title: 'How It Works (Georgian)',
       type: 'text',
       rows: 3,
-      description: 'Optional — not all technologies have a "how it works" section.',
+      description: 'Optional - not all technologies have a "how it works" section.',
     }),
     defineField({
       name: 'howItWorks_en',
@@ -87,7 +87,7 @@ export const technology = defineType({
       title: 'Benefits (Georgian)',
       type: 'array',
       of: [{ type: 'string' }],
-      description: 'Used for IHHT, Red Light — rendered as bullet list.',
+      description: 'Used for IHHT, Red Light - rendered as bullet list.',
     }),
     defineField({
       name: 'benefits_en',
@@ -129,7 +129,7 @@ export const technology = defineType({
       name: 'namingNote',
       title: 'Naming / Editorial Note (internal)',
       type: 'string',
-      description: 'Internal reminder for editors — e.g. "Always use full name on first mention."',
+      description: 'Internal reminder for editors - e.g. "Always use full name on first mention."',
     }),
 
     // ─── Hero Image ───────────────────────────────────────────────────────────

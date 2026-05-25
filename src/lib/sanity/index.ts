@@ -6,7 +6,7 @@ export * from './types'
 
 // ─── Schema registry (imported by sanity.config.ts) ──────────────────────────
 /**
- * Longevity One — Sanity Schema Index
+ * Longevity One - Sanity Schema Index
  *
  * Register all schemas here. Import this in sanity.config.ts:
  *
@@ -18,7 +18,7 @@ export * from './types'
  *   })
  *
  * Singleton documents (homePage, aboutPage, etc.) use __experimental_actions
- * to disable "Create" in Studio — editors can only update the single document.
+ * to disable "Create" in Studio - editors can only update the single document.
  * To create the singletons for the first time, temporarily remove that
  * restriction or create them via the Sanity CLI / import script.
  */
@@ -56,7 +56,7 @@ import { legalPage } from './legalPage'
 import { siteSettings } from './siteSettings'
 
 export const schemaTypes = [
-  // Singletons first — appear at top of Studio sidebar
+  // Singletons first - appear at top of Studio sidebar
   siteSettings,
   homePage,
   aboutPage,

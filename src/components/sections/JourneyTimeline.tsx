@@ -17,7 +17,7 @@ export function JourneyTimeline({ locale, stages }: JourneyTimelineProps) {
     <section className="py-20 md:py-32 bg-bone-white">
       <div className="section-container">
         <div className="relative">
-          {/* vertical line — desktop only */}
+          {/* vertical line - desktop only */}
           <div className="hidden lg:block absolute left-1/2 -translate-x-px top-0 bottom-0 w-px bg-dark-brown/10" />
 
           <div className="space-y-0">
@@ -34,7 +34,7 @@ export function JourneyTimeline({ locale, stages }: JourneyTimelineProps) {
                       isLeft ? '' : 'lg:flex-row-reverse'
                     }`}
                   >
-                    {/* dot on the timeline — desktop */}
+                    {/* dot on the timeline - desktop */}
                     <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-bone-white border-2 border-burnt-orange z-10" />
 
                     {/* number + title block */}

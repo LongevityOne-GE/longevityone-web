@@ -191,24 +191,24 @@ export async function POST(req: NextRequest) {
   }
 
   // Best-effort auto-reply confirmation to the submitter. Failure here
-  // must NOT fail the request — the staff already received the message.
+  // must NOT fail the request - the staff already received the message.
   try {
     const replySubject =
       locale === 'ka'
-        ? 'მივიღეთ თქვენი შეტყობინება — Longevity One'
-        : 'We received your message — Longevity One'
+        ? 'მივიღეთ თქვენი შეტყობინება - Longevity One'
+        : 'We received your message - Longevity One'
     const replyHtml =
       locale === 'ka'
         ? `<p>პატივცემულო ${safeName},</p>
            <p>გმადლობთ დაკავშირებისთვის. მივიღეთ თქვენი შეტყობინება და მალე დაგიკავშირდებით.</p>
-           <p>— Longevity One-ის გუნდი</p>`
+           <p>- Longevity One-ის გუნდი</p>`
         : `<p>Hi ${safeName},</p>
            <p>Thank you for contacting Longevity One. We have received your message and will be in touch shortly.</p>
-           <p>— The Longevity One team</p>`
+           <p>- The Longevity One team</p>`
     const replyText =
       locale === 'ka'
-        ? `პატივცემულო ${name},\n\nგმადლობთ დაკავშირებისთვის. მივიღეთ თქვენი შეტყობინება და მალე დაგიკავშირდებით.\n\n— Longevity One-ის გუნდი`
-        : `Hi ${name},\n\nThank you for contacting Longevity One. We have received your message and will be in touch shortly.\n\n— The Longevity One team`
+        ? `პატივცემულო ${name},\n\nგმადლობთ დაკავშირებისთვის. მივიღეთ თქვენი შეტყობინება და მალე დაგიკავშირდებით.\n\n- Longevity One-ის გუნდი`
+        : `Hi ${name},\n\nThank you for contacting Longevity One. We have received your message and will be in touch shortly.\n\n- The Longevity One team`
 
     await resend.emails.send({
       from: 'Longevity One <noreply@longevityone.ge>',

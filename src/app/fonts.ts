@@ -2,16 +2,16 @@ import localFont from 'next/font/local'
 import { Noto_Sans_Georgian, Allura, Playfair_Display } from 'next/font/google'
 
 /**
- * Mersad — primary brand typeface (Latin).
+ * Mersad - primary brand typeface (Latin).
  *
  * All 9 weights in one declaration so the browser always has the full
  * weight axis available and never synthesises bold or italic.
  *
- * preload: true — Next.js generates <link rel="preload"> for every file.
+ * preload: true - Next.js generates <link rel="preload"> for every file.
  * 9 × ~42 KB = ~378 KB served in parallel over HTTP/2 from Vercel CDN.
  * Acceptable for a luxury brand where typographic fidelity is non-negotiable.
  *
- * adjustFontFallback: 'Arial' — Next.js generates a metric-adjusted @font-face
+ * adjustFontFallback: 'Arial' - Next.js generates a metric-adjusted @font-face
  * for Arial (size-adjust, ascent-override, descent-override) so the swap from
  * fallback → Mersad causes no measurable layout shift (CLS ≈ 0).
  */
@@ -35,12 +35,12 @@ export const mersad = localFont({
 })
 
 /**
- * Noto Sans Georgian — Georgian script coverage.
+ * Noto Sans Georgian - Georgian script coverage.
  * Mersad covers Latin only (U+0000–U+024F). Georgian (U+10A0–U+10FF)
  * falls through to this font via unicode-range matching and the :lang(ka)
  * rules in globals.css.
  *
- * Only 3 weights — Georgian UI uses Regular/SemiBold; Light for body copy.
+ * Only 3 weights - Georgian UI uses Regular/SemiBold; Light for body copy.
  */
 export const fontGeorgian = Noto_Sans_Georgian({
   subsets: ['georgian'],
@@ -52,7 +52,7 @@ export const fontGeorgian = Noto_Sans_Georgian({
 })
 
 /**
- * Playfair Display — editorial serif for pull quotes and italic accents.
+ * Playfair Display - editorial serif for pull quotes and italic accents.
  * Used sparingly; display: optional avoids any FOUT for non-critical content.
  */
 export const fontDisplay = Playfair_Display({
@@ -66,7 +66,7 @@ export const fontDisplay = Playfair_Display({
 })
 
 /**
- * Allura — script accent for signature moments ("Live well.").
+ * Allura - script accent for signature moments ("Live well.").
  * Loaded on-demand; only appears in hero and select marketing copy.
  */
 export const fontScript = Allura({

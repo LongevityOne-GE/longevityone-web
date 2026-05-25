@@ -47,7 +47,7 @@ export function Programmes({ locale, programmes }: ProgrammesProps) {
       id="programmes"
       className="relative py-24 md:py-32 bg-dark-brown text-dark-brown overflow-hidden isolate"
     >
-      {/* Medical background video — softened against dark bg */}
+      {/* Medical background video - softened against dark bg */}
       <video
         autoPlay
         muted
@@ -59,7 +59,7 @@ export function Programmes({ locale, programmes }: ProgrammesProps) {
         <source src="/videos/longevity-one-medical-light-bg.mp4" type="video/mp4" />
       </video>
 
-      {/* Subtle edge fades — light, just enough to imply continuity */}
+      {/* Subtle edge fades - light, just enough to imply continuity */}
       <div
         aria-hidden="true"
         className="absolute inset-x-0 top-0 h-16 md:h-20 pointer-events-none z-[1]"

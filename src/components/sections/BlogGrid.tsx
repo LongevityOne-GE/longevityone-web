@@ -23,7 +23,7 @@ function getCategoryLabel(slug: string | null, locale: Locale): string | null {
   return slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 }
 
-// Curated fallback imagery by category — used when Sanity coverImage is missing.
+// Curated fallback imagery by category - used when Sanity coverImage is missing.
 const fallbackImages: Record<string, string> = {
   'longevity-science':
     '/images/blog images/blog 1-2.jpeg',

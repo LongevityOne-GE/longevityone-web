@@ -9,14 +9,14 @@ export const teamMember = defineType({
       name: 'name',
       title: 'Full Name',
       type: 'string',
-      description: 'Georgian script — e.g. ნინო განუგრავა',
+      description: 'Georgian script - e.g. ნინო განუგრავა',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'name_en',
       title: 'Full Name (Latin script)',
       type: 'string',
-      description: 'e.g. Nino Ganugrava — for English version',
+      description: 'e.g. Nino Ganugrava - for English version',
     }),
     defineField({
       name: 'role_ka',
@@ -118,7 +118,7 @@ export const teamMember = defineType({
       isFounder: 'isFounder',
     },
     prepare: ({ title, subtitle, media, isFounder }) => ({
-      title: title ?? '—',
+      title: title ?? '-',
       subtitle: `${isFounder ? '⭐ Founder · ' : ''}${subtitle ?? ''}`,
       media,
     }),
