@@ -426,3 +426,45 @@ export const homeFoundersQuery = groq`
     photo { asset->{ url, metadata { lqip } } },
   }
 `
+
+// ─── Advisory Board ───────────────────────────────────────────────────────────
+
+export const ADVISORY_BOARD_PAGE_QUERY = groq`
+  *[_type == "advisoryBoardPage"] | order(_createdAt asc)[0] {
+    eyebrow_ka, eyebrow_en,
+    heading_ka, heading_en,
+    intro_ka, intro_en,
+    sectionGeorgianHeading_ka, sectionGeorgianHeading_en,
+    sectionInternationalHeading_ka, sectionInternationalHeading_en,
+    seoTitle_ka, seoTitle_en,
+    seoDescription_ka, seoDescription_en,
+  }
+`
+
+// Only members with GDPR consent are returned.
+// Sorted: chair first, then vice-chair, then members — then by order, then name_en.
+// Note: boardRole sort order (chair < member < vice-chair alphabetically) is handled
+// in application code after fetch via sortAdvisoryMembers().
+export const ADVISORY_BOARD_MEMBERS_QUERY = groq`
+  *[_type == "advisoryBoardMember" && consentToPublicListing == true]
+    | order(order asc, name_en asc) {
+    _id,
+    name_ka, name_en,
+    "slug": slug.current,
+    credentials,
+    boardRole,
+    title_ka, title_en,
+    affiliation_ka, affiliation_en,
+    affiliationCountry,
+    isInternational,
+    expertise_ka, expertise_en,
+    bio_ka, bio_en,
+    photo {
+      asset->{ url, metadata { lqip, dimensions } },
+      hotspot,
+      alt_ka, alt_en,
+    },
+    profileUrl,
+    order,
+  }
+`

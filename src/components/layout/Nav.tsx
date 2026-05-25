@@ -10,9 +10,28 @@ import { BookingButton } from '@/components/booking'
 import { useScrollProgress } from '@/lib/motion'
 import { LanguageSwitcher } from './LanguageSwitcher'
 
-const navLinks = [
+interface NavChild {
+  ka: string
+  en: string
+  href: string
+}
+
+interface NavLink {
+  ka: string
+  en: string
+  href: string
+  children?: NavChild[]
+}
+
+const navLinks: NavLink[] = [
   { ka: 'მთავარი', en: 'Home', href: '/' },
-  { ka: 'ჩვენს შესახებ', en: 'About', href: '/about' },
+  {
+    ka: 'ჩვენს შესახებ', en: 'About', href: '/about',
+    children: [
+      { ka: 'კლინიკის შესახებ', en: 'About the Clinic', href: '/about' },
+      { ka: 'სამეცნიერო საბჭო', en: 'Advisory Board', href: '/about/advisory-board' },
+    ],
+  },
   { ka: 'სერვისები', en: 'Services', href: '/services' },
   { ka: 'მეცნიერება და ტექნოლოგია', en: 'Science & Technology', href: '/technologies' },
   { ka: 'პაკეტები', en: 'Packages', href: '/packages' },
@@ -120,6 +139,41 @@ export function Nav({ locale, siteSettings }: NavProps) {
           <div className="hidden xl:flex items-center gap-3 flex-1 justify-center min-w-0">
             {navLinks.map((link) => {
               const active = isActive(link.href)
+              if (link.children && link.children.length > 0) {
+                const anyChildActive = link.children.some((c) => isActive(c.href))
+                return (
+                  <div key={link.en} className="relative group/dropdown">
+                    <Link
+                      href={`${prefix}${link.href}`}
+                      aria-current={active ? 'page' : undefined}
+                      className={`text-[10px] font-medium uppercase tracking-[0.05em] hover:text-burnt-orange transition-colors whitespace-nowrap flex items-center gap-1 ${active || anyChildActive ? 'text-burnt-orange' : 'text-dark-brown'}`}
+                    >
+                      {locale === 'ka' ? link.ka : link.en}
+                      <svg width="8" height="5" viewBox="0 0 8 5" fill="currentColor" aria-hidden="true" className="opacity-50 transition-transform duration-200 group-hover/dropdown:rotate-180">
+                        <path d="M0 0.5L4 4.5L8 0.5" stroke="currentColor" strokeWidth="1" fill="none"/>
+                      </svg>
+                    </Link>
+                    {/* Dropdown */}
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 opacity-0 pointer-events-none group-hover/dropdown:opacity-100 group-hover/dropdown:pointer-events-auto transition-[opacity,transform] duration-200 group-hover/dropdown:translate-y-0 translate-y-1 z-50">
+                      <div className="bg-bone-white border border-dark-brown/10 shadow-sm min-w-[180px] py-1">
+                        {link.children.map((child) => {
+                          const childActive = isActive(child.href)
+                          return (
+                            <Link
+                              key={child.href}
+                              href={`${prefix}${child.href}`}
+                              aria-current={childActive ? 'page' : undefined}
+                              className={`block px-4 py-2.5 text-[10px] font-medium uppercase tracking-[0.08em] hover:text-burnt-orange hover:bg-dark-brown/4 transition-colors whitespace-nowrap ${childActive ? 'text-burnt-orange' : 'text-dark-brown'}`}
+                            >
+                              {locale === 'ka' ? child.ka : child.en}
+                            </Link>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                )
+              }
               return (
                 <Link
                   key={link.en}
@@ -167,14 +221,28 @@ export function Nav({ locale, siteSettings }: NavProps) {
                 {navLinks.map((link) => {
                   const active = isActive(link.href)
                   return (
-                    <Link
-                      key={link.en}
-                      href={`${prefix}${link.href}`}
-                      aria-current={active ? 'page' : undefined}
-                      className={`text-sm font-medium uppercase tracking-[0.1em] hover:text-burnt-orange transition-colors py-1 ${active ? 'text-burnt-orange' : 'text-dark-brown'}`}
-                    >
-                      {locale === 'ka' ? link.ka : link.en}
-                    </Link>
+                    <div key={link.en}>
+                      <Link
+                        href={`${prefix}${link.href}`}
+                        aria-current={active ? 'page' : undefined}
+                        className={`text-sm font-medium uppercase tracking-[0.1em] hover:text-burnt-orange transition-colors py-1 ${active ? 'text-burnt-orange' : 'text-dark-brown'}`}
+                      >
+                        {locale === 'ka' ? link.ka : link.en}
+                      </Link>
+                      {link.children && link.children.map((child) => {
+                        const childActive = isActive(child.href)
+                        return (
+                          <Link
+                            key={child.href}
+                            href={`${prefix}${child.href}`}
+                            aria-current={childActive ? 'page' : undefined}
+                            className={`block pl-4 mt-1 text-xs font-medium uppercase tracking-[0.1em] hover:text-burnt-orange transition-colors py-0.5 border-l border-dark-brown/15 ${childActive ? 'text-burnt-orange' : 'text-dark-brown/60'}`}
+                          >
+                            {locale === 'ka' ? child.ka : child.en}
+                          </Link>
+                        )
+                      })}
+                    </div>
                   )
                 })}
 

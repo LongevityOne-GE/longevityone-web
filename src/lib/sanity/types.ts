@@ -515,3 +515,51 @@ export interface LegalPage {
   body_ka: unknown[] | null
   body_en: unknown[] | null
 }
+
+// ─── Advisory Board ───────────────────────────────────────────────────────────
+
+export type BoardRole = 'chair' | 'vice-chair' | 'member'
+
+export interface AdvisoryBoardMember {
+  _id: string
+  name_ka: string
+  name_en: string
+  slug: string
+  credentials: string[] | null
+  boardRole: BoardRole
+  title_ka: string
+  title_en: string
+  affiliation_ka: string | null
+  affiliation_en: string | null
+  affiliationCountry: string | null
+  isInternational: boolean
+  expertise_ka: string[] | null
+  expertise_en: string[] | null
+  bio_ka: unknown[]
+  bio_en: unknown[]
+  photo: {
+    asset: SanityImageAsset
+    hotspot?: { x: number; y: number; height: number; width: number }
+    alt_ka: string
+    alt_en: string
+  } | null
+  profileUrl: string | null
+  order: number | null
+}
+
+export interface AdvisoryBoardPage {
+  eyebrow_ka: string | null
+  eyebrow_en: string | null
+  heading_ka: string
+  heading_en: string
+  intro_ka: string | null
+  intro_en: string | null
+  sectionGeorgianHeading_ka: string | null
+  sectionGeorgianHeading_en: string | null
+  sectionInternationalHeading_ka: string | null
+  sectionInternationalHeading_en: string | null
+  seoTitle_ka: string | null
+  seoTitle_en: string | null
+  seoDescription_ka: string | null
+  seoDescription_en: string | null
+}
