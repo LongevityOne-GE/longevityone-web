@@ -4,8 +4,7 @@ import Link from 'next/link'
 import type { Locale } from '@/lib/utils'
 import type { TeamData } from '@/lib/sanity/types'
 import { PageHero } from '@/components/shared/PageHero'
-import { FoundersGrid } from '@/components/sections/FoundersGrid'
-import { ClinicTeam } from '@/components/sections/ClinicTeam'
+import { TeamGrid } from '@/components/sections/team/TeamGrid'
 
 interface TeamPageProps {
   locale: Locale
@@ -31,11 +30,35 @@ export function TeamPage({ locale, data }: TeamPageProps) {
   const prefix = locale === 'en' ? '/en' : ''
   const { label, href } = ADVISORY_COPY[locale]
 
+  const founders = data?.founders ?? []
+  const team = data?.team ?? []
+  const page = data?.page ?? null
+
+  const foundersHeading = locale === 'ka' ? page?.founders_heading_ka : page?.founders_heading_en
+  const foundersSubtext = locale === 'ka' ? page?.founders_subtext_ka : page?.founders_subtext_en
+  const clinicHeading =
+    (locale === 'ka' ? page?.clinic_team_heading_ka : page?.clinic_team_heading_en) ||
+    (locale === 'ka' ? 'კლინიკის გუნდი' : 'Clinic Team')
+
   return (
     <main className="flex flex-col">
       <PageHero locale={locale} title={title} />
-      <FoundersGrid locale={locale} founders={data?.founders ?? []} page={data?.page ?? null} />
-      <ClinicTeam locale={locale} team={data?.team ?? []} page={data?.page ?? null} />
+
+      <section className="bg-bone-white py-16 md:py-24">
+        <div className="section-container">
+          <TeamGrid
+            locale={locale}
+            members={founders}
+            heading={foundersHeading || (locale === 'ka' ? 'დამფუძნებლები' : 'The Founders')}
+            subtext={foundersSubtext}
+          />
+          <TeamGrid
+            locale={locale}
+            members={team}
+            heading={clinicHeading}
+          />
+        </div>
+      </section>
 
       {/* Cross-link to advisory board */}
       <div className="bg-bone-white border-t border-dark-brown/8 py-12 md:py-16">
