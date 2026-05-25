@@ -30,7 +30,7 @@ export function JourneyStage({ locale, stage, index }: JourneyStageProps) {
 
   const textBlock = (
     <>
-      <p className="text-[11px] uppercase tracking-[0.22em] text-dark-brown/55 font-medium mb-3">
+      <p className="text-[11px] uppercase tracking-[0.22em] text-burnt-orange font-medium mb-3">
         {COPY.stage[locale]} {eyebrowNum}
       </p>
       <h2 className="text-2xl md:text-[30px] font-serif font-semibold text-dark-brown leading-snug">
