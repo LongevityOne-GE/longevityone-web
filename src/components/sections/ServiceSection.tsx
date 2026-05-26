@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import type { Locale } from '@/lib/utils'
+import { localizedTechName, type Locale } from '@/lib/utils'
 import type { ServiceDetail } from '@/lib/sanity/types'
 import { Reveal } from '@/components/animations/Reveal'
 import { PortableTextRenderer } from '@/components/shared/PortableTextRenderer'
@@ -234,29 +234,32 @@ export function ServiceSection({ locale, service, index }: ServiceSectionProps) 
                     {techLabel}
                   </h4>
                   <ul className="space-y-3">
-                    {service.technologies.map((tech) => (
+                    {service.technologies.map((tech) => {
+                      const techDisplay = localizedTechName(tech, locale)
+                      return (
                       <li key={tech.slug} className="flex items-start gap-3">
                         {tech.heroImage?.asset?.url ? (
                           <img
                             src={tech.heroImage.asset.url}
-                            alt={tech.name}
+                            alt={techDisplay}
                             className="w-10 h-10 rounded-sm object-cover flex-shrink-0"
                           />
                         ) : (
                           <div className="w-10 h-10 rounded-sm bg-dark-brown/8 border border-dark-brown/10 flex items-center justify-center flex-shrink-0">
                             <span className="text-sm font-black text-dark-brown/30 font-serif">
-                              {tech.name.charAt(0)}
+                              {techDisplay.charAt(0)}
                             </span>
                           </div>
                         )}
                         <div>
-                          <p className="text-sm font-bold text-dark-brown">{tech.name}</p>
+                          <p className="text-sm font-bold text-dark-brown">{techDisplay}</p>
                           <p className="text-xs text-dark-brown/60 leading-relaxed mt-0.5">
                             {locale === 'ka' ? tech.tagline_ka : tech.tagline_en}
                           </p>
                         </div>
                       </li>
-                    ))}
+                      )
+                    })}
                   </ul>
                 </div>
               </Reveal>

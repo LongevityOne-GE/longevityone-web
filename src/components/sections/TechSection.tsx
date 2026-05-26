@@ -1,6 +1,6 @@
 'use client'
 
-import type { Locale } from '@/lib/utils'
+import { localizedTechName, type Locale } from '@/lib/utils'
 import type { Technology } from '@/lib/sanity/types'
 import { Reveal } from '@/components/animations/Reveal'
 
@@ -12,6 +12,7 @@ interface TechSectionProps {
 
 export function TechSection({ locale, tech, index }: TechSectionProps) {
   const isOdd = index % 2 === 0
+  const displayName = localizedTechName(tech, locale)
   const tagline = locale === 'ka' ? tech.tagline_ka : tech.tagline_en
   const whatItIs = locale === 'ka' ? tech.whatItIs_ka : tech.whatItIs_en
   const howItWorks = locale === 'ka' ? tech.howItWorks_ka : tech.howItWorks_en
@@ -40,7 +41,7 @@ export function TechSection({ locale, tech, index }: TechSectionProps) {
         >
           <div className={isOdd ? 'lg:order-1' : 'lg:order-2'}>
             <Reveal>
-              <p className="eyebrow">{tech.name}</p>
+              <p className="eyebrow">{displayName}</p>
             </Reveal>
 
             <Reveal delay={0.1}>
@@ -97,7 +98,7 @@ export function TechSection({ locale, tech, index }: TechSectionProps) {
               <Reveal delay={0.15}>
                 <img
                   src={tech.heroImage.asset.url}
-                  alt={tech.name}
+                  alt={displayName}
                   className="w-full max-w-md rounded-lg shadow-lg"
                 />
               </Reveal>

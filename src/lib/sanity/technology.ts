@@ -7,9 +7,24 @@ export const technology = defineType({
   fields: [
     defineField({
       name: 'name',
-      title: 'Technology Name',
+      title: 'Brand Code / Key (language-neutral)',
       type: 'string',
-      description: 'e.g. PNOE, IHHT, Red Light',
+      description:
+        'Short language-neutral identifier — e.g. PNOE, IHHT, Red Light, Microbiome. Used for slug source, JSON-LD canonical name, and tech-mention link matching. NOT shown to visitors except as a fallback.',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'name_ka',
+      title: 'Display Name (Georgian)',
+      type: 'string',
+      description: 'Shown on Georgian pages.',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'name_en',
+      title: 'Display Name (English)',
+      type: 'string',
+      description: 'Shown on English pages.',
       validation: (Rule) => Rule.required(),
     }),
     defineField({

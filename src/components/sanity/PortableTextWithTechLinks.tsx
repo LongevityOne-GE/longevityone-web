@@ -20,9 +20,14 @@ function buildMatcher(techs: JourneyStageTechRef[]): TechMatcher {
   const bySource = new Map<string, JourneyStageTechRef>()
   const sources: string[] = []
   for (const tech of techs) {
-    if (tech.name) {
-      bySource.set(tech.name.toLowerCase(), tech)
-      sources.push(tech.name)
+    // Match against the brand code, the Georgian display name, and the English
+    // display name so tech mentions in bilingual Portable Text resolve correctly.
+    const candidates = [tech.name, tech.name_ka, tech.name_en].filter(
+      (v): v is string => typeof v === 'string' && v.length > 0,
+    )
+    for (const candidate of candidates) {
+      bySource.set(candidate.toLowerCase(), tech)
+      sources.push(candidate)
     }
     if (tech.slug) {
       const fromSlug = tech.slug.replace(/-/g, ' ')
