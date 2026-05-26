@@ -21,7 +21,7 @@ export function TechnologiesPage({ locale, technologies }: TechnologiesPageProps
   return (
     <main className="flex flex-col">
       <PageHero locale={locale} title={title} subtitle={subtitle} />
-      <TechSideNav technologies={technologies} />
+      <TechSideNav locale={locale} technologies={technologies} />
       {technologies.map((tech, idx) => (
         <TechSection key={tech._id} locale={locale} tech={tech} index={idx} />
       ))}

@@ -57,7 +57,7 @@ function buildStepNode(
   if (stage.relatedTechnologies && stage.relatedTechnologies.length > 0) {
     node.itemListElement = stage.relatedTechnologies.map((tech) => ({
       '@type': 'MedicalProcedure',
-      name: tech.name,
+      name: (locale === 'ka' ? tech.name_ka : tech.name_en) ?? tech.name,
       description: locale === 'ka' ? tech.tagline_ka : tech.tagline_en,
       procedureType: 'https://schema.org/DiagnosticProcedure',
       url: `${baseUrl}${locale === 'en' ? '/en' : ''}/technologies#${tech.slug}`,

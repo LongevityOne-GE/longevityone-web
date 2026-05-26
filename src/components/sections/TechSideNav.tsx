@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from 'react'
 import type { Technology } from '@/lib/sanity/types'
+import { localizedTechName, type Locale } from '@/lib/utils'
 
 interface TechSideNavProps {
+  locale: Locale
   technologies: Technology[]
 }
 
-export function TechSideNav({ technologies }: TechSideNavProps) {
+export function TechSideNav({ locale, technologies }: TechSideNavProps) {
   const [activeAnchor, setActiveAnchor] = useState<string | null>(null)
 
   useEffect(() => {
@@ -48,12 +50,13 @@ export function TechSideNav({ technologies }: TechSideNavProps) {
     <nav className="hidden lg:flex fixed left-8 top-1/2 -translate-y-1/2 z-40 flex-col gap-4">
       {technologies.map((tech) => {
         const isActive = activeAnchor === tech.anchor
+        const displayName = localizedTechName(tech, locale)
         return (
           <button
             key={tech.anchor}
             onClick={() => handleClick(tech.anchor)}
             className="group flex items-center gap-3 text-left"
-            aria-label={`Navigate to ${tech.name}`}
+            aria-label={`Navigate to ${displayName}`}
           >
             <span
               className={`w-3 h-3 rounded-full border-2 transition-all duration-300 ${
@@ -69,7 +72,7 @@ export function TechSideNav({ technologies }: TechSideNavProps) {
                   : 'text-dark-brown/40 opacity-0 group-hover:opacity-100'
               }`}
             >
-              {tech.name}
+              {displayName}
             </span>
           </button>
         )

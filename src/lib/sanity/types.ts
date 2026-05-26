@@ -126,6 +126,8 @@ export interface HomeService {
 
 export interface HomeTech {
   name: string
+  name_ka: string | null
+  name_en: string | null
   anchor: string
   tagline_ka: string | null
   tagline_en: string | null
@@ -207,6 +209,8 @@ export interface ServiceDetail extends Service {
   heroImage: SanityImage | null
   technologies: Array<{
     name: string
+    name_ka: string | null
+    name_en: string | null
     slug: string
     tagline_ka: string | null
     tagline_en: string | null
@@ -238,6 +242,8 @@ export interface TechnologySpec {
 export interface Technology {
   _id: string
   name: string
+  name_ka: string | null
+  name_en: string | null
   anchor: string
   order: number
   tagline_ka: string | null
@@ -347,6 +353,8 @@ export interface CorporatePage {
 
 export interface JourneyStageTechRef {
   name: string
+  name_ka: string | null
+  name_en: string | null
   slug: string
   tagline_ka: string | null
   tagline_en: string | null
@@ -476,6 +484,8 @@ export interface BlogPostDetail extends BlogPost {
   body_en: unknown[] | null
   relatedTechnologies: Array<{
     name: string
+    name_ka: string | null
+    name_en: string | null
     anchor: string
     tagline_ka: string | null
     tagline_en: string | null

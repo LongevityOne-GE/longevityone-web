@@ -20,3 +20,19 @@ export function formatGEL(amount: number, locale: Locale = 'ka'): string {
     maximumFractionDigits: 0,
   }).format(amount)
 }
+
+/**
+ * Picks the locale-appropriate display name for a technology. Falls back to
+ * the language-neutral `name` field if the locale variant is missing.
+ */
+export function localizedTechName(
+  tech: {
+    name?: string | null
+    name_ka?: string | null
+    name_en?: string | null
+  },
+  locale: Locale,
+): string {
+  const localized = locale === 'ka' ? tech.name_ka : tech.name_en
+  return localized ?? tech.name ?? ''
+}

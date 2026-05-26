@@ -91,7 +91,7 @@ export const servicesFullQuery = groq`
     heroImage { asset->{ url, metadata { lqip, dimensions } } },
     icon,
     technologies[]-> {
-      name, "slug": slug.current,
+      name, name_ka, name_en, "slug": slug.current,
       tagline_ka, tagline_en,
       heroImage { asset->{ url } },
     },
@@ -117,7 +117,7 @@ export const serviceBySlugQuery = groq`
     heroImage { asset->{ url, metadata { lqip, dimensions } } },
     icon,
     technologies[]-> {
-      name, "slug": slug.current,
+      name, name_ka, name_en, "slug": slug.current,
       tagline_ka, tagline_en,
       heroImage { asset->{ url } },
     },
@@ -134,7 +134,7 @@ export const serviceBySlugQuery = groq`
 // ─── Technologies ─────────────────────────────────────────────────────────────
 export const technologiesQuery = groq`
   *[_type == "technology"] | order(order asc) {
-    _id, name, "anchor": slug.current,
+    _id, name, name_ka, name_en, "anchor": slug.current,
     order,
     tagline_ka, tagline_en,
     whatItIs_ka, whatItIs_en,
@@ -228,8 +228,7 @@ export const JOURNEY_STAGES_QUERY = groq`
     included_ka, included_en,
     deliverable_ka, deliverable_en,
     relatedTechnologies[]-> {
-      name,
-      "slug": slug.current,
+      name, name_ka, name_en, "slug": slug.current,
       tagline_ka, tagline_en,
     },
     tools, icon,
@@ -260,8 +259,7 @@ export const journeyPageQuery = groq`
       included_ka, included_en,
       deliverable_ka, deliverable_en,
       relatedTechnologies[]-> {
-        name,
-        "slug": slug.current,
+        name, name_ka, name_en, "slug": slug.current,
         tagline_ka, tagline_en,
       },
       tools, icon,
@@ -348,7 +346,7 @@ export const blogPostBySlugQuery = groq`
     publishedAt,
     author->{ name, name_en, photo { asset->{ url } } },
     relatedTechnologies[]-> {
-      name, "anchor": slug.current,
+      name, name_ka, name_en, "anchor": slug.current,
       tagline_ka, tagline_en,
     },
     seoTitle_ka, seoTitle_en,

@@ -1,6 +1,6 @@
 'use client'
 
-import type { Locale } from '@/lib/utils'
+import { localizedTechName, type Locale } from '@/lib/utils'
 import type { BlogPostDetail } from '@/lib/sanity/types'
 import { Reveal } from '@/components/animations/Reveal'
 import { PortableTextRenderer } from '@/components/shared/PortableTextRenderer'
@@ -101,7 +101,7 @@ export function PostBody({ locale, post }: PostBodyProps) {
                           href={`${locale === 'en' ? '/en' : ''}/technologies#${tech.anchor}`}
                           className="text-sm font-bold text-dark-brown hover:text-burnt-orange transition-colors duration-200"
                         >
-                          {tech.name}
+                          {localizedTechName(tech, locale)}
                         </a>
                         <p className="text-xs text-dark-brown/50 mt-0.5">
                           {locale === 'ka' ? tech.tagline_ka : tech.tagline_en}
