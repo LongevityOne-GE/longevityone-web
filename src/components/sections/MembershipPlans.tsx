@@ -51,24 +51,29 @@ export function MembershipPlans({ locale, memberships, heading }: MembershipPlan
           </h2>
         </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-          {memberships.map((pkg, idx) => (
-            <PackageCard
-              key={pkg._id}
-              locale={locale}
-              name={locale === 'ka' ? pkg.name_ka : pkg.name_en}
-              price={pkg.price}
-              priceLabel={locale === 'ka' ? pkg.priceLabel_ka : pkg.priceLabel_en}
-              priceSuffix={locale === 'ka' ? pkg.priceSuffix_ka : pkg.priceSuffix_en}
-              tagline={locale === 'ka' ? pkg.tagline_ka : pkg.tagline_en}
-              includes={locale === 'ka' ? pkg.includes_ka : pkg.includes_en}
-              ctaLabel={locale === 'ka' ? pkg.cta_label_ka : pkg.cta_label_en}
-              isFeatured={pkg.isFeatured}
-              variant="dark"
-              delay={0.1 * idx}
-              bookingHref={bookingHref}
-            />
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 md:items-start">
+          {memberships.map((pkg, idx) => {
+            // Same positional rule as DiagnosticTiers — middle card is the
+            // "Most Popular" badge owner.
+            const isMiddle = memberships.length >= 3 && idx === Math.floor(memberships.length / 2)
+            return (
+              <PackageCard
+                key={pkg._id}
+                locale={locale}
+                name={locale === 'ka' ? pkg.name_ka : pkg.name_en}
+                price={pkg.price}
+                priceLabel={locale === 'ka' ? pkg.priceLabel_ka : pkg.priceLabel_en}
+                priceSuffix={locale === 'ka' ? pkg.priceSuffix_ka : pkg.priceSuffix_en}
+                tagline={locale === 'ka' ? pkg.tagline_ka : pkg.tagline_en}
+                includes={locale === 'ka' ? pkg.includes_ka : pkg.includes_en}
+                ctaLabel={locale === 'ka' ? pkg.cta_label_ka : pkg.cta_label_en}
+                isFeatured={isMiddle}
+                variant="dark"
+                delay={0.1 * idx}
+                bookingHref={bookingHref}
+              />
+            )
+          })}
         </div>
       </div>
     </section>
