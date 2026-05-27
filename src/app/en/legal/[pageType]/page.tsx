@@ -1,38 +1,35 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { sanityClient, legalPageByTypeQuery } from '@/lib/sanity'
-import type { LegalPage } from '@/lib/sanity/types'
-import { LegalPage as LegalPageComponent } from '@/components/pages/LegalPage'
+import {
+  LegalPageLayout,
+  generateLegalMetadata,
+} from '@/components/legal/LegalPageLayout'
 
-const LEGAL_PAGE_TYPES = ['privacy', 'terms', 'cookies', 'medical-disclaimer']
+const LEGAL_PAGE_TYPES = ['privacy', 'terms', 'cookies', 'medical-disclaimer'] as const
+type LegalSlug = (typeof LEGAL_PAGE_TYPES)[number]
+
+function isLegalSlug(value: string): value is LegalSlug {
+  return (LEGAL_PAGE_TYPES as readonly string[]).includes(value)
+}
+
+export const revalidate = 300
 
 interface Props {
   params: Promise<{ pageType: string }>
 }
 
-export async function generateStaticParams() {
+export function generateStaticParams(): Array<{ pageType: string }> {
   return LEGAL_PAGE_TYPES.map((pageType) => ({ pageType }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { pageType } = await params
-  const page = await sanityClient.fetch<LegalPage>(
-    legalPageByTypeQuery,
-    { pageType },
-    { next: { tags: ['sanity'] } }
-  )
-  return {
-    title: page?.title_en || undefined,
-  }
+  if (!isLegalSlug(pageType)) return {}
+  return generateLegalMetadata({ slug: pageType, lang: 'en' })
 }
 
-export default async function EnLegalPage({ params }: Props) {
+export default async function EnLegalPage({ params }: Props): Promise<React.ReactElement> {
   const { pageType } = await params
-  if (!LEGAL_PAGE_TYPES.includes(pageType)) notFound()
-  const page = await sanityClient.fetch<LegalPage>(
-    legalPageByTypeQuery,
-    { pageType },
-    { next: { tags: ['sanity'] } }
-  )
-  return <LegalPageComponent locale="en" page={page ?? null} />
+  if (!isLegalSlug(pageType)) notFound()
+  return <LegalPageLayout slug={pageType} lang="en" />
 }

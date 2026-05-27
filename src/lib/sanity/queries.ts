@@ -382,10 +382,15 @@ export const legalPageByTypeQuery = groq`
   *[_type == "legalPage" && pageType == $pageType][0] {
     pageType,
     title_ka, title_en,
+    intro_ka, intro_en,
     lastUpdated,
     body_ka, body_en,
+    seoDescription_ka, seoDescription_en,
   }
 `
+
+// Alias — semantically clearer for the new LegalPageLayout.
+export const legalPageBySlugQuery = legalPageByTypeQuery
 
 // ─── Homepage: services + technologies teaser (fetched alongside homePageQuery)
 export const homeServicesQuery = groq`
