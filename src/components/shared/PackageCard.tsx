@@ -41,28 +41,37 @@ export function PackageCard({
   return (
     <Reveal delay={delay} className={`h-full ${className}`}>
       <div
-        className={`group h-full relative transition-transform duration-500 ease-out ${
+        className={`group h-full relative transition-transform duration-300 ${
           featured
-            ? 'md:-translate-y-4 md:drop-shadow-[0_30px_60px_-20px_rgba(212,88,0,0.45)] filter'
+            ? 'md:-translate-y-6 filter drop-shadow-[0_36px_70px_-22px_rgba(212,88,0,0.62)]'
             : 'filter drop-shadow-lg'
         }`}
       >
         <div
-          className={`card-ornamental overflow-hidden transition-colors duration-300 px-10 md:px-12 lg:px-16 pt-16 md:pt-20 lg:pt-24 pb-16 md:pb-20 lg:pb-24 flex flex-col h-full relative ${
+          className={`card-ornamental overflow-hidden transition-colors duration-300 px-8 sm:px-10 md:px-8 lg:px-12 xl:px-16 pt-24 md:pt-28 lg:pt-32 pb-16 md:pb-20 lg:pb-24 flex flex-col h-full min-w-0 relative ${
+            featured ? 'ring-1 ring-burnt-orange/20' : ''
+          } ${
             isLight
               ? 'bg-bone-white text-dark-brown group-hover:bg-dark-brown group-hover:text-bone-white'
               : 'bg-dark-brown text-bone-white group-hover:bg-bone-white group-hover:text-dark-brown'
           }`}
         >
-          {/* Inside-card glow at the top, very subtle spotlight on featured. */}
+          {/* Inside-card glow, very subtle spotlight on featured. */}
           {featured && (
             <span
               aria-hidden="true"
-              className="absolute inset-x-0 top-0 h-32 pointer-events-none opacity-90"
+              className="absolute inset-0 pointer-events-none opacity-95"
               style={{
                 background:
-                  'radial-gradient(ellipse at top, rgba(212,88,0,0.18), rgba(212,88,0,0) 70%)',
+                  'linear-gradient(90deg, rgba(212,88,0,0.08), rgba(212,88,0,0) 20%, rgba(212,88,0,0) 80%, rgba(212,88,0,0.08)), linear-gradient(180deg, rgba(212,88,0,0.1), rgba(212,88,0,0) 22%, rgba(212,88,0,0) 78%, rgba(212,88,0,0.07))',
               }}
+            />
+          )}
+
+          {featured && (
+            <span
+              aria-hidden="true"
+              className="absolute inset-0 pointer-events-none ring-1 ring-inset ring-burnt-orange/18 shadow-[inset_0_0_28px_rgba(212,88,0,0.08)]"
             />
           )}
 
@@ -70,23 +79,23 @@ export function PackageCard({
              Italic serif, tracked, with tapered burnt-orange hairlines on
              either side. No chip, no dots — magazine pull-quote feel.    */}
           {featured && (
-            <div className="relative flex items-center justify-center gap-3 mb-6 -mt-2">
+            <div className="absolute inset-x-0 top-10 md:top-12 z-10 flex items-center justify-center gap-3">
               <span
                 aria-hidden="true"
-                className="block h-px w-10 md:w-14 bg-burnt-orange/55"
+                className="block h-px w-8 md:w-12 bg-gradient-to-r from-transparent to-burnt-orange/70"
               />
               <span className="text-[11px] md:text-xs font-serif italic tracking-[0.12em] text-burnt-orange whitespace-nowrap">
                 {popularLabel}
               </span>
               <span
                 aria-hidden="true"
-                className="block h-px w-10 md:w-14 bg-burnt-orange/55"
+                className="block h-px w-8 md:w-12 bg-gradient-to-l from-transparent to-burnt-orange/70"
               />
             </div>
           )}
 
           {name && (
-            <h3 className="text-lg md:text-xl lg:text-2xl font-black tracking-wide uppercase mb-4 font-sans relative">
+            <h3 className="text-lg md:text-xl lg:text-2xl font-black tracking-wide uppercase mb-4 font-sans relative break-words hyphens-auto">
               {name}
             </h3>
           )}
