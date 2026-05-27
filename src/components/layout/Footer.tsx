@@ -154,6 +154,7 @@ export function Footer({ locale, siteSettings }: FooterProps) {
             <li><Link href={`${prefix}/faq`} className="hover:text-burnt-orange transition-colors uppercase">{locale === 'ka' ? 'ხშირი კითხვები' : 'FAQ'}</Link></li>
             <li><Link href={`${prefix}/legal/privacy`} className="hover:text-burnt-orange transition-colors uppercase">{locale === 'ka' ? 'კონფიდენციალურობა' : 'Privacy Policy'}</Link></li>
             <li><Link href={`${prefix}/legal/terms`} className="hover:text-burnt-orange transition-colors uppercase">{locale === 'ka' ? 'წესები და პირობები' : 'Terms'}</Link></li>
+            <li><Link href={`${prefix}/legal/cookies`} className="hover:text-burnt-orange transition-colors uppercase">{locale === 'ka' ? 'ქუქი-ფაილები' : 'Cookies'}</Link></li>
           </ul>
         </div>
         </Reveal>

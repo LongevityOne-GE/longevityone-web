@@ -525,9 +525,13 @@ export interface LegalPage {
   pageType: string
   title_ka: string | null
   title_en: string | null
+  intro_ka: string | null
+  intro_en: string | null
   lastUpdated: string | null
   body_ka: unknown[] | null
   body_en: unknown[] | null
+  seoDescription_ka: string | null
+  seoDescription_en: string | null
 }
 
 // ─── Advisory Board ───────────────────────────────────────────────────────────

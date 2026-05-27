@@ -16,7 +16,7 @@ export default async function EnLayout({ children }: { children: React.ReactNode
     accept: siteSettings?.cookie_accept_en ?? 'Accept All',
     reject: siteSettings?.cookie_reject_en ?? 'Reject All',
     manage: siteSettings?.cookie_manage_en ?? 'Manage Preferences',
-    privacyHref: '/en/legal/privacy',
+    privacyHref: '/en/legal/cookies',
   }
 
   return (
