@@ -65,23 +65,29 @@ export function DiagnosticTiers({ locale, packages, heading, subtext }: Diagnost
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-          {packages.map((pkg, idx) => (
-            <PackageCard
-              key={pkg._id}
-              locale={locale}
-              name={locale === 'ka' ? pkg.name_ka : pkg.name_en}
-              price={pkg.price}
-              priceLabel={locale === 'ka' ? pkg.priceLabel_ka : pkg.priceLabel_en}
-              tagline={locale === 'ka' ? pkg.tagline_ka : pkg.tagline_en}
-              includes={locale === 'ka' ? pkg.includes_ka : pkg.includes_en}
-              ctaLabel={locale === 'ka' ? pkg.cta_label_ka : pkg.cta_label_en}
-              isFeatured={pkg.isFeatured}
-              variant="light"
-              delay={0.1 * idx}
-              bookingHref={bookingHref}
-            />
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 md:items-start">
+          {packages.map((pkg, idx) => {
+            // "Most Popular" rides the middle card of the row, irrespective of
+            // Sanity's isFeatured flag — keeps the visual hierarchy fixed even
+            // if the clinic reorders tiers.
+            const isMiddle = packages.length >= 3 && idx === Math.floor(packages.length / 2)
+            return (
+              <PackageCard
+                key={pkg._id}
+                locale={locale}
+                name={locale === 'ka' ? pkg.name_ka : pkg.name_en}
+                price={pkg.price}
+                priceLabel={locale === 'ka' ? pkg.priceLabel_ka : pkg.priceLabel_en}
+                tagline={locale === 'ka' ? pkg.tagline_ka : pkg.tagline_en}
+                includes={locale === 'ka' ? pkg.includes_ka : pkg.includes_en}
+                ctaLabel={locale === 'ka' ? pkg.cta_label_ka : pkg.cta_label_en}
+                isFeatured={isMiddle}
+                variant="light"
+                delay={0.1 * idx}
+                bookingHref={bookingHref}
+              />
+            )
+          })}
         </div>
       </div>
     </section>
