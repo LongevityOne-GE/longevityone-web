@@ -186,45 +186,6 @@
     mask-repeat: no-repeat;
   }
 
-  /* ── Featured package: animated burnt-orange shimmer ring ────────────
-     A masked div behind the card carries a conic gradient with two
-     bright "beads" of light. Rotating it slowly makes those beads
-     travel around the card's silhouette like polished metal catching
-     studio light. A bone-white / dark-brown core sits 1.5px inside,
-     so the visible result is only a thin glowing edge.
-
-     Falls back to a static glow when prefers-reduced-motion is set. */
-  .pkg-shimmer {
-    background-image:
-      conic-gradient(
-        from 0deg,
-        rgba(212, 88, 0, 0) 0deg,
-        rgba(212, 88, 0, 0) 28deg,
-        rgba(255, 210, 160, 0.95) 55deg,
-        rgba(212, 88, 0, 0.95) 70deg,
-        rgba(212, 88, 0, 0) 110deg,
-        rgba(212, 88, 0, 0) 220deg,
-        rgba(255, 210, 160, 0.7) 250deg,
-        rgba(212, 88, 0, 0.85) 265deg,
-        rgba(212, 88, 0, 0) 300deg,
-        rgba(212, 88, 0, 0) 360deg
-      );
-    animation: pkg-shimmer-rotate 7s linear infinite;
-    transform-origin: 50% 50%;
-    will-change: transform;
-  }
-
-  @keyframes pkg-shimmer-rotate {
-    from { transform: scale(1.03) rotate(0deg); }
-    to   { transform: scale(1.03) rotate(360deg); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .pkg-shimmer {
-      animation: none;
-      transform: scale(1.03);
-    }
-  }
 }
 
 @layer components {

@@ -47,20 +47,6 @@ export function PackageCard({
             : 'filter drop-shadow-lg'
         }`}
       >
-        {/* ─── Featured: animated shimmering edge ────────────────────────
-           A single masked span behind the card with a slowly-rotating
-           conic gradient. The keyframe scales it to 1.025x of the card,
-           and the card-ornamental mask follows that scale — so the only
-           visible part is a thin glowing halo around the card silhouette.
-           Light beads travel around the edge like polished metal.
-           Reduced-motion: animation pauses (handled in globals.css).   */}
-        {featured && (
-          <span
-            aria-hidden="true"
-            className="pkg-shimmer absolute inset-0 card-ornamental pointer-events-none"
-          />
-        )}
-
         <div
           className={`card-ornamental overflow-hidden transition-colors duration-300 px-10 md:px-12 lg:px-16 pt-16 md:pt-20 lg:pt-24 pb-16 md:pb-20 lg:pb-24 flex flex-col h-full relative ${
             isLight
@@ -157,7 +143,7 @@ export function PackageCard({
               isLight
                 ? 'group-hover:bg-burnt-orange group-hover:border-burnt-orange group-hover:text-white'
                 : 'bg-burnt-orange border-burnt-orange text-white group-hover:bg-transparent group-hover:border-dark-brown group-hover:text-dark-brown'
-            } ${featured ? 'bg-burnt-orange border-burnt-orange text-white' : ''}`}
+            }`}
           >
             {ctaLabel || defaultCta}
           </Link>
