@@ -38,7 +38,7 @@ export function JourneyStage({ locale, stage, index }: JourneyStageProps) {
       </h2>
       {body && (body as unknown[]).length > 0 && (
         <div
-          className={`mt-4 text-[15px] text-dark-brown/75 leading-relaxed max-w-sm ${
+          className={`mt-4 text-[15px] text-dark-brown/75 leading-relaxed max-w-sm mx-auto lg:mx-0 ${
             isOdd ? 'lg:ml-auto' : ''
           }`}
         >
@@ -72,7 +72,7 @@ export function JourneyStage({ locale, stage, index }: JourneyStageProps) {
       {isOdd ? (
         <>
           {/* Text on the LEFT, right-aligned */}
-          <Reveal className="lg:pr-12 xl:pr-16 lg:text-right">{textBlock}</Reveal>
+          <Reveal className="mx-auto w-full max-w-md lg:max-w-none lg:mx-0 lg:pr-12 xl:pr-16 lg:text-right">{textBlock}</Reveal>
 
           {/* Medallion on the RIGHT side of the spine, with hairline */}
           <div className="hidden lg:flex items-center pt-7">
@@ -95,7 +95,7 @@ export function JourneyStage({ locale, stage, index }: JourneyStageProps) {
           </div>
 
           {/* Text on the RIGHT, left-aligned */}
-          <Reveal className="lg:pl-12 xl:pl-16 lg:text-left">{textBlock}</Reveal>
+          <Reveal className="mx-auto w-full max-w-md lg:max-w-none lg:mx-0 lg:pl-12 xl:pl-16 lg:text-left">{textBlock}</Reveal>
         </>
       )}
     </div>
