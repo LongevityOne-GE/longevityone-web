@@ -17,61 +17,61 @@ export function JourneyTimeline({ locale, stages }: JourneyTimelineProps) {
         {/* Anatomy images scattered along the timeline - desktop only */}
         <div
           aria-hidden="true"
-          className="absolute -left-1 sm:-left-2 lg:-left-4 xl:-left-12 top-[2%] w-20 sm:w-28 lg:w-36 xl:w-44 opacity-75 pointer-events-none"
+          className="absolute left-0 sm:left-4 lg:left-8 xl:left-12 top-[2%] w-20 sm:w-28 lg:w-36 xl:w-44 opacity-75 pointer-events-none"
         >
           <Image src="/images/journey/body-head-apollo.png" alt="" width={176} height={260} className="rounded-sm" />
         </div>
 
         <div
           aria-hidden="true"
-          className="absolute -right-2 sm:-right-4 lg:-right-6 xl:-right-16 top-[12%] w-20 sm:w-28 lg:w-36 xl:w-44 opacity-70 pointer-events-none"
+          className="absolute right-0 sm:right-4 lg:right-8 xl:right-12 top-[12%] w-20 sm:w-28 lg:w-36 xl:w-44 opacity-70 pointer-events-none"
         >
           <Image src="/images/journey/body-head-female.png" alt="" width={176} height={260} className="rounded-sm" />
         </div>
 
         <div
           aria-hidden="true"
-          className="absolute -left-1 sm:-left-2 lg:-left-2 xl:-left-10 top-[24%] w-24 sm:w-32 lg:w-44 xl:w-56 opacity-75 pointer-events-none"
+          className="absolute left-0 sm:left-4 lg:left-8 xl:left-12 top-[24%] w-24 sm:w-32 lg:w-44 xl:w-56 opacity-75 pointer-events-none"
         >
           <Image src="/images/journey/body-shoulder-hair.png" alt="" width={224} height={160} className="rounded-sm" />
         </div>
 
         <div
           aria-hidden="true"
-          className="absolute -right-1 sm:-right-2 lg:-right-4 xl:-right-12 top-[34%] w-24 sm:w-32 lg:w-40 xl:w-48 opacity-70 pointer-events-none"
+          className="absolute right-0 sm:right-4 lg:right-8 xl:right-12 top-[34%] w-24 sm:w-32 lg:w-40 xl:w-48 opacity-70 pointer-events-none"
         >
           <Image src="/images/journey/body-torso-male.png" alt="" width={192} height={280} className="rounded-sm" />
         </div>
 
         <div
           aria-hidden="true"
-          className="absolute -left-1 sm:-left-2 lg:-left-4 xl:-left-12 top-[46%] w-24 sm:w-32 lg:w-40 xl:w-48 opacity-75 pointer-events-none"
+          className="absolute left-0 sm:left-4 lg:left-8 xl:left-12 top-[46%] w-24 sm:w-32 lg:w-40 xl:w-48 opacity-75 pointer-events-none"
         >
           <Image src="/images/journey/body-torso-female.png" alt="" width={192} height={280} className="rounded-sm" />
         </div>
 
         <div
           aria-hidden="true"
-          className="absolute -right-2 sm:-right-4 lg:-right-6 xl:-right-14 top-[56%] w-20 sm:w-28 lg:w-36 xl:w-44 opacity-70 pointer-events-none"
+          className="absolute right-0 sm:right-4 lg:right-8 xl:right-12 top-[56%] w-20 sm:w-28 lg:w-36 xl:w-44 opacity-70 pointer-events-none"
         >
           <Image src="/images/journey/body-winged-drape.png" alt="" width={176} height={260} className="rounded-sm" />
         </div>
 
         <div
           aria-hidden="true"
-          className="absolute -left-1 sm:-left-2 lg:-left-2 xl:-left-10 top-[68%] w-24 sm:w-32 lg:w-40 xl:w-48 opacity-75 pointer-events-none"
+          className="absolute left-0 sm:left-4 lg:left-8 xl:left-12 top-[68%] w-24 sm:w-32 lg:w-40 xl:w-48 opacity-75 pointer-events-none"
         >
           <Image src="/images/journey/body-legs-motion.png" alt="" width={192} height={280} className="rounded-sm" />
         </div>
 
         <div
           aria-hidden="true"
-          className="absolute -right-1 sm:-right-2 lg:-right-4 xl:-right-12 top-[82%] w-24 sm:w-32 lg:w-40 xl:w-48 opacity-70 pointer-events-none"
+          className="absolute right-0 sm:right-4 lg:right-8 xl:right-12 top-[82%] w-24 sm:w-32 lg:w-40 xl:w-48 opacity-70 pointer-events-none"
         >
           <Image src="/images/journey/body-seated-drape.png" alt="" width={192} height={280} className="rounded-sm" />
         </div>
 
-        <div className="relative mx-auto max-w-4xl px-16 sm:px-20 md:px-28 lg:px-32">
+        <div className="relative mx-auto w-[min(100%,calc(100%-10rem))] max-w-3xl sm:w-[min(100%,calc(100%-14rem))] md:w-[min(100%,calc(100%-18rem))] lg:w-[min(100%,calc(100%-24rem))] xl:w-[min(100%,calc(100%-32rem))]">
           {/* Central vertical spine - desktop only. */}
           <div
             aria-hidden="true"
