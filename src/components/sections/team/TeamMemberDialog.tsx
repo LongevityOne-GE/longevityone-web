@@ -49,17 +49,15 @@ export function TeamMemberDialog({
         <Dialog.Overlay className="fixed inset-0 z-50 bg-dark-brown/40 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
 
         <Dialog.Content
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8
+          aria-describedby={`team-bio-${member._id}`}
+          className="fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+                     w-[calc(100vw-2rem)] sm:w-[calc(100vw-4rem)] max-w-4xl max-h-[90vh] overflow-y-auto
+                     bg-bone-white border border-dark-brown/10 flex flex-col lg:flex-row
                      data-[state=open]:animate-in data-[state=closed]:animate-out
                      data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0
                      data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95
                      data-[state=closed]:duration-200 data-[state=open]:duration-300"
-          aria-describedby={`team-bio-${member._id}`}
         >
-          <div
-            className="relative bg-bone-white w-full max-w-4xl max-h-[90vh] overflow-y-auto
-                       border border-dark-brown/10 flex flex-col lg:flex-row"
-          >
             <Dialog.Close asChild>
               <button
                 className="absolute top-4 right-4 z-10 p-2 text-dark-brown/50 hover:text-dark-brown
@@ -137,7 +135,6 @@ export function TeamMemberDialog({
                 </div>
               )}
             </div>
-          </div>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
