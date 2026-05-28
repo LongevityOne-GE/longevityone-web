@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Tailwind v4 requires plugins to be loaded explicitly in CSS.
+   The typography plugin powers the `prose` / `prose-p:*` classes used in
+   long-form modal bodies (team + advisory member dialogs, etc.). */
+@plugin "@tailwindcss/typography";
+
 @theme {
   --color-bone-white: #E7DECC;
   --color-dark-brown: #422922;
