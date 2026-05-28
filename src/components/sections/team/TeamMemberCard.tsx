@@ -1,5 +1,4 @@
-'use client'
-
+import Image from 'next/image'
 import type { Locale } from '@/lib/utils'
 import type { TeamMember } from '@/lib/sanity/types'
 import { Reveal } from '@/components/animations/Reveal'
@@ -14,9 +13,13 @@ interface TeamMemberCardProps {
 const BIO_TRIGGER = { ka: 'სრული ბიოგრაფია', en: 'Full biography' } as const
 
 /**
- * Shared portrait card used on both /about (curated subset) and /team (full grid).
- * Visual treatment intentionally distinct from advisory board: pull-quote on top,
- * CO-FOUNDER badge for founders. Modal trigger only renders when fullBio has content.
+ * Shared portrait card used on /about (curated subset) and /team (full grid).
+ * Visual treatment is intentionally identical to AdvisoryMemberCard so the
+ * physician roster reads as one design family across the whole site —
+ * bordered frame, 4:5 cinematic portrait, top hairline ornament inside the
+ * body, hover-lift with soft shadow. Content slots differ from the advisory
+ * card: team cards lead with a pull-quote (founder voice), advisory cards
+ * lead with credentials.
  */
 export function TeamMemberCard({ locale, member, delay = 0 }: TeamMemberCardProps) {
   const name = (locale === 'ka' ? member.name : (member.name_en || member.name)) || ''
@@ -31,18 +34,30 @@ export function TeamMemberCard({ locale, member, delay = 0 }: TeamMemberCardProp
   const founderLabel = locale === 'ka' ? 'თანადამფუძნებელი' : 'Co-Founder'
 
   return (
-    <Reveal delay={delay}>
-      <article className="group flex flex-col h-full">
-        {/* Portrait - 3:4 cinematic frame, faces anchored to upper-center */}
-        <div className="relative aspect-[3/4] overflow-hidden bg-dark-brown/[0.04] mb-7">
+    <Reveal delay={delay} className="h-full">
+      <article
+        className={`group bg-bone-white flex flex-col h-full
+                    transition-all duration-500 ease-out
+                    hover:-translate-y-1 hover:shadow-[0_24px_50px_-30px_rgba(66,41,34,0.35)]
+                    ${
+                      isFounder
+                        ? 'border border-dark-brown/20 hover:border-dark-brown/40'
+                        : 'border border-dark-brown/10 hover:border-dark-brown/30'
+                    }`}
+      >
+        {/* Portrait — 4:5 cinematic crop, top-anchored focus for face composition */}
+        <div className="relative aspect-[4/5] overflow-hidden bg-dark-brown/[0.04]">
           {member.photo?.asset?.url ? (
-            <img
+            <Image
               src={member.photo.asset.url}
               alt={name}
-              className="w-full h-full object-cover object-[center_20%] transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
+              fill
+              loading="lazy"
+              className="object-cover object-[center_18%] transition-transform duration-[1200ms] ease-[cubic-bezier(0.25,0.1,0.25,1)] group-hover:scale-[1.04]"
+              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center">
+            <div className="absolute inset-0 flex items-center justify-center">
               <span className="font-serif text-[7rem] text-dark-brown/15 leading-none">
                 {name.charAt(0) || '·'}
               </span>
@@ -58,57 +73,62 @@ export function TeamMemberCard({ locale, member, delay = 0 }: TeamMemberCardProp
           )}
         </div>
 
-        {/* Pull-quote - fixed-height block so the hairline + name align across cards */}
-        <div className="min-h-[5.5rem] md:min-h-[6rem] mb-5">
+        {/* Card body */}
+        <div className="flex flex-col flex-1 p-7 md:p-8">
+          {/* Top hairline ornament — same accent used by the advisory cards */}
+          <span aria-hidden="true" className="block h-px w-8 bg-burnt-orange/60 mb-5" />
+
+          {/* Editorial pull-quote — founders' voice (skipped if no quote) */}
           {pullQuote && (
-            <p className="font-serif italic text-xl md:text-2xl leading-snug text-dark-brown">
-              “{pullQuote}”
+            <p className="font-serif italic text-lg md:text-xl leading-snug text-dark-brown mb-5">
+              &ldquo;{pullQuote}&rdquo;
             </p>
           )}
-        </div>
 
-        {/* Hairline */}
-        <div className="h-px w-10 bg-burnt-orange mb-5" />
+          {/* Name */}
+          <h3 className="font-serif text-xl md:text-2xl text-dark-brown leading-tight">
+            {name}
+          </h3>
 
-        {/* Name + role */}
-        <div className="min-h-[4.5rem]">
-          <h3 className="font-serif text-2xl text-dark-brown leading-tight">{name}</h3>
+          {/* Role */}
           {role && (
             <p className="mt-2 text-[11px] uppercase tracking-[0.22em] text-dark-brown/55 font-bold">
               {role}
             </p>
           )}
+
+          {/* Short bio */}
+          {bio && (
+            <p className="mt-4 text-[14px] md:text-[15px] leading-relaxed text-dark-brown/75">
+              {bio}
+            </p>
+          )}
+
+          {/* Credentials chips */}
+          {member.credentials && member.credentials.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 mt-4">
+              {member.credentials.map((c, i) => (
+                <span
+                  key={i}
+                  className="text-[10px] font-bold uppercase tracking-[0.2em] text-dark-brown/55 border border-dark-brown/15 px-2 py-0.5"
+                >
+                  {c}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* Full biography modal trigger — anchored to the bottom of the card */}
+          {hasFullBio && (
+            <div className="mt-auto pt-5">
+              <TeamMemberDialog
+                locale={locale}
+                member={member}
+                triggerLabel={BIO_TRIGGER[locale]}
+              />
+            </div>
+          )}
         </div>
-
-        {/* Short bio */}
-        {bio && (
-          <p className="mt-5 text-[15px] leading-relaxed text-dark-brown/75">
-            {bio}
-          </p>
-        )}
-
-        {/* Credentials chips */}
-        {member.credentials && member.credentials.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 mt-5">
-            {member.credentials.map((c, i) => (
-              <span
-                key={i}
-                className="text-[10px] font-bold uppercase tracking-[0.2em] text-dark-brown/50 border border-dark-brown/15 px-2 py-0.5"
-              >
-                {c}
-              </span>
-            ))}
-          </div>
-        )}
-
-        {/* Full biography modal trigger - only when fullBio has content */}
-        {hasFullBio && (
-          <TeamMemberDialog
-            locale={locale}
-            member={member}
-            triggerLabel={BIO_TRIGGER[locale]}
-          />
-        )}
       </article>
     </Reveal>
   )
