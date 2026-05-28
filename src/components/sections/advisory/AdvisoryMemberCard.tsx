@@ -32,19 +32,24 @@ export function AdvisoryMemberCard({ locale, member }: AdvisoryMemberCardProps) 
 
   return (
     <article
-      className={`group bg-bone-white flex flex-col ${
-        isChair ? 'border border-dark-brown/20' : 'border border-dark-brown/8'
-      } transition-[border-color] duration-500 hover:border-dark-brown/30`}
+      className={`group bg-bone-white flex flex-col h-full
+                  transition-all duration-500 ease-out
+                  hover:-translate-y-1 hover:shadow-[0_24px_50px_-30px_rgba(66,41,34,0.35)]
+                  ${
+                    isChair
+                      ? 'border border-dark-brown/20 hover:border-dark-brown/40'
+                      : 'border border-dark-brown/10 hover:border-dark-brown/30'
+                  }`}
     >
-      {/* Portrait — 4:5 cinematic crop */}
-      <div className="relative aspect-[4/5] overflow-hidden bg-dark-brown/5">
+      {/* Portrait — 4:5 cinematic crop, matches team member cards */}
+      <div className="relative aspect-[4/5] overflow-hidden bg-dark-brown/[0.04]">
         {member.photo?.asset?.url ? (
           <Image
             src={member.photo.asset.url}
             alt={altText}
             fill
             loading="lazy"
-            className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)] group-hover:scale-[1.03]"
+            className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.25,0.1,0.25,1)] group-hover:scale-[1.04]"
             style={{
               objectPosition: hotspotToObjectPosition(member.photo.hotspot),
             }}
@@ -60,11 +65,14 @@ export function AdvisoryMemberCard({ locale, member }: AdvisoryMemberCardProps) 
         )}
       </div>
 
-      {/* Card body */}
-      <div className="flex flex-col flex-1 p-6">
+      {/* Card body — same padding rhythm as TeamMemberCard */}
+      <div className="flex flex-col flex-1 p-7 md:p-8">
+        {/* Top hairline ornament */}
+        <span aria-hidden="true" className="block h-px w-8 bg-burnt-orange/60 mb-5" />
+
         {/* Chair eyebrow — editorial restraint: small text, no badge */}
         {isChair && (
-          <p className="text-[10px] uppercase tracking-[0.24em] text-dark-brown/40 font-medium mb-2">
+          <p className="text-[10px] uppercase tracking-[0.25em] text-burnt-orange font-bold mb-3">
             {CHAIR_LABEL[locale]}
           </p>
         )}
@@ -77,26 +85,27 @@ export function AdvisoryMemberCard({ locale, member }: AdvisoryMemberCardProps) 
         )}
 
         {/* Name */}
-        <h3 className="text-xl font-serif font-semibold text-dark-brown leading-snug mb-1">
+        <h3 className="font-serif text-xl md:text-2xl font-semibold text-dark-brown leading-tight">
           {name}
         </h3>
 
         {/* Board title */}
-        <p className="text-[13px] text-dark-brown/75 font-medium mb-1">{title}</p>
+        {title && (
+          <p className="mt-2 text-[13px] text-dark-brown/75 font-medium">{title}</p>
+        )}
 
         {/* Affiliation */}
         {affiliation && (
-          <p className="text-[12px] text-dark-brown/50 italic mb-4">{affiliation}</p>
+          <p className="mt-1 text-[12px] text-dark-brown/55 italic">{affiliation}</p>
         )}
 
         {/* Expertise tags */}
         {expertise && expertise.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-2">
+          <div className="flex flex-wrap gap-1.5 mt-4">
             {expertise.map((tag) => (
               <span
                 key={tag}
-                className="px-2 py-0.5 text-[10px] uppercase tracking-[0.12em] text-dark-brown/70
-                           bg-light-blue/30 font-medium"
+                className="text-[10px] uppercase tracking-[0.12em] text-dark-brown/70 bg-light-blue/30 font-medium px-2 py-0.5"
               >
                 {tag}
               </span>
@@ -104,8 +113,8 @@ export function AdvisoryMemberCard({ locale, member }: AdvisoryMemberCardProps) 
           </div>
         )}
 
-        {/* Dialog trigger — Client Component */}
-        <div className="mt-auto pt-2">
+        {/* Dialog trigger — anchored to the bottom of the card */}
+        <div className="mt-auto pt-5">
           <AdvisoryMemberDialog
             locale={locale}
             member={member}
