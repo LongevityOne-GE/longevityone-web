@@ -64,7 +64,28 @@ export function Nav({ locale, siteSettings }: NavProps) {
   const progress = useScrollProgress()
   const [scrolled, setScrolled] = useState(false)
   const [hidden, setHidden] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
   const lastYRef = useRef(0)
+
+  // Close mobile menu on route change.
+  useEffect(() => {
+    setMobileOpen(false)
+  }, [rawPath])
+
+  // Close on ESC + lock body scroll while open.
+  useEffect(() => {
+    if (!mobileOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMobileOpen(false)
+    }
+    document.addEventListener('keydown', onKey)
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prevOverflow
+    }
+  }, [mobileOpen])
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -85,11 +106,6 @@ export function Nav({ locale, siteSettings }: NavProps) {
   return (
     <>
       <style>{`
-        .nav-toggle[open] .nav-icon-open { display: none; }
-        .nav-toggle:not([open]) .nav-icon-close { display: none; }
-        .nav-toggle summary { list-style: none; }
-        .nav-toggle summary::-webkit-details-marker { display: none; }
-        .nav-toggle summary::marker { display: none; }
         .skip-link {
           position: absolute;
           left: -9999px;
@@ -204,69 +220,103 @@ export function Nav({ locale, siteSettings }: NavProps) {
               </BookingButton>
             )}
 
-            <details className="xl:hidden nav-toggle relative">
-              <summary
+            <div className="xl:hidden relative">
+              <button
+                type="button"
+                onClick={() => setMobileOpen((v) => !v)}
+                aria-expanded={mobileOpen}
+                aria-controls="mobile-nav-menu"
+                aria-label={
+                  mobileOpen
+                    ? locale === 'ka' ? 'მენიუს დახურვა' : 'Close menu'
+                    : locale === 'ka' ? 'მენიუს გახსნა' : 'Open menu'
+                }
                 className="p-2 cursor-pointer text-dark-brown hover:text-burnt-orange transition-colors"
-                aria-label={locale === 'ka' ? 'მენიუს გახსნა' : 'Open menu'}
               >
-                <svg className="nav-icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M4 6h16" /><path d="M4 12h16" /><path d="M4 18h16" />
-                </svg>
-                <svg className="nav-icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M18 6 6 18" /><path d="m6 6 12 12" />
-                </svg>
-              </summary>
-
-              <div className="fixed left-0 right-0 top-[60px] bg-bone-white border-t border-dark-brown/10 py-8 px-6 md:px-12 flex flex-col gap-3 shadow-lg z-50">
-                {navLinks.map((link) => {
-                  const active = isActive(link.href)
-                  return (
-                    <div key={link.en}>
-                      <Link
-                        href={`${prefix}${link.href}`}
-                        aria-current={active ? 'page' : undefined}
-                        className={`text-sm font-medium uppercase tracking-[0.1em] hover:text-burnt-orange transition-colors py-1 ${active ? 'text-burnt-orange' : 'text-dark-brown'}`}
-                      >
-                        {locale === 'ka' ? link.ka : link.en}
-                      </Link>
-                      {link.children && link.children.map((child) => {
-                        const childActive = isActive(child.href)
-                        return (
-                          <Link
-                            key={child.href}
-                            href={`${prefix}${child.href}`}
-                            aria-current={childActive ? 'page' : undefined}
-                            className={`block pl-4 mt-1 text-xs font-medium uppercase tracking-[0.1em] hover:text-burnt-orange transition-colors py-0.5 border-l border-dark-brown/15 ${childActive ? 'text-burnt-orange' : 'text-dark-brown/60'}`}
-                          >
-                            {locale === 'ka' ? child.ka : child.en}
-                          </Link>
-                        )
-                      })}
-                    </div>
-                  )
-                })}
-
-                <div className="pt-4 mt-2 border-t border-dark-brown/10 flex items-center justify-between">
-                  <LanguageSwitcher
-                    locale={locale}
-                    className="flex items-center text-sm font-bold"
-                  />
-                  {ctaLabel && (
-                    <BookingButton
-                      lang={locale}
-                      variant="primary"
-                      size="sm"
-                      className="sm:hidden bg-burnt-orange hover:bg-dark-brown whitespace-nowrap"
-                    >
-                      {ctaLabel}
-                    </BookingButton>
-                  )}
-                </div>
-              </div>
-            </details>
+                {mobileOpen ? (
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+                  </svg>
+                ) : (
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M4 6h16" /><path d="M4 12h16" /><path d="M4 18h16" />
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </nav>
+
+      {/* ─── Mobile menu: backdrop + panel ────────────────────────────────
+         Backdrop sits below the menu panel and closes the menu on click,
+         giving the expected "tap-outside-to-dismiss" behaviour. Each
+         link inside the panel also closes on click. ESC + route change
+         both close (handled in useEffect above). */}
+      {mobileOpen && (
+        <>
+          <button
+            type="button"
+            aria-label={locale === 'ka' ? 'მენიუს დახურვა' : 'Close menu'}
+            onClick={() => setMobileOpen(false)}
+            className="fixed inset-0 z-40 bg-dark-brown/40 backdrop-blur-sm xl:hidden animate-in fade-in duration-200"
+          />
+          <div
+            id="mobile-nav-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label={locale === 'ka' ? 'მთავარი ნავიგაცია' : 'Main navigation'}
+            className="fixed left-0 right-0 top-[60px] z-50 bg-bone-white border-t border-dark-brown/10 py-8 px-6 md:px-12 flex flex-col gap-3 shadow-lg xl:hidden max-h-[calc(100vh-60px)] overflow-y-auto animate-in slide-in-from-top-2 fade-in duration-200"
+          >
+            {navLinks.map((link) => {
+              const active = isActive(link.href)
+              return (
+                <div key={link.en}>
+                  <Link
+                    href={`${prefix}${link.href}`}
+                    aria-current={active ? 'page' : undefined}
+                    onClick={() => setMobileOpen(false)}
+                    className={`text-sm font-medium uppercase tracking-[0.1em] hover:text-burnt-orange transition-colors py-1 ${active ? 'text-burnt-orange' : 'text-dark-brown'}`}
+                  >
+                    {locale === 'ka' ? link.ka : link.en}
+                  </Link>
+                  {link.children && link.children.map((child) => {
+                    const childActive = isActive(child.href)
+                    return (
+                      <Link
+                        key={child.href}
+                        href={`${prefix}${child.href}`}
+                        aria-current={childActive ? 'page' : undefined}
+                        onClick={() => setMobileOpen(false)}
+                        className={`block pl-4 mt-1 text-xs font-medium uppercase tracking-[0.1em] hover:text-burnt-orange transition-colors py-0.5 border-l border-dark-brown/15 ${childActive ? 'text-burnt-orange' : 'text-dark-brown/60'}`}
+                      >
+                        {locale === 'ka' ? child.ka : child.en}
+                      </Link>
+                    )
+                  })}
+                </div>
+              )
+            })}
+
+            <div className="pt-4 mt-2 border-t border-dark-brown/10 flex items-center justify-between">
+              <LanguageSwitcher
+                locale={locale}
+                className="flex items-center text-sm font-bold"
+              />
+              {ctaLabel && (
+                <BookingButton
+                  lang={locale}
+                  variant="primary"
+                  size="sm"
+                  className="sm:hidden bg-burnt-orange hover:bg-dark-brown whitespace-nowrap"
+                >
+                  {ctaLabel}
+                </BookingButton>
+              )}
+            </div>
+          </div>
+        </>
+      )}
     </>
   )
 }
