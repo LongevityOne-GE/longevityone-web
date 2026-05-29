@@ -34,13 +34,13 @@ export function ContactSection({ locale, settings }: ContactSectionProps) {
           {/* details */}
           <Reveal className="h-full">
             <div className="bg-bone-white/95 backdrop-blur-sm rounded-[32px] border border-dark-brown/15 shadow-[0_40px_90px_rgba(66,41,34,0.18)] overflow-hidden flex flex-col h-full">
-              <figure className="relative">
+              <figure className="relative w-full aspect-[4/3] overflow-hidden">
                 <Image
                   src="/images/clinic/main.jpeg"
                   alt={clinicPhotoAlt}
-                  width={1200}
-                  height={900}
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="(max-width: 1280px) 100vw, 50vw"
+                  className="object-cover"
                   priority={false}
                 />
                 <div
