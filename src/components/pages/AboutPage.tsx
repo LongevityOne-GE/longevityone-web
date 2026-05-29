@@ -63,7 +63,11 @@ export function AboutPage({ locale, data, team = [] }: AboutPageProps) {
           className="flex items-center justify-center gap-3 mb-6"
         >
           <span className="block h-px w-16 bg-burnt-orange/40" />
-          <span className="block h-1.5 w-1.5 rotate-45 bg-burnt-orange/70" />
+          <img
+            src="/logos/logo-mark.svg"
+            alt=""
+            className="h-6 w-auto opacity-80"
+          />
           <span className="block h-px w-16 bg-burnt-orange/40" />
         </div>
 
