@@ -71,7 +71,7 @@ export function Journey({ locale, data }: JourneyProps) {
           >
             <span>
               {locale === 'ka'
-                ? 'ნახე სრული 8-საფეხურიანი გზა'
+                ? 'ნახეთ სრული 8-საფეხურიანი გზა'
                 : 'Discover the full journey'}
             </span>
             <span aria-hidden="true">→</span>

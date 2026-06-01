@@ -58,7 +58,7 @@ export function Science({ locale, technologies, data }: ScienceProps) {
                         {locale === 'ka' ? tech.tagline_ka : tech.tagline_en}
                       </p>
                       <span className="mt-5 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-burnt-orange">
-                        {locale === 'ka' ? 'გაიგე მეტი' : 'Learn more'}
+                        {locale === 'ka' ? 'გაიგეთ მეტი' : 'Learn more'}
                         <svg
                           width="14"
                           height="10"

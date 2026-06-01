@@ -331,6 +331,23 @@ className="w-16 h-px bg-orange" // accent divider under headings
 | Empty state | შინაარსი მალე დაემატება. | Coming soon. |
 | Form consent | ვეთანხმები მონაცემთა დამუშავებას | I consent to data processing |
 
+### Content lint rule — formal imperative (`-თ`)
+
+All Georgian CTAs and instructions must use the **formal plural imperative** (ending in `-თ`),
+never the informal singular. A Georgian imperative ending in a vowel without a trailing `-თ`
+is a **warning**.
+
+| ❌ Informal (singular) | ✅ Formal (plural) |
+|---|---|
+| ნახე | ნახეთ |
+| გაიცანი | გაიცანით |
+| გაიგე | გაიგეთ |
+| დაიწყე | დაიწყეთ |
+| მიიღე | მიიღეთ |
+| აღმოაჩინე | აღმოაჩინეთ |
+
+Audit both Sanity content and hardcoded component strings before publishing.
+
 ---
 
 ## Forbidden UI Patterns — never implement these
