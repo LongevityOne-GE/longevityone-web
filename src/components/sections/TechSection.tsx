@@ -169,7 +169,7 @@ export function TechSection({ locale, tech, index }: TechSectionProps) {
         <p className="eyebrow">{displayName}</p>
       </Reveal>
       <Reveal delay={0.1}>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight font-serif text-dark-brown mb-8">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight text-dark-brown mb-8">
           {tagline}
         </h2>
       </Reveal>

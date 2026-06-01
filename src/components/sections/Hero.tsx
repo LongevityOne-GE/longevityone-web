@@ -29,7 +29,7 @@ export function Hero({ locale, data }: HeroProps) {
       <div className="section-container relative z-10 text-center">
         {h1 && (
           <h1
-            className="text-4xl sm:text-6xl md:text-8xl font-black leading-[1.05] mb-6 md:mb-8 font-serif animate-slide-up"
+            className="text-4xl sm:text-6xl md:text-8xl font-black leading-[1.05] mb-6 md:mb-8 animate-slide-up"
             style={{ animationDelay: '0.2s', animationFillMode: 'both' }}
             dangerouslySetInnerHTML={{ __html: h1.replace(/\n/g, '<br />') }}
           />
@@ -37,7 +37,7 @@ export function Hero({ locale, data }: HeroProps) {
 
         {h2 && (
           <p
-            className="text-lg sm:text-2xl font-light mb-6 md:mb-8 font-serif italic animate-fade-in"
+            className="text-lg sm:text-2xl font-light mb-6 md:mb-8 italic animate-fade-in"
             style={{ animationDelay: '0.6s', animationFillMode: 'both' }}
           >
             {h2}

@@ -57,7 +57,7 @@ export function AdvisoryHero({ locale, page }: AdvisoryHeroProps) {
         )}
 
         <h1
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-black leading-[1.05] mb-6 font-serif text-dark-brown animate-hero-in"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-black leading-[1.05] mb-6 text-dark-brown animate-hero-in"
           style={{ animationDelay: '80ms' }}
         >
           {heading}

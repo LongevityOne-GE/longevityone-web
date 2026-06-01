@@ -52,7 +52,7 @@ export function DiagnosticTiers({ locale, packages, heading, subtext }: Diagnost
           <div className="text-center mb-16">
             {heading && (
               <Reveal>
-                <h2 className="text-3xl md:text-4xl font-black font-serif text-dark-brown mb-4">
+                <h2 className="text-3xl md:text-4xl font-black text-dark-brown mb-4">
                   {heading}
                 </h2>
               </Reveal>

@@ -183,7 +183,7 @@ export function FaqAccordion({ locale, items }: FaqAccordionProps) {
             <Reveal>
               <div className="mt-16 border-t border-dark-brown/10 pt-12 flex flex-col items-start gap-5">
                 <div>
-                  <h3 className="font-serif text-xl md:text-2xl font-semibold text-dark-brown mb-2">
+                  <h3 className="text-xl md:text-2xl font-semibold text-dark-brown mb-2">
                     {locale === 'ka'
                       ? 'ვერ იპოვეთ პასუხი?'
                       : 'Still have questions?'}

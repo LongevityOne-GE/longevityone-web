@@ -90,14 +90,14 @@ export function ServiceDifferentiator({ differentiator }: ServiceDifferentiatorP
           <Reveal delay={0.1}>
             <span
               aria-hidden="true"
-              className="block text-burnt-orange text-6xl md:text-7xl font-serif leading-none select-none -mb-4"
+              className="block text-burnt-orange text-6xl md:text-7xl leading-none select-none -mb-4"
             >
               &ldquo;
             </span>
           </Reveal>
 
           <Reveal delay={0.18}>
-            <p className="text-2xl md:text-3xl lg:text-4xl font-serif italic leading-snug text-bone-white tracking-tight">
+            <p className="text-2xl md:text-3xl lg:text-4xl italic leading-snug text-bone-white tracking-tight">
               {differentiator}
             </p>
           </Reveal>
@@ -105,7 +105,7 @@ export function ServiceDifferentiator({ differentiator }: ServiceDifferentiatorP
           <Reveal delay={0.26}>
             <span
               aria-hidden="true"
-              className="block text-burnt-orange text-6xl md:text-7xl font-serif leading-none select-none mt-2 -mb-2"
+              className="block text-burnt-orange text-6xl md:text-7xl leading-none select-none mt-2 -mb-2"
             >
               &rdquo;
             </span>

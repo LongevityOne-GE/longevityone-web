@@ -40,7 +40,7 @@ export function AboutIntro({ locale, title, subtitle, pillars }: AboutIntroProps
           </Reveal>
           <Reveal delay={0.05}>
             <h1
-              className="font-serif font-black text-dark-brown leading-[1.08] text-4xl sm:text-5xl md:text-6xl"
+              className="font-black text-dark-brown leading-[1.08] text-4xl sm:text-5xl md:text-6xl"
               dangerouslySetInnerHTML={{ __html: title.replace(/\n/g, '<br />') }}
             />
           </Reveal>
@@ -65,13 +65,13 @@ export function AboutIntro({ locale, title, subtitle, pillars }: AboutIntroProps
                 <Reveal key={idx} delay={0.08 * idx}>
                   <div className="relative pt-6 border-t border-dark-brown/15">
                     <div className="flex items-baseline gap-3 mb-3">
-                      <span className="font-serif text-base font-bold text-burnt-orange tracking-wider">
+                      <span className="text-base font-bold text-burnt-orange tracking-wider">
                         {num}
                       </span>
                       <span className="h-px flex-1 bg-dark-brown/10" />
                     </div>
                     {pTitle && (
-                      <h3 className="font-serif text-xl md:text-2xl text-dark-brown leading-snug mb-3">
+                      <h3 className="text-xl md:text-2xl text-dark-brown leading-snug mb-3">
                         {pTitle}
                       </h3>
                     )}

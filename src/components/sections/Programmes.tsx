@@ -86,7 +86,7 @@ export function Programmes({ locale, programmes }: ProgrammesProps) {
             </span>
           </Reveal>
           <Reveal delay={0.08}>
-            <h2 className="font-serif font-black leading-[1.05] tracking-tight text-3xl sm:text-4xl md:text-5xl text-dark-brown">
+            <h2 className="font-black leading-[1.05] tracking-tight text-3xl sm:text-4xl md:text-5xl text-dark-brown">
               {heading}
             </h2>
           </Reveal>
@@ -147,7 +147,7 @@ export function Programmes({ locale, programmes }: ProgrammesProps) {
                       </span>
                     </div>
 
-                    <h3 className="relative text-xl md:text-2xl font-black font-serif text-dark-brown leading-tight mb-4 transition-colors duration-500 group-hover:text-burnt-orange">
+                    <h3 className="relative text-xl md:text-2xl font-black text-dark-brown leading-tight mb-4 transition-colors duration-500 group-hover:text-burnt-orange">
                       {title}
                     </h3>
                     {body && (

@@ -25,7 +25,7 @@ export function CTA({ locale, data }: CTAProps) {
         {heading && (
           <Reveal>
             <h2
-              className="text-3xl sm:text-5xl md:text-8xl font-black mb-6 md:mb-8 leading-none font-serif"
+              className="text-3xl sm:text-5xl md:text-8xl font-black mb-6 md:mb-8 leading-none"
               dangerouslySetInnerHTML={{ __html: heading.replace(/\n/g, '<br />') }}
             />
           </Reveal>

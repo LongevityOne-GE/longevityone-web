@@ -118,7 +118,7 @@ export function AdvisoryMemberDialog({
               )}
 
               {/* Name — screen reader reads this as Dialog title */}
-              <Dialog.Title className="text-2xl md:text-3xl font-serif font-semibold text-dark-brown leading-snug mb-1">
+              <Dialog.Title className="text-2xl md:text-3xl font-semibold text-dark-brown leading-snug mb-1">
                 {name}
               </Dialog.Title>
 

@@ -26,7 +26,7 @@ export function JourneyCta({ locale, page }: JourneyCtaProps) {
             </p>
           )}
           {body && (
-            <p className="text-2xl md:text-3xl font-serif text-dark-brown leading-snug">
+            <p className="text-2xl md:text-3xl text-dark-brown leading-snug">
               {body}
             </p>
           )}

@@ -42,7 +42,7 @@ export function Journey({ locale, data }: JourneyProps) {
                 return (
                   <Reveal key={idx} delay={0.1 * idx}>
                   <div className="group relative pt-6 lg:pt-0">
-                    <span className="relative z-10 text-7xl font-black text-burnt-orange/25 font-serif block mb-4 transition-all duration-500 group-hover:text-burnt-orange group-hover:-translate-y-1">
+                    <span className="relative z-10 text-7xl font-black text-burnt-orange/25 block mb-4 transition-all duration-500 group-hover:text-burnt-orange group-hover:-translate-y-1">
                       {num}
                     </span>
                     {title && (

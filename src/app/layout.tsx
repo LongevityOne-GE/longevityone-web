@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { headers } from 'next/headers'
-import { mersad, fontGeorgian, fontDisplay, fontScript } from './fonts'
+import { mersad, fontGeorgian } from './fonts'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -43,8 +43,6 @@ export default async function RootLayout({
       className={[
         mersad.variable,
         fontGeorgian.variable,
-        fontDisplay.variable,
-        fontScript.variable,
       ].join(' ')}
     >
       <body>

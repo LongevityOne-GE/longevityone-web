@@ -40,7 +40,7 @@ export function Team({ locale, data }: TeamProps) {
       <div className="section-container relative z-10">
         <div className="max-w-2xl mx-auto text-center">
           <Reveal delay={0.08}>
-            <h2 className="font-serif font-black leading-[1.05] tracking-tight text-4xl sm:text-5xl md:text-6xl text-bone-white">
+            <h2 className="font-black leading-[1.05] tracking-tight text-4xl sm:text-5xl md:text-6xl text-bone-white">
               {headline}
             </h2>
           </Reveal>

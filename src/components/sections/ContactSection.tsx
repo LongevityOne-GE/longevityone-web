@@ -157,7 +157,7 @@ export function ContactSection({ locale, settings }: ContactSectionProps) {
                 <span className="text-[11px] uppercase tracking-[0.32em] text-burnt-orange font-semibold">
                   {locale === 'ka' ? 'დაგვიკავშირდით' : 'Contact Longevity One'}
                 </span>
-                <h2 className="text-2xl md:text-3xl font-black font-serif text-dark-brown leading-tight">
+                <h2 className="text-2xl md:text-3xl font-black text-dark-brown leading-tight">
                   {formHeading}
                 </h2>
                 <p className="text-sm text-dark-brown/70 leading-relaxed max-w-md">

@@ -41,7 +41,7 @@ export function PageHero({ eyebrow, title, subtitle }: PageHeroProps) {
         )}
 
         <h1
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] mb-6 font-serif text-dark-brown animate-hero-in"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] mb-6 text-dark-brown animate-hero-in"
           style={{ animationDelay: '80ms' }}
           dangerouslySetInnerHTML={{ __html: title.replace(/\n/g, '<br />') }}
         />

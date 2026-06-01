@@ -67,7 +67,7 @@ export function FoundingStory({ locale, heading, story }: FoundingStoryProps) {
         <div className="mx-auto max-w-3xl text-center">
           {heading && (
             <Reveal delay={0.08}>
-              <h2 className="font-serif font-black leading-[1.05] tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-dark-brown">
+              <h2 className="font-black leading-[1.05] tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-dark-brown">
                 {heading}
               </h2>
             </Reveal>
@@ -104,12 +104,12 @@ export function FoundingStory({ locale, heading, story }: FoundingStoryProps) {
             <div
               className={[
                 'mx-auto max-w-2xl lg:max-w-3xl text-pretty',
-                'font-serif italic leading-[1.8] text-lg md:text-xl',
+                'italic leading-[1.8] text-lg md:text-xl',
                 '[&_p]:mb-6 [&_p:last-child]:mb-0',
                 '[&_strong]:not-italic [&_strong]:font-semibold',
                 '[&_a]:no-underline hover:[&_a]:underline',
                 // Elegant drop cap on the very first paragraph
-                '[&>div>p:first-of-type::first-letter]:font-serif',
+                '[&>div>p:first-of-type::first-letter]:',
                 '[&>div>p:first-of-type::first-letter]:not-italic',
                 '[&>div>p:first-of-type::first-letter]:float-left',
                 '[&>div>p:first-of-type::first-letter]:text-burnt-orange',
@@ -131,7 +131,7 @@ export function FoundingStory({ locale, heading, story }: FoundingStoryProps) {
           <div className="mt-20 flex flex-wrap items-center justify-center gap-x-16 md:gap-x-24 lg:gap-x-32 gap-y-8 max-w-5xl mx-auto">
             {stats.map((stat, i) => (
               <div key={i} className="flex items-center gap-4">
-                <span className="font-serif font-black text-3xl md:text-4xl text-burnt-orange leading-none">
+                <span className="font-black text-3xl md:text-4xl text-burnt-orange leading-none">
                   {stat.value}
                 </span>
                 <span

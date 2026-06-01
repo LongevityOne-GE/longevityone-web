@@ -84,7 +84,7 @@ export function PackageCard({
                 aria-hidden="true"
                 className="block h-px w-8 md:w-12 bg-gradient-to-r from-transparent to-burnt-orange/70"
               />
-              <span className="text-[11px] md:text-xs font-serif italic tracking-[0.12em] text-burnt-orange whitespace-nowrap">
+              <span className="text-[11px] md:text-xs italic tracking-[0.12em] text-burnt-orange whitespace-nowrap">
                 {popularLabel}
               </span>
               <span
@@ -114,7 +114,7 @@ export function PackageCard({
 
           {(price != null || priceLabel) && (
             <div
-              className={`text-4xl font-bold text-burnt-orange mb-10 pb-10 border-b transition-colors duration-300 font-serif lowercase italic relative ${
+              className={`text-4xl font-bold text-burnt-orange mb-10 pb-10 border-b transition-colors duration-300 lowercase italic relative ${
                 isLight
                   ? 'border-dark-brown/10 group-hover:border-bone-white/10'
                   : 'border-bone-white/10 group-hover:border-dark-brown/10'

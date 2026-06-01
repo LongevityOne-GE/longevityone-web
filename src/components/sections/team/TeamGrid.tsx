@@ -18,7 +18,7 @@ export function TeamGrid({ locale, members, heading, subtext }: TeamGridProps) {
       {(heading || subtext) && (
         <div className="mb-12 md:mb-16">
           {heading && (
-            <h2 className="font-serif text-3xl md:text-4xl text-dark-brown mb-4">
+            <h2 className="text-3xl md:text-4xl text-dark-brown mb-4">
               {heading}
             </h2>
           )}

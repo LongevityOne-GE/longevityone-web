@@ -18,7 +18,7 @@ export function AddOns({ locale, addons }: AddOnsProps) {
     <section className="py-20 md:py-28 bg-bone-white border-t border-dark-brown/10">
       <div className="section-container max-w-3xl">
         <Reveal>
-          <h2 className="text-2xl md:text-3xl font-black font-serif text-dark-brown mb-10">
+          <h2 className="text-2xl md:text-3xl font-black text-dark-brown mb-10">
             {heading}
           </h2>
         </Reveal>
@@ -31,7 +31,7 @@ export function AddOns({ locale, addons }: AddOnsProps) {
               <Reveal key={addon._id} delay={0.05 * idx}>
                 <li className="flex items-center justify-between py-5">
                   <span className="text-sm font-medium text-dark-brown">{name}</span>
-                  <span className="text-sm font-bold text-burnt-orange font-serif italic ml-4 shrink-0">
+                  <span className="text-sm font-bold text-burnt-orange italic ml-4 shrink-0">
                     {addon.price != null ? (
                       <>
                         {addon.price.toLocaleString()}{' '}

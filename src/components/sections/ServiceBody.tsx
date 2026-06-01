@@ -24,7 +24,7 @@ export function ServiceBody({ locale, service }: ServiceBodyProps) {
           <div className="lg:col-span-2">
             {intro && (
               <Reveal>
-                <p className="text-xl md:text-2xl font-serif italic text-dark-brown/80 leading-relaxed mb-12 pb-12 border-b border-dark-brown/10">
+                <p className="text-xl md:text-2xl italic text-dark-brown/80 leading-relaxed mb-12 pb-12 border-b border-dark-brown/10">
                   {intro}
                 </p>
               </Reveal>
@@ -70,7 +70,7 @@ export function ServiceBody({ locale, service }: ServiceBodyProps) {
                           />
                         ) : (
                           <div className="w-10 h-10 rounded bg-dark-brown/10 flex items-center justify-center flex-shrink-0">
-                            <span className="text-sm font-black text-dark-brown/30 font-serif">
+                            <span className="text-sm font-black text-dark-brown/30">
                               {techDisplay.charAt(0)}
                             </span>
                           </div>

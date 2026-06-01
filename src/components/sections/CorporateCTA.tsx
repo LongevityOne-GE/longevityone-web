@@ -68,7 +68,7 @@ export function CorporateCTA({ locale, ctaLabel }: CorporateCTAProps) {
 
       <div className="section-container relative z-10 text-center max-w-2xl mx-auto">
         <Reveal>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black font-serif text-bone-white leading-tight mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-bone-white leading-tight mb-6">
             {heading}
           </h2>
         </Reveal>

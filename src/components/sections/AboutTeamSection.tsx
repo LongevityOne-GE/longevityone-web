@@ -22,7 +22,7 @@ export function AboutTeamSection({ locale, members }: AboutTeamSectionProps) {
 
       <div className="section-container">
         <Reveal>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-dark-brown text-center mb-14 md:mb-20">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl text-dark-brown text-center mb-14 md:mb-20">
             {heading}
           </h2>
         </Reveal>
