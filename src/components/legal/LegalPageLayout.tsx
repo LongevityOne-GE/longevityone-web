@@ -45,12 +45,12 @@ const portableTextComponents: PortableTextComponents = {
       <p className="mt-5 first:mt-0">{children}</p>
     ),
     h2: ({ children }) => (
-      <h2 className="mt-14 mb-5 font-serif text-2xl md:text-[28px] font-semibold leading-tight text-dark-brown">
+      <h2 className="mt-14 mb-5 text-2xl md:text-[28px] font-semibold leading-tight text-dark-brown">
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="mt-10 mb-4 font-serif text-xl md:text-[22px] font-semibold leading-tight text-dark-brown">
+      <h3 className="mt-10 mb-4 text-xl md:text-[22px] font-semibold leading-tight text-dark-brown">
         {children}
       </h3>
     ),
@@ -173,7 +173,7 @@ export async function LegalPageLayout({
               {lastUpdatedLabel} · {formattedDate}
             </p>
           )}
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold leading-[1.15] text-dark-brown">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold leading-[1.15] text-dark-brown">
             {title}
           </h1>
           {intro && (

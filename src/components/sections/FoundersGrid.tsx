@@ -24,7 +24,7 @@ export function FoundersGrid({ locale, founders, page }: FoundersGridProps) {
           <div className="mb-16">
             {heading && (
               <Reveal>
-                <h2 className="text-3xl md:text-4xl font-black font-serif text-dark-brown mb-4">
+                <h2 className="text-3xl md:text-4xl font-black text-dark-brown mb-4">
                   {heading}
                 </h2>
               </Reveal>
@@ -86,7 +86,7 @@ function FounderCard({
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
-              <span className="text-3xl font-black text-dark-brown/20 font-serif">
+              <span className="text-3xl font-black text-dark-brown/20">
                 {name.charAt(0) || '?'}
               </span>
             </div>

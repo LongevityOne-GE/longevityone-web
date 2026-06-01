@@ -78,7 +78,7 @@ export function AboutPage({ locale, data, team = [] }: AboutPageProps) {
             </p>
             <h2
               id="advisory-cta-heading"
-              className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-dark-brown leading-[1.15] mb-6"
+              className="text-3xl md:text-4xl lg:text-5xl font-semibold text-dark-brown leading-[1.15] mb-6"
             >
               {cta.heading}
             </h2>

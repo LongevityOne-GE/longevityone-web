@@ -103,7 +103,7 @@ export function TeamMemberDialog({
               )}
 
               {/* Name — Dialog title */}
-              <Dialog.Title className="text-2xl md:text-3xl font-serif font-semibold text-dark-brown leading-snug mb-1">
+              <Dialog.Title className="text-2xl md:text-3xl font-semibold text-dark-brown leading-snug mb-1">
                 {name}
               </Dialog.Title>
 
@@ -119,7 +119,7 @@ export function TeamMemberDialog({
 
               {/* Pull quote — team-specific addition */}
               {pullQuote && (
-                <blockquote className="font-serif italic text-lg md:text-xl leading-snug text-dark-brown/85 border-l-2 border-burnt-orange pl-4 my-4">
+                <blockquote className="italic text-lg md:text-xl leading-snug text-dark-brown/85 border-l-2 border-burnt-orange pl-4 my-4">
                   “{pullQuote}”
                 </blockquote>
               )}

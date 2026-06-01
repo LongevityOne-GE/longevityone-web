@@ -123,10 +123,10 @@ export function GodsCanvas() {
           style={{ opacity: reducedMotion ? 1 : 0 }}
         >
           <div className="text-center px-4">
-            <h1 className="font-serif text-5xl md:text-7xl text-dark-brown text-center leading-tight">
+            <h1 className="text-5xl md:text-7xl text-dark-brown text-center leading-tight">
               სიცოცხლის ხელოვნება
             </h1>
-            <p className="font-serif text-xl md:text-2xl text-dark-brown/70 text-center mt-2 tracking-wide">
+            <p className="text-xl md:text-2xl text-dark-brown/70 text-center mt-2 tracking-wide">
               THE ART OF LIVING LONGER
             </p>
 

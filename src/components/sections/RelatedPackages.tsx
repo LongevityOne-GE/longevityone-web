@@ -19,7 +19,7 @@ export function RelatedPackages({ locale, packages }: RelatedPackagesProps) {
     <section className="py-20 md:py-28 bg-bone-white border-t border-dark-brown/10">
       <div className="section-container">
         <Reveal>
-          <h2 className="text-2xl md:text-3xl font-black font-serif text-dark-brown mb-12">
+          <h2 className="text-2xl md:text-3xl font-black text-dark-brown mb-12">
             {heading}
           </h2>
         </Reveal>

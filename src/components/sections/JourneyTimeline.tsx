@@ -39,12 +39,12 @@ export function JourneyTimeline({ locale, stages }: JourneyTimelineProps) {
 
                     {/* number + title block */}
                     <div className={`flex flex-col justify-center ${isLeft ? 'lg:pr-16 xl:pr-24' : 'lg:order-2 lg:pl-16 xl:pl-24'}`}>
-                      <span className="text-7xl font-black text-dark-brown/8 font-serif leading-none mb-2 select-none">
+                      <span className="text-7xl font-black text-dark-brown/8 leading-none mb-2 select-none">
                         {stage.stageNumber != null
                           ? String(stage.stageNumber).padStart(2, '0')
                           : String(idx + 1).padStart(2, '0')}
                       </span>
-                      <h3 className="text-xl md:text-2xl font-black font-serif text-dark-brown leading-tight">
+                      <h3 className="text-xl md:text-2xl font-black text-dark-brown leading-tight">
                         {title}
                       </h3>
                       {duration && (

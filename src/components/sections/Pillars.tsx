@@ -26,7 +26,7 @@ export function Pillars({ locale, services, data }: PillarsProps) {
       <div className="section-container relative z-10 text-center">
         {(data?.pillars_heading_ka || data?.pillars_heading_en) && (
           <Reveal>
-            <h2 className="text-3xl sm:text-4xl md:text-6xl font-black mb-12 md:mb-24 font-serif whitespace-pre-line">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl font-black mb-12 md:mb-24 whitespace-pre-line">
               {locale === 'ka' ? data.pillars_heading_ka : data.pillars_heading_en}
             </h2>
           </Reveal>

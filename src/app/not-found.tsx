@@ -27,9 +27,9 @@ export default async function NotFound() {
           <Logo />
         </div>
 
-        <p className="text-8xl font-black font-serif text-dark-brown/10 mb-6 leading-none">404</p>
+        <p className="text-8xl font-black text-dark-brown/10 mb-6 leading-none">404</p>
 
-        <h1 className="text-2xl md:text-3xl font-black font-serif text-dark-brown mb-4">{h1}</h1>
+        <h1 className="text-2xl md:text-3xl font-black text-dark-brown mb-4">{h1}</h1>
         <p className="text-sm text-dark-brown/60 max-w-sm mb-10 leading-relaxed">{body}</p>
 
         <Link href="/" className="btn-primary">

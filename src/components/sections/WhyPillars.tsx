@@ -26,7 +26,7 @@ export function WhyPillars({ locale, pillars }: WhyPillarsProps) {
             return (
               <Reveal key={idx} delay={0.1 * idx}>
                 <div className="border-t border-dark-brown/20 pt-8">
-                  <span className="text-5xl md:text-6xl font-black text-burnt-orange/30 font-serif block mb-6">
+                  <span className="text-5xl md:text-6xl font-black text-burnt-orange/30 block mb-6">
                     {num}
                   </span>
                   {title && (

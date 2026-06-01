@@ -144,7 +144,7 @@ function PreferencesModal({
       >
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-dark-brown/10">
-          <h2 id="prefs-title" className="text-base font-black font-serif text-dark-brown">
+          <h2 id="prefs-title" className="text-base font-black text-dark-brown">
             {l.prefsTitle}
           </h2>
           <button

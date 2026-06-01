@@ -402,7 +402,7 @@ function BookingPageInner({ locale }: { locale: Locale }) {
           {/* ── Header ─────────────────────────────────────────────────── */}
           <div className="mb-10 md:mb-14">
             <p className="eyebrow">{copy.eyebrow}</p>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight text-dark-brown font-serif">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight text-dark-brown">
               {copy.heading}
             </h1>
             <p className="mt-3 text-dark-brown/70 max-w-xl text-base">

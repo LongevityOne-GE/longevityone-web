@@ -46,7 +46,7 @@ export function MembershipPlans({ locale, memberships, heading }: MembershipPlan
 
       <div className="section-container relative z-10">
         <Reveal>
-          <h2 className="text-3xl md:text-4xl font-black font-serif text-bone-white text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-black text-bone-white text-center mb-16">
             {heading || defaultHeading}
           </h2>
         </Reveal>

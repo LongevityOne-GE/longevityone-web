@@ -68,7 +68,7 @@ function GodVideoPanel({ slug, locale }: { slug: string; locale: Locale }) {
       </video>
       <div className="absolute inset-0 bg-gradient-to-t from-dark-brown/60 via-dark-brown/10 to-dark-brown/20 pointer-events-none" />
       {caption && (
-        <p className="absolute bottom-4 left-5 right-5 z-10 text-xs md:text-sm italic font-serif text-bone-white/90 tracking-wide pointer-events-none drop-shadow-md">
+        <p className="absolute bottom-4 left-5 right-5 z-10 text-xs md:text-sm italic text-bone-white/90 tracking-wide pointer-events-none drop-shadow-md">
           {caption}
         </p>
       )}
@@ -146,7 +146,7 @@ export function ServiceSection({ locale, service, index }: ServiceSectionProps) 
             </Reveal>
 
             <Reveal delay={0.1}>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight font-serif text-dark-brown mb-6">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight text-dark-brown mb-6">
                 {title}
               </h2>
             </Reveal>
@@ -161,7 +161,7 @@ export function ServiceSection({ locale, service, index }: ServiceSectionProps) 
 
             {intro && (
               <Reveal delay={0.2}>
-                <p className="text-lg md:text-xl font-serif italic text-dark-brown/80 leading-relaxed mb-8 pb-8 border-b border-dark-brown/10">
+                <p className="text-lg md:text-xl italic text-dark-brown/80 leading-relaxed mb-8 pb-8 border-b border-dark-brown/10">
                   {intro}
                 </p>
               </Reveal>
@@ -246,7 +246,7 @@ export function ServiceSection({ locale, service, index }: ServiceSectionProps) 
                           />
                         ) : (
                           <div className="w-10 h-10 rounded-sm bg-dark-brown/8 border border-dark-brown/10 flex items-center justify-center flex-shrink-0">
-                            <span className="text-sm font-black text-dark-brown/30 font-serif">
+                            <span className="text-sm font-black text-dark-brown/30">
                               {techDisplay.charAt(0)}
                             </span>
                           </div>

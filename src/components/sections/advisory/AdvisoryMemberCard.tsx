@@ -85,7 +85,7 @@ export function AdvisoryMemberCard({ locale, member }: AdvisoryMemberCardProps) 
         )}
 
         {/* Name */}
-        <h3 className="font-serif text-xl md:text-2xl font-semibold text-dark-brown leading-tight">
+        <h3 className="text-xl md:text-2xl font-semibold text-dark-brown leading-tight">
           {name}
         </h3>
 

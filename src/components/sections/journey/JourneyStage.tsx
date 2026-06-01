@@ -33,7 +33,7 @@ export function JourneyStage({ locale, stage, index }: JourneyStageProps) {
       <p className="text-[11px] uppercase tracking-[0.22em] text-burnt-orange font-medium mb-3">
         {COPY.stage[locale]} {eyebrowNum}
       </p>
-      <h2 className="text-2xl md:text-[30px] font-serif font-semibold text-dark-brown leading-snug">
+      <h2 className="text-2xl md:text-[30px] font-semibold text-dark-brown leading-snug">
         {title}
       </h2>
       {body && (body as unknown[]).length > 0 && (
@@ -57,7 +57,7 @@ export function JourneyStage({ locale, stage, index }: JourneyStageProps) {
   const medallion = (
     <div
       aria-hidden="true"
-      className="hidden lg:flex h-12 w-12 items-center justify-center rounded-lg border border-dark-brown/15 bg-bone-white text-dark-brown font-serif text-lg shadow-[0_1px_3px_rgba(66,41,34,0.08)]"
+      className="hidden lg:flex h-12 w-12 items-center justify-center rounded-lg border border-dark-brown/15 bg-bone-white text-dark-brown text-lg shadow-[0_1px_3px_rgba(66,41,34,0.08)]"
     >
       {stageNum}
     </div>

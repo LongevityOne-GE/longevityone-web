@@ -21,7 +21,7 @@ export function ClinicTeam({ locale, team, page }: ClinicTeamProps) {
     <section className="py-20 md:py-32 bg-dark-brown text-bone-white">
       <div className="section-container">
         <Reveal>
-          <h2 className="text-3xl md:text-4xl font-black font-serif text-bone-white mb-16">
+          <h2 className="text-3xl md:text-4xl font-black text-bone-white mb-16">
             {heading}
           </h2>
         </Reveal>
@@ -45,7 +45,7 @@ export function ClinicTeam({ locale, team, page }: ClinicTeamProps) {
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
-                        <span className="text-xl font-black text-bone-white/30 font-serif">
+                        <span className="text-xl font-black text-bone-white/30">
                           {name.charAt(0) || '?'}
                         </span>
                       </div>

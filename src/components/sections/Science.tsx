@@ -48,7 +48,7 @@ export function Science({ locale, technologies, data }: ScienceProps) {
                       href={href}
                       className="group relative block pt-6 lg:pt-0 cursor-pointer"
                     >
-                      <span className="relative z-10 text-7xl font-black text-burnt-orange/25 font-serif block mb-4 transition-all duration-500 group-hover:text-burnt-orange group-hover:-translate-y-1">
+                      <span className="relative z-10 text-7xl font-black text-burnt-orange/25 block mb-4 transition-all duration-500 group-hover:text-burnt-orange group-hover:-translate-y-1">
                         {num}
                       </span>
                       <h3 className="inline text-xl font-bold uppercase tracking-widest transition-colors duration-300 group-hover:text-burnt-orange bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat bg-[length:0%_1px] bg-left-bottom group-hover:bg-[length:100%_1px] [transition:background-size_400ms_ease,color_300ms_ease]">

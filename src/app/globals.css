@@ -9,10 +9,11 @@
   --color-bone-white: #E7DECC;
   --color-dark-brown: #422922;
   --color-burnt-orange: #D45800;
+  --color-light-blue: #AFD1E6;
+  --color-black: #000000;
 
   --font-sans: var(--font-mersad), var(--font-noto-georgian), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
-  --font-script: var(--font-allura), cursive;
+  --font-serif: var(--font-mersad), var(--font-noto-georgian), ui-sans-serif, system-ui, sans-serif;
 
   --animate-fade-in: fade-in 0.8s ease-out forwards;
   --animate-slide-up: slide-up 0.8s ease-out forwards;
@@ -60,11 +61,7 @@
   }
 
   :lang(ka) {
-    font-family: var(--font-noto-georgian), var(--font-mersad), ui-sans-serif, system-ui, sans-serif;
-  }
-
-  h1, h2, h3, h4, .font-serif {
-    @apply font-serif;
+    font-family: var(--font-mersad), var(--font-noto-georgian), ui-sans-serif, system-ui, sans-serif;
   }
 }
 

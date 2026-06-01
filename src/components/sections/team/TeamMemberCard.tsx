@@ -58,7 +58,7 @@ export function TeamMemberCard({ locale, member, delay = 0 }: TeamMemberCardProp
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="font-serif text-[7rem] text-dark-brown/15 leading-none">
+              <span className="text-[7rem] text-dark-brown/15 leading-none">
                 {name.charAt(0) || '·'}
               </span>
             </div>
@@ -80,13 +80,13 @@ export function TeamMemberCard({ locale, member, delay = 0 }: TeamMemberCardProp
 
           {/* Editorial pull-quote — founders' voice (skipped if no quote) */}
           {pullQuote && (
-            <p className="font-serif italic text-lg md:text-xl leading-snug text-dark-brown mb-5">
+            <p className="italic text-lg md:text-xl leading-snug text-dark-brown mb-5">
               &ldquo;{pullQuote}&rdquo;
             </p>
           )}
 
           {/* Name */}
-          <h3 className="font-serif text-xl md:text-2xl text-dark-brown leading-tight">
+          <h3 className="text-xl md:text-2xl text-dark-brown leading-tight">
             {name}
           </h3>
 

@@ -11,17 +11,17 @@ interface PortableTextRendererProps {
 const components: PortableTextComponents = {
   block: {
     h2: ({ children }) => (
-      <h2 className="text-2xl md:text-3xl font-bold font-serif text-dark-brown border-t border-dark-brown/20 pt-8 mt-12 first:mt-0 first:border-t-0 first:pt-0">
+      <h2 className="text-2xl md:text-3xl font-bold text-dark-brown border-t border-dark-brown/20 pt-8 mt-12 first:mt-0 first:border-t-0 first:pt-0">
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="text-xl md:text-2xl font-semibold font-serif text-dark-brown mt-8 mb-4">
+      <h3 className="text-xl md:text-2xl font-semibold text-dark-brown mt-8 mb-4">
         {children}
       </h3>
     ),
     h4: ({ children }) => (
-      <h4 className="text-lg font-semibold font-serif text-dark-brown mt-6 mb-3">
+      <h4 className="text-lg font-semibold text-dark-brown mt-6 mb-3">
         {children}
       </h4>
     ),
@@ -31,7 +31,7 @@ const components: PortableTextComponents = {
       </p>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="border-l-4 border-burnt-orange pl-6 my-8 italic text-dark-brown/80 font-serif text-lg">
+      <blockquote className="border-l-4 border-burnt-orange pl-6 my-8 italic text-dark-brown/80 text-lg">
         {children}
       </blockquote>
     ),

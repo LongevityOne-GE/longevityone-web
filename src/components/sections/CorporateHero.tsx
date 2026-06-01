@@ -60,7 +60,7 @@ export function CorporateHero({ locale, title, subtitle }: CorporateHeroProps) {
           </p>
 
           <h1
-            className="font-serif font-black leading-[1.05] tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-bone-white mb-6 animate-hero-in"
+            className="font-black leading-[1.05] tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-bone-white mb-6 animate-hero-in"
             style={{ animationDelay: '80ms' }}
             dangerouslySetInnerHTML={{ __html: title.replace(/\n/g, '<br />') }}
           />

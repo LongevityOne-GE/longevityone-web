@@ -18,7 +18,7 @@ export function SessionPacks({ locale, sessions }: SessionPacksProps) {
     <section className="py-20 md:py-28 bg-bone-white border-t border-dark-brown/10">
       <div className="section-container max-w-3xl">
         <Reveal>
-          <h2 className="text-2xl md:text-3xl font-black font-serif text-dark-brown mb-10">
+          <h2 className="text-2xl md:text-3xl font-black text-dark-brown mb-10">
             {heading}
           </h2>
         </Reveal>
@@ -31,7 +31,7 @@ export function SessionPacks({ locale, sessions }: SessionPacksProps) {
               <Reveal key={session._id} delay={0.08 * idx}>
                 <div className="border border-dark-brown/15 rounded-sm p-6 hover:border-burnt-orange/40 transition-colors duration-300">
                   <p className="text-sm font-bold text-dark-brown mb-3">{name}</p>
-                  <p className="text-2xl font-bold text-burnt-orange font-serif italic">
+                  <p className="text-2xl font-bold text-burnt-orange italic">
                     {session.price != null ? (
                       <>
                         {session.price.toLocaleString()}{' '}

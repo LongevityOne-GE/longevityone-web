@@ -113,7 +113,7 @@ export function BlogGrid({ locale, posts }: BlogGridProps) {
                     {getCategoryLabel(locale === 'ka' ? featured.category_ka : featured.category_en, locale)}
                   </p>
                 )}
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-black font-serif text-dark-brown leading-tight group-hover:text-burnt-orange transition-colors duration-200 mb-4">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-dark-brown leading-tight group-hover:text-burnt-orange transition-colors duration-200 mb-4">
                   {locale === 'ka' ? featured.title_ka : featured.title_en}
                 </h2>
                 {(locale === 'ka' ? featured.excerpt_ka : featured.excerpt_en) && (
@@ -150,7 +150,7 @@ export function BlogGrid({ locale, posts }: BlogGridProps) {
                       {getCategoryLabel(locale === 'ka' ? post.category_ka : post.category_en, locale)}
                     </p>
                   )}
-                  <h3 className="text-base font-bold font-serif text-dark-brown leading-snug group-hover:text-burnt-orange transition-colors duration-200 mb-2 line-clamp-2">
+                  <h3 className="text-base font-bold text-dark-brown leading-snug group-hover:text-burnt-orange transition-colors duration-200 mb-2 line-clamp-2">
                     {locale === 'ka' ? post.title_ka : post.title_en}
                   </h3>
                   <p className="text-xs text-dark-brown/40 uppercase tracking-widest font-bold">
