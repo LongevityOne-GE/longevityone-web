@@ -102,7 +102,7 @@ const siteSettingsDoc = {
   tagline_en: 'The Art of Living Longer',
   address_ka: 'თამარაშვილის 4ა, სადარბაზო 3, სართული 3, ბინა 50, თბილისი',
   address_en: '4a Tamarashvili Street, Entrance 3, Floor 3, Apt. 50, Tbilisi, Georgia',
-  phone: '+995 577 26 05 57',
+  phone: '+995 511 70 88 88',
   email: 'info@longevityone.ge',
   openingHours_ka: ['ყოველდღე 09:00 – 21:00'],
   openingHours_en: ['Every day 09:00 – 21:00'],

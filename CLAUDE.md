@@ -16,7 +16,7 @@
 **Tagline (ka):** დღეგრძელობის ხელოვნება
 **Category:** Preventive Medicine Center
 **Design reference:** https://www.cliniquelaprairie.com — match this level exactly
-**Phone:** +995 577 26 05 57
+**Phone:** +995 511 70 88 88
 **Email:** info@longevityone.ge
 **Address (ka):** თამარაშვილის 4ა, თბილისი
 **Address (en):** 4a Tamarashvili St, Tbilisi, Georgia
