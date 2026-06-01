@@ -429,7 +429,7 @@ const clinicSchema = {
   "name": "Longevity One",
   "alternateName": "Longevity One Preventive Medicine Center",
   "url": "https://www.longevityone.ge",
-  "telephone": "+995577260557",
+  "telephone": "+995511708888",
   "email": "info@longevityone.ge",
   "address": {
     "@type": "PostalAddress",
