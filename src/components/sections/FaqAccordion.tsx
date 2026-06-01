@@ -53,6 +53,7 @@ const CATEGORY_LABELS: Record<string, { ka: string; en: string }> = {
   journey: { ka: 'პაციენტის გზა', en: 'Journey' },
   longevity: { ka: 'დღეგრძელობა', en: 'Longevity' },
   metabolic: { ka: 'მეტაბოლური', en: 'Metabolic' },
+  technologies: { ka: 'ტექნოლოგიები', en: 'Technologies' },
 }
 
 export function FaqAccordion({ locale, items }: FaqAccordionProps) {
