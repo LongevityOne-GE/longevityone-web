@@ -968,7 +968,7 @@ Longevity One-ში ყოველ კლიენტს PNOE ტესტი 
 
 **Address (ka):** თამარაშვილის 4ა, სადარბაზო 3, სართული 3, ბინა 50, თბილისი
 **Address (en):** 4a Tamarashvili Street, Entrance 3, Floor 3, Apt. 50, Tbilisi, Georgia
-**Phone:** +995 577 26 05 57
+**Phone:** +995 511 70 88 88
 **Email:** info@longevityone.ge
 **Opening hours (ka):** ყოველდღე 09:00 – 21:00
 **Opening hours (en):** Every day 09:00 – 21:00
@@ -996,7 +996,7 @@ Longevity One-ში ყოველ კლიენტს PNOE ტესტი 
 **Hours (ka):** ყოველდღე 09:00 – 21:00
 **Hours (en):** Every day 09:00 – 21:00
 
-**Phone:** +995 577 26 05 57
+**Phone:** +995 511 70 88 88
 **Email:** info@longevityone.ge
 
 **Copyright:**
@@ -1198,7 +1198,7 @@ When this policy is updated, we will post a notice on the website. For material 
 
 ## 6. კონტაქტი
 
-შეკითხვებისთვის: info@longevityone.ge | +995 577 26 05 57
+შეკითხვებისთვის: info@longevityone.ge | +995 511 70 88 88
 
 ---
 
@@ -1236,7 +1236,7 @@ These Terms & Conditions are governed by the Civil Code of Georgia and applicabl
 
 ## 6. Contact
 
-For enquiries: info@longevityone.ge | +995 577 26 05 57
+For enquiries: info@longevityone.ge | +995 511 70 88 88
 
 ---
 

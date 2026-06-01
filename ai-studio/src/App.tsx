@@ -589,7 +589,7 @@ export default function App() {
               
               <p>{lang === "KA" ? "ყოველდღე 09:00 – 21:00" : "Every day 09:00 – 21:00"}</p>
 
-              <p className="font-bold">+995 577 26 05 57<br />
+              <p className="font-bold">+995 511 70 88 88<br />
               <span className="text-burnt-orange font-normal">info@longevityone.ge</span></p>
             </div>
           </div>
