@@ -21,7 +21,7 @@ export function Team({ locale, data }: TeamProps) {
     (locale === 'ka'
       ? 'ექიმები საქართველოსა და საერთაშორისო სცენაზე დაგროვილი გამოცდილებით.'
       : 'Physicians with decades of experience in Georgia and abroad.')
-  const ctaLabel = locale === 'ka' ? 'გაიცანი გუნდი' : 'Meet the team'
+  const ctaLabel = locale === 'ka' ? 'გაიცანით გუნდი' : 'Meet the team'
 
   return (
     <section className="py-24 md:py-32 bg-dark-brown text-bone-white relative overflow-hidden isolate">

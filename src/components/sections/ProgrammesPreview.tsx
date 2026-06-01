@@ -22,7 +22,7 @@ export function ProgrammesPreview({ locale }: ProgrammesPreviewProps) {
       ? 'პროგრამები შემუშავებულია თქვენი ჯანმრთელობისა და დღეგრძელობის ყველა ეტაპისთვის.'
       : 'Programmes designed for every stage of your health and longevity journey.'
   const cta =
-    locale === 'ka' ? 'ნახე პროგრამები' : 'Explore programmes'
+    locale === 'ka' ? 'ნახეთ პროგრამები' : 'Explore programmes'
 
   return (
     <section className="relative py-16 md:py-32 bg-bone-white border-y border-dark-brown/5 overflow-hidden isolate">

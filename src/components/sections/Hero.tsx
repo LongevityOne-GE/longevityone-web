@@ -11,6 +11,7 @@ interface HeroProps {
 export function Hero({ locale, data }: HeroProps) {
   const prefix = locale === 'en' ? '/en' : ''
   const bookingHref = `${prefix}/booking?type=consultation`
+  const learnMoreHref = `${prefix}/services`
   const h1 = locale === 'ka' ? data?.hero_h1_ka : data?.hero_h1_en
   const h2 = locale === 'ka' ? data?.hero_h2_ka : data?.hero_h2_en
   const body = locale === 'ka' ? data?.hero_body_ka : data?.hero_body_en
@@ -67,7 +68,7 @@ export function Hero({ locale, data }: HeroProps) {
           )}
           {ctaSecondary && (
             <Link
-              href={bookingHref}
+              href={learnMoreHref}
               className="btn-secondary w-full sm:w-auto sm:min-w-[240px]"
             >
               {ctaSecondary} <span>→</span>
