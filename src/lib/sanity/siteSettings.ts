@@ -55,7 +55,7 @@ export const siteSettings = defineType({
       name: 'phone',
       title: 'Phone',
       type: 'string',
-      description: 'e.g. +995 577 26 05 57',
+      description: 'e.g. +995 511 70 88 88',
     }),
     defineField({
       name: 'email',

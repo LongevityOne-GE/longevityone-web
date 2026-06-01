@@ -39,7 +39,7 @@ const COMPANY_ADDRESS_KA =
 const COMPANY_ADDRESS_EN =
   '4a Tamarashvili Street, Entrance 3, Floor 3, Apt. 50, Tbilisi, Georgia'
 const COMPANY_EMAIL = 'info@longevityone.ge'
-const COMPANY_PHONE = '+995 577 26 05 57'
+const COMPANY_PHONE = '+995 511 70 88 88'
 const DPO_EMAIL = 'ana.gabunia1995@gmail.com' // ⚠️ TODO confirm or switch to dpo@longevityone.ge
 const LAST_UPDATED = '2026-05-07'
 
