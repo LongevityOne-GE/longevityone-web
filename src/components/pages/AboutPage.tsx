@@ -55,12 +55,24 @@ export function AboutPage({ locale, data, team = [] }: AboutPageProps) {
          hairline rules, brand-orange button — classical editorial CTA. */}
       <section
         aria-labelledby="advisory-cta-heading"
-        className="relative bg-bone-white border-t border-dark-brown/10 py-20 md:py-28 overflow-hidden"
+        className="relative bg-bone-white border-t border-dark-brown/10 py-20 md:py-28 overflow-hidden isolate"
       >
+        {/* Very faded DNA helix background video */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-[0.08]"
+        >
+          <source src="/videos/longevity-helix-v2.mp4" type="video/mp4" />
+        </video>
+
         {/* Classical hairline mark above the eyebrow — twin rules + small dot */}
         <div
           aria-hidden="true"
-          className="flex items-center justify-center gap-3 mb-6"
+          className="relative z-10 flex items-center justify-center gap-3 mb-6"
         >
           <span className="block h-px w-16 bg-burnt-orange/40" />
           <img
@@ -71,7 +83,7 @@ export function AboutPage({ locale, data, team = [] }: AboutPageProps) {
           <span className="block h-px w-16 bg-burnt-orange/40" />
         </div>
 
-        <div className="section-container">
+        <div className="section-container relative z-10">
           <div className="max-w-2xl mx-auto text-center">
             <p className="text-[11px] uppercase tracking-[0.28em] text-burnt-orange font-bold mb-5">
               {cta.eyebrow}
