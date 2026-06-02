@@ -18,25 +18,25 @@ const DECOR_IMAGES = [
   {
     src: '/images/blog images/NEW/cropped/general3.png',
     position: 'mr-auto -ml-12 md:-ml-20', // Left
-    width: 'w-48 md:w-72 max-h-[18rem]',
+    width: 'w-64 md:w-96 max-h-[24rem]',
     rotate: 'rotate-6',
   },
   {
     src: '/images/blog images/NEW/cropped/general2.png',
-    position: 'mx-auto', // Center
-    width: 'w-44 md:w-64 max-h-[16rem]',
+    position: 'ml-auto -mr-12 md:-mr-20', // Right
+    width: 'w-60 md:w-80 max-h-[20rem]',
     rotate: '-rotate-6',
   },
   {
     src: '/images/blog images/NEW/cropped/general4.jpg',
     position: 'ml-auto -mr-12 md:-mr-20', // Right
-    width: 'w-44 md:w-64 max-h-[16rem]',
+    width: 'w-60 md:w-80 max-h-[20rem]',
     rotate: 'rotate-3',
   },
   {
     src: '/images/blog images/NEW/cropped/general5.jpg',
-    position: 'mx-auto', // Center
-    width: 'w-44 md:w-60 max-h-[15rem]',
+    position: 'ml-auto -mr-12 md:-mr-20', // Right
+    width: 'w-60 md:w-80 max-h-[20rem]',
     rotate: '-rotate-3',
   },
 ]
@@ -82,13 +82,13 @@ export function FaqAccordion({ locale, items }: FaqAccordionProps) {
       {/* Subtle editorial texture — general images bleeding off the left/right
          edges at very low opacity, desaturated to bone tones. They live in the
          outer gutters so the centered content stays fully readable on top. */}
-      <div aria-hidden="true" className="pointer-events-none absolute top-0 left-0 w-full h-full z-0 overflow-hidden flex flex-col justify-between py-12 md:py-24 min-h-[1400px]">
+      <div aria-hidden="true" className="pointer-events-none absolute top-0 left-0 w-full h-full z-0 overflow-hidden flex flex-col justify-evenly py-12 md:py-24 gap-12 min-h-[1600px]">
         {DECOR_IMAGES.map((img, i) => (
           <img
             key={i}
             src={img.src}
             alt=""
-            className={`select-none object-cover flex-shrink-0 ${img.position} ${img.width} ${img.rotate} opacity-[0.07]`}
+            className={`select-none object-cover flex-shrink-0 ${img.position} ${img.width} ${img.rotate} opacity-[0.12]`}
             style={{ filter: 'saturate(0.5) brightness(1.05)' }}
           />
         ))}
