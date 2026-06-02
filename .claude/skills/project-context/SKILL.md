@@ -1,4 +1,4 @@
-# LongevityOne — Claude Code Master Configuration
+# Longevity One — Claude Code Master Configuration
 
 > Read this file completely before writing any code, modifying any file, or making any architectural decision.
 > This is the single source of truth for the entire project.
@@ -7,7 +7,7 @@
 
 ## Project Identity
 
-**Project:** LongevityOne — Longevity-focused medical clinic website
+**Project:** Longevity One — Longevity-focused medical clinic website
 **Domain:** www.longevityone.ge
 **Location:** Tbilisi, Georgia
 **Design reference:** https://www.cliniquelaprairie.com (match this level of motion and luxury)
@@ -17,7 +17,7 @@
 
 ## Repository
 
-- **GitHub org:** LongevityOne-GE
+- **GitHub org:** Longevity One-GE
 - **Repo:** longevityone-web (public)
 - **Branch strategy:** `dev` → `staging` → `main` (production)
 - **Never commit directly to `main`** — always PR from staging
@@ -313,7 +313,7 @@ All schemas must follow this bilingual pattern:
 - `service` — the 3 service pillars
 - `package` — pricing tiers and memberships
 - `teamMember` — physicians and staff
-- `technology` — PNOE, Visbody, IHHT, etc.
+- `technology` — PNOE, IHHT, Red Light, TrueDiagnostic, Enbiosis
 - `blogPost` — bilingual articles
 - `legalPage` — privacy, terms, cookies, disclaimer
 - `homePage` — singleton for homepage content
@@ -326,7 +326,7 @@ All schemas must follow this bilingual pattern:
 ### Tables (all with RLS)
 ```sql
 -- patients: intake form submissions
--- assessments: PNOE, Visbody, VO2 Max results
+-- assessments: PNOE, VO2 Max results
 -- biomarker_readings: lab results
 -- consent_log: GDPR consent timestamps with version
 

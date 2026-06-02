@@ -1,13 +1,19 @@
 @import "tailwindcss";
 
+/* Tailwind v4 requires plugins to be loaded explicitly in CSS.
+   The typography plugin powers the `prose` / `prose-p:*` classes used in
+   long-form modal bodies (team + advisory member dialogs, etc.). */
+@plugin "@tailwindcss/typography";
+
 @theme {
   --color-bone-white: #E7DECC;
   --color-dark-brown: #422922;
   --color-burnt-orange: #D45800;
+  --color-light-blue: #AFD1E6;
+  --color-black: #000000;
 
   --font-sans: var(--font-mersad), var(--font-noto-georgian), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
-  --font-script: var(--font-allura), cursive;
+  --font-serif: var(--font-mersad), var(--font-noto-georgian), ui-sans-serif, system-ui, sans-serif;
 
   --animate-fade-in: fade-in 0.8s ease-out forwards;
   --animate-slide-up: slide-up 0.8s ease-out forwards;
@@ -25,6 +31,28 @@
     from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+  @keyframes arrow-bob {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(4px); }
+  }
+  @keyframes slow-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  @keyframes glow-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(212, 88, 0, 0.35); }
+    50%      { box-shadow: 0 0 0 12px rgba(212, 88, 0, 0); }
+  }
+}
+
+.animate-arrow-bob { animation: arrow-bob 1.8s ease-in-out infinite; }
+.animate-slow-spin { animation: slow-spin 90s linear infinite; }
+.animate-glow-pulse { animation: glow-pulse 2.4s ease-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-arrow-bob,
+  .animate-slow-spin,
+  .animate-glow-pulse { animation: none !important; }
 }
 
 @layer base {
@@ -33,11 +61,7 @@
   }
 
   :lang(ka) {
-    font-family: var(--font-noto-georgian), var(--font-mersad), ui-sans-serif, system-ui, sans-serif;
-  }
-
-  h1, h2, h3, h4, .font-serif {
-    @apply font-serif;
+    font-family: var(--font-mersad), var(--font-noto-georgian), ui-sans-serif, system-ui, sans-serif;
   }
 }
 
@@ -54,27 +78,121 @@
   animation: hero-in 0.7s ease-out both;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal-anim,
+  .animate-hero-in,
+  .animate-fade-in,
+  .animate-slide-up {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .page-loader__inner,
+  .page-loader__mark,
+  .page-loader__mark img,
+  .page-loader__wordmark {
+    animation: none !important;
+    clip-path: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .page-loader__wordmark { opacity: 0.72 !important; }
+
+  video[autoplay] {
+    display: none !important;
+  }
+}
+
+/* ─── Page loader (initial-load brand reveal) ──────────────────────────── */
+.page-loader {
+  transition: opacity 250ms ease-out;
+  will-change: opacity;
+}
+.page-loader--leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+.page-loader__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+  animation: pl-enter 700ms ease-out both;
+}
+.page-loader__mark {
+  width: 96px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Reveal the silhouette from bottom to top, then a soft, slow float. */
+  animation: pl-mark-float 3.6s ease-in-out 1100ms infinite;
+}
+.page-loader__mark img {
+  width: 100%;
+  height: auto;
+  display: block;
+  animation: pl-mark-reveal 1100ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.page-loader__wordmark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--color-dark-brown);
+  opacity: 0;
+  animation: pl-wordmark-in 600ms ease-out 700ms forwards;
+}
+.page-loader__wordmark span {
+  display: block;
+  line-height: 1.25;
+}
+@keyframes pl-enter {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pl-mark-reveal {
+  from { clip-path: inset(100% 0 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+@keyframes pl-mark-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+@keyframes pl-wordmark-in {
+  to { opacity: 0.72; }
+}
+
 @layer utilities {
   .card-ornamental {
-    --notch: 36px;
-    mask-image:
-      radial-gradient(circle at 0 0, transparent var(--notch), black var(--notch)),
-      radial-gradient(circle at 100% 0, transparent var(--notch), black var(--notch)),
-      radial-gradient(circle at 100% 100%, transparent var(--notch), black var(--notch)),
-      radial-gradient(circle at 0 100%, transparent var(--notch), black var(--notch));
-    mask-composite: intersect;
-    -webkit-mask-image:
-      radial-gradient(circle at 0 0, transparent var(--notch), black var(--notch)),
-      radial-gradient(circle at 100% 0, transparent var(--notch), black var(--notch)),
-      radial-gradient(circle at 100% 100%, transparent var(--notch), black var(--notch)),
-      radial-gradient(circle at 0 100%, transparent var(--notch), black var(--notch));
-    -webkit-mask-composite: destination-in;
+    -webkit-mask-image: url('/card-mask.svg');
+    -webkit-mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-image: url('/card-mask.svg');
+    mask-size: 100% 100%;
+    mask-repeat: no-repeat;
   }
+
 }
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-between px-6 py-4 bg-burnt-orange text-white text-[11px] font-bold uppercase tracking-[0.15em] transition-all hover:bg-dark-brown;
+    @apply relative inline-flex items-center justify-between gap-3 px-6 py-4 bg-burnt-orange text-white text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 ease-out hover:bg-dark-brown hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-12px_rgba(212,88,0,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burnt-orange focus-visible:ring-offset-2 focus-visible:ring-offset-dark-brown;
   }
 
   .btn-secondary {

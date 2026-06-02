@@ -6,10 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "seed:legal": "tsx --env-file=.env.local scripts/seed-legal-pages.ts"
   },
   "dependencies": {
+    "@calcom/embed-react": "^1.5.3",
     "@hookform/resolvers": "^5.2.2",
+    "@portabletext/react": "^6.0.3",
+    "@radix-ui/react-dialog": "^1.1.15",
     "@sanity/image-url": "^2.1.1",
     "@sanity/vision": "^5.22.0",
     "@sentry/nextjs": "^10.51.0",
@@ -35,6 +40,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.59.1",
+    "@portabletext/types": "^4.0.2",
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^20",
@@ -46,6 +52,7 @@
     "playwright": "^1.59.1",
     "prettier": "^3.8.3",
     "tailwindcss": "^4",
+    "tsx": "^4.22.3",
     "typescript": "^5"
   }
 }

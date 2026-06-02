@@ -23,6 +23,40 @@ function getCategoryLabel(slug: string | null, locale: Locale): string | null {
   return slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 }
 
+// Curated fallback imagery by category - used when Sanity coverImage is missing.
+const fallbackImages: Record<string, string> = {
+  'longevity-science':
+    '/images/blog images/blog 1-2.jpeg',
+  'metabolic-health':
+    '/images/blog images/Blog 3.png',
+  'elite-performance':
+    'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=1600&q=80',
+  'technologies':
+    'https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&w=1600&q=80',
+}
+
+const defaultFallbackImage =
+  'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1600&q=80'
+
+const slugImages: Record<string, string> = {
+  'biological-age-vs-chronological-age': '/images/blog images/age.png?v=2',
+  'why-traditional-diets-dont-work': '/images/blog images/diets.png?v=2',
+  'vo2-max-longevity-predictor': '/images/blog images/vo2.png?v=2',
+}
+
+function getCoverImage(post: BlogPost, locale: Locale): string {
+  const slug = post.slug ?? ''
+  // Curated local overrides take precedence over Sanity's coverImage
+  if (slug && slugImages[slug]) return slugImages[slug]
+  if (post.coverImage?.asset?.url) return post.coverImage.asset.url
+  const cat = locale === 'ka' ? post.category_ka : post.category_en
+  if (cat && fallbackImages[cat]) return fallbackImages[cat]
+  // also check the other locale's category in case only one is set
+  const altCat = locale === 'ka' ? post.category_en : post.category_ka
+  if (altCat && fallbackImages[altCat]) return fallbackImages[altCat]
+  return defaultFallbackImage
+}
+
 const KA_MONTHS = ['იანვარი','თებერვალი','მარტი','აპრილი','მაისი','ივნისი','ივლისი','აგვისტო','სექტემბერი','ოქტომბერი','ნოემბერი','დეკემბერი']
 const EN_MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December']
 
@@ -49,7 +83,12 @@ export function BlogGrid({ locale, posts }: BlogGridProps) {
     )
   }
 
-  const [featured, ...rest] = posts as [BlogPost, ...BlogPost[]]
+  // Put "biological-age" post as featured if it exists, otherwise use first post
+  const bioIdx = posts.findIndex((p) => p.slug === 'biological-age-vs-chronological-age')
+  const reordered = bioIdx > 0
+    ? [posts[bioIdx], ...posts.slice(0, bioIdx), ...posts.slice(bioIdx + 1)]
+    : posts
+  const [featured, ...rest] = reordered as [BlogPost, ...BlogPost[]]
 
   return (
     <section className="py-20 md:py-32 bg-bone-white">
@@ -61,18 +100,12 @@ export function BlogGrid({ locale, posts }: BlogGridProps) {
             className="group block mb-16 md:mb-20"
           >
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-              <div className="aspect-[4/3] rounded-lg overflow-hidden bg-dark-brown/5">
-                {featured.coverImage?.asset?.url ? (
-                  <img
-                    src={featured.coverImage.asset.url}
-                    alt={locale === 'ka' ? featured.title_ka || '' : featured.title_en || ''}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <span className="text-6xl font-black text-dark-brown/10 font-serif">L</span>
-                  </div>
-                )}
+              <div className="rounded-lg overflow-hidden bg-dark-brown/5">
+                <img
+                  src={getCoverImage(featured, locale)}
+                  alt={locale === 'ka' ? featured.title_ka || '' : featured.title_en || ''}
+                  className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-700"
+                />
               </div>
               <div>
                 {getCategoryLabel(locale === 'ka' ? featured.category_ka : featured.category_en, locale) && (
@@ -80,7 +113,7 @@ export function BlogGrid({ locale, posts }: BlogGridProps) {
                     {getCategoryLabel(locale === 'ka' ? featured.category_ka : featured.category_en, locale)}
                   </p>
                 )}
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-black font-serif text-dark-brown leading-tight group-hover:text-burnt-orange transition-colors duration-200 mb-4">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-dark-brown leading-tight group-hover:text-burnt-orange transition-colors duration-200 mb-4">
                   {locale === 'ka' ? featured.title_ka : featured.title_en}
                 </h2>
                 {(locale === 'ka' ? featured.excerpt_ka : featured.excerpt_en) && (
@@ -98,32 +131,26 @@ export function BlogGrid({ locale, posts }: BlogGridProps) {
 
         {/* grid */}
         {rest.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 border-t border-dark-brown/10 pt-16">
+          <div className={`grid grid-cols-1 ${rest.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'} gap-8 md:gap-10 border-t border-dark-brown/10 pt-16`}>
             {rest.map((post, idx) => (
               <Reveal key={post._id} delay={0.08 * idx}>
                 <a
                   href={`${locale === 'en' ? '/en' : ''}/blog/${post.slug}`}
                   className="group block"
                 >
-                  <div className="aspect-[4/3] rounded-lg overflow-hidden bg-dark-brown/5 mb-5">
-                    {post.coverImage?.asset?.url ? (
-                      <img
-                        src={post.coverImage.asset.url}
-                        alt={locale === 'ka' ? post.title_ka || '' : post.title_en || ''}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center">
-                        <span className="text-4xl font-black text-dark-brown/10 font-serif">L</span>
-                      </div>
-                    )}
+                  <div className="rounded-lg overflow-hidden bg-dark-brown/5 mb-5 aspect-[16/9]">
+                    <img
+                      src={getCoverImage(post, locale)}
+                      alt={locale === 'ka' ? post.title_ka || '' : post.title_en || ''}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
                   </div>
                   {getCategoryLabel(locale === 'ka' ? post.category_ka : post.category_en, locale) && (
                     <p className="text-[10px] uppercase tracking-widest font-bold text-burnt-orange mb-2">
                       {getCategoryLabel(locale === 'ka' ? post.category_ka : post.category_en, locale)}
                     </p>
                   )}
-                  <h3 className="text-base font-bold font-serif text-dark-brown leading-snug group-hover:text-burnt-orange transition-colors duration-200 mb-2 line-clamp-2">
+                  <h3 className="text-base font-bold text-dark-brown leading-snug group-hover:text-burnt-orange transition-colors duration-200 mb-2 line-clamp-2">
                     {locale === 'ka' ? post.title_ka : post.title_en}
                   </h3>
                   <p className="text-xs text-dark-brown/40 uppercase tracking-widest font-bold">

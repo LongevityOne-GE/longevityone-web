@@ -9,7 +9,7 @@
 ## Brand Essence
 
 - **Display name:** Longevity One (two words, space between)
-- **Georgian logo name:** ლონჯევითი უან — logo/brand assets ONLY, never in body copy
+- **Georgian logo name:** Longevity One — logo/brand assets ONLY, never in body copy
 - **Tagline (en):** The Art of Living Longer
 - **Tagline (ka):** დღეგრძელობის ხელოვნება
 - **Category:** Preventive Medicine Center — luxury longevity clinic
@@ -185,7 +185,7 @@ transitionTimingFunction: {
 
 ## Logo
 
-- **On Georgian pages:** use ლონჯევითი უან version (logo asset)
+- **On Georgian pages:** use Longevity One version (logo asset)
 - **On English pages:** use Longevity One version (logo asset)
 - **Minimum sizes:** 120px (full lockup), 80px (compact), 32px (icon only)
 - **Exclusion zone:** clear space equal to the height of the "L" in LONGEVITY on all sides
@@ -330,6 +330,23 @@ className="w-16 h-px bg-orange" // accent divider under headings
 | Success | მადლობა. ჩვენ მალე დაგიკავშირდებით. | Thank you. We'll be in touch shortly. |
 | Empty state | შინაარსი მალე დაემატება. | Coming soon. |
 | Form consent | ვეთანხმები მონაცემთა დამუშავებას | I consent to data processing |
+
+### Content lint rule — formal imperative (`-თ`)
+
+All Georgian CTAs and instructions must use the **formal plural imperative** (ending in `-თ`),
+never the informal singular. A Georgian imperative ending in a vowel without a trailing `-თ`
+is a **warning**.
+
+| ❌ Informal (singular) | ✅ Formal (plural) |
+|---|---|
+| ნახე | ნახეთ |
+| გაიცანი | გაიცანით |
+| გაიგე | გაიგეთ |
+| დაიწყე | დაიწყეთ |
+| მიიღე | მიიღეთ |
+| აღმოაჩინე | აღმოაჩინეთ |
+
+Audit both Sanity content and hardcoded component strings before publishing.
 
 ---
 

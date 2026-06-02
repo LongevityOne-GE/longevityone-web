@@ -16,7 +16,7 @@ export default async function KaLayout({ children }: { children: React.ReactNode
     accept: siteSettings?.cookie_accept_ka ?? 'ყველას მიღება',
     reject: siteSettings?.cookie_reject_ka ?? 'უარყოფა',
     manage: siteSettings?.cookie_manage_ka ?? 'პარამეტრები',
-    privacyHref: '/legal/privacy',
+    privacyHref: '/legal/cookies',
   }
 
   return (

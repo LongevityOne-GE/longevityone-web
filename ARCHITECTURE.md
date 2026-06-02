@@ -53,7 +53,7 @@ src/app/
 │       ├── privacy/page.tsx
 │       ├── terms/page.tsx
 │       ├── cookies/page.tsx
-│       └── disclaimer/page.tsx
+│       └── medical-disclaimer/page.tsx
 ├── en/                           # English route group — /en/* prefix
 │   ├── layout.tsx                # Sets <html lang="en">
 │   ├── template.tsx
@@ -114,7 +114,18 @@ export const config = {
 
 ## Data Layer
 
-### Sanity Client
+### Sanity — lib/sanity/ directory
+
+```
+src/lib/sanity/
+├── client.ts     — sanityClient (CDN, read-only) + sanityWriteClient + previewClient (server-only)
+├── queries.ts    — all GROQ queries as named exports (one per page/section)
+├── image.ts      — urlFor() image URL builder via @sanity/image-url
+├── types.ts      — TypeScript types for all query return shapes (no `any`)
+├── index.ts      — barrel: re-exports client, queries, urlFor
+└── schemas/      — Sanity schema definitions (registered in sanity.config.ts)
+    └── index.ts  — exports schemaTypes array
+```
 
 ```typescript
 // src/lib/sanity/client.ts
@@ -123,21 +134,21 @@ import { createClient } from '@sanity/client'
 const config = {
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
-  apiVersion: '2025-01-01',  // always use latest stable
+  apiVersion: '2025-01-01',
   useCdn: true,
 }
 
-// Public client — for read-only queries in Server Components
+// Public client — read-only queries in Server Components
 export const sanityClient = createClient(config)
 
-// Server-only write client — never import this in Client Components
+// Server-only write client — never import in Client Components
 export const sanityWriteClient = createClient({
   ...config,
   useCdn: false,
   token: process.env.SANITY_API_TOKEN,
 })
 
-// Preview client — for draft content in Sanity Studio preview
+// Preview client — draft content in Sanity Studio preview
 export const previewClient = createClient({
   ...config,
   useCdn: false,
@@ -147,47 +158,65 @@ export const previewClient = createClient({
 ```
 
 ```typescript
-// src/lib/sanity/queries.ts
+// src/lib/sanity/image.ts
+import imageUrlBuilder from '@sanity/image-url'
+import { sanityClient } from './client'
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
+
+const builder = imageUrlBuilder(sanityClient)
+
+export function urlFor(source: SanityImageSource) {
+  return builder.image(source)
+}
+```
+
+```typescript
+// src/lib/sanity/index.ts  — import from here in all page components
+export { sanityClient, previewClient } from './client'
+export * from './queries'
+export { urlFor } from './image'
+```
+
+All `sanityClient.fetch()` calls on pages must include `{ next: { tags: ['sanity'] } }`
+so `app/api/revalidate/route.ts` can invalidate via `revalidateTag('sanity')`.
+
+```typescript
+// Pattern for every page.tsx — parallel fetch, never sequential awaits
+const [homePage, services, technologies] = await Promise.all([
+  sanityClient.fetch(homePageQuery,    {}, { next: { tags: ['sanity'] } }),
+  sanityClient.fetch(homeServicesQuery,{}, { next: { tags: ['sanity'] } }),
+  sanityClient.fetch(homeTechQuery,    {}, { next: { tags: ['sanity'] } }),
+])
+```
+
+```typescript
+// src/lib/sanity/queries.ts — named GROQ exports (abridged — see full file)
 import { groq } from 'next-sanity'
 
-export const homePageQuery = groq`
-  *[_type == "homePage"][0] {
-    hero_title_ka, hero_title_en,
-    hero_subtitle_ka, hero_subtitle_en,
-    hero_image { asset->{ url, metadata } },
-    intro_ka, intro_en
-  }
-`
+// ─── Global ───────────────────────────────────────────────────────────────────
+export const siteSettingsQuery = groq`*[_type == "siteSettings"][0] { ... }`
 
-export const servicesQuery = groq`
-  *[_type == "service"] | order(order asc) {
-    _id, slug,
-    title_ka, title_en,
-    summary_ka, summary_en,
-    icon, order,
-    "technologies": technologies[]-> { name, slug }
-  }
-`
+// ─── Homepage (5 parallel queries) ───────────────────────────────────────────
+export const homePageQuery             = groq`*[_type == "homePage"][0] { ... }`
+export const homeServicesQuery         = groq`*[_type == "service"] | order(order asc) { ... }`
+export const homeTechQuery             = groq`*[_type == "technology"] | order(order asc) { ... }`
+export const homePackagesTeaserQuery   = groq`*[_type == "package" && category == "diagnostic"] { ... }`
+export const homeMembershipsTeaserQuery= groq`*[_type == "package" && category == "membership"] { ... }`
 
-export const siteSettingsQuery = groq`
-  *[_type == "siteSettings"][0] {
-    clinicName_ka, clinicName_en,
-    address_ka, address_en,
-    phone, email,
-    socialFacebook, socialInstagram,
-    openingHours_ka, openingHours_en
-  }
-`
-
-export const blogPostsQuery = groq`
-  *[_type == "blogPost"] | order(publishedAt desc) {
-    _id, slug, publishedAt,
-    title_ka, title_en,
-    excerpt_ka, excerpt_en,
-    coverImage { asset->{ url } },
-    "author": author->{ name, "photo": photo.asset->url }
-  }
-`
+// ─── Inner pages ──────────────────────────────────────────────────────────────
+export const aboutPageQuery        = groq`*[_type == "aboutPage"][0] { ... }`
+export const servicesQuery         = groq`*[_type == "service"] | order(order asc) { ... }`
+export const serviceBySlugQuery    = groq`*[_type == "service" && slug.current == $slug][0] { ... }`
+export const technologiesQuery     = groq`*[_type == "technology"] | order(order asc) { ... }`
+export const packagesQuery         = groq`{ "diagnostic": [...], "memberships": [...], "addons": [...], "sessions": [...] }`
+export const corporatePageQuery    = groq`*[_type == "corporatePage"][0] { ... }`
+export const journeyPageQuery      = groq`{ "page": *[_type == "journeyPage"][0], "stages": *[_type == "journeyStage"] | order(stageNumber asc) { ... } }`
+export const teamPageQuery         = groq`{ "page": *[_type == "teamPage"][0], "founders": [...], "team": [...] }`
+export const blogIndexQuery        = groq`*[_type == "blogPost"] | order(publishedAt desc) { ... }`
+export const blogPostBySlugQuery   = groq`*[_type == "blogPost" && slug.current == $slug][0] { ... }`
+export const blogPostSlugsQuery    = groq`*[_type == "blogPost" && defined(slug.current)] { "slug": slug.current }`
+export const faqQuery              = groq`{ "page": *[_type == "faqPage"][0], "items": *[_type == "faqItem"] | order(category asc, order asc) { ... } }`
+export const legalPageByTypeQuery  = groq`*[_type == "legalPage" && pageType == $pageType][0] { ... }`
 ```
 
 ### Supabase Clients
@@ -260,7 +289,7 @@ CREATE POLICY "Service role only" ON consent_log
 CREATE TABLE assessments (
   id               UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
   patient_id       UUID REFERENCES patients(id) ON DELETE CASCADE,
-  assessment_type  TEXT NOT NULL CHECK (assessment_type IN ('pnoe','visbody','vo2max','intake','truediagnostic','enbiosis')),
+  assessment_type  TEXT NOT NULL CHECK (assessment_type IN ('pnoe','vo2max','intake','truediagnostic','enbiosis')),
   data             JSONB NOT NULL DEFAULT '{}',
   assessed_at      TIMESTAMPTZ DEFAULT NOW()
 );
@@ -317,134 +346,50 @@ CREATE POLICY "Patients see own biomarkers" ON biomarker_readings
 
 ## Sanity Schemas
 
-### siteSettings (singleton)
+Full schema definitions live in `src/sanity/schemas/`. Register in `sanity.config.ts`:
+
 ```typescript
-{
-  name: 'siteSettings',
-  type: 'document',
-  __experimental_actions: ['update', 'publish'],  // singleton — no create/delete
-  fields: [
-    { name: 'clinicName_ka', type: 'string', validation: Rule => Rule.required() },
-    { name: 'clinicName_en', type: 'string' },
-    { name: 'address_ka', type: 'text' },
-    { name: 'address_en', type: 'text' },
-    { name: 'phone', type: 'string' },
-    { name: 'email', type: 'string' },
-    { name: 'socialFacebook', type: 'url' },
-    { name: 'socialInstagram', type: 'url' },
-    { name: 'openingHours_ka', type: 'string' },
-    { name: 'openingHours_en', type: 'string' },
-  ]
-}
+import { schemaTypes } from './sanity/schemas'
+export default defineConfig({
+  projectId: 'icuuryo0',
+  dataset: 'production',
+  schema: { types: schemaTypes },
+})
 ```
 
-### service
-```typescript
-{
-  name: 'service',
-  type: 'document',
-  fields: [
-    { name: 'title_ka',   type: 'string',  validation: Rule => Rule.required() },
-    { name: 'title_en',   type: 'string' },
-    { name: 'slug',       type: 'slug',    options: { source: 'title_en' } },
-    { name: 'summary_ka', type: 'text' },
-    { name: 'summary_en', type: 'text' },
-    { name: 'body_ka',    type: 'array', of: [{ type: 'block' }] },
-    { name: 'body_en',    type: 'array', of: [{ type: 'block' }] },
-    { name: 'heroImage',  type: 'image' },
-    { name: 'order',      type: 'number' },
-    { name: 'technologies', type: 'array', of: [{ type: 'reference', to: [{ type: 'technology' }] }] },
-  ]
-}
-```
+### Schema inventory
 
-### technology
-```typescript
-{
-  name: 'technology',
-  type: 'document',
-  fields: [
-    { name: 'name',           type: 'string', validation: Rule => Rule.required() },
-    { name: 'slug',           type: 'slug' },
-    { name: 'tagline_ka',     type: 'string' },
-    { name: 'tagline_en',     type: 'string' },
-    { name: 'description_ka', type: 'array', of: [{ type: 'block' }] },
-    { name: 'description_en', type: 'array', of: [{ type: 'block' }] },
-    { name: 'heroImage',      type: 'image' },
-    { name: 'scientificNote', type: 'text' }, // scientific accuracy notes for Claude to follow
-    { name: 'specifications', type: 'array', of: [{
-      type: 'object',
-      fields: [
-        { name: 'label_ka', type: 'string' },
-        { name: 'label_en', type: 'string' },
-        { name: 'value', type: 'string' },
-      ]
-    }]},
-  ]
-}
-```
+**Singletons** (`__experimental_actions: ['update', 'publish']` — no create/delete):
 
-### package
-```typescript
-{
-  name: 'package',
-  type: 'document',
-  fields: [
-    { name: 'name_ka',      type: 'string', validation: Rule => Rule.required() },
-    { name: 'name_en',      type: 'string' },
-    { name: 'tier',         type: 'number' },
-    { name: 'price',        type: 'number' },  // in GEL — never hardcode
-    { name: 'priceLabel_ka', type: 'string' },
-    { name: 'priceSuffix_ka', type: 'string' }, // "/თვეში" for memberships
-    { name: 'features_ka',  type: 'array', of: [{ type: 'string' }] },
-    { name: 'features_en',  type: 'array', of: [{ type: 'string' }] },
-    { name: 'isFeatured',   type: 'boolean' },
-    { name: 'category',     type: 'string', options: { list: ['diagnostic', 'membership', 'addon'] } },
-  ]
-}
-```
+| Schema | Route | Key fields |
+|---|---|---|
+| `siteSettings` | global | tagline, address, phone, email, hours, social, cookie banner, 404, footer, OG image |
+| `homePage` | `/` | hero (slogan/h1/h2/body/CTAs/image), journey stages ×4, pillar headings, tech/packages/membership/team section headings, final CTA |
+| `aboutPage` | `/about` | h1, philosophy, why-pillars ×3, founding story (ka+en blocks) |
+| `corporatePage` | `/corporate` | h1, intro, programmes ×3, CTA |
+| `journeyPage` | `/journey` | h1, intro |
+| `faqPage` | `/faq` | h1 |
+| `teamPage` | `/team` | founders heading/subtext/group photo, clinic team heading |
 
-### teamMember
-```typescript
-{
-  name: 'teamMember',
-  type: 'document',
-  fields: [
-    { name: 'name',        type: 'string', validation: Rule => Rule.required() },
-    { name: 'role_ka',     type: 'string' },
-    { name: 'role_en',     type: 'string' },
-    { name: 'bio_ka',      type: 'array', of: [{ type: 'block' }] },
-    { name: 'bio_en',      type: 'array', of: [{ type: 'block' }] },
-    { name: 'photo',       type: 'image' },
-    { name: 'credentials', type: 'array', of: [{ type: 'string' }] },
-    { name: 'order',       type: 'number' },
-  ]
-}
-```
+**Collections** (repeatable documents):
 
-### blogPost
+| Schema | Route | Key fields |
+|---|---|---|
+| `service` | `/services/[slug]` | title, slug, summary, intro, body, differentiator, targetAudience, heroImage, icon, order, technologies[], relatedPackages[] |
+| `technology` | `/technologies#[anchor]` | name, slug/anchor, order, tagline, whatItIs, howItWorks, whatItShows, benefits[], yourBenefit, clinicalNote, heroImage, specifications[] |
+| `package` | `/packages` | name, category (diagnostic/membership/addon/session), tier, price, priceLabel, priceSuffix, tagline, goal, includes[], isFeatured, order |
+| `blogPost` | `/blog/[slug]` | title, slug, category, excerpt, body (ka+en blocks+images), coverImage, author→, publishedAt, tags[], relatedTechnologies[], seoTitle, seoDescription |
+| `journeyStage` | `/journey` | stageNumber (1–8), title, duration, body (ka+en blocks), tools[], icon |
+| `faqItem` | `/faq` | question, answer (ka+en blocks), category, order |
+| `teamMember` | `/team` | name, name_en, role, specialty, bio (ka+en blocks), photo, isFounder, credentials[], order |
+| `legalPage` | `/legal/[pageType]` | pageType (privacy/terms/cookies/medical-disclaimer), title, lastUpdated, body (ka+en blocks) |
+
+### Bilingual field convention (all schemas)
+
 ```typescript
-{
-  name: 'blogPost',
-  type: 'document',
-  fields: [
-    { name: 'title_ka',          type: 'string', validation: Rule => Rule.required() },
-    { name: 'title_en',          type: 'string' },
-    { name: 'slug',              type: 'slug', options: { source: 'title_en' } },
-    { name: 'excerpt_ka',        type: 'text' },
-    { name: 'excerpt_en',        type: 'text' },
-    { name: 'body_ka',           type: 'array', of: [{ type: 'block' }, { type: 'image' }] },
-    { name: 'body_en',           type: 'array', of: [{ type: 'block' }, { type: 'image' }] },
-    { name: 'coverImage',        type: 'image' },
-    { name: 'author',            type: 'reference', to: [{ type: 'teamMember' }] },
-    { name: 'publishedAt',       type: 'datetime' },
-    { name: 'tags',              type: 'array', of: [{ type: 'string' }] },
-    { name: 'seoTitle_ka',       type: 'string' },
-    { name: 'seoTitle_en',       type: 'string' },
-    { name: 'seoDescription_ka', type: 'text' },
-    { name: 'seoDescription_en', type: 'text' },
-  ]
-}
+// Georgian (_ka) is always required — English (_en) is optional but must always be filled
+{ name: 'title_ka', type: 'string', validation: (Rule) => Rule.required() },
+{ name: 'title_en', type: 'string' },
 ```
 
 ---
@@ -484,7 +429,7 @@ const clinicSchema = {
   "name": "Longevity One",
   "alternateName": "Longevity One Preventive Medicine Center",
   "url": "https://www.longevityone.ge",
-  "telephone": "+995577260557",
+  "telephone": "+995511708888",
   "email": "info@longevityone.ge",
   "address": {
     "@type": "PostalAddress",

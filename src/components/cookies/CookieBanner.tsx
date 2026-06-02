@@ -144,7 +144,7 @@ function PreferencesModal({
       >
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-dark-brown/10">
-          <h2 id="prefs-title" className="text-base font-black font-serif text-dark-brown">
+          <h2 id="prefs-title" className="text-base font-black text-dark-brown">
             {l.prefsTitle}
           </h2>
           <button
@@ -242,6 +242,12 @@ export function CookieBanner({ locale, strings }: CookieBannerProps) {
 
   return (
     <>
+      {/* Backdrop - blurs page and blocks all interaction until consent is given */}
+      <div
+        aria-hidden="true"
+        className="fixed inset-0 z-[99] backdrop-blur-sm bg-dark-brown/20 pointer-events-all"
+      />
+
       {/* Banner */}
       <div
         role="region"

@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { headers } from 'next/headers'
-import { mersad, fontGeorgian, fontDisplay, fontScript } from './fonts'
-import { LenisProvider } from './providers/LenisProvider'
+import { mersad, fontGeorgian } from './fonts'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -9,11 +8,11 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL ?? 'https://longevityone.ge'
   ),
   title: {
-    default: 'Longevity One — პრევენციული მედიცინის ცენტრი, თბილისი',
+    default: 'Longevity One - პრევენციული მედიცინის ცენტრი, თბილისი',
     template: '%s | Longevity One',
   },
   description:
-    'Longevity One — პრევენციული მედიცინის ცენტრი თბილისში. მოწინავე დიაგნოსტიკა, პერსონალიზებული პროგრამები, სამეცნიერო სიზუსტე.',
+    'Longevity One - პრევენციული მედიცინის ცენტრი თბილისში. მოწინავე დიაგნოსტიკა, პერსონალიზებული პროგრამები, სამეცნიერო სიზუსტე.',
   openGraph: {
     type: 'website',
     siteName: 'Longevity One',
@@ -44,12 +43,10 @@ export default async function RootLayout({
       className={[
         mersad.variable,
         fontGeorgian.variable,
-        fontDisplay.variable,
-        fontScript.variable,
       ].join(' ')}
     >
       <body>
-        <LenisProvider>{children}</LenisProvider>
+        {children}
       </body>
     </html>
   )

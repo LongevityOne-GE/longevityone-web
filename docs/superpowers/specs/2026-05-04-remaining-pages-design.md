@@ -1,4 +1,4 @@
-# LongevityOne — Remaining Pages Design Spec
+# Longevity One — Remaining Pages Design Spec
 
 **Date:** 2026-05-04  
 **Status:** Approved  
@@ -99,11 +99,11 @@ Uses `@portabletext/react` package.
 
 1. **`PageHero`** — H1 "Science & Technology" / "მეცნიერება და ტექნოლოგია"
 
-2. **`TechSideNav`** (desktop only) — sticky left/right rail showing 6 dots with tech names. Active dot fills burnt-orange as section enters viewport. Built with `IntersectionObserver`.
+2. **`TechSideNav`** (desktop only) — sticky left/right rail showing 5 dots with tech names. Active dot fills burnt-orange as section enters viewport. Built with `IntersectionObserver`.
 
-3. **`TechSection`** ×6 — one per technology, each with `id` matching slug anchor (`pnoe`, `visbody`, `ihht`, `red-light`, `truediagnostic`, `enbiosis`). Alternating layout:
+3. **`TechSection`** ×5 — one per technology, each with `id` matching slug anchor (`pnoe`, `ihht`, `red-light`, `truediagnostic`, `enbiosis`). Alternating layout:
    - Odd (1, 3, 5): text left, decorative right
-   - Even (2, 4, 6): text right, decorative left
+   - Even (2, 4): text right, decorative left
    - Content: eyebrow (tech name), H2 tagline, three-column detail grid (What It Is / How It Works or What It Shows / Your Benefit), benefits list with burnt-orange bullets
    - Sections separated by `border-t border-dark-brown/10`
    - Full viewport height on desktop, natural height on mobile
