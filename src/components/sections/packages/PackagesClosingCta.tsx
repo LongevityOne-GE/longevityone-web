@@ -1,0 +1,62 @@
+import Link from 'next/link'
+import type { Locale } from '@/lib/utils'
+import { Reveal } from '@/components/animations/Reveal'
+
+interface PackagesClosingCtaProps {
+  locale: Locale
+}
+
+export function PackagesClosingCta({ locale }: PackagesClosingCtaProps) {
+  const prefix = locale === 'en' ? '/en' : ''
+  const eyebrow = locale === 'ka' ? 'გადაწყვეტილება გიჭირთ?' : 'Not sure where to start?'
+  const heading =
+    locale === 'ka'
+      ? 'დაჯავშნეთ საკონსულტაციო ზარი'
+      : 'Book a consultation and we will guide you'
+  const body =
+    locale === 'ka'
+      ? 'მოკლე ზარზე ჩვენი გუნდი დაგეხმარებათ შეარჩიოთ თქვენს მიზნებზე მორგებული პაკეტი ან წევრობა.'
+      : 'On a short call, our team will help you choose the package or membership that fits your goals.'
+  const primary = locale === 'ka' ? 'კონსულტაციის დაჯავშნა' : 'Book a consultation'
+  const secondary = locale === 'ka' ? 'დაგვიკავშირდით' : 'Contact us'
+
+  return (
+    <section className="bg-dark-brown text-bone-white py-20 md:py-28">
+      <div className="section-container">
+        <div className="max-w-2xl mx-auto text-center">
+          <Reveal>
+            <p className="text-[11px] uppercase tracking-[0.28em] text-burnt-orange font-bold mb-5">
+              {eyebrow}
+            </p>
+          </Reveal>
+          <Reveal delay={0.05}>
+            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight mb-6">
+              {heading}
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="text-bone-white/70 text-[15px] md:text-base leading-[1.75] mb-10 max-w-xl mx-auto">
+              {body}
+            </p>
+          </Reveal>
+          <Reveal delay={0.15}>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                href={`${prefix}/booking?type=consultation`}
+                className="btn-primary bg-burnt-orange border-burnt-orange text-white hover:bg-bone-white hover:text-dark-brown hover:border-bone-white w-full sm:w-auto"
+              >
+                {primary}
+              </Link>
+              <Link
+                href={`${prefix}/contact`}
+                className="text-[11px] uppercase tracking-[0.18em] font-medium text-bone-white/80 border-b border-bone-white/30 pb-px hover:text-bone-white hover:border-bone-white transition-colors duration-200"
+              >
+                {secondary} →
+              </Link>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  )
+}

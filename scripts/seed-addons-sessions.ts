@@ -84,7 +84,7 @@ const tiers: Array<{ n: number; ka: string; en: string }> = [
 
 const sessions: PackageDoc[] = services.flatMap((svc, si) =>
   tiers.map((tier, ti) => {
-    const price = svc.prices[ti]
+    const price = svc.prices[ti] ?? 0
     return {
       _id: `session-${svc.key}-${tier.n}`,
       _type: 'package' as const,

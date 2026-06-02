@@ -15,8 +15,11 @@ export function DiagnosticTiers({ locale, packages, heading, subtext }: Diagnost
   const bookingHref = `${prefix}/booking?type=consultation`
   if (!packages.length) return null
 
+  const eyebrow = locale === 'ka' ? 'ერთჯერადი შეფასება' : 'One-time assessment'
+  const defaultHeading = locale === 'ka' ? 'დიაგნოსტიკური პაკეტები' : 'Diagnostic Packages'
+
   return (
-    <section className="py-20 md:py-32 bg-bone-white relative overflow-hidden isolate">
+    <section id="diagnostics" className="scroll-mt-32 py-20 md:py-32 bg-bone-white relative overflow-hidden isolate">
       {/* Background video */}
       <video
         autoPlay
@@ -48,22 +51,23 @@ export function DiagnosticTiers({ locale, packages, heading, subtext }: Diagnost
       />
 
       <div className="section-container relative z-10">
-        {(heading || subtext) && (
-          <div className="text-center mb-16">
-            {heading && (
-              <Reveal>
-                <h2 className="text-3xl md:text-4xl font-black text-dark-brown mb-4">
-                  {heading}
-                </h2>
-              </Reveal>
-            )}
-            {subtext && (
-              <Reveal delay={0.1}>
-                <p className="text-dark-brown/70 max-w-xl mx-auto">{subtext}</p>
-              </Reveal>
-            )}
-          </div>
-        )}
+        <div className="text-center mb-16">
+          <Reveal>
+            <p className="text-[11px] uppercase tracking-[0.28em] text-burnt-orange font-bold mb-4">
+              {eyebrow}
+            </p>
+          </Reveal>
+          <Reveal delay={0.05}>
+            <h2 className="text-3xl md:text-4xl font-black text-dark-brown mb-4">
+              {heading || defaultHeading}
+            </h2>
+          </Reveal>
+          {subtext && (
+            <Reveal delay={0.1}>
+              <p className="text-dark-brown/70 max-w-xl mx-auto">{subtext}</p>
+            </Reveal>
+          )}
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 md:items-start">
           {packages.map((pkg, idx) => {

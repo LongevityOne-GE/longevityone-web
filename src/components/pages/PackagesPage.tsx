@@ -3,6 +3,9 @@
 import type { Locale } from '@/lib/utils'
 import type { PackagesData, HomePageData } from '@/lib/sanity/types'
 import { PageHero } from '@/components/shared/PageHero'
+import { PackagesNav, type PackagesNavItem } from '@/components/sections/packages/PackagesNav'
+import { PricingJourney } from '@/components/sections/packages/PricingJourney'
+import { PackagesClosingCta } from '@/components/sections/packages/PackagesClosingCta'
 import { DiagnosticTiers } from '@/components/sections/DiagnosticTiers'
 import { MembershipPlans } from '@/components/sections/MembershipPlans'
 import { AddOns } from '@/components/sections/AddOns'
@@ -21,9 +24,32 @@ export function PackagesPage({ locale, packages, homeData }: PackagesPageProps) 
       ? 'მოირგეთ პროგრამა, რომელიც ზუსტად თქვენს მიზნებსა და გრაფიკს შეესაბამება.'
       : 'Choose a programme tailored to your goals and schedule.'
 
+  const hasDiagnostic = (packages?.diagnostic?.length ?? 0) > 0
+  const hasMemberships = (packages?.memberships?.length ?? 0) > 0
+  const hasAddons = (packages?.addons?.length ?? 0) > 0
+  const hasSessions = (packages?.sessions?.length ?? 0) > 0
+
+  // Build navigator only from sections that actually have content.
+  const navItems: PackagesNavItem[] = [
+    hasDiagnostic && { id: 'diagnostics', label: locale === 'ka' ? 'დიაგნოსტიკა' : 'Diagnostics' },
+    hasMemberships && { id: 'memberships', label: locale === 'ka' ? 'წევრობა' : 'Memberships' },
+    hasAddons && { id: 'add-ons', label: locale === 'ka' ? 'დამატებები' : 'Add-ons' },
+    hasSessions && { id: 'sessions', label: locale === 'ka' ? 'სესიები' : 'Sessions' },
+  ].filter((x): x is PackagesNavItem => Boolean(x))
+
   return (
     <main className="flex flex-col">
       <PageHero locale={locale} title={title} subtitle={subtitle} />
+
+      {navItems.length > 1 && (
+        <PackagesNav
+          items={navItems}
+          ariaLabel={locale === 'ka' ? 'ფასების ნავიგაცია' : 'Pricing navigation'}
+        />
+      )}
+
+      <PricingJourney locale={locale} />
+
       <DiagnosticTiers
         locale={locale}
         packages={packages?.diagnostic ?? []}
@@ -37,6 +63,8 @@ export function PackagesPage({ locale, packages, homeData }: PackagesPageProps) 
       />
       <AddOns locale={locale} addons={packages?.addons ?? []} />
       <SessionPacks locale={locale} sessions={packages?.sessions ?? []} />
+
+      <PackagesClosingCta locale={locale} />
     </main>
   )
 }

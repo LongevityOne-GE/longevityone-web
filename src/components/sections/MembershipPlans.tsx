@@ -15,9 +15,10 @@ export function MembershipPlans({ locale, memberships, heading }: MembershipPlan
   if (!memberships.length) return null
 
   const defaultHeading = locale === 'ka' ? 'საწევრო პროგრამები' : 'Membership Programmes'
+  const eyebrow = locale === 'ka' ? 'ყოველთვიური წევრობა' : 'Monthly membership'
 
   return (
-    <section className="py-20 md:py-32 bg-dark-brown text-bone-white relative overflow-hidden isolate">
+    <section id="memberships" className="scroll-mt-32 py-20 md:py-32 bg-dark-brown text-bone-white relative overflow-hidden isolate">
       {/* Background video */}
       <video
         autoPlay
@@ -45,11 +46,18 @@ export function MembershipPlans({ locale, memberships, heading }: MembershipPlan
       />
 
       <div className="section-container relative z-10">
-        <Reveal>
-          <h2 className="text-3xl md:text-4xl font-black text-bone-white text-center mb-16">
-            {heading || defaultHeading}
-          </h2>
-        </Reveal>
+        <div className="text-center mb-16">
+          <Reveal>
+            <p className="text-[11px] uppercase tracking-[0.28em] text-burnt-orange font-bold mb-4">
+              {eyebrow}
+            </p>
+          </Reveal>
+          <Reveal delay={0.05}>
+            <h2 className="text-3xl md:text-4xl font-black text-bone-white">
+              {heading || defaultHeading}
+            </h2>
+          </Reveal>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 md:items-start">
           {memberships.map((pkg, idx) => {
