@@ -173,10 +173,12 @@ export const packagesQuery = groq`
     },
     "addons": *[_type == "package" && category == "addon"] | order(order asc) {
       _id, name_ka, name_en,
+      tagline_ka, tagline_en,
       price, priceLabel_ka, priceLabel_en,
     },
     "sessions": *[_type == "package" && category == "session"] | order(order asc) {
       _id, name_ka, name_en,
+      tagline_ka, tagline_en,
       price, priceLabel_ka, priceLabel_en,
     },
   }

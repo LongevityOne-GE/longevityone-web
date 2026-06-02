@@ -311,6 +311,8 @@ export interface SimplePackage {
   _id: string
   name_ka: string | null
   name_en: string | null
+  tagline_ka: string | null
+  tagline_en: string | null
   price: number | null
   priceLabel_ka: string | null
   priceLabel_en: string | null
