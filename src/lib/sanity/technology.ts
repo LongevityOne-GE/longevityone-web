@@ -154,7 +154,38 @@ export const technology = defineType({
       type: 'image',
       options: { hotspot: true },
       fields: [
-        defineField({ name: 'alt', title: 'Alt text', type: 'string' }),
+        defineField({ name: 'alt_ka', title: 'Alt Text (Georgian)', type: 'string' }),
+        defineField({ name: 'alt_en', title: 'Alt Text (English)', type: 'string' }),
+      ],
+    }),
+
+    // ─── Secondary/Gallery Images ───────────────────────────────────────────
+    defineField({
+      name: 'gallery',
+      title: 'Gallery / Secondary Images',
+      type: 'array',
+      of: [
+        {
+          type: 'image',
+          options: { hotspot: true },
+          fields: [
+            defineField({ name: 'alt_ka', title: 'Alt Text (Georgian)', type: 'string' }),
+            defineField({ name: 'alt_en', title: 'Alt Text (English)', type: 'string' }),
+            defineField({ name: 'caption_ka', title: 'Caption (Georgian)', type: 'string' }),
+            defineField({ name: 'caption_en', title: 'Caption (English)', type: 'string' }),
+            defineField({
+              name: 'layout',
+              title: 'Layout Role',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Banner (Wide under text)', value: 'banner' },
+                  { title: 'Pair (Half-width under text)', value: 'pair' },
+                ],
+              },
+            }),
+          ],
+        },
       ],
     }),
 

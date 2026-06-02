@@ -12,7 +12,15 @@ interface SanityImageAsset {
 }
 
 export interface SanityImage {
+  alt_ka?: string
+  alt_en?: string
   asset: SanityImageAsset
+}
+
+export interface GalleryImage extends SanityImage {
+  caption_ka?: string
+  caption_en?: string
+  layout?: 'banner' | 'pair'
 }
 
 // ─── Site Settings ────────────────────────────────────────────────────────────
@@ -261,6 +269,7 @@ export interface Technology {
   clinicalNote_ka: string | null
   clinicalNote_en: string | null
   heroImage: SanityImage | null
+  gallery: GalleryImage[] | null
   specifications: TechnologySpec[] | null
   seo_title_ka: string | null
   seo_title_en: string | null
