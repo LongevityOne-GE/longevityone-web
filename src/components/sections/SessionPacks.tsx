@@ -60,7 +60,7 @@ export function SessionPacks({ locale, sessions }: SessionPacksProps) {
   const columns = rows[0]?.cells ?? []
   const gel = locale === 'ka' ? 'ლარი' : 'GEL'
 
-  const eyebrow = locale === 'ka' ? 'ცალკეული სესიები' : 'À la carte'
+  const eyebrow = locale === 'ka' ? 'ცალკეული სესიები' : 'Separate sessions'
   const heading = locale === 'ka' ? 'სესიების პაკეტები' : 'Session Packs'
   const subtext =
     locale === 'ka'
@@ -70,9 +70,29 @@ export function SessionPacks({ locale, sessions }: SessionPacksProps) {
   return (
     <section
       id="sessions"
-      className="scroll-mt-32 bg-bone-white py-20 md:py-28 border-t border-dark-brown/10"
+      className="relative isolate scroll-mt-32 py-20 md:py-28 border-t border-dark-brown/10 overflow-hidden"
     >
-      <div className="section-container max-w-5xl">
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-cover pointer-events-none opacity-15 mix-blend-multiply"
+      >
+        <source src="/videos/DNA_boomerang.webm" type="video/webm" />
+        <source src="/videos/DNA_boomerang.mp4" type="video/mp4" />
+      </video>
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'linear-gradient(to bottom, rgba(241,237,229,0.92) 0%, rgba(241,237,229,0.65) 20%, rgba(241,237,229,0.65) 80%, rgba(241,237,229,0.94) 100%)',
+        }}
+      />
+      <div className="section-container relative z-10 max-w-5xl">
         <div className="mb-12 text-center">
           <Reveal>
             <p className="text-[11px] uppercase tracking-[0.28em] text-burnt-orange font-bold mb-4">

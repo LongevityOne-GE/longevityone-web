@@ -208,14 +208,12 @@ export function TechSection({ locale, tech, index }: TechSectionProps) {
   const whatItIs = locale === 'ka' ? tech.whatItIs_ka : tech.whatItIs_en
   const howItWorks = locale === 'ka' ? tech.howItWorks_ka : tech.howItWorks_en
   const whatItShows = locale === 'ka' ? tech.whatItShows_ka : tech.whatItShows_en
-  const yourBenefit = locale === 'ka' ? tech.yourBenefit_ka : tech.yourBenefit_en
 
   const detailLabel1 = locale === 'ka' ? 'რა არის' : 'What It Is'
   const detailLabel2 = howItWorks
     ? (locale === 'ka' ? 'როგორ მუშაობს' : 'How It Works')
     : (locale === 'ka' ? 'რას აჩვენებს' : 'What It Shows')
   const detailValue2 = howItWorks || whatItShows
-  const detailLabel3 = locale === 'ka' ? 'თქვენი სარგებელი' : 'Your Benefit'
 
   const benefits = (locale === 'ka' ? tech.benefits_ka : tech.benefits_en) ?? []
   const benefitsLabel = locale === 'ka' ? 'სარგებელი' : 'Benefits'
@@ -228,7 +226,6 @@ export function TechSection({ locale, tech, index }: TechSectionProps) {
   const details: Array<{ label: string; value: string | null | undefined }> = [
     { label: detailLabel1, value: whatItIs },
     { label: detailLabel2, value: detailValue2 },
-    { label: detailLabel3, value: yourBenefit },
   ]
 
   // ─── Reusable text column ──────────────────────────────────────────────
