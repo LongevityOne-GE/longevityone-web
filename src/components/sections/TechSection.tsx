@@ -208,14 +208,15 @@ export function TechSection({ locale, tech, index }: TechSectionProps) {
   const whatItIs = locale === 'ka' ? tech.whatItIs_ka : tech.whatItIs_en
   const howItWorks = locale === 'ka' ? tech.howItWorks_ka : tech.howItWorks_en
   const whatItShows = locale === 'ka' ? tech.whatItShows_ka : tech.whatItShows_en
-  const yourBenefit = locale === 'ka' ? tech.yourBenefit_ka : tech.yourBenefit_en
 
   const detailLabel1 = locale === 'ka' ? 'რა არის' : 'What It Is'
   const detailLabel2 = howItWorks
     ? (locale === 'ka' ? 'როგორ მუშაობს' : 'How It Works')
     : (locale === 'ka' ? 'რას აჩვენებს' : 'What It Shows')
   const detailValue2 = howItWorks || whatItShows
-  const detailLabel3 = locale === 'ka' ? 'თქვენი სარგებელი' : 'Your Benefit'
+
+  const benefits = (locale === 'ka' ? tech.benefits_ka : tech.benefits_en) ?? []
+  const benefitsLabel = locale === 'ka' ? 'სარგებელი' : 'Benefits'
 
   const gallery = GALLERIES[tech._id] ?? []
   const hasGallery = gallery.length > 0
@@ -225,7 +226,6 @@ export function TechSection({ locale, tech, index }: TechSectionProps) {
   const details: Array<{ label: string; value: string | null | undefined }> = [
     { label: detailLabel1, value: whatItIs },
     { label: detailLabel2, value: detailValue2 },
-    { label: detailLabel3, value: yourBenefit },
   ]
 
   // ─── Reusable text column ──────────────────────────────────────────────
@@ -251,6 +251,23 @@ export function TechSection({ locale, tech, index }: TechSectionProps) {
               </div>
             </Reveal>
           ) : null,
+        )}
+        {benefits.length > 0 && (
+          <Reveal delay={0.35}>
+            <div className="border-t border-dark-brown/20 pt-5">
+              <h4 className="text-xs uppercase tracking-widest font-bold text-burnt-orange mb-4">
+                {benefitsLabel}
+              </h4>
+              <ul className="space-y-2">
+                {benefits.map((benefit, i) => (
+                  <li key={i} className="flex items-start gap-2.5 text-sm text-dark-brown/80 leading-relaxed">
+                    <span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-burnt-orange/60" />
+                    {benefit}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
         )}
       </div>
     </div>
@@ -284,6 +301,21 @@ export function TechSection({ locale, tech, index }: TechSectionProps) {
               ) : null,
             )}
           </div>
+          {benefits.length > 0 && (
+            <div className="mt-10 border-t border-dark-brown/20 pt-8 max-w-3xl mx-auto">
+              <h4 className="text-xs uppercase tracking-widest font-bold text-burnt-orange mb-5 text-left">
+                {benefitsLabel}
+              </h4>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 text-left">
+                {benefits.map((benefit, i) => (
+                  <li key={i} className="flex items-start gap-2.5 text-sm text-dark-brown/80 leading-relaxed">
+                    <span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-burnt-orange/60" />
+                    {benefit}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </section>
     )
