@@ -21,8 +21,30 @@ export function PackagesClosingCta({ locale }: PackagesClosingCtaProps) {
   const secondary = locale === 'ka' ? 'დაგვიკავშირდით' : 'Contact us'
 
   return (
-    <section className="bg-dark-brown text-bone-white py-20 md:py-28">
-      <div className="section-container">
+    <section className="relative isolate bg-dark-brown text-bone-white py-20 md:py-28 overflow-hidden">
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-cover pointer-events-none opacity-35"
+      >
+        <source src="/videos/longevity-helix-v2.mp4" type="video/mp4" />
+      </video>
+      <div aria-hidden="true" className="absolute inset-0 bg-dark-brown/75 pointer-events-none" />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse 70% 55% at center, rgba(66,41,34,0.55) 0%, rgba(66,41,34,0) 70%)' }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-16 md:h-24 pointer-events-none"
+        style={{ background: 'linear-gradient(to bottom, rgba(66,41,34,0.6) 0%, rgba(66,41,34,0) 100%)' }}
+      />
+      <div className="section-container relative z-10">
         <div className="max-w-2xl mx-auto text-center">
           <Reveal>
             <p className="text-[11px] uppercase tracking-[0.28em] text-burnt-orange font-bold mb-5">
