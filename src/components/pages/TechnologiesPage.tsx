@@ -18,11 +18,17 @@ export function TechnologiesPage({ locale, technologies }: TechnologiesPageProps
       ? 'მოწინავე დიაგნოსტიკური ტექნოლოგიები, რომლებიც გვეხმარება თქვენი ჯანმრთელობის სრული სურათის შექმნაში.'
       : 'Advanced diagnostic technologies that help us create a complete picture of your health.'
 
+  const moveToEndIds = new Set(['tech-truediagnostic', 'tech-enbiosis'])
+  const orderedTechnologies = [
+    ...technologies.filter((tech) => !moveToEndIds.has(tech._id)),
+    ...technologies.filter((tech) => moveToEndIds.has(tech._id)),
+  ]
+
   return (
     <main className="flex flex-col">
       <PageHero locale={locale} title={title} subtitle={subtitle} />
       <TechSideNav locale={locale} technologies={technologies} />
-      {technologies.map((tech, idx) => (
+      {orderedTechnologies.map((tech, idx) => (
         <TechSection key={tech._id} locale={locale} tech={tech} index={idx} />
       ))}
     </main>
