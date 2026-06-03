@@ -256,16 +256,16 @@ export interface Technology {
   order: number
   tagline_ka: string | null
   tagline_en: string | null
-  whatItIs_ka: string | null
-  whatItIs_en: string | null
-  howItWorks_ka: string | null
-  howItWorks_en: string | null
+  whatItIs_ka: unknown[] | null
+  whatItIs_en: unknown[] | null
+  howItWorks_ka: unknown[] | null
+  howItWorks_en: unknown[] | null
   whatItShows_ka: string | null
   whatItShows_en: string | null
   benefits_ka: string[] | null
   benefits_en: string[] | null
-  yourBenefit_ka: string | null
-  yourBenefit_en: string | null
+  yourBenefit_ka: unknown[] | null
+  yourBenefit_en: unknown[] | null
   clinicalNote_ka: string | null
   clinicalNote_en: string | null
   heroImage: SanityImage | null

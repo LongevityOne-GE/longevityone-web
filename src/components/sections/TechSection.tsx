@@ -4,6 +4,7 @@ import { localizedTechName, type Locale } from '@/lib/utils'
 import type { Technology } from '@/lib/sanity/types'
 import { Reveal } from '@/components/animations/Reveal'
 import { TechGallery, type GalleryImage } from '@/components/sections/TechGallery'
+import { PortableText } from '@portabletext/react'
 
 interface TechSectionProps {
   locale: Locale
@@ -223,7 +224,7 @@ export function TechSection({ locale, tech, index }: TechSectionProps) {
   // PNOE is the first gallery after the page hero — flag it for priority loading.
   const isFirstSection = tech._id === 'tech-pnoe'
 
-  const details: Array<{ label: string; value: string | null | undefined }> = [
+  const details: Array<{ label: string; value: string | unknown[] | null | undefined }> = [
     { label: detailLabel1, value: whatItIs },
     { label: detailLabel2, value: detailValue2 },
   ]
@@ -247,7 +248,13 @@ export function TechSection({ locale, tech, index }: TechSectionProps) {
                 <h4 className="text-xs uppercase tracking-widest font-bold text-burnt-orange mb-2">
                   {d.label}
                 </h4>
-                <p className="text-sm text-dark-brown/80 leading-relaxed">{d.value}</p>
+                <div className="text-sm text-dark-brown/80 leading-relaxed space-y-4">
+                  {typeof d.value === 'string' ? (
+                    <p>{d.value}</p>
+                  ) : (
+                    <PortableText value={d.value as any} />
+                  )}
+                </div>
               </div>
             </Reveal>
           ) : null,
@@ -296,7 +303,13 @@ export function TechSection({ locale, tech, index }: TechSectionProps) {
                   <h4 className="text-xs uppercase tracking-widest font-bold text-burnt-orange mb-3">
                     {d.label}
                   </h4>
-                  <p className="text-sm text-dark-brown/80 leading-relaxed">{d.value}</p>
+                  <div className="text-sm text-dark-brown/80 leading-relaxed space-y-4">
+                    {typeof d.value === 'string' ? (
+                      <p>{d.value}</p>
+                    ) : (
+                      <PortableText value={d.value as any} />
+                    )}
+                  </div>
                 </div>
               ) : null,
             )}
