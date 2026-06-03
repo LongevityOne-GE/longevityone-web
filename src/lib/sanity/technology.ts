@@ -57,29 +57,29 @@ export const technology = defineType({
     defineField({
       name: 'whatItIs_ka',
       title: 'What It Is (Georgian)',
-      type: 'text',
-      rows: 3,
+      type: 'array',
+      of: [{ type: 'block' }],
     }),
     defineField({
       name: 'whatItIs_en',
       title: 'What It Is (English)',
-      type: 'text',
-      rows: 3,
+      type: 'array',
+      of: [{ type: 'block' }],
     }),
 
     // ─── How It Works ─────────────────────────────────────────────────────────
     defineField({
       name: 'howItWorks_ka',
       title: 'How It Works (Georgian)',
-      type: 'text',
-      rows: 3,
+      type: 'array',
+      of: [{ type: 'block' }],
       description: 'Optional - not all technologies have a "how it works" section.',
     }),
     defineField({
       name: 'howItWorks_en',
       title: 'How It Works (English)',
-      type: 'text',
-      rows: 3,
+      type: 'array',
+      of: [{ type: 'block' }],
     }),
 
     // ─── What It Shows / What You Discover ───────────────────────────────────
@@ -115,15 +115,15 @@ export const technology = defineType({
     defineField({
       name: 'yourBenefit_ka',
       title: 'Your Benefit / Patient Value (Georgian)',
-      type: 'text',
-      rows: 2,
+      type: 'array',
+      of: [{ type: 'block' }],
       description: 'Used for PNOE, TrueDiagnostic, Enbiosis.',
     }),
     defineField({
       name: 'yourBenefit_en',
       title: 'Your Benefit / Patient Value (English)',
-      type: 'text',
-      rows: 2,
+      type: 'array',
+      of: [{ type: 'block' }],
     }),
 
     // ─── Clinical Note / Partnership Note ────────────────────────────────────
