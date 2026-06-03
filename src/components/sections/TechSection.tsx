@@ -209,6 +209,7 @@ export function TechSection({ locale, tech, index }: TechSectionProps) {
   const whatItIs = locale === 'ka' ? tech.whatItIs_ka : tech.whatItIs_en
   const howItWorks = locale === 'ka' ? tech.howItWorks_ka : tech.howItWorks_en
   const whatItShows = locale === 'ka' ? tech.whatItShows_ka : tech.whatItShows_en
+  const clinicalNote = locale === 'ka' ? tech.clinicalNote_ka : tech.clinicalNote_en
 
   const detailLabel1 = locale === 'ka' ? 'რა არის' : 'What It Is'
   const detailLabel2 = howItWorks
@@ -276,6 +277,15 @@ export function TechSection({ locale, tech, index }: TechSectionProps) {
             </div>
           </Reveal>
         )}
+        {clinicalNote && (
+          <Reveal delay={0.4}>
+            <div className="border-t border-dark-brown/20 pt-5">
+              <p className="text-sm font-semibold text-dark-brown/90 leading-relaxed italic">
+                {clinicalNote}
+              </p>
+            </div>
+          </Reveal>
+        )}
       </div>
     </div>
   )
@@ -327,6 +337,13 @@ export function TechSection({ locale, tech, index }: TechSectionProps) {
                   </li>
                 ))}
               </ul>
+            </div>
+          )}
+          {clinicalNote && (
+            <div className="mt-8 border-t border-dark-brown/20 pt-6 max-w-3xl mx-auto text-left">
+              <p className="text-sm font-semibold text-dark-brown/90 leading-relaxed italic">
+                {clinicalNote}
+              </p>
             </div>
           )}
         </div>
