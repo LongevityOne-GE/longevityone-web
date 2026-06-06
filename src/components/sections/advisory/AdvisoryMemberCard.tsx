@@ -2,6 +2,7 @@ import Image from 'next/image'
 import type { Locale } from '@/lib/utils'
 import type { AdvisoryBoardMember } from '@/lib/sanity/types'
 import { AdvisoryMemberDialog } from './AdvisoryMemberDialog'
+import { getAdvisoryPhotoOverride } from './photoOverrides'
 
 interface AdvisoryMemberCardProps {
   locale: Locale
@@ -16,7 +17,6 @@ function hotspotToObjectPosition(
   return `${Math.round(hotspot.x * 100)}% ${Math.round(hotspot.y * 100)}%`
 }
 
-const CHAIR_LABEL = { ka: 'თავმჯდომარე', en: 'Chair' } as const
 const BIO_TRIGGER = { ka: 'სრული ბიოგრაფია', en: 'Full biography' } as const
 
 export function AdvisoryMemberCard({ locale, member }: AdvisoryMemberCardProps) {
@@ -29,6 +29,9 @@ export function AdvisoryMemberCard({ locale, member }: AdvisoryMemberCardProps) 
       ? (member.photo?.alt_ka ?? name)
       : (member.photo?.alt_en ?? name)
   const isChair = member.boardRole === 'chair'
+  const photoOverride = getAdvisoryPhotoOverride(member)
+  const photoSrc = photoOverride ?? member.photo?.asset?.url
+  const blurDataURL = photoOverride ? undefined : member.photo?.asset?.metadata?.lqip
 
   return (
     <article
@@ -43,17 +46,19 @@ export function AdvisoryMemberCard({ locale, member }: AdvisoryMemberCardProps) 
     >
       {/* Portrait — 4:5 cinematic crop, matches team member cards */}
       <div className="relative aspect-[4/5] overflow-hidden bg-dark-brown/[0.04]">
-        {member.photo?.asset?.url ? (
+        {photoSrc ? (
           <Image
-            src={member.photo.asset.url}
+            src={photoSrc}
             alt={altText}
             fill
             loading="lazy"
             className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.25,0.1,0.25,1)] group-hover:scale-[1.04]"
             style={{
-              objectPosition: hotspotToObjectPosition(member.photo.hotspot),
+              objectPosition: hotspotToObjectPosition(member.photo?.hotspot),
             }}
             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+            placeholder={blurDataURL ? 'blur' : undefined}
+            blurDataURL={blurDataURL}
           />
         ) : (
           // Placeholder when photo not yet uploaded
@@ -69,13 +74,6 @@ export function AdvisoryMemberCard({ locale, member }: AdvisoryMemberCardProps) 
       <div className="flex flex-col flex-1 p-7 md:p-8">
         {/* Top hairline ornament */}
         <span aria-hidden="true" className="block h-px w-8 bg-burnt-orange/60 mb-5" />
-
-        {/* Chair eyebrow — editorial restraint: small text, no badge */}
-        {isChair && (
-          <p className="text-[10px] uppercase tracking-[0.25em] text-burnt-orange font-bold mb-3">
-            {CHAIR_LABEL[locale]}
-          </p>
-        )}
 
         {/* Credentials */}
         {member.credentials && member.credentials.length > 0 && (
