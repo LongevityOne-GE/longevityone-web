@@ -2,7 +2,7 @@ import Image from 'next/image'
 import type { Locale } from '@/lib/utils'
 import type { AdvisoryBoardMember } from '@/lib/sanity/types'
 import { AdvisoryMemberDialog } from './AdvisoryMemberDialog'
-import { getAdvisoryPhotoOverride } from './photoOverrides'
+import { getAdvisoryPhotoOverride, overrideAdvisoryTitle } from './photoOverrides'
 
 interface AdvisoryMemberCardProps {
   locale: Locale
@@ -21,7 +21,8 @@ const BIO_TRIGGER = { ka: 'სრული ბიოგრაფია', en: 'Fu
 
 export function AdvisoryMemberCard({ locale, member }: AdvisoryMemberCardProps) {
   const name = locale === 'ka' ? member.name_ka : member.name_en
-  const title = locale === 'ka' ? member.title_ka : member.title_en
+  const rawTitle = locale === 'ka' ? member.title_ka : member.title_en
+  const title = overrideAdvisoryTitle(locale, rawTitle)
   const affiliation = locale === 'ka' ? member.affiliation_ka : member.affiliation_en
   const expertise = locale === 'ka' ? member.expertise_ka : member.expertise_en
   const altText =
