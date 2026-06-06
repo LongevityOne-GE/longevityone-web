@@ -40,7 +40,7 @@ const STEPS: Step[] = [
   {
     no: '03',
     target: 'add-ons',
-    title_ka: 'მოირგეთ დამატებებით',
+    title_ka: 'მოირგეთ ინდივიდუალურად',
     title_en: 'Personalise as Needed',
     body_ka: 'ლაბორატორიული ტესტები და ცალკეული სესიები — საჭიროებისამებრ.',
     body_en: 'Lab add-ons and individual sessions, added whenever you need them.',
