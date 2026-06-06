@@ -21,12 +21,26 @@ const BIO_TRIGGER = { ka: 'სრული ბიოგრაფია', en: 'Fu
  * card: team cards lead with a pull-quote (founder voice), advisory cards
  * lead with credentials.
  */
+function overridePullQuote(locale: Locale, quote?: string | null): string | undefined {
+  if (!quote) return quote ?? undefined
+  if (locale === 'ka') {
+    return quote
+      .replace(
+        'ამერიკული სამედიცინო სტანდარტები, ქართულ მიწაზე გამოყენებული',
+        'საქართველოში გამოყენებული ამერიკული სამედიცინო სტანდარტები.',
+      )
+      .replace('ექიმი, რომელიც კარს თვითონ გხვდებათ', 'ექიმი რომელიც გხვდებათ კარს მიღმა')
+  }
+  return quote
+}
+
 export function TeamMemberCard({ locale, member, delay = 0 }: TeamMemberCardProps) {
   const name = (locale === 'ka' ? member.name : (member.name_en || member.name)) || ''
   const role = locale === 'ka' ? member.role_ka : member.role_en
-  const pullQuote =
+  const rawPullQuote =
     (locale === 'ka' ? member.pullQuote_ka : member.pullQuote_en) ||
     (locale === 'ka' ? member.tagline_ka : member.tagline_en)
+  const pullQuote = overridePullQuote(locale, rawPullQuote)
   const bio = locale === 'ka' ? member.bio_ka : member.bio_en
   const fullBio = locale === 'ka' ? member.fullBio_ka : member.fullBio_en
   const hasFullBio = Array.isArray(fullBio) && fullBio.length > 0
