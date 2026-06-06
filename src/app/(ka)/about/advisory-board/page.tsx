@@ -100,18 +100,18 @@ export default async function KaAdvisoryBoardPage() {
       <div className="section-container py-16 md:py-24">
         {members.length === 0 ? null : useGroups ? (
           <>
-            {georgianMembers.length > 0 && (
-              <AdvisoryGrid
-                locale="ka"
-                members={georgianMembers}
-                heading={georgianHeading}
-              />
-            )}
             {internationalMembers.length > 0 && (
               <AdvisoryGrid
                 locale="ka"
                 members={internationalMembers}
                 heading={internationalHeading}
+              />
+            )}
+            {georgianMembers.length > 0 && (
+              <AdvisoryGrid
+                locale="ka"
+                members={georgianMembers}
+                heading={georgianHeading}
               />
             )}
           </>

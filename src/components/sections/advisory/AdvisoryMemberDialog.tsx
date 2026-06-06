@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { PortableText } from '@portabletext/react'
 import type { Locale } from '@/lib/utils'
 import type { AdvisoryBoardMember } from '@/lib/sanity/types'
+import { getAdvisoryPhotoOverride } from './photoOverrides'
 
 interface AdvisoryMemberDialogProps {
   locale: Locale
@@ -33,6 +34,9 @@ export function AdvisoryMemberDialog({
     locale === 'ka'
       ? (member.photo?.alt_ka ?? name)
       : (member.photo?.alt_en ?? name)
+  const photoOverride = getAdvisoryPhotoOverride(member)
+  const photoSrc = photoOverride ?? member.photo?.asset?.url
+  const blurDataURL = photoOverride ? undefined : member.photo?.asset?.metadata?.lqip
   const viewProfileLabel = locale === 'ka' ? 'სრული პროფილის ნახვა' : 'View full profile'
   const closeLabel = locale === 'ka' ? 'დახურვა' : 'Close'
 
@@ -95,15 +99,17 @@ export function AdvisoryMemberDialog({
             </Dialog.Close>
 
             {/* Portrait — left col on desktop */}
-            {member.photo?.asset?.url && (
+            {photoSrc && (
               <div className="relative w-full lg:w-[340px] flex-shrink-0 aspect-[4/5] lg:aspect-auto lg:min-h-[480px]">
                 <Image
-                  src={member.photo.asset.url}
+                  src={photoSrc}
                   alt={altText}
                   fill
                   className="object-cover"
-                  style={{ objectPosition: hotspotToObjectPosition(member.photo.hotspot) }}
+                  style={{ objectPosition: hotspotToObjectPosition(member.photo?.hotspot) }}
                   sizes="(max-width: 1024px) 100vw, 340px"
+                  placeholder={blurDataURL ? 'blur' : undefined}
+                  blurDataURL={blurDataURL}
                 />
               </div>
             )}
