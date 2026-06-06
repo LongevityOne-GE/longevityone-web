@@ -10,12 +10,7 @@ interface AddOnsProps {
 export function AddOns({ locale, addons }: AddOnsProps) {
   if (!addons.length) return null
 
-  const eyebrow = locale === 'ka' ? 'სურვილისამებრ' : 'Optional'
-  const heading = locale === 'ka' ? 'დამატებითი ლაბორატორიული ტესტები' : 'Add-On Lab Tests'
-  const subtext =
-    locale === 'ka'
-      ? 'ნებისმიერ პაკეტს ან წევრობას დაამატეთ სიღრმისეული საერთაშორისო ტესტი.'
-      : 'Layer a deeper international test onto any package or membership.'
+  const heading = locale === 'ka' ? 'სადიაგნოსტიკო ტესტები' : 'Diagnostic Tests'
   const priceNote = locale === 'ka' ? 'ნებისმიერ პაკეტზე დამატებით' : 'added to any package'
 
   return (
@@ -52,20 +47,10 @@ export function AddOns({ locale, addons }: AddOnsProps) {
       />
       <div className="section-container relative z-10 max-w-5xl">
         <div className="mb-12 text-center">
-          <Reveal>
-            <p className="text-[11px] uppercase tracking-[0.28em] text-burnt-orange font-bold mb-4">
-              {eyebrow}
-            </p>
-          </Reveal>
           <Reveal delay={0.05}>
             <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl font-semibold text-dark-brown mb-4">
               {heading}
             </h2>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="text-dark-brown/70 max-w-xl mx-auto text-sm md:text-base leading-relaxed">
-              {subtext}
-            </p>
           </Reveal>
         </div>
 
