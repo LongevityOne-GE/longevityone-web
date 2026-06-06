@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { PortableText } from '@portabletext/react'
 import type { Locale } from '@/lib/utils'
 import type { AdvisoryBoardMember } from '@/lib/sanity/types'
-import { getAdvisoryPhotoOverride } from './photoOverrides'
+import { getAdvisoryPhotoOverride, overrideAdvisoryTitle } from './photoOverrides'
 
 interface AdvisoryMemberDialogProps {
   locale: Locale
@@ -27,7 +27,8 @@ export function AdvisoryMemberDialog({
   triggerLabel,
 }: AdvisoryMemberDialogProps) {
   const name = locale === 'ka' ? member.name_ka : member.name_en
-  const title = locale === 'ka' ? member.title_ka : member.title_en
+  const rawTitle = locale === 'ka' ? member.title_ka : member.title_en
+  const title = overrideAdvisoryTitle(locale, rawTitle)
   const affiliation = locale === 'ka' ? member.affiliation_ka : member.affiliation_en
   const bio = locale === 'ka' ? member.bio_ka : member.bio_en
   const altText =
