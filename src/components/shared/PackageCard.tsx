@@ -1,6 +1,10 @@
+'use client'
+
 import Link from 'next/link'
 import type { Locale } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 import { Reveal } from '@/components/animations/Reveal'
+import { LeadCaptureForm } from '@/components/sections/LeadCaptureForm'
 
 interface PackageCardProps {
   locale: Locale
@@ -16,6 +20,8 @@ interface PackageCardProps {
   delay?: number
   className?: string
   bookingHref?: string
+  // When set, renders the two-action pattern: lead-form primary + booking secondary
+  leadFormSource?: string
 }
 
 export function PackageCard({
@@ -32,11 +38,16 @@ export function PackageCard({
   delay = 0,
   className = '',
   bookingHref,
+  leadFormSource,
 }: PackageCardProps) {
   const isLight = variant === 'light'
   const defaultCta = locale === 'ka' ? 'არჩევა' : 'SELECT'
   const featured = isFeatured === true
   const popularLabel = locale === 'ka' ? 'ყველაზე პოპულარული' : 'Most Popular'
+
+  // Two-action copy
+  const interestedLabel   = locale === 'ka' ? 'დაინტერესება'          : "I'm Interested"
+  const bookDirectlyLabel = locale === 'ka' ? 'პირდაპირ დაჯავშნა →'  : 'Book directly →'
 
   return (
     <Reveal delay={delay} className={`h-full ${className}`}>
@@ -56,7 +67,7 @@ export function PackageCard({
               : 'bg-dark-brown text-bone-white group-hover:bg-bone-white group-hover:text-dark-brown'
           }`}
         >
-          {/* Inside-card glow, very subtle spotlight on featured. */}
+          {/* Inside-card glow on featured */}
           {featured && (
             <span
               aria-hidden="true"
@@ -75,9 +86,6 @@ export function PackageCard({
             />
           )}
 
-          {/* Classical chapter-marker "Most Popular" label above the title.
-             Italic serif, tracked, with tapered burnt-orange hairlines on
-             either side. No chip, no dots — magazine pull-quote feel.    */}
           {featured && (
             <div className="absolute inset-x-0 top-10 md:top-12 z-10 flex items-center justify-center gap-3">
               <span
@@ -146,16 +154,47 @@ export function PackageCard({
             </ul>
           )}
 
-          <Link
-            href={bookingHref ?? '#'}
-            className={`btn-secondary w-full transition-colors duration-300 relative ${
-              isLight
-                ? 'group-hover:bg-burnt-orange group-hover:border-burnt-orange group-hover:text-white'
-                : 'bg-burnt-orange border-burnt-orange text-white group-hover:bg-transparent group-hover:border-dark-brown group-hover:text-dark-brown'
-            }`}
-          >
-            {ctaLabel || defaultCta}
-          </Link>
+          {/* ── CTA area ─────────────────────────────────────────────── */}
+          {leadFormSource ? (
+            // Two-action: lead-form primary + booking secondary
+            <div className="relative z-10 flex flex-col gap-3">
+              <LeadCaptureForm
+                locale={locale}
+                source={leadFormSource}
+                label={interestedLabel}
+                triggerClassName={cn(
+                  'w-full bg-burnt-orange text-bone-white',
+                  'hover:opacity-80 backdrop-blur-none',
+                  // Suppress default bg-bone-white/95 — burnt-orange always readable on both card states
+                )}
+              />
+              <Link
+                href={bookingHref ?? '/booking'}
+                className={cn(
+                  'block text-center text-[11px] uppercase tracking-[0.12em] font-medium',
+                  'transition-colors duration-200 hover:text-burnt-orange',
+                  isLight
+                    ? 'text-dark-brown/50 group-hover:text-bone-white/50'
+                    : 'text-bone-white/50 group-hover:text-dark-brown/50'
+                )}
+              >
+                {bookDirectlyLabel}
+              </Link>
+            </div>
+          ) : (
+            // Single CTA (existing behaviour — home page usage)
+            <Link
+              href={bookingHref ?? '#'}
+              className={cn(
+                'btn-secondary w-full transition-colors duration-300 relative',
+                isLight
+                  ? 'group-hover:bg-burnt-orange group-hover:border-burnt-orange group-hover:text-white'
+                  : 'bg-burnt-orange border-burnt-orange text-white group-hover:bg-transparent group-hover:border-dark-brown group-hover:text-dark-brown'
+              )}
+            >
+              {ctaLabel || defaultCta}
+            </Link>
+          )}
         </div>
       </div>
     </Reveal>

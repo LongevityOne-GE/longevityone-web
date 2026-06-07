@@ -1,6 +1,9 @@
+'use client'
+
 import Link from 'next/link'
 import type { Locale } from '@/lib/utils'
 import { Reveal } from '@/components/animations/Reveal'
+import { LeadCaptureForm } from '@/components/sections/LeadCaptureForm'
 
 interface PackagesClosingCtaProps {
   locale: Locale
@@ -15,10 +18,10 @@ export function PackagesClosingCta({ locale }: PackagesClosingCtaProps) {
       : 'Book a consultation and we will guide you'
   const body =
     locale === 'ka'
-      ? 'მოკლე ზარზე ჩვენი გუნდი დაგეხმარებათ შეარჩიოთ თქვენს მიზნებზე მორგებული პაკეტი ან ცალკეული პროცედურა. საიტზე წარმოდგენილია მხოლოდ ძირითადი პროგრამები - სრული სერვისებისა და ფასების შესახებ ინფორმაციას ზარის დროს მიიღებთ.'
-      : 'On a short call, our team will help you choose the package - or individual procedure - that fits your goals. The site shows only our main programmes; for the full range of services and pricing, we\'ll walk you through it on the call.'
-  const primary = locale === 'ka' ? 'კონსულტაციის დაჯავშნა' : 'Book a consultation'
-  const secondary = locale === 'ka' ? 'დაგვიკავშირდით' : 'Contact us'
+      ? 'მოკლე ზარზე ჩვენი გუნდი დაგეხმარებათ შეარჩიოთ თქვენს მიზნებზე მორგებული პაკეტი - ან ცალკეული პროცედურა. საიტზე წარმოდგენილია მხოლოდ ძირითადი პროგრამები - სრული სერვისებისა და ფასების შესახებ ინფორმაციას ზარის დროს მიიღებთ.'
+      : "On a short call, our team will help you choose the package - or individual procedure - that fits your goals. The site shows only our main programmes; for the full range of services and pricing, we'll walk you through it on the call."
+  const primary   = locale === 'ka' ? 'კონსულტაციის დაჯავშნა' : 'Book a consultation'
+  const secondary = locale === 'ka' ? 'დაგვიკავშირდით'        : 'Contact us'
 
   return (
     <section className="relative isolate bg-dark-brown text-bone-white py-20 md:py-28 overflow-hidden">
@@ -63,12 +66,14 @@ export function PackagesClosingCta({ locale }: PackagesClosingCtaProps) {
           </Reveal>
           <Reveal delay={0.15}>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                href={`${prefix}/booking`}
-                className="btn-primary bg-burnt-orange border-burnt-orange text-white hover:bg-bone-white hover:text-dark-brown hover:border-bone-white w-full sm:w-auto"
-              >
-                {primary}
-              </Link>
+              {/* PRIMARY — lead capture form */}
+              <LeadCaptureForm
+                locale={locale}
+                source="final_cta"
+                label={primary}
+                triggerClassName="bg-burnt-orange text-white border border-burnt-orange hover:bg-bone-white hover:text-dark-brown hover:border-bone-white w-full sm:w-auto backdrop-blur-none"
+              />
+              {/* SECONDARY — contact link */}
               <Link
                 href={`${prefix}/contact`}
                 className="text-[11px] uppercase tracking-[0.18em] font-medium text-bone-white/80 border-b border-bone-white/30 pb-px hover:text-bone-white hover:border-bone-white transition-colors duration-200"
