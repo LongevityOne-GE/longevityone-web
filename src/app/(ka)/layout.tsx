@@ -1,5 +1,6 @@
 import { sanityClient, siteSettingsQuery } from '@/lib/sanity'
 import type { SiteSettings } from '@/lib/sanity/types'
+import { AnnouncementBar } from '@/components/layout/AnnouncementBar'
 import { Nav } from '@/components/layout/Nav'
 import { Footer } from '@/components/layout/Footer'
 import { CookieBanner } from '@/components/cookies/CookieBanner'
@@ -22,6 +23,7 @@ export default async function KaLayout({ children }: { children: React.ReactNode
   return (
     <>
       <div className="flex flex-col min-h-screen">
+        <AnnouncementBar locale="ka" />
         <Nav locale="ka" siteSettings={siteSettings} />
         <div id="main-content" className="flex flex-col flex-1">
           {children}
