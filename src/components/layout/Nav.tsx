@@ -133,7 +133,7 @@ export function Nav({ locale, siteSettings }: NavProps) {
         {locale === 'ka' ? 'მთავარ კონტენტზე გადასვლა' : 'Skip to main content'}
       </a>
       <nav
-        className={`fixed top-0 w-full z-50 py-4 px-4 md:px-12 lg:px-16 border-b transition-[transform,background-color,backdrop-filter,border-color,box-shadow] duration-300 ease-out will-change-transform ${
+        className={`fixed top-[var(--fc50-bar,0px)] w-full z-50 py-4 px-4 md:px-12 lg:px-16 border-b transition-[transform,background-color,backdrop-filter,border-color,box-shadow] duration-300 ease-out will-change-transform ${
           hidden ? '-translate-y-full' : 'translate-y-0'
         } ${
           scrolled

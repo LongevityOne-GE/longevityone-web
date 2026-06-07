@@ -10,12 +10,14 @@ import type {
   HomeFounder,
 } from '@/lib/sanity/types'
 import { Hero } from '@/components/sections/Hero'
+import { FounderCircleBanner } from '@/components/sections/FounderCircleBanner'
 import { Journey } from '@/components/sections/Journey'
 import { Pillars } from '@/components/sections/Pillars'
 import { Science } from '@/components/sections/Science'
 import { ProgrammesPreview } from '@/components/sections/ProgrammesPreview'
 import { Team } from '@/components/sections/Team'
 import { CTA } from '@/components/sections/CTA'
+import { FounderCircleModal } from '@/components/layout/FounderCircleModal'
 
 interface HomePageProps {
   locale: Locale
@@ -40,10 +42,12 @@ export function HomePage({
       <Hero locale={locale} data={homePage} />
       <Journey locale={locale} data={homePage} />
       <Pillars locale={locale} services={services} data={homePage} />
+      <FounderCircleBanner locale={locale} />
       <Science locale={locale} technologies={technologies} data={homePage} />
       <ProgrammesPreview locale={locale} packages={packages} data={homePage} />
       <Team locale={locale} data={homePage} founders={founders} />
       <CTA locale={locale} data={homePage} />
+      <FounderCircleModal locale={locale} />
     </main>
   )
 }

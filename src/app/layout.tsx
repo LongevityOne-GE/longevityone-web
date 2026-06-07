@@ -40,6 +40,7 @@ export default async function RootLayout({
   return (
     <html
       lang={lang}
+      suppressHydrationWarning
       className={[
         mersad.variable,
         fontGeorgian.variable,
