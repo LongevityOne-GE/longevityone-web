@@ -54,113 +54,95 @@ export function FounderCircleBanner({ locale }: FounderCircleBannerProps) {
       className="scroll-mt-28 relative overflow-hidden bg-dark-brown text-bone-white isolate"
     >
       <GodVideo
-        src={{ webm: '/videos/gods/god-asclepius.webm', mp4: '/videos/gods/god-asclepius.mp4' }}
-        overlay="tint"
-        tint="dark"
-        tintOpacity={0.8}
+        src="/videos/longevity-one-founder-circle-bg.mp4"
+        overlay="none"
+        fit="cover"
         position="center top"
       />
-      {/* Left-weighted scrim keeps the editorial copy legible over the statue */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'linear-gradient(90deg, rgba(42,26,20,0.97) 0%, rgba(42,26,20,0.82) 42%, rgba(42,26,20,0.45) 100%)',
-        }}
-      />
-      {/* Oversized ghost numeral - exclusivity without a scarcity counter */}
-      <span
-        aria-hidden="true"
-        className="pointer-events-none select-none absolute -top-12 right-0 md:right-6 font-black leading-none text-bone-white/[0.04] text-[200px] md:text-[340px]"
-      >
-        50
-      </span>
-
-      <div className="section-container relative z-10 py-20 md:py-32">
-        {/* Masthead: hairline + eyebrow */}
-        <Reveal>
-          <div className="flex items-center gap-5">
-            <span aria-hidden="true" className="h-px w-10 bg-burnt-orange" />
-            <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-burnt-orange">
-              {t.label}
-            </p>
-          </div>
-        </Reveal>
-
-        <div className="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-y-14 lg:gap-x-20">
-          {/* Left: heading, subheading, body, price, CTAs */}
-          <div className="lg:col-span-6 flex flex-col">
-            <Reveal delay={0.08}>
-              <h2 className="font-light leading-[1.05] tracking-tight text-4xl sm:text-5xl md:text-6xl text-bone-white">
+      
+      <div className="section-container relative z-10 py-24 md:py-32">
+        <div className="mx-auto max-w-[1200px]">
+          {/* Centered Luxury Masthead */}
+          <Reveal>
+            <div className="flex flex-col items-center justify-center text-center mb-16 md:mb-24">
+              <div className="flex items-center gap-6 mb-6">
+                <span aria-hidden="true" className="h-px w-12 md:w-20 bg-gradient-to-r from-transparent to-burnt-orange" />
+                <p className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.4em] text-burnt-orange drop-shadow-md">
+                  {t.label}
+                </p>
+                <span aria-hidden="true" className="h-px w-12 md:w-20 bg-gradient-to-l from-transparent to-burnt-orange" />
+              </div>
+              <h2 className="font-light leading-[1.05] tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-bone-white drop-shadow-2xl">
                 {t.heading}
               </h2>
-            </Reveal>
-
-            <Reveal delay={0.16}>
-              <p className="mt-5 text-xs sm:text-sm font-bold uppercase tracking-[0.28em] text-bone-white/55">
+              <p className="mt-6 text-[10px] md:text-xs font-semibold uppercase tracking-[0.4em] text-bone-white/90 drop-shadow-lg">
                 {t.subheading}
               </p>
-            </Reveal>
+            </div>
+          </Reveal>
 
-            <Reveal delay={0.24}>
-              <p className="mt-8 max-w-xl text-base md:text-lg font-light leading-relaxed text-bone-white/75">
-                {t.body}
-              </p>
-            </Reveal>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-16 lg:gap-x-16 items-start">
+            {/* Left: Body, Price, CTAs */}
+            <div className="lg:col-span-5 flex flex-col">
+              <Reveal delay={0.1}>
+                <p className="text-base md:text-lg font-light leading-relaxed text-bone-white drop-shadow-lg">
+                  {t.body}
+                </p>
+              </Reveal>
 
-            <Reveal delay={0.32}>
-              <div className="mt-12 border-t border-bone-white/15 pt-8">
-                <span className="block font-light leading-none text-burnt-orange text-4xl md:text-5xl">
-                  {t.price}
-                </span>
+              <Reveal delay={0.2}>
+                <div className="mt-10 md:mt-12 border-l-2 border-burnt-orange pl-6 py-1.5">
+                  <span className="block font-light leading-none text-burnt-orange text-3xl md:text-4xl drop-shadow-lg">
+                    {t.price}
+                  </span>
+                </div>
+              </Reveal>
+
+              <Reveal delay={0.3}>
+                <div className="mt-12 md:mt-16 flex flex-col gap-3">
+                  <Link
+                    href={bookingHref}
+                    className="group relative flex items-center justify-between bg-bone-white/95 backdrop-blur-md px-6 py-5 text-[11px] font-bold uppercase tracking-[0.25em] text-dark-brown transition-all duration-500 hover:bg-burnt-orange hover:text-bone-white shadow-2xl"
+                  >
+                    <span className="relative z-10">{t.cta}</span>
+                    <ArrowRight
+                      size={16}
+                      aria-hidden="true"
+                      className="relative z-10 transition-transform duration-500 group-hover:translate-x-1.5"
+                    />
+                  </Link>
+                  <Link
+                    href={bookingHref}
+                    className="group flex items-center justify-between border border-bone-white/40 bg-dark-brown/10 backdrop-blur-sm px-6 py-5 text-[11px] font-bold uppercase tracking-[0.25em] text-bone-white transition-all duration-500 hover:border-bone-white hover:bg-bone-white/20 shadow-xl"
+                  >
+                    <span>{t.ctaSecondary}</span>
+                    <ArrowRight
+                      size={16}
+                      aria-hidden="true"
+                      className="transition-transform duration-500 group-hover:translate-x-1.5"
+                    />
+                  </Link>
+                </div>
+              </Reveal>
+            </div>
+
+            {/* Right: Elegant Benefits Ledger */}
+            <div className="lg:col-span-7 lg:pl-12 mt-4 lg:mt-0">
+              <div className="border-t border-bone-white/20">
+                {t.benefits.map((benefit, i) => (
+                  <Reveal key={i} delay={0.15 + i * 0.1}>
+                    <div className="group flex items-center gap-5 md:gap-8 border-b border-bone-white/20 px-2 md:px-5 py-5 md:py-6 transition-all duration-500 hover:border-burnt-orange hover:bg-black/20">
+                      <span className="shrink-0 text-xs md:text-sm font-light tracking-[0.2em] text-burnt-orange/70 transition-colors duration-500 group-hover:text-burnt-orange drop-shadow-md">
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                      <span className="text-base md:text-lg font-light leading-relaxed text-bone-white drop-shadow-md transition-transform duration-500 group-hover:translate-x-1.5">
+                        {benefit}
+                      </span>
+                    </div>
+                  </Reveal>
+                ))}
               </div>
-            </Reveal>
-
-            <Reveal delay={0.4}>
-              <div className="mt-10 flex flex-col sm:flex-row gap-4">
-                <Link
-                  href={bookingHref}
-                  className="group inline-flex items-center justify-between gap-6 bg-burnt-orange px-8 py-4 text-[11px] font-bold uppercase tracking-[0.2em] text-bone-white transition-colors duration-300 hover:bg-bone-white hover:text-dark-brown"
-                >
-                  <span>{t.cta}</span>
-                  <ArrowRight
-                    size={16}
-                    aria-hidden="true"
-                    className="transition-transform duration-300 group-hover:translate-x-1"
-                  />
-                </Link>
-                <Link
-                  href={bookingHref}
-                  className="group inline-flex items-center justify-between gap-6 border border-bone-white/30 px-8 py-4 text-[11px] font-bold uppercase tracking-[0.2em] text-bone-white transition-colors duration-300 hover:border-bone-white hover:bg-bone-white/5"
-                >
-                  <span>{t.ctaSecondary}</span>
-                  <ArrowRight
-                    size={16}
-                    aria-hidden="true"
-                    className="transition-transform duration-300 group-hover:translate-x-1"
-                  />
-                </Link>
-              </div>
-            </Reveal>
-          </div>
-
-          {/* Right: editorial numbered benefits */}
-          <div className="lg:col-span-6 lg:border-l lg:border-bone-white/10 lg:pl-20">
-            <ul>
-              {t.benefits.map((benefit, i) => (
-                <Reveal key={i} delay={0.12 + i * 0.08}>
-                  <li className="group flex items-baseline gap-6 border-b border-bone-white/10 py-5 first:pt-0">
-                    <span className="shrink-0 text-xs font-bold tracking-[0.2em] text-burnt-orange/50 transition-colors duration-300 group-hover:text-burnt-orange">
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-                    <span className="text-base md:text-lg font-light leading-relaxed text-bone-white/85 transition-colors duration-300 group-hover:text-bone-white">
-                      {benefit}
-                    </span>
-                  </li>
-                </Reveal>
-              ))}
-            </ul>
+            </div>
           </div>
         </div>
       </div>
