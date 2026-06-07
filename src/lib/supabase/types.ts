@@ -15,6 +15,38 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      founder_circle_leads: {
+        Row: {
+          id: string
+          name: string
+          phone: string
+          email: string | null
+          lang: string
+          consent: boolean
+          source: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          phone: string
+          email?: string | null
+          lang?: string
+          consent?: boolean
+          source?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          phone?: string
+          email?: string | null
+          lang?: string
+          consent?: boolean
+          source?: string | null
+          created_at?: string
+        }
+      }
       patients: {
         Row: {
           id: string

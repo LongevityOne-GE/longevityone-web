@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react'
 import type { Locale } from '@/lib/utils'
 import { Reveal } from '@/components/animations/Reveal'
 import { GodVideo } from '@/components/shared/GodVideo'
+import { FounderCircleLeadForm } from '@/components/sections/FounderCircleLeadForm'
 
 interface FounderCircleBannerProps {
   locale: Locale
@@ -72,10 +73,10 @@ export function FounderCircleBanner({ locale }: FounderCircleBannerProps) {
                 </p>
                 <span aria-hidden="true" className="h-px w-12 md:w-20 bg-gradient-to-l from-transparent to-burnt-orange" />
               </div>
-              <h2 className="font-light leading-[1.05] tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-bone-white drop-shadow-2xl">
+              <h2 className="font-light leading-[1.05] tracking-tight text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-bone-white drop-shadow-2xl">
                 {t.heading}
               </h2>
-              <p className="mt-6 text-[10px] md:text-xs font-semibold uppercase tracking-[0.4em] text-bone-white/90 drop-shadow-lg">
+              <p className="mt-6 text-[10px] md:text-[11px] font-semibold uppercase tracking-[0.4em] text-bone-white/90 drop-shadow-lg">
                 {t.subheading}
               </p>
             </div>
@@ -85,32 +86,22 @@ export function FounderCircleBanner({ locale }: FounderCircleBannerProps) {
             {/* Left: Body, Price, CTAs */}
             <div className="lg:col-span-5 flex flex-col">
               <Reveal delay={0.1}>
-                <p className="text-base md:text-lg font-light leading-relaxed text-bone-white drop-shadow-lg">
+                <p className="text-sm md:text-base font-light leading-relaxed text-bone-white drop-shadow-lg">
                   {t.body}
                 </p>
               </Reveal>
 
               <Reveal delay={0.2}>
-                <div className="mt-10 md:mt-12 border-l-2 border-burnt-orange pl-6 py-1.5">
-                  <span className="block font-light leading-none text-burnt-orange text-3xl md:text-4xl drop-shadow-lg">
+                <div className="mt-10 border-l-2 border-burnt-orange pl-5 py-1.5">
+                  <span className="block font-light leading-none text-burnt-orange text-2xl md:text-3xl drop-shadow-lg">
                     {t.price}
                   </span>
                 </div>
               </Reveal>
 
               <Reveal delay={0.3}>
-                <div className="mt-12 md:mt-16 flex flex-col gap-3">
-                  <Link
-                    href={bookingHref}
-                    className="group relative flex items-center justify-between bg-bone-white/95 backdrop-blur-md px-6 py-5 text-[11px] font-bold uppercase tracking-[0.25em] text-dark-brown transition-all duration-500 hover:bg-burnt-orange hover:text-bone-white shadow-2xl"
-                  >
-                    <span className="relative z-10">{t.cta}</span>
-                    <ArrowRight
-                      size={16}
-                      aria-hidden="true"
-                      className="relative z-10 transition-transform duration-500 group-hover:translate-x-1.5"
-                    />
-                  </Link>
+                <div className="mt-10 md:mt-12 flex flex-col gap-3">
+                  <FounderCircleLeadForm locale={locale} label={t.cta} />
                   <Link
                     href={bookingHref}
                     className="group flex items-center justify-between border border-bone-white/40 bg-dark-brown/10 backdrop-blur-sm px-6 py-5 text-[11px] font-bold uppercase tracking-[0.25em] text-bone-white transition-all duration-500 hover:border-bone-white hover:bg-bone-white/20 shadow-xl"
@@ -131,11 +122,11 @@ export function FounderCircleBanner({ locale }: FounderCircleBannerProps) {
               <div className="border-t border-bone-white/20">
                 {t.benefits.map((benefit, i) => (
                   <Reveal key={i} delay={0.15 + i * 0.1}>
-                    <div className="group flex items-center gap-5 md:gap-8 border-b border-bone-white/20 px-2 md:px-5 py-5 md:py-6 transition-all duration-500 hover:border-burnt-orange hover:bg-black/20">
-                      <span className="shrink-0 text-xs md:text-sm font-light tracking-[0.2em] text-burnt-orange/70 transition-colors duration-500 group-hover:text-burnt-orange drop-shadow-md">
+                    <div className="group flex items-center gap-5 md:gap-8 border-b border-bone-white/20 px-2 md:px-5 py-4 md:py-5 transition-all duration-500 hover:border-burnt-orange hover:bg-black/20">
+                      <span className="shrink-0 text-[10px] md:text-xs font-light tracking-[0.2em] text-burnt-orange/70 transition-colors duration-500 group-hover:text-burnt-orange drop-shadow-md">
                         {String(i + 1).padStart(2, '0')}
                       </span>
-                      <span className="text-base md:text-lg font-light leading-relaxed text-bone-white drop-shadow-md transition-transform duration-500 group-hover:translate-x-1.5">
+                      <span className="text-sm md:text-[15px] font-light leading-relaxed text-bone-white drop-shadow-md transition-transform duration-500 group-hover:translate-x-1.5">
                         {benefit}
                       </span>
                     </div>
