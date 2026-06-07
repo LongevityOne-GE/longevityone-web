@@ -46,7 +46,7 @@ export function PackageCard({
   const popularLabel = locale === 'ka' ? 'ყველაზე პოპულარული' : 'Most Popular'
 
   // Two-action copy
-  const interestedLabel   = locale === 'ka' ? 'დაინტერესება'          : "I'm Interested"
+  const interestedLabel   = locale === 'ka' ? 'გაიგეთ მეტი'          : 'Learn more'
   const bookDirectlyLabel = locale === 'ka' ? 'პირდაპირ დაჯავშნა →'  : 'Book directly →'
 
   return (
