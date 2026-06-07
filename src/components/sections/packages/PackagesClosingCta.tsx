@@ -15,12 +15,12 @@ export function PackagesClosingCta({ locale }: PackagesClosingCtaProps) {
   const heading =
     locale === 'ka'
       ? 'დაჯავშნეთ საკონსულტაციო ზარი'
-      : 'Book a consultation and we will guide you'
+      : 'Book a call and we will guide you'
   const body =
     locale === 'ka'
       ? 'მოკლე ზარზე ჩვენი გუნდი დაგეხმარებათ შეარჩიოთ თქვენს მიზნებზე მორგებული პაკეტი - ან ცალკეული პროცედურა. საიტზე წარმოდგენილია მხოლოდ ძირითადი პროგრამები - სრული სერვისებისა და ფასების შესახებ ინფორმაციას ზარის დროს მიიღებთ.'
       : "On a short call, our team will help you choose the package - or individual procedure - that fits your goals. The site shows only our main programmes; for the full range of services and pricing, we'll walk you through it on the call."
-  const primary   = locale === 'ka' ? 'კონსულტაციის დაჯავშნა' : 'Book a consultation'
+  const primary   = locale === 'ka' ? 'ზარის დაჯავშნა' : 'Book a call'
   const secondary = locale === 'ka' ? 'დაგვიკავშირდით'        : 'Contact us'
 
   return (
