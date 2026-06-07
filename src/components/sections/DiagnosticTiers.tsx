@@ -12,7 +12,7 @@ interface DiagnosticTiersProps {
 
 export function DiagnosticTiers({ locale, packages, heading, subtext }: DiagnosticTiersProps) {
   const prefix = locale === 'en' ? '/en' : ''
-  const bookingHref = `${prefix}/booking?type=consultation`
+  const bookingHref = `${prefix}/booking`
   if (!packages.length) return null
 
   const eyebrow = locale === 'ka' ? 'ერთჯერადი შეფასება' : 'One-time assessment'

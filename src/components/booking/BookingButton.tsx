@@ -2,20 +2,17 @@ import type { ReactNode } from 'react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 
-// ─── Types ───────────────────────────────────────────────────────────────────
-type EventType = 'consultation' | 'followup' | 'pnoe'
-
 // ─── Bilingual default labels ────────────────────────────────────────────────
 const COPY = {
   ka: {
-    primary: 'დაჯავშნეთ',
-    secondary: 'კონსულტაციის დაჯავშნა',
-    ghost: 'კონსულტაციის დაჯავშნა',
+    primary:   'დაჯავშნეთ ვიზიტი',
+    secondary: 'ვიზიტის დაჯავშნა',
+    ghost:     'ვიზიტის დაჯავშნა',
   },
   en: {
-    primary: 'Book a Consultation',
+    primary:   'Book a Visit',
     secondary: 'Book Now',
-    ghost: 'Book Now',
+    ghost:     'Book Now',
   },
 } as const
 
@@ -46,7 +43,6 @@ const SIZE_CLASSES = {
 // ─── Props ───────────────────────────────────────────────────────────────────
 interface BookingButtonProps {
   lang: 'ka' | 'en'
-  eventType?: EventType
   variant?: 'primary' | 'secondary' | 'ghost'
   size?: 'sm' | 'md' | 'lg'
   className?: string
@@ -56,15 +52,13 @@ interface BookingButtonProps {
 // ─── Component ───────────────────────────────────────────────────────────────
 export function BookingButton({
   lang,
-  eventType,
   variant = 'primary',
   size = 'md',
   className,
   children,
 }: BookingButtonProps) {
   const prefix = lang === 'en' ? '/en' : ''
-  const type = eventType ?? 'consultation'
-  const href = `${prefix}/booking?type=${type}`
+  const href = `${prefix}/booking`
   const label = children ?? COPY[lang][variant]
 
   return (
@@ -82,19 +76,3 @@ export function BookingButton({
     </Link>
   )
 }
-
-// ─── Integration examples ────────────────────────────────────────────────────
-//
-// Nav CTA
-// <BookingButton lang={lang} variant="primary" size="sm" />
-//
-// Hero CTA
-// <BookingButton lang={lang} variant="primary" size="lg" />
-//
-// Package card - pre-selects consultation
-// <BookingButton lang={lang} variant="secondary" eventType="consultation">
-//   {lang === 'ka' ? 'ამ პაკეტით დაწყება' : 'Start with this package'}
-// </BookingButton>
-//
-// PNOE service page - pre-selects PNOE
-// <BookingButton lang={lang} variant="ghost" eventType="pnoe" />

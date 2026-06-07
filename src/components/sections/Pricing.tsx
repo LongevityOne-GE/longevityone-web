@@ -11,7 +11,7 @@ interface PricingProps {
 
 export function Pricing({ locale, packages, data }: PricingProps) {
   const prefix = locale === 'en' ? '/en' : ''
-  const bookingHref = `${prefix}/booking?type=consultation`
+  const bookingHref = `${prefix}/booking`
   const pkgs = packages ?? []
 
   return (

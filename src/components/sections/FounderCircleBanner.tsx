@@ -47,7 +47,7 @@ const content = {
 export function FounderCircleBanner({ locale }: FounderCircleBannerProps) {
   const t = content[locale]
   const prefix = locale === 'en' ? '/en' : ''
-  const bookingHref = `${prefix}/booking?type=consultation`
+  const bookingHref = `${prefix}/booking`
 
   return (
     <section
