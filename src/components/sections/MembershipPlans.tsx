@@ -11,7 +11,7 @@ interface MembershipPlansProps {
 
 export function MembershipPlans({ locale, memberships, heading }: MembershipPlansProps) {
   const prefix = locale === 'en' ? '/en' : ''
-  const bookingHref = `${prefix}/booking?type=consultation`
+  const bookingHref = `${prefix}/booking`
   if (!memberships.length) return null
 
   const defaultHeading = locale === 'ka' ? 'საწევრო პროგრამები' : 'Membership Programmes'

@@ -64,7 +64,7 @@ export function PackagesClosingCta({ locale }: PackagesClosingCtaProps) {
           <Reveal delay={0.15}>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
-                href={`${prefix}/booking?type=consultation`}
+                href={`${prefix}/booking`}
                 className="btn-primary bg-burnt-orange border-burnt-orange text-white hover:bg-bone-white hover:text-dark-brown hover:border-bone-white w-full sm:w-auto"
               >
                 {primary}

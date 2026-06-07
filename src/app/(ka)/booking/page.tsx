@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import { BookingPage } from '@/components/pages/BookingPage'
 
 export const metadata: Metadata = {
-  title: 'კონსულტაციის დაჯავშნა',
-  description: 'დაჯავშნეთ კონსულტაცია Longevity One-ს პრევენციული მედიცინის ცენტრში. საწყისი კონსულტაცია, განმეორებითი ვიზიტი ან PNOE შეფასება.',
+  title: 'დაჯავშნეთ ვიზიტი',
+  description: 'დაჯავშნეთ ვიზიტი Longevity One-ს პრევენციული მედიცინის ცენტრში. აირჩიეთ თქვენთვის სასურველი დრო.',
 }
 
 export default function KaBookingPage() {

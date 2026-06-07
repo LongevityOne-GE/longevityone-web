@@ -10,7 +10,7 @@ interface HeroProps {
 
 export function Hero({ locale, data }: HeroProps) {
   const prefix = locale === 'en' ? '/en' : ''
-  const bookingHref = `${prefix}/booking?type=consultation`
+  const bookingHref = `${prefix}/booking`
   const learnMoreHref = `${prefix}/services`
   const h1 = locale === 'ka' ? data?.hero_h1_ka : data?.hero_h1_en
   const h2 = locale === 'ka' ? data?.hero_h2_ka : data?.hero_h2_en
