@@ -11,7 +11,7 @@ interface CTAProps {
 
 export function CTA({ locale, data }: CTAProps) {
   const prefix = locale === 'en' ? '/en' : ''
-  const bookingHref = `${prefix}/booking?type=consultation`
+  const bookingHref = `${prefix}/booking`
   const heading = locale === 'ka' ? data?.cta_heading_ka : data?.cta_heading_en
   const subtext = locale === 'ka' ? data?.cta_subtext_ka : data?.cta_subtext_en
   const button = locale === 'ka' ? data?.cta_button_ka : data?.cta_button_en
