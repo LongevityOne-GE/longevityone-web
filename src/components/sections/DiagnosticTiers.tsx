@@ -89,6 +89,7 @@ export function DiagnosticTiers({ locale, packages, heading, subtext }: Diagnost
                 variant="light"
                 delay={0.1 * idx}
                 bookingHref={bookingHref}
+                leadFormSource="packages"
               />
             )
           })}
