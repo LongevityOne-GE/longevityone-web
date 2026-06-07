@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import type { Locale } from '@/lib/utils'
 import type { PackagesData, HomePageData } from '@/lib/sanity/types'
 import { PageHero } from '@/components/shared/PageHero'
@@ -57,24 +56,6 @@ export function PackagesPage({ locale, packages, homeData }: PackagesPageProps) 
         heading={locale === 'ka' ? homeData?.packages_heading_ka : homeData?.packages_heading_en}
         subtext={locale === 'ka' ? homeData?.packages_subtext_ka : homeData?.packages_subtext_en}
       />
-      <div className="section-container">
-        <div className="mx-auto mt-4 flex max-w-xl flex-col items-center gap-4 text-center">
-          <span aria-hidden="true" className="h-px w-10 bg-burnt-orange/50" />
-          <p className="text-sm text-dark-brown/55">
-            {locale === 'ka' ? 'დამფუძნებელთა წრე 50-ის შესახებ - ' : 'Interested in founding membership? - '}
-            <Link
-              href={locale === 'en' ? '/en#founder-circle' : '/#founder-circle'}
-              className="group inline-flex items-center gap-1.5 font-bold uppercase tracking-[0.12em] text-burnt-orange"
-            >
-              <span className="relative after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-0 after:bg-burnt-orange after:transition-[width] after:duration-300 after:ease-out group-hover:after:w-full">
-                {locale === 'ka' ? 'გაიგეთ მეტი' : 'Learn More'}
-              </span>
-              <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-            </Link>
-          </p>
-        </div>
-      </div>
-
       <MembershipPlans
         locale={locale}
         memberships={packages?.memberships ?? []}

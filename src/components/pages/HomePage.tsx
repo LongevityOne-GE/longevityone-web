@@ -17,7 +17,6 @@ import { Science } from '@/components/sections/Science'
 import { ProgrammesPreview } from '@/components/sections/ProgrammesPreview'
 import { Team } from '@/components/sections/Team'
 import { CTA } from '@/components/sections/CTA'
-import { FounderCircleModal } from '@/components/layout/FounderCircleModal'
 
 interface HomePageProps {
   locale: Locale
@@ -47,7 +46,6 @@ export function HomePage({
       <ProgrammesPreview locale={locale} packages={packages} data={homePage} />
       <Team locale={locale} data={homePage} founders={founders} />
       <CTA locale={locale} data={homePage} />
-      <FounderCircleModal locale={locale} />
     </main>
   )
 }
