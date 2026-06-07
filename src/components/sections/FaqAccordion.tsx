@@ -12,34 +12,6 @@ interface FaqAccordionProps {
   items: FaqItem[]
 }
 
-// Decorative general photos placed in the outer gutters, alternating sides
-// down the page. Low opacity + desaturation keeps the centered text readable.
-const DECOR_IMAGES = [
-  {
-    src: '/images/blog images/NEW/cropped/general3.png',
-    position: 'mr-auto -ml-12 md:-ml-20', // Left
-    width: 'w-64 md:w-96 max-h-[24rem]',
-    rotate: 'rotate-6',
-  },
-  {
-    src: '/images/blog images/NEW/cropped/general2.png',
-    position: 'ml-auto -mr-12 md:-mr-20', // Right
-    width: 'w-60 md:w-80 max-h-[20rem]',
-    rotate: '-rotate-6',
-  },
-  {
-    src: '/images/blog images/NEW/cropped/general4.jpg',
-    position: 'ml-auto -mr-12 md:-mr-20', // Right
-    width: 'w-60 md:w-80 max-h-[20rem]',
-    rotate: 'rotate-3',
-  },
-  {
-    src: '/images/blog images/NEW/cropped/general5.jpg',
-    position: 'ml-auto -mr-12 md:-mr-20', // Right
-    width: 'w-60 md:w-80 max-h-[20rem]',
-    rotate: '-rotate-3',
-  },
-]
 
 const CATEGORY_LABELS: Record<string, { ka: string; en: string }> = {
   general: { ka: 'ზოგადი', en: 'General' },
@@ -78,23 +50,8 @@ export function FaqAccordion({ locale, items }: FaqAccordionProps) {
   const prefix = locale === 'en' ? '/en' : ''
 
   return (
-    <section className="relative py-20 md:py-28 bg-bone-white overflow-hidden">
-      {/* Subtle editorial texture — general images bleeding off the left/right
-         edges at very low opacity, desaturated to bone tones. They live in the
-         outer gutters so the centered content stays fully readable on top. */}
-      <div aria-hidden="true" className="pointer-events-none absolute top-0 left-0 w-full h-full z-0 overflow-hidden flex flex-col justify-evenly py-12 md:py-24 gap-12 min-h-[1600px]">
-        {DECOR_IMAGES.map((img, i) => (
-          <img
-            key={i}
-            src={img.src}
-            alt=""
-            className={`select-none object-cover flex-shrink-0 ${img.position} ${img.width} ${img.rotate} opacity-[0.12]`}
-            style={{ filter: 'saturate(0.5) brightness(1.05)' }}
-          />
-        ))}
-      </div>
-
-      <div className="section-container relative z-10">
+    <section className="py-20 md:py-28 bg-bone-white">
+      <div className="section-container">
         <div className="grid grid-cols-1 lg:grid-cols-[240px_minmax(0,1fr)] gap-12 lg:gap-20 max-w-5xl mx-auto">
           {/* ─── Sticky category navigator (desktop) / horizontal chips (mobile) ─── */}
           {categories.length > 1 && (
