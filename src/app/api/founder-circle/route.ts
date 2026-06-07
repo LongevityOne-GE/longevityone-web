@@ -16,6 +16,7 @@ const schema = z.object({
   consent: z.literal(true, {
     error: () => ({ message: 'Consent is required' }),
   }),
+  source: z.string().min(1).max(100).default('founder_circle'),
 })
 
 // Best-effort in-memory rate limit: 5 submissions / 10 min / IP
@@ -80,7 +81,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid input' }, { status: 422 })
   }
 
-  const { name, phone, email, lang } = parsed.data
+  const { name, phone, email, lang, source } = parsed.data
 
   // Insert lead using service role key (bypasses RLS — server only, never client-reachable)
   try {
@@ -91,7 +92,7 @@ export async function POST(req: NextRequest) {
     )
     const { error: dbError } = await supabase
       .from('founder_circle_leads')
-      .insert({ name, phone, email: email ?? null, lang, consent: true })
+      .insert({ name, phone, email: email ?? null, lang, consent: true, source })
 
     if (dbError) {
       console.error('[founder-circle] supabase insert error', dbError)
@@ -126,7 +127,7 @@ export async function POST(req: NextRequest) {
         <p><strong>Phone:</strong> ${safePhone}</p>
         ${safeEmail ? `<p><strong>Email:</strong> ${safeEmail}</p>` : '<p><strong>Email:</strong> —</p>'}
         <p><strong>Language:</strong> ${lang}</p>
-        <p><strong>Source:</strong> founder_circle</p>
+        <p><strong>Source:</strong> ${escapeHtml(source)}</p>
       `,
       text:
         `New Founder Circle 50 Lead\n\n` +
