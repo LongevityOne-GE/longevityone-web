@@ -40,13 +40,13 @@ export function DiagnosticTiers({ locale, packages, heading, subtext }: Diagnost
             'linear-gradient(to bottom, rgba(231,222,204,1) 0%, rgba(231,222,204,0.85) 30%, rgba(231,222,204,0) 100%)',
         }}
       />
-      {/* Bottom fades into the dark-brown section that follows */}
+      {/* Bottom fades into bone-white (instead of dark-brown) to match the AddOns section */}
       <div
         aria-hidden="true"
         className="absolute inset-x-0 bottom-0 h-64 md:h-80 pointer-events-none z-[1]"
         style={{
           background:
-            'linear-gradient(to top, rgba(66,41,34,1) 0%, rgba(66,41,34,0.5) 40%, rgba(66,41,34,0) 100%)',
+            'linear-gradient(to top, rgba(231,222,204,1) 0%, rgba(231,222,204,0.85) 30%, rgba(231,222,204,0) 100%)',
         }}
       />
 

@@ -32,9 +32,9 @@ export function PackagesPage({ locale, packages, homeData }: PackagesPageProps) 
   // Build navigator only from sections that actually have content.
   const navItems: PackagesNavItem[] = [
     hasDiagnostic && { id: 'diagnostics', label: locale === 'ka' ? 'დიაგნოსტიკა' : 'Diagnostics' },
-    hasMemberships && { id: 'memberships', label: locale === 'ka' ? 'წევრობა' : 'Memberships' },
+    // hasMemberships && { id: 'memberships', label: locale === 'ka' ? 'წევრობა' : 'Memberships' },
     hasAddons && { id: 'add-ons', label: locale === 'ka' ? 'დამატებები' : 'Add-ons' },
-    hasSessions && { id: 'sessions', label: locale === 'ka' ? 'სესიები' : 'Sessions' },
+    // hasSessions && { id: 'sessions', label: locale === 'ka' ? 'სესიები' : 'Sessions' },
   ].filter((x): x is PackagesNavItem => Boolean(x))
 
   return (
@@ -56,13 +56,17 @@ export function PackagesPage({ locale, packages, homeData }: PackagesPageProps) 
         heading={locale === 'ka' ? homeData?.packages_heading_ka : homeData?.packages_heading_en}
         subtext={locale === 'ka' ? homeData?.packages_subtext_ka : homeData?.packages_subtext_en}
       />
+      {/* 
       <MembershipPlans
         locale={locale}
         memberships={packages?.memberships ?? []}
         heading={locale === 'ka' ? homeData?.membership_heading_ka : homeData?.membership_heading_en}
       />
+      */}
       <AddOns locale={locale} addons={packages?.addons ?? []} />
+      {/* 
       <SessionPacks locale={locale} sessions={packages?.sessions ?? []} />
+      */}
 
       <PackagesClosingCta locale={locale} />
     </main>
