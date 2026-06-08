@@ -15,7 +15,7 @@ export function DiagnosticTiers({ locale, packages, heading, subtext }: Diagnost
   const bookingHref = `${prefix}/booking`
   if (!packages.length) return null
 
-  const eyebrow = locale === 'ka' ? 'ერთჯერადი შეფასება' : 'One-time assessment'
+  const eyebrow = locale === 'ka' ? 'პაკეტები' : 'Packages'
   const defaultHeading = locale === 'ka' ? 'დიაგნოსტიკური პაკეტები' : 'Diagnostic Packages'
 
   return (
