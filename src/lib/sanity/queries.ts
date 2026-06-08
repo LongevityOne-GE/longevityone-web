@@ -158,6 +158,7 @@ export const packagesQuery = groq`
       _id, name_ka, name_en,
       tier, price, priceLabel_ka, priceLabel_en,
       tagline_ka, tagline_en,
+      goal_ka, goal_en,
       includes_ka, includes_en,
       isFeatured,
       cta_label_ka, cta_label_en,

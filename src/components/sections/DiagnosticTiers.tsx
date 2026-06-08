@@ -83,6 +83,7 @@ export function DiagnosticTiers({ locale, packages, heading, subtext }: Diagnost
                 price={pkg.price}
                 priceLabel={locale === 'ka' ? pkg.priceLabel_ka : pkg.priceLabel_en}
                 tagline={locale === 'ka' ? pkg.tagline_ka : pkg.tagline_en}
+                description={locale === 'ka' ? pkg.goal_ka : pkg.goal_en}
                 includes={locale === 'ka' ? pkg.includes_ka : pkg.includes_en}
                 ctaLabel={locale === 'ka' ? pkg.cta_label_ka : pkg.cta_label_en}
                 isFeatured={isMiddle}
