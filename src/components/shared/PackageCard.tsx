@@ -13,6 +13,7 @@ interface PackageCardProps {
   priceLabel?: string | null
   priceSuffix?: string | null
   tagline?: string | null
+  description?: string | null
   includes?: string[] | null
   ctaLabel?: string | null
   isFeatured?: boolean | null
@@ -31,6 +32,7 @@ export function PackageCard({
   priceLabel,
   priceSuffix,
   tagline,
+  description,
   includes,
   ctaLabel,
   isFeatured,
@@ -87,7 +89,7 @@ export function PackageCard({
           )}
 
           {featured && (
-            <div className="absolute inset-x-0 top-10 md:top-12 z-10 flex items-center justify-center gap-3">
+            <div className="absolute inset-x-0 top-16 md:top-20 z-10 flex items-center justify-center gap-3">
               <span
                 aria-hidden="true"
                 className="block h-px w-8 md:w-12 bg-gradient-to-r from-transparent to-burnt-orange/70"
@@ -117,6 +119,18 @@ export function PackageCard({
               } transition-colors duration-300`}
             >
               {tagline}
+            </p>
+          )}
+
+          {description && (
+            <p
+              className={`text-sm leading-relaxed mb-8 relative ${
+                isLight
+                  ? 'text-dark-brown/70 group-hover:text-bone-white/90'
+                  : 'text-bone-white/70 group-hover:text-dark-brown/90'
+              } transition-colors duration-300`}
+            >
+              {description}
             </p>
           )}
 
@@ -165,6 +179,9 @@ export function PackageCard({
                 triggerClassName={cn(
                   'w-full bg-burnt-orange text-bone-white',
                   'hover:opacity-80 backdrop-blur-none',
+                  // Center the label + arrow as a group (overrides the trigger's
+                  // default justify-between via tailwind-merge)
+                  'justify-center gap-3',
                   // Suppress default bg-bone-white/95 — burnt-orange always readable on both card states
                 )}
               />

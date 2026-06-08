@@ -289,6 +289,8 @@ export interface DiagnosticPackage {
   priceLabel_en: string | null
   tagline_ka: string | null
   tagline_en: string | null
+  goal_ka: string | null
+  goal_en: string | null
   includes_ka: string[] | null
   includes_en: string[] | null
   isFeatured: boolean | null
