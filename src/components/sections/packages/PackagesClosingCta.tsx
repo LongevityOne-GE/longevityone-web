@@ -24,7 +24,7 @@ export function PackagesClosingCta({ locale }: PackagesClosingCtaProps) {
   const secondary = locale === 'ka' ? 'დაგვიკავშირდით'        : 'Contact us'
 
   return (
-    <section className="relative isolate bg-dark-brown text-bone-white py-20 md:py-28 overflow-hidden">
+    <section className="relative isolate bg-bone-white border-t border-dark-brown/10 text-dark-brown py-20 md:py-28 overflow-hidden">
       <video
         autoPlay
         muted
@@ -32,21 +32,10 @@ export function PackagesClosingCta({ locale }: PackagesClosingCtaProps) {
         playsInline
         preload="metadata"
         aria-hidden="true"
-        className="absolute inset-0 h-full w-full object-cover pointer-events-none opacity-35"
+        className="absolute inset-0 h-full w-full object-cover pointer-events-none opacity-[0.08]"
       >
         <source src="/videos/longevity-helix-v2.mp4" type="video/mp4" />
       </video>
-      <div aria-hidden="true" className="absolute inset-0 bg-dark-brown/75 pointer-events-none" />
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 70% 55% at center, rgba(66,41,34,0.55) 0%, rgba(66,41,34,0) 70%)' }}
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-16 md:h-24 pointer-events-none"
-        style={{ background: 'linear-gradient(to bottom, rgba(66,41,34,0.6) 0%, rgba(66,41,34,0) 100%)' }}
-      />
       <div className="section-container relative z-10">
         <div className="max-w-2xl mx-auto text-center">
           <Reveal>
@@ -55,12 +44,12 @@ export function PackagesClosingCta({ locale }: PackagesClosingCtaProps) {
             </p>
           </Reveal>
           <Reveal delay={0.05}>
-            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight mb-6">
+            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight mb-6 text-dark-brown">
               {heading}
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="text-bone-white/70 text-[15px] md:text-base leading-[1.75] mb-10 max-w-xl mx-auto">
+            <p className="text-dark-brown/70 text-[15px] md:text-base leading-[1.75] mb-10 max-w-xl mx-auto">
               {body}
             </p>
           </Reveal>
@@ -71,12 +60,12 @@ export function PackagesClosingCta({ locale }: PackagesClosingCtaProps) {
                 locale={locale}
                 source="final_cta"
                 label={primary}
-                triggerClassName="bg-burnt-orange text-white border border-burnt-orange hover:bg-bone-white hover:text-dark-brown hover:border-bone-white w-full sm:w-auto backdrop-blur-none"
+                triggerClassName="bg-burnt-orange text-white border border-burnt-orange hover:bg-dark-brown hover:text-white hover:border-dark-brown w-full sm:w-auto backdrop-blur-none"
               />
               {/* SECONDARY — contact link */}
               <Link
                 href={`${prefix}/contact`}
-                className="text-[11px] uppercase tracking-[0.18em] font-medium text-bone-white/80 border-b border-bone-white/30 pb-px hover:text-bone-white hover:border-bone-white transition-colors duration-200"
+                className="text-[11px] uppercase tracking-[0.18em] font-medium text-dark-brown/70 border-b border-dark-brown/30 pb-px hover:text-dark-brown hover:border-dark-brown transition-colors duration-200"
               >
                 {secondary} →
               </Link>
