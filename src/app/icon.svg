@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <rect width="512" height="512" rx="112" fill="#E7DECC"/>
-  <svg x="106" y="96" width="300" height="320" viewBox="560 400 280 310" preserveAspectRatio="xMidYMid meet">
+  <svg x="44" y="21" width="424" height="470" viewBox="560 400 280 310" preserveAspectRatio="xMidYMid meet">
     <path
       transform="matrix(1,0,0,-1,745.461,636.388)"
       fill="#422922"
