@@ -15,7 +15,7 @@ export function ServicesPage({ locale, services }: ServicesPageProps) {
   const title = locale === 'ka' ? 'სერვისები' : 'Services'
   const subtitle =
     locale === 'ka'
-      ? 'სამ მეცნიერებაზე დაფუძნებული პროგრამა, რომელიც მორგებულია თქვენი ჯანმრთელობის მიზნებზე.'
+      ? 'სამი მეცნიერებაზე დაფუძნებული პროგრამა, რომელიც მორგებულია თქვენი ჯანმრთელობის მიზნებზე.'
       : 'Three science-backed programmes tailored to your health goals.'
 
   return (
