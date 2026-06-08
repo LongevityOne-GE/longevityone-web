@@ -18,7 +18,7 @@ interface PackagesPageProps {
 }
 
 export function PackagesPage({ locale, packages, homeData }: PackagesPageProps) {
-  const title = locale === 'ka' ? 'პაკეტები და ფასები' : 'Packages & Pricing'
+  const title = locale === 'ka' ? 'ჩვენი პროგრამები' : 'Our Programmes'
   const subtitle =
     locale === 'ka'
       ? 'მოირგეთ პროგრამა, რომელიც ზუსტად თქვენს მიზნებსა და გრაფიკს შეესაბამება.'
