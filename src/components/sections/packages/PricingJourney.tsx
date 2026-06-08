@@ -50,18 +50,9 @@ const STEPS: Step[] = [
 ]
 
 export function PricingJourney({ locale }: PricingJourneyProps) {
-  const eyebrow = locale === 'ka' ? 'როგორ მუშაობს' : 'How it works'
-
   return (
     <section className="bg-bone-white py-16 md:py-20 border-b border-dark-brown/10">
       <div className="section-container">
-        <Reveal>
-          <p className="text-[11px] uppercase tracking-[0.28em] text-burnt-orange font-bold mb-4 text-center">
-            {eyebrow}
-          </p>
-        </Reveal>
-        <div className="mb-12 md:mb-16" />
-
         <ol className="grid grid-cols-1 md:grid-cols-3 gap-px bg-dark-brown/10 border border-dark-brown/10 rounded-sm overflow-hidden">
           {STEPS.map((step, i) => (
             <Reveal key={step.no} delay={0.1 + i * 0.08} className="h-full">

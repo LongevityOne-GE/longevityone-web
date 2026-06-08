@@ -41,13 +41,6 @@ export function PackagesPage({ locale, packages, homeData }: PackagesPageProps) 
     <main className="flex flex-col">
       <PageHero locale={locale} title={title} subtitle={subtitle} />
 
-      {navItems.length > 1 && (
-        <PackagesNav
-          items={navItems}
-          ariaLabel={locale === 'ka' ? 'ფასების ნავიგაცია' : 'Pricing navigation'}
-        />
-      )}
-
       <PricingJourney locale={locale} />
 
       <DiagnosticTiers
