@@ -20,6 +20,8 @@ const securityHeaders = [
       // API calls: Supabase, Sanity, Cal, GA4, PostHog, Sentry tunnel, Turnstile
       "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.sanity.io https://cal.eu https://www.cal.eu https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://eu.posthog.com https://*.eu.posthog.com https://*.ingest.de.sentry.io https://challenges.cloudflare.com",
       "frame-src 'self' https://cal.eu https://www.cal.eu https://challenges.cloudflare.com",
+      // Cloudflare Turnstile + Sentry session replay spawn Web Workers from blob: URLs
+      "worker-src 'self' blob:",
       "frame-ancestors 'none'",
     ].join('; '),
   },
