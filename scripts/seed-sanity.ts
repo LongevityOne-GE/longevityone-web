@@ -510,7 +510,7 @@ const faqItemDocs = [
     _id: 'faq-results-timeline',
     question_ka: 'რამდენ ხანში ვნახავ შედეგებს?',
     question_en: 'How soon will I see results?',
-    answer_ka: textToPortableText('პირველი ცვლილებები შესაძლოა შეიმჩნეოს 2-4 კვირაში — ენერგიის დონის ზრდა, ძილის ხარისხის გაუმჯობესება. მნიშვნელოვანი ბიოლოგიური ცვლილებები, როგორიცაა ბიოლოგიური ასაკის შემცირება, საჭიროებს 3-6 თვეს.'),
+    answer_ka: textToPortableText('პირველი ცვლილებები შესაძლოა შეიმჩნეს 2-4 კვირაში — ენერგიის დონის ზრდა, ძილის ხარისხის გაუმჯობესება. მნიშვნელოვანი ბიოლოგიური ცვლილებები, როგორიცაა ბიოლოგიური ასაკის შემცირება, საჭიროებს 3-6 თვეს.'),
     answer_en: textToPortableText('Initial changes may be noticed within 2-4 weeks — increased energy levels, improved sleep quality. Significant biological changes, such as biological age reduction, require 3-6 months.'),
     category: 'results',
     order: 5,
