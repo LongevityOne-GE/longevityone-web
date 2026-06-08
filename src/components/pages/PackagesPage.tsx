@@ -21,8 +21,8 @@ export function PackagesPage({ locale, packages, homeData }: PackagesPageProps) 
   const title = locale === 'ka' ? 'ჩვენი პროგრამები' : 'Our Programmes'
   const subtitle =
     locale === 'ka'
-      ? 'მოირგეთ პროგრამა, რომელიც ზუსტად თქვენს მიზნებსა და გრაფიკს შეესაბამება.'
-      : 'Choose a programme tailored to your goals and schedule.'
+      ? 'კონკრეტულ მიზნებზე მორგებული სამედიცინო და ტექნოლოგიური პროტოკოლები თქვენი ცხოვრების ხარისხის გასაუმჯობესებლად.'
+      : 'Medical and technological protocols tailored to your specific goals, designed to enhance your quality of life.'
 
   const hasDiagnostic = (packages?.diagnostic?.length ?? 0) > 0
   const hasMemberships = (packages?.memberships?.length ?? 0) > 0
