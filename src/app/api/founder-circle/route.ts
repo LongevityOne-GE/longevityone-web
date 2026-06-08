@@ -115,14 +115,23 @@ export async function POST(req: NextRequest) {
   const safePhone = escapeHtml(phone)
   const safeEmail = email ? escapeHtml(email) : ''
 
+  const SOURCE_LABELS: Record<string, string> = {
+    founder_circle: 'Founder Circle 50',
+    packages:       'Packages page',
+    final_cta:      'Packages — closing CTA',
+  }
+  const sourceLabel = SOURCE_LABELS[source] ?? source
+  const emailSubject = `New lead — ${sourceLabel}`
+  const emailHeading = `New Lead: ${sourceLabel}`
+
   // Notification to clinic
   try {
     await resend.emails.send({
       from: 'Longevity One <noreply@longevityone.ge>',
       to: 'info@longevityone.ge',
-      subject: 'New Founder Circle 50 lead',
+      subject: emailSubject,
       html: `
-        <h2>New Founder Circle 50 Lead</h2>
+        <h2>${escapeHtml(emailHeading)}</h2>
         <p><strong>Name:</strong> ${safeName}</p>
         <p><strong>Phone:</strong> ${safePhone}</p>
         ${safeEmail ? `<p><strong>Email:</strong> ${safeEmail}</p>` : '<p><strong>Email:</strong> —</p>'}
@@ -130,11 +139,12 @@ export async function POST(req: NextRequest) {
         <p><strong>Source:</strong> ${escapeHtml(source)}</p>
       `,
       text:
-        `New Founder Circle 50 Lead\n\n` +
+        `${emailHeading}\n\n` +
         `Name: ${name}\n` +
         `Phone: ${phone}\n` +
         `Email: ${email ?? '—'}\n` +
-        `Language: ${lang}\n`,
+        `Language: ${lang}\n` +
+        `Source: ${source}\n`,
     })
   } catch (err) {
     console.error('[founder-circle] notification email failed', err)
