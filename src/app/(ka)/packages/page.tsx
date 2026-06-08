@@ -4,7 +4,7 @@ import type { PackagesData, HomePageData } from '@/lib/sanity/types'
 import { PackagesPage } from '@/components/pages/PackagesPage'
 
 export const metadata: Metadata = {
-  title: 'პაკეტები და ფასები',
+  title: 'ჩვენი პროგრამები',
   description: 'დიაგნოსტიკური, საწევრო და სესიების პაკეტები Longevity One-ში.',
 }
 
