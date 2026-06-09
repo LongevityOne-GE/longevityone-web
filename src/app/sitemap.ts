@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next'
+import { BOOKING_ENABLED } from '@/lib/features'
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.longevityone.ge'
@@ -21,7 +22,10 @@ const LOCALE_ROUTES: Array<{
   { path: '/blog', priority: 0.6, changeFrequency: 'weekly' },
   { path: '/faq', priority: 0.5, changeFrequency: 'monthly' },
   { path: '/contact', priority: 0.5, changeFrequency: 'yearly' },
-  { path: '/booking', priority: 0.7, changeFrequency: 'monthly' },
+  // /booking is included only while online booking is enabled.
+  ...(BOOKING_ENABLED
+    ? [{ path: '/booking', priority: 0.7, changeFrequency: 'monthly' as const }]
+    : []),
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {
