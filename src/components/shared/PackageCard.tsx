@@ -5,6 +5,7 @@ import type { Locale } from '@/lib/utils'
 import { cn } from '@/lib/utils'
 import { Reveal } from '@/components/animations/Reveal'
 import { LeadCaptureForm } from '@/components/sections/LeadCaptureForm'
+import { BOOKING_ENABLED, CALL_CTA_LABEL } from '@/lib/features'
 
 interface PackageCardProps {
   locale: Locale
@@ -185,20 +186,22 @@ export function PackageCard({
                   // Suppress default bg-bone-white/95 — burnt-orange always readable on both card states
                 )}
               />
-              <Link
-                href={bookingHref ?? '/booking'}
-                className={cn(
-                  'block text-center text-[11px] uppercase tracking-[0.12em] font-medium',
-                  'transition-colors duration-200 hover:text-burnt-orange',
-                  isLight
-                    ? 'text-dark-brown/50 group-hover:text-bone-white/50'
-                    : 'text-bone-white/50 group-hover:text-dark-brown/50'
-                )}
-              >
-                {bookDirectlyLabel}
-              </Link>
+              {BOOKING_ENABLED && (
+                <Link
+                  href={bookingHref ?? '/booking'}
+                  className={cn(
+                    'block text-center text-[11px] uppercase tracking-[0.12em] font-medium',
+                    'transition-colors duration-200 hover:text-burnt-orange',
+                    isLight
+                      ? 'text-dark-brown/50 group-hover:text-bone-white/50'
+                      : 'text-bone-white/50 group-hover:text-dark-brown/50'
+                  )}
+                >
+                  {bookDirectlyLabel}
+                </Link>
+              )}
             </div>
-          ) : (
+          ) : BOOKING_ENABLED ? (
             // Single CTA (existing behaviour — home page usage)
             <Link
               href={bookingHref ?? '#'}
@@ -211,6 +214,19 @@ export function PackageCard({
             >
               {ctaLabel || defaultCta}
             </Link>
+          ) : (
+            // Calls-only mode: single CTA becomes the "request a call" modal
+            <div className="relative z-10">
+              <LeadCaptureForm
+                locale={locale}
+                source="package"
+                label={CALL_CTA_LABEL[locale]}
+                triggerClassName={cn(
+                  'w-full justify-center gap-3 backdrop-blur-none',
+                  'bg-burnt-orange text-bone-white hover:opacity-80'
+                )}
+              />
+            </div>
           )}
         </div>
       </div>

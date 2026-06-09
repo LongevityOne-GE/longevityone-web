@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
+import { BOOKING_ENABLED, CALL_CTA_LABEL } from '@/lib/features'
+import { LeadCaptureForm } from '@/components/sections/LeadCaptureForm'
 
 // ─── Bilingual default labels ────────────────────────────────────────────────
 const COPY = {
@@ -60,6 +62,25 @@ export function BookingButton({
   const prefix = lang === 'en' ? '/en' : ''
   const href = `${prefix}/booking`
   const label = children ?? COPY[lang][variant]
+
+  // Calls-only mode: render the "request a call" modal styled like this button.
+  if (!BOOKING_ENABLED) {
+    return (
+      <LeadCaptureForm
+        locale={lang}
+        source="nav"
+        label={CALL_CTA_LABEL[lang]}
+        triggerClassName={cn(
+          'font-sans font-medium transition-all duration-300',
+          VARIANT_CLASSES[variant],
+          SIZE_CLASSES[size],
+          // Override the modal trigger's default justify-between
+          'justify-center gap-2',
+          className
+        )}
+      />
+    )
+  }
 
   return (
     <Link

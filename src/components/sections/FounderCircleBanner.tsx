@@ -4,6 +4,7 @@ import type { Locale } from '@/lib/utils'
 import { Reveal } from '@/components/animations/Reveal'
 import { GodVideo } from '@/components/shared/GodVideo'
 import { LeadCaptureForm } from '@/components/sections/LeadCaptureForm'
+import { BOOKING_ENABLED } from '@/lib/features'
 
 interface FounderCircleBannerProps {
   locale: Locale
@@ -102,17 +103,19 @@ export function FounderCircleBanner({ locale }: FounderCircleBannerProps) {
               <Reveal delay={0.3}>
                 <div className="mt-10 md:mt-12 flex flex-col gap-3">
                   <LeadCaptureForm locale={locale} label={t.cta} source="founder_circle" heading="Founder Circle 50" />
-                  <Link
-                    href={bookingHref}
-                    className="group flex items-center justify-between border border-bone-white/40 bg-dark-brown/10 backdrop-blur-sm px-6 py-5 text-[11px] font-bold uppercase tracking-[0.25em] text-bone-white transition-all duration-500 hover:border-bone-white hover:bg-bone-white/20 shadow-xl"
-                  >
-                    <span>{t.ctaSecondary}</span>
-                    <ArrowRight
-                      size={16}
-                      aria-hidden="true"
-                      className="transition-transform duration-500 group-hover:translate-x-1.5"
-                    />
-                  </Link>
+                  {BOOKING_ENABLED && (
+                    <Link
+                      href={bookingHref}
+                      className="group flex items-center justify-between border border-bone-white/40 bg-dark-brown/10 backdrop-blur-sm px-6 py-5 text-[11px] font-bold uppercase tracking-[0.25em] text-bone-white transition-all duration-500 hover:border-bone-white hover:bg-bone-white/20 shadow-xl"
+                    >
+                      <span>{t.ctaSecondary}</span>
+                      <ArrowRight
+                        size={16}
+                        aria-hidden="true"
+                        className="transition-transform duration-500 group-hover:translate-x-1.5"
+                      />
+                    </Link>
+                  )}
                 </div>
               </Reveal>
             </div>
