@@ -1,8 +1,11 @@
 import Link from 'next/link'
 import type { Locale } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 import type { HomePageData } from '@/lib/sanity/types'
 import { Reveal } from '@/components/animations/Reveal'
 import { GodVideo } from '@/components/shared/GodVideo'
+import { LeadCaptureForm } from '@/components/sections/LeadCaptureForm'
+import { BOOKING_ENABLED, CALL_CTA_LABEL } from '@/lib/features'
 
 interface CTAProps {
   locale: Locale
@@ -41,12 +44,25 @@ export function CTA({ locale, data }: CTAProps) {
 
         {button && (
           <Reveal delay={0.3}>
-            <Link
-              href={bookingHref}
-              className="btn-primary w-full sm:w-auto sm:min-w-[300px]"
-            >
-              {button} <span>→</span>
-            </Link>
+            {BOOKING_ENABLED ? (
+              <Link
+                href={bookingHref}
+                className="btn-primary w-full sm:w-auto sm:min-w-[300px]"
+              >
+                {button} <span>→</span>
+              </Link>
+            ) : (
+              <LeadCaptureForm
+                locale={locale}
+                source="cta"
+                label={CALL_CTA_LABEL[locale]}
+                triggerClassName={cn(
+                  'w-full sm:w-auto sm:min-w-[300px] justify-center gap-3',
+                  'bg-burnt-orange text-white hover:bg-bone-white hover:text-dark-brown px-8 py-4',
+                  'text-[11px] tracking-[0.15em]'
+                )}
+              />
+            )}
           </Reveal>
         )}
       </div>

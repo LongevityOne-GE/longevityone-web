@@ -1,7 +1,10 @@
 import Link from 'next/link'
 import type { Locale } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 import type { HomePageData } from '@/lib/sanity/types'
 import { GodVideo } from '@/components/shared/GodVideo'
+import { LeadCaptureForm } from '@/components/sections/LeadCaptureForm'
+import { BOOKING_ENABLED, CALL_CTA_LABEL } from '@/lib/features'
 
 interface HeroProps {
   locale: Locale
@@ -58,14 +61,26 @@ export function Hero({ locale, data }: HeroProps) {
           className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-slide-up"
           style={{ animationDelay: '1s', animationFillMode: 'both' }}
         >
-          {ctaPrimary && (
-            <Link
-              href={bookingHref}
-              className="btn-primary w-full sm:w-auto sm:min-w-[280px]"
-            >
-              {ctaPrimary} <span>→</span>
-            </Link>
-          )}
+          {ctaPrimary &&
+            (BOOKING_ENABLED ? (
+              <Link
+                href={bookingHref}
+                className="btn-primary w-full sm:w-auto sm:min-w-[280px]"
+              >
+                {ctaPrimary} <span>→</span>
+              </Link>
+            ) : (
+              <LeadCaptureForm
+                locale={locale}
+                source="hero"
+                label={CALL_CTA_LABEL[locale]}
+                triggerClassName={cn(
+                  'w-full sm:w-auto sm:min-w-[280px] justify-center gap-3',
+                  'bg-burnt-orange text-white hover:bg-dark-brown px-8 py-4',
+                  'text-[11px] tracking-[0.15em]'
+                )}
+              />
+            ))}
           {ctaSecondary && (
             <Link
               href={learnMoreHref}
