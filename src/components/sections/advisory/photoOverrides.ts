@@ -1,5 +1,4 @@
 import type { AdvisoryBoardMember } from '@/lib/sanity/types'
-import type { Locale } from '@/lib/utils'
 
 interface PhotoOverrideRule {
   slug?: string
@@ -35,18 +34,4 @@ export function getAdvisoryPhotoOverride(member: AdvisoryBoardMember): string | 
   })
 
   return rule?.src
-}
-
-export function overrideAdvisoryTitle(locale: Locale, title?: string | null): string | undefined {
-  if (!title) return title ?? undefined
-
-  if (locale === 'ka') {
-    return title.replace('საკონსულტაციო საბჭოს თავმჯდომარე', 'საკონსულტაციო საბჭოს წევრი')
-  }
-
-  if (locale === 'en') {
-    return title.replace('Chair of the Scientific Advisory Board', 'Member of the Scientific Advisory Board')
-  }
-
-  return title
 }
