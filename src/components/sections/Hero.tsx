@@ -22,7 +22,7 @@ export function Hero({ locale, data }: HeroProps) {
   const ctaSecondary = locale === 'ka' ? data?.hero_cta_secondary_ka : data?.hero_cta_secondary_en
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center pt-[calc(var(--fc50-bar,0px)+7rem)] pb-12 overflow-hidden">
       <GodVideo
         src="/videos/gods/webm/god-discobolus-original-boomerang.webm"
         opacity={0.15}
