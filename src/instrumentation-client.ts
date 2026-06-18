@@ -7,8 +7,17 @@ import * as Sentry from "@sentry/nextjs";
 Sentry.init({
   dsn: "https://cc6c932f47d17b0715c74504bf51d496@o4511303700709376.ingest.de.sentry.io/4511303701889104",
 
-  // Add optional integrations for additional features
-  integrations: [Sentry.replayIntegration()],
+  // Session Replay with strict privacy masking. This is a medical site, so all
+  // text, all form inputs, and all media are masked/blocked so no patient or
+  // contact data can be captured in a replay. These are set explicitly (not
+  // relying on library defaults) so the privacy posture cannot silently change.
+  integrations: [
+    Sentry.replayIntegration({
+      maskAllText: true,
+      maskAllInputs: true,
+      blockAllMedia: true,
+    }),
+  ],
 
   // Define how likely traces are sampled. Adjust this value in production, or use tracesSampler for greater control.
   tracesSampleRate: 1,
@@ -23,9 +32,10 @@ Sentry.init({
   // Define how likely Replay events are sampled when an error occurs.
   replaysOnErrorSampleRate: 1.0,
 
-  // Enable sending user PII (Personally Identifiable Information)
+  // Do NOT send default PII (IP address, request headers, user identifiers).
+  // Required for GDPR on a medical site. Keep this false.
   // https://docs.sentry.io/platforms/javascript/guides/nextjs/configuration/options/#sendDefaultPii
-  sendDefaultPii: true,
+  sendDefaultPii: false,
 });
 
 export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;
