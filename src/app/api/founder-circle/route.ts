@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { Resend } from 'resend'
 import { createClient } from '@supabase/supabase-js'
+import { createHash } from 'node:crypto'
 
 export const runtime = 'nodejs'
 
@@ -17,6 +18,8 @@ const schema = z.object({
     error: () => ({ message: 'Consent is required' }),
   }),
   source: z.string().min(1).max(100).default('founder_circle'),
+  // Honeypot: real users never fill this hidden field. Bots often do.
+  company: z.string().max(200).optional(),
 })
 
 // Best-effort in-memory rate limit: 5 submissions / 10 min / IP
@@ -28,6 +31,11 @@ function getClientIp(req: NextRequest): string {
   const fwd = req.headers.get('x-forwarded-for')
   if (fwd) return (fwd.split(',')[0] ?? '').trim() || 'unknown'
   return req.headers.get('x-real-ip') ?? 'unknown'
+}
+
+// One-way hash so logs can correlate abuse by IP without storing the raw IP.
+function hashIp(ip: string): string {
+  return createHash('sha256').update(ip).digest('hex').slice(0, 16)
 }
 
 function isRateLimited(ip: string): boolean {
@@ -81,7 +89,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid input' }, { status: 422 })
   }
 
-  const { name, phone, email, lang, source } = parsed.data
+  const { name, phone, email, lang, source, company } = parsed.data
+
+  // Honeypot tripped: respond with a generic success so bots do not learn.
+  if (company && company.trim().length > 0) {
+    console.warn('[founder-circle] honeypot triggered', { ipHash: hashIp(ip) })
+    return NextResponse.json({ success: true })
+  }
 
   // Insert lead using service role key (bypasses RLS — server only, never client-reachable)
   try {

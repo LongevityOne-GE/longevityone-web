@@ -1,0 +1,9 @@
+# Longevity One - security contact and disclosure policy (RFC 9116).
+# If you find a security issue, please report it to the contact below.
+# Note: the Expires date must be kept in the future - renew annually.
+
+Contact: mailto:info@longevityone.ge
+Contact: https://www.longevityone.ge/contact
+Expires: 2027-06-18T00:00:00.000Z
+Preferred-Languages: en, ka
+Canonical: https://www.longevityone.ge/.well-known/security.txt

@@ -82,6 +82,7 @@ export function LeadCaptureForm({
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
   const [consent, setConsent] = useState(false)
+  const [company, setCompany] = useState('') // honeypot: must stay empty
 
   const canSubmit =
     formState !== 'submitting' &&
@@ -94,6 +95,7 @@ export function LeadCaptureForm({
     setPhone('')
     setEmail('')
     setConsent(false)
+    setCompany('')
     setFormState('idle')
   }
 
@@ -118,6 +120,7 @@ export function LeadCaptureForm({
           lang:    locale,
           consent: true,
           source,
+          company,
         }),
       })
 
@@ -189,6 +192,22 @@ export function LeadCaptureForm({
               </p>
             ) : (
               <form onSubmit={handleSubmit} noValidate>
+                {/* Honeypot: hidden from real users, attractive to bots */}
+                <div
+                  aria-hidden="true"
+                  style={{ position: 'absolute', left: '-10000px', top: 'auto', width: '1px', height: '1px', overflow: 'hidden' }}
+                >
+                  <label>
+                    Company
+                    <input
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={company}
+                      onChange={(e) => setCompany(e.target.value)}
+                    />
+                  </label>
+                </div>
                 <div className="flex flex-col gap-7">
                   {/* Name */}
                   <div>
