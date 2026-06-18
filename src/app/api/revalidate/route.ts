@@ -1,5 +1,8 @@
 import { revalidatePath, updateTag } from 'next/cache'
 import { type NextRequest, NextResponse } from 'next/server'
+import { timingSafeEqual } from 'node:crypto'
+
+export const runtime = 'nodejs'
 
 interface SanityWebhookBody {
   _type?: string
@@ -15,10 +18,25 @@ const TAG_BY_TYPE: Record<string, string[]> = {
   teamPage: ['sanity'],
 }
 
-export async function POST(req: NextRequest) {
-  const secret = req.nextUrl.searchParams.get('secret')
+// Constant-time secret comparison to avoid leaking the secret via timing.
+function secretMatches(provided: string, expected: string): boolean {
+  const a = Buffer.from(provided)
+  const b = Buffer.from(expected)
+  if (a.length !== b.length) return false
+  return timingSafeEqual(a, b)
+}
 
-  if (secret !== process.env.SANITY_REVALIDATE_SECRET) {
+export async function POST(req: NextRequest) {
+  // Prefer the secret in a header (keeps it out of URLs and access logs); fall
+  // back to the ?secret= query param so the existing Sanity webhook keeps working.
+  const expected = process.env.SANITY_REVALIDATE_SECRET
+  const provided =
+    req.headers.get('x-revalidate-secret') ??
+    req.nextUrl.searchParams.get('secret') ??
+    ''
+
+  // Fail closed: if no secret is configured, reject every request.
+  if (!expected || !secretMatches(provided, expected)) {
     return NextResponse.json({ message: 'Invalid secret' }, { status: 401 })
   }
 

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { Resend } from 'resend'
+import { createHash } from 'node:crypto'
 
 export const runtime = 'nodejs'
 
@@ -64,6 +65,11 @@ function getClientIp(req: NextRequest): string {
   return req.headers.get('x-real-ip') ?? 'unknown'
 }
 
+// One-way hash so logs can correlate abuse by IP without storing the raw IP.
+function hashIp(ip: string): string {
+  return createHash('sha256').update(ip).digest('hex').slice(0, 16)
+}
+
 function isRateLimited(ip: string): boolean {
   const now = Date.now()
   const cutoff = now - RATE_LIMIT_WINDOW_MS
@@ -121,7 +127,7 @@ export async function POST(req: NextRequest) {
 
   // Honeypot tripped: respond with a generic success so bots don't learn.
   if (company && company.length > 0) {
-    console.warn('[contact] honeypot triggered', { ip })
+    console.warn('[contact] honeypot triggered', { ipHash: hashIp(ip) })
     return NextResponse.json({ ok: true })
   }
 
@@ -174,16 +180,14 @@ export async function POST(req: NextRequest) {
       html,
       text,
     })
-    // Structured audit log so submissions are recoverable from host logs
-    // even if the inbox loses the email.
+    // Privacy: never log PII (name/email/phone/message) or the raw IP to host
+    // logs. The staff inbox and the Resend dashboard are the system of record.
+    // Only non-identifying metadata is logged, for monitoring and abuse triage.
     console.info('[contact] submission', {
       ts: new Date().toISOString(),
-      ip,
+      ipHash: hashIp(ip),
       locale,
-      name,
-      email,
-      phone: phone ?? null,
-      message,
+      messageLength: message.length,
     })
   } catch (err) {
     console.error('[contact] resend send failed', err)
