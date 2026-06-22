@@ -63,6 +63,16 @@
   :lang(ka) {
     font-family: var(--font-mersad), var(--font-noto-georgian), ui-sans-serif, system-ui, sans-serif;
   }
+
+  /* Tailwind v4 Preflight no longer applies cursor:pointer to <button>.
+     Restore the expected affordance for all interactive controls so hovering
+     a button/toggle/summary shows the hand cursor. Disabled controls keep
+     their default (or not-allowed) cursor. */
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  summary {
+    cursor: pointer;
+  }
 }
 
 @keyframes reveal-anim-keyframe {
