@@ -1,5 +1,6 @@
 import type { Locale } from '@/lib/utils'
 import type { JourneyPage } from '@/lib/sanity/types'
+import { renderMultiline } from '@/lib/text'
 
 interface JourneyHeroProps {
   locale: Locale
@@ -47,8 +48,9 @@ export function JourneyHero({ locale, page }: JourneyHeroProps) {
         <h1
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] mb-6 text-dark-brown animate-hero-in"
           style={{ animationDelay: '80ms' }}
-          dangerouslySetInnerHTML={{ __html: (heading || '').replace(/\n/g, '<br />') }}
-        />
+        >
+          {renderMultiline(heading || '')}
+        </h1>
 
         <div
           className="mt-10 flex items-center justify-center gap-4 animate-hero-in"

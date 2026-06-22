@@ -3,6 +3,7 @@
 import type { Locale } from '@/lib/utils'
 import type { AboutWhyPillar } from '@/lib/sanity/types'
 import { Reveal } from '@/components/animations/Reveal'
+import { renderMultiline } from '@/lib/text'
 
 interface AboutIntroProps {
   locale: Locale
@@ -41,8 +42,9 @@ export function AboutIntro({ locale, title, subtitle, pillars }: AboutIntroProps
           <Reveal delay={0.05}>
             <h1
               className="font-black text-dark-brown leading-[1.08] text-4xl sm:text-5xl md:text-6xl"
-              dangerouslySetInnerHTML={{ __html: title.replace(/\n/g, '<br />') }}
-            />
+            >
+              {renderMultiline(title)}
+            </h1>
           </Reveal>
           {subtitle && (
             <Reveal delay={0.12}>

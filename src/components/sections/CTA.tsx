@@ -6,6 +6,7 @@ import { Reveal } from '@/components/animations/Reveal'
 import { GodVideo } from '@/components/shared/GodVideo'
 import { LeadCaptureForm } from '@/components/sections/LeadCaptureForm'
 import { BOOKING_ENABLED, CALL_CTA_LABEL } from '@/lib/features'
+import { renderMultiline } from '@/lib/text'
 
 interface CTAProps {
   locale: Locale
@@ -29,8 +30,9 @@ export function CTA({ locale, data }: CTAProps) {
           <Reveal>
             <h2
               className="text-3xl sm:text-5xl md:text-6xl font-black mb-6 md:mb-8 leading-none"
-              dangerouslySetInnerHTML={{ __html: heading.replace(/\n/g, '<br />') }}
-            />
+            >
+              {renderMultiline(heading)}
+            </h2>
           </Reveal>
         )}
 

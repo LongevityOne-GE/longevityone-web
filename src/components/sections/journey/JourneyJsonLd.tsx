@@ -1,5 +1,6 @@
 import type { Locale } from '@/lib/utils'
 import type { JourneyData, JourneyStage } from '@/lib/sanity/types'
+import { safeJsonLd } from '@/lib/text'
 
 interface JourneyJsonLdProps {
   locale: Locale
@@ -88,9 +89,9 @@ export function JourneyJsonLd({ locale, data, baseUrl }: JourneyJsonLdProps) {
   return (
     <script
       type="application/ld+json"
-      // JSON.stringify here is safe - values come from Sanity-stored strings
-      // serialised by the framework; no HTML or script content reaches it.
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }}
+      // safeJsonLd escapes "<" as "\u003c" so a CMS value containing
+      // "</script>" cannot break out of this script element.
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(ld) }}
     />
   )
 }

@@ -5,6 +5,7 @@ import type { HomePageData } from '@/lib/sanity/types'
 import { GodVideo } from '@/components/shared/GodVideo'
 import { LeadCaptureForm } from '@/components/sections/LeadCaptureForm'
 import { BOOKING_ENABLED, CALL_CTA_LABEL } from '@/lib/features'
+import { renderMultiline } from '@/lib/text'
 
 interface HeroProps {
   locale: Locale
@@ -35,8 +36,9 @@ export function Hero({ locale, data }: HeroProps) {
           <h1
             className="text-4xl sm:text-6xl md:text-8xl font-black leading-[1.05] mb-6 md:mb-8 animate-slide-up"
             style={{ animationDelay: '0.2s', animationFillMode: 'both' }}
-            dangerouslySetInnerHTML={{ __html: h1.replace(/\n/g, '<br />') }}
-          />
+          >
+            {renderMultiline(h1)}
+          </h1>
         )}
 
         {h2 && (

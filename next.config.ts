@@ -7,6 +7,8 @@ const securityHeaders = [
   { key: 'X-Content-Type-Options', value: 'nosniff' },
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
   { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+  // HSTS at the app level for defense in depth (Cloudflare also sets it at the edge).
+  { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains' },
   {
     key: 'Content-Security-Policy',
     value: [
@@ -22,6 +24,10 @@ const securityHeaders = [
       "frame-src 'self' https://cal.eu https://www.cal.eu https://challenges.cloudflare.com",
       // Cloudflare Turnstile + Sentry session replay spawn Web Workers from blob: URLs
       "worker-src 'self' blob:",
+      // Lock down legacy injection vectors not covered by default-src.
+      "base-uri 'self'",
+      "object-src 'none'",
+      "form-action 'self'",
       "frame-ancestors 'none'",
     ].join('; '),
   },
