@@ -59,7 +59,7 @@ export function Footer({ locale, siteSettings }: FooterProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Follow us on Facebook"
-                className="flex items-center justify-center w-9 h-9 rounded-full border border-dark-brown/15 text-dark-brown/60 hover:border-burnt-orange hover:text-burnt-orange hover:scale-110 transition-all duration-200"
+                className="flex items-center justify-center w-10 h-10 rounded-full border border-dark-brown/15 text-dark-brown/60 hover:border-burnt-orange hover:text-burnt-orange hover:scale-110 transition-all duration-200"
               >
                 <FacebookIcon />
               </a>
@@ -70,7 +70,7 @@ export function Footer({ locale, siteSettings }: FooterProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Follow us on Instagram"
-                className="flex items-center justify-center w-9 h-9 rounded-full border border-dark-brown/15 text-dark-brown/60 hover:border-burnt-orange hover:text-burnt-orange hover:scale-110 transition-all duration-200"
+                className="flex items-center justify-center w-10 h-10 rounded-full border border-dark-brown/15 text-dark-brown/60 hover:border-burnt-orange hover:text-burnt-orange hover:scale-110 transition-all duration-200"
               >
                 <InstagramIcon />
               </a>
@@ -81,7 +81,7 @@ export function Footer({ locale, siteSettings }: FooterProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Follow us on LinkedIn"
-                className="flex items-center justify-center w-9 h-9 rounded-full border border-dark-brown/15 text-dark-brown/60 hover:border-burnt-orange hover:text-burnt-orange hover:scale-110 transition-all duration-200"
+                className="flex items-center justify-center w-10 h-10 rounded-full border border-dark-brown/15 text-dark-brown/60 hover:border-burnt-orange hover:text-burnt-orange hover:scale-110 transition-all duration-200"
               >
                 <LinkedinIcon />
               </a>
