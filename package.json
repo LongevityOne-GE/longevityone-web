@@ -32,7 +32,7 @@
     "react-dom": "19.2.4",
     "react-hook-form": "^7.74.0",
     "resend": "^6.12.2",
-    "sanity": "^5.22.0",
+    "sanity": "^6.1.0",
     "schema-dts": "^2.0.0",
     "styled-components": "^6.4.1",
     "tailwind-merge": "^3.5.0",
