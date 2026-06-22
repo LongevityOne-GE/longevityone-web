@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { sanityClient, corporatePageQuery } from '@/lib/sanity'
 import type { CorporatePage as CorporatePageData } from '@/lib/sanity/types'
 import { CorporatePage } from '@/components/pages/CorporatePage'
+import { buildMetadata } from '@/lib/seo/metadata'
 
 async function fetchCorporate(): Promise<CorporatePageData | null> {
   try {
@@ -18,10 +19,12 @@ async function fetchCorporate(): Promise<CorporatePageData | null> {
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await fetchCorporate()
-  return {
+  return buildMetadata({
+    locale: 'ka',
+    path: '/corporate',
     title: data?.seo_title_ka || 'კორპორატიული ჯანმრთელობა',
-    description: data?.seo_description_ka || undefined,
-  }
+    description: data?.seo_description_ka,
+  })
 }
 
 export default async function KaCorporatePage() {

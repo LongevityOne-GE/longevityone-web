@@ -3,6 +3,9 @@ import { notFound } from 'next/navigation'
 import { sanityClient, blogPostBySlugQuery, blogPostSlugsQuery, homePageQuery } from '@/lib/sanity'
 import type { BlogPostDetail, HomePageData } from '@/lib/sanity/types'
 import { BlogPostPage } from '@/components/pages/BlogPostPage'
+import { buildMetadata, toOgImage } from '@/lib/seo/metadata'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { articleSchema, breadcrumbSchema } from '@/lib/seo/schema'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -24,10 +27,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     { slug },
     { next: { tags: ['sanity'] } }
   )
-  return {
-    title: post?.seoTitle_ka || post?.title_ka || undefined,
-    description: post?.seoDescription_ka || post?.excerpt_ka || undefined,
-  }
+  return buildMetadata({
+    locale: 'ka',
+    path: `/blog/${slug}`,
+    title: post?.seoTitle_ka || post?.title_ka,
+    description: post?.seoDescription_ka || post?.excerpt_ka,
+    type: 'article',
+    image: toOgImage(post?.coverImage?.asset?.url),
+    publishedTime: post?.publishedAt,
+  })
 }
 
 export default async function KaBlogPostPage({ params }: Props) {
@@ -37,5 +45,22 @@ export default async function KaBlogPostPage({ params }: Props) {
     sanityClient.fetch<HomePageData>(homePageQuery, {}, { next: { tags: ['sanity'] } }),
   ])
   if (!post) notFound()
-  return <BlogPostPage locale="ka" post={post} ctaData={ctaData} />
+  return (
+    <>
+      <JsonLd
+        data={[
+          articleSchema(post, 'ka'),
+          breadcrumbSchema(
+            [
+              { name: 'მთავარი', path: '/' },
+              { name: 'სტატიები', path: '/blog' },
+              { name: post.title_ka || '', path: `/blog/${slug}` },
+            ],
+            'ka',
+          ),
+        ]}
+      />
+      <BlogPostPage locale="ka" post={post} ctaData={ctaData} />
+    </>
+  )
 }

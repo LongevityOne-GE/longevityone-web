@@ -6,8 +6,7 @@ import type { PortableTextBlock } from '@portabletext/types'
 import { sanityClient, legalPageBySlugQuery } from '@/lib/sanity'
 import type { LegalPage } from '@/lib/sanity/types'
 import type { Locale } from '@/lib/utils'
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.longevityone.ge'
+import { buildMetadata } from '@/lib/seo/metadata'
 
 type LegalSlug = 'privacy' | 'terms' | 'cookies' | 'medical-disclaimer'
 
@@ -122,21 +121,12 @@ export async function generateLegalMetadata({
   )
   if (!page) return {}
 
-  const title = lang === 'ka' ? page.title_ka : page.title_en
-  const description = lang === 'ka' ? page.seoDescription_ka : page.seoDescription_en
-  const path = `/legal/${slug}`
-
-  return {
-    title: title ? `${title} | Longevity One` : undefined,
-    description: description ?? undefined,
-    alternates: {
-      canonical: `${SITE_URL}${lang === 'en' ? '/en' : ''}${path}`,
-      languages: {
-        ka: `${SITE_URL}${path}`,
-        en: `${SITE_URL}/en${path}`,
-      },
-    },
-  }
+  return buildMetadata({
+    locale: lang,
+    path: `/legal/${slug}`,
+    title: lang === 'ka' ? page.title_ka : page.title_en,
+    description: lang === 'ka' ? page.seoDescription_ka : page.seoDescription_en,
+  })
 }
 
 /**

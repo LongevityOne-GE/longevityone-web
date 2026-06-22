@@ -109,6 +109,14 @@ export const blogPost = defineType({
       title: 'Author',
       type: 'reference',
       to: [{ type: 'teamMember' }],
+      description: 'Authoring physician (YMYL E-E-A-T → BlogPosting author Person).',
+    }),
+    defineField({
+      name: 'medicalReviewer',
+      title: 'Medical Reviewer',
+      type: 'reference',
+      to: [{ type: 'teamMember' }],
+      description: 'Physician who reviewed this health content (YMYL E-E-A-T → reviewedBy).',
     }),
     defineField({
       name: 'publishedAt',

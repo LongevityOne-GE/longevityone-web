@@ -9,10 +9,9 @@ import type { AdvisoryBoardPage, AdvisoryBoardMember, BoardRole } from '@/lib/sa
 import { AdvisoryHero } from '@/components/sections/advisory/AdvisoryHero'
 import { AdvisoryGrid } from '@/components/sections/advisory/AdvisoryGrid'
 import { AdvisoryJsonLd } from '@/components/sections/advisory/AdvisoryJsonLd'
+import { buildMetadata, SITE_URL } from '@/lib/seo/metadata'
 
 export const revalidate = 3600
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.longevityone.ge'
 
 /** Sort order: chair (0) → vice-chair (1) → member (2), then by order, then alphabetical. */
 const ROLE_RANK: Record<BoardRole, number> = { chair: 0, 'vice-chair': 1, member: 2 }
@@ -36,27 +35,12 @@ export async function generateMetadata(): Promise<Metadata> {
     { next: { tags: ['advisoryBoardPage'] } },
   )
 
-  const title = page?.seoTitle_ka || page?.heading_ka || 'სამეცნიერო საკონსულტაციო საბჭო'
-  const description = page?.seoDescription_ka || undefined
-
-  return {
-    title,
-    description,
-    alternates: {
-      canonical: `${SITE_URL}/about/advisory-board`,
-      languages: {
-        ka: `${SITE_URL}/about/advisory-board`,
-        en: `${SITE_URL}/en/about/advisory-board`,
-      },
-    },
-    openGraph: {
-      title: title ?? undefined,
-      description,
-      locale: 'ka_GE',
-      type: 'website',
-      url: `${SITE_URL}/about/advisory-board`,
-    },
-  }
+  return buildMetadata({
+    locale: 'ka',
+    path: '/about/advisory-board',
+    title: page?.seoTitle_ka || page?.heading_ka || 'სამეცნიერო საკონსულტაციო საბჭო',
+    description: page?.seoDescription_ka,
+  })
 }
 
 export default async function KaAdvisoryBoardPage() {

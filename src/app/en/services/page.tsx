@@ -2,11 +2,16 @@ import type { Metadata } from 'next'
 import { sanityClient, servicesFullQuery } from '@/lib/sanity'
 import type { ServiceDetail } from '@/lib/sanity/types'
 import { ServicesPage } from '@/components/pages/ServicesPage'
+import { buildMetadata } from '@/lib/seo/metadata'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { servicesSchema } from '@/lib/seo/schema'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
+  locale: 'en',
+  path: '/services',
   title: 'Services',
   description: 'Three science-backed preventive medicine programmes - Longevity, Metabolic Health, and Elite Performance.',
-}
+})
 
 export default async function EnServicesIndexPage() {
   const services = await sanityClient.fetch<ServiceDetail[]>(
@@ -15,5 +20,16 @@ export default async function EnServicesIndexPage() {
     { next: { tags: ['sanity'] } }
   )
 
-  return <ServicesPage locale="en" services={services ?? []} />
+  const serviceLd = (services ?? []).map((s) => ({
+    name: s.title_en || '',
+    description: s.summary_en || s.intro_en,
+    path: `/services#${s.slug}`,
+  }))
+
+  return (
+    <>
+      {serviceLd.length > 0 && <JsonLd data={servicesSchema(serviceLd, 'en')} />}
+      <ServicesPage locale="en" services={services ?? []} />
+    </>
+  )
 }

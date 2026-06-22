@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { localizedTechName, type Locale } from '@/lib/utils'
 import type { BlogPostDetail } from '@/lib/sanity/types'
 import { Reveal } from '@/components/animations/Reveal'
@@ -36,11 +37,14 @@ export function PostBody({ locale, post }: PostBodyProps) {
           <div className="lg:col-span-2">
             {post.coverImage?.asset?.url && (
               <Reveal>
-                <div className="aspect-[16/9] rounded-lg overflow-hidden mb-12">
-                  <img
+                <div className="relative aspect-[16/9] rounded-lg overflow-hidden mb-12">
+                  <Image
                     src={post.coverImage.asset.url}
                     alt={locale === 'ka' ? post.title_ka || '' : post.title_en || ''}
-                    className="w-full h-full object-cover"
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 66vw"
+                    className="object-cover"
                   />
                 </div>
               </Reveal>
@@ -63,9 +67,11 @@ export function PostBody({ locale, post }: PostBodyProps) {
                   </h4>
                   <div className="flex items-center gap-3">
                     {post.author?.photo?.asset?.url && (
-                      <img
+                      <Image
                         src={post.author.photo.asset.url}
                         alt={authorName}
+                        width={40}
+                        height={40}
                         className="w-10 h-10 rounded-full object-cover"
                       />
                     )}
