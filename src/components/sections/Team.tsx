@@ -4,6 +4,7 @@ import Link from 'next/link'
 import type { Locale } from '@/lib/utils'
 import type { HomePageData, HomeFounder } from '@/lib/sanity/types'
 import { Reveal } from '@/components/animations/Reveal'
+import { GodVideo } from '@/components/shared/GodVideo'
 
 interface TeamProps {
   locale: Locale
@@ -26,16 +27,7 @@ export function Team({ locale, data }: TeamProps) {
   return (
     <section className="py-24 md:py-32 bg-dark-brown text-bone-white relative overflow-hidden isolate">
       {/* Team background video */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-      >
-        <source src="/videos/team-bg.mp4" type="video/mp4" />
-      </video>
+      <GodVideo src="/videos/team-bg.mp4" />
 
       <div className="section-container relative z-10">
         <div className="max-w-2xl mx-auto text-center">

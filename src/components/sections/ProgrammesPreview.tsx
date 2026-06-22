@@ -2,6 +2,7 @@ import Link from 'next/link'
 import type { Locale } from '@/lib/utils'
 import type { HomePackage, HomePageData } from '@/lib/sanity/types'
 import { Reveal } from '@/components/animations/Reveal'
+import { GodVideo } from '@/components/shared/GodVideo'
 
 interface ProgrammesPreviewProps {
   locale: Locale
@@ -32,15 +33,7 @@ export function ProgrammesPreview({ locale }: ProgrammesPreviewProps) {
         className="absolute inset-0 pointer-events-none"
         style={{ filter: 'blur(6px) saturate(1.3)', transform: 'scale(1.06)' }}
       >
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-100"
-        >
-          <source src="/videos/amphora-pour-v2.mp4" type="video/mp4" />
-        </video>
+        <GodVideo src="/videos/amphora-pour-v2.mp4" />
       </div>
 
       {/* Behind-text scrim - concentrated wash directly under the headline */}

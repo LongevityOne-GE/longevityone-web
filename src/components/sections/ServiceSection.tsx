@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { localizedTechName, type Locale } from '@/lib/utils'
 import type { ServiceDetail } from '@/lib/sanity/types'
 import { Reveal } from '@/components/animations/Reveal'
@@ -96,10 +97,12 @@ function ServiceImage({ src, alt, slug, icon, locale }: { src: string; alt: stri
 
   return (
     <div className="relative w-full aspect-[4/5] overflow-hidden rounded-sm shadow-xl group">
-      <img
+      <Image
         src={currentSrc}
         alt={alt}
-        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+        fill
+        sizes="(max-width: 768px) 100vw, 50vw"
+        className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
         onError={handleError}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-dark-brown/40 via-dark-brown/10 to-transparent pointer-events-none" />
@@ -239,9 +242,11 @@ export function ServiceSection({ locale, service, index }: ServiceSectionProps) 
                       return (
                       <li key={tech.slug} className="flex items-start gap-3">
                         {tech.heroImage?.asset?.url ? (
-                          <img
+                          <Image
                             src={tech.heroImage.asset.url}
                             alt={techDisplay}
+                            width={40}
+                            height={40}
                             className="w-10 h-10 rounded-sm object-cover flex-shrink-0"
                           />
                         ) : (

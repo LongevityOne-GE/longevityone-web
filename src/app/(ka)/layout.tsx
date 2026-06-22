@@ -5,6 +5,8 @@ import { Nav } from '@/components/layout/Nav'
 import { Footer } from '@/components/layout/Footer'
 import { CookieBanner } from '@/components/cookies/CookieBanner'
 import { Analytics } from '@/components/analytics/Analytics'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { organizationSchema, websiteSchema } from '@/lib/seo/schema'
 
 export default async function KaLayout({ children }: { children: React.ReactNode }) {
   const siteSettings = await sanityClient.fetch<SiteSettings>(
@@ -22,6 +24,7 @@ export default async function KaLayout({ children }: { children: React.ReactNode
 
   return (
     <>
+      <JsonLd data={[organizationSchema(siteSettings, 'ka'), websiteSchema('ka')]} />
       <div className="flex flex-col min-h-screen">
         <AnnouncementBar locale="ka" />
         <Nav locale="ka" siteSettings={siteSettings} />
