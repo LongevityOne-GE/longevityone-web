@@ -35,7 +35,7 @@ export function Hero({ locale, data }: HeroProps) {
         {h1 && (
           <h1
             className="text-4xl sm:text-6xl md:text-8xl font-black leading-[1.05] mb-6 md:mb-8 animate-slide-up"
-            style={{ animationDelay: '0.2s', animationFillMode: 'both' }}
+            style={{ animationDelay: '0.1s', animationFillMode: 'both' }}
           >
             {renderMultiline(h1)}
           </h1>
@@ -44,7 +44,7 @@ export function Hero({ locale, data }: HeroProps) {
         {h2 && (
           <p
             className="text-lg sm:text-2xl font-light mb-6 md:mb-8 italic animate-fade-in"
-            style={{ animationDelay: '0.6s', animationFillMode: 'both' }}
+            style={{ animationDelay: '0.25s', animationFillMode: 'both' }}
           >
             {h2}
           </p>
@@ -53,7 +53,7 @@ export function Hero({ locale, data }: HeroProps) {
         {body && (
           <div
             className="max-w-2xl mx-auto space-y-6 text-dark-brown/90 leading-relaxed mb-12 animate-fade-in"
-            style={{ animationDelay: '0.8s', animationFillMode: 'both' }}
+            style={{ animationDelay: '0.35s', animationFillMode: 'both' }}
           >
             <p className="text-xl">{body}</p>
           </div>
@@ -61,7 +61,7 @@ export function Hero({ locale, data }: HeroProps) {
 
         <div
           className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-slide-up"
-          style={{ animationDelay: '1s', animationFillMode: 'both' }}
+          style={{ animationDelay: '0.5s', animationFillMode: 'both' }}
         >
           {ctaPrimary &&
             (BOOKING_ENABLED ? (

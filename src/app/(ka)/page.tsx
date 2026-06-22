@@ -15,7 +15,28 @@ import type {
   HomeMembership,
   HomeFounder,
 } from '@/lib/sanity/types'
+import type { Metadata } from 'next'
 import { HomePage } from '@/components/pages/HomePage'
+import { buildMetadata } from '@/lib/seo/metadata'
+
+const KA_DEFAULT_TITLE = 'Longevity One - პრევენციული მედიცინის ცენტრი, თბილისი'
+const KA_DEFAULT_DESC =
+  'Longevity One - პრევენციული მედიცინის ცენტრი თბილისში. მოწინავე დიაგნოსტიკა, პერსონალიზებული პროგრამები, სამეცნიერო სიზუსტე.'
+
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await sanityClient.fetch<HomePageData>(
+    homePageQuery,
+    {},
+    { next: { tags: ['sanity'] } },
+  )
+  return buildMetadata({
+    locale: 'ka',
+    path: '/',
+    title: data?.seo_title_ka || KA_DEFAULT_TITLE,
+    description: data?.seo_description_ka || KA_DEFAULT_DESC,
+    titleAbsolute: true,
+  })
+}
 
 export default async function KaHomePage() {
   const [homePage, services, technologies, packages, memberships, founders] = await Promise.all([

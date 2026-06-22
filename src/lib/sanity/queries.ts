@@ -294,6 +294,8 @@ export const teamPageQuery = groq`
   {
     "page": *[_type == "teamPage"][0] {
       h1_ka, h1_en,
+      seo_title_ka, seo_title_en,
+      seo_description_ka, seo_description_en,
       founders_heading_ka, founders_heading_en,
       founders_subtext_ka, founders_subtext_en,
       founders_group_photo { asset->{ url, metadata { lqip, dimensions } } },
@@ -341,14 +343,15 @@ export const blogIndexQuery = groq`
 
 export const blogPostBySlugQuery = groq`
   *[_type == "blogPost" && slug.current == $slug][0] {
-    _id, "slug": slug.current,
+    _id, _updatedAt, "slug": slug.current,
     title_ka, title_en,
     excerpt_ka, excerpt_en,
     category_ka, category_en,
     body_ka, body_en,
     coverImage { asset->{ url, metadata { lqip, dimensions } } },
     publishedAt,
-    author->{ name, name_en, photo { asset->{ url } } },
+    author->{ name, name_en, role_ka, role_en, specialty_ka, specialty_en, credentials, photo { asset->{ url } } },
+    medicalReviewer->{ name, name_en, role_ka, role_en, specialty_ka, specialty_en, credentials },
     relatedTechnologies[]-> {
       name, name_ka, name_en, "anchor": slug.current,
       tagline_ka, tagline_en,
@@ -362,6 +365,13 @@ export const blogPostBySlugQuery = groq`
 export const blogPostSlugsQuery = groq`
   *[_type == "blogPost" && defined(slug.current)] {
     "slug": slug.current
+  }
+`
+
+// Sitemap: published blog posts with lastmod (drafts excluded via client perspective)
+export const blogSitemapQuery = groq`
+  *[_type == "blogPost" && defined(slug.current)] | order(publishedAt desc) {
+    "slug": slug.current, _updatedAt, publishedAt
   }
 `
 
@@ -395,6 +405,13 @@ export const legalPageByTypeQuery = groq`
 
 // Alias — semantically clearer for the new LegalPageLayout.
 export const legalPageBySlugQuery = legalPageByTypeQuery
+
+// Sitemap: legal pages with lastmod (drafts excluded via client perspective)
+export const legalSitemapQuery = groq`
+  *[_type == "legalPage" && defined(pageType)] {
+    pageType, _updatedAt
+  }
+`
 
 // ─── Homepage: services + technologies teaser (fetched alongside homePageQuery)
 export const homeServicesQuery = groq`

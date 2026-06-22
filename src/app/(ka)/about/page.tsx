@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { sanityClient, aboutPageQuery, aboutTeamQuery } from '@/lib/sanity'
 import type { AboutPage as AboutPageData, TeamMember } from '@/lib/sanity/types'
 import { AboutPage } from '@/components/pages/AboutPage'
+import { buildMetadata } from '@/lib/seo/metadata'
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await sanityClient.fetch<AboutPageData>(
@@ -10,10 +11,12 @@ export async function generateMetadata(): Promise<Metadata> {
     { next: { tags: ['sanity'] } }
   )
 
-  return {
+  return buildMetadata({
+    locale: 'ka',
+    path: '/about',
     title: data?.seo_title_ka || 'ჩვენს შესახებ',
-    description: data?.seo_description_ka || undefined,
-  }
+    description: data?.seo_description_ka,
+  })
 }
 
 export default async function KaAboutPage() {

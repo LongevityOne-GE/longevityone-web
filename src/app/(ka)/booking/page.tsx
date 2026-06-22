@@ -2,10 +2,16 @@ import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import { BookingPage } from '@/components/pages/BookingPage'
 import { BOOKING_ENABLED } from '@/lib/features'
+import { buildMetadata } from '@/lib/seo/metadata'
 
 export const metadata: Metadata = {
-  title: 'დაჯავშნეთ ვიზიტი',
-  description: 'დაჯავშნეთ ვიზიტი Longevity One-ს პრევენციული მედიცინის ცენტრში. აირჩიეთ თქვენთვის სასურველი დრო.',
+  ...buildMetadata({
+    locale: 'ka',
+    path: '/booking',
+    title: 'დაჯავშნეთ ვიზიტი',
+    description:
+      'დაჯავშნეთ ვიზიტი Longevity One-ს პრევენციული მედიცინის ცენტრში. აირჩიეთ თქვენთვის სასურველი დრო.',
+  }),
   // Booking is temporarily disabled — keep this page out of the index.
   ...(BOOKING_ENABLED ? {} : { robots: { index: false, follow: false } }),
 }
