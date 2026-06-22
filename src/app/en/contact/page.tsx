@@ -7,7 +7,9 @@ import { buildMetadata } from '@/lib/seo/metadata'
 export const metadata: Metadata = buildMetadata({
   locale: 'en',
   path: '/contact',
-  title: 'Contact',
+  title: 'Contact: Tbilisi, 4a Tamarashvili St',
+  description:
+    'Contact Longevity One. Address: 4a Tamarashvili St, Tbilisi · Tel: +995 511 70 88 88 · Daily 09:00–21:00.',
 })
 
 export default async function EnContactPage() {

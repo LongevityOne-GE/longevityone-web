@@ -7,8 +7,9 @@ import { buildMetadata } from '@/lib/seo/metadata'
 export const metadata: Metadata = buildMetadata({
   locale: 'ka',
   path: '/packages',
-  title: 'ჩვენი პროგრამები',
-  description: 'დიაგნოსტიკური, საწევრო და სესიების პაკეტები Longevity One-ში.',
+  title: 'პროგრამები და ფასები — სრული გამოკვლევა',
+  description:
+    'დღეგრძელობის პროგრამები იწყება 550 ლარიდან. საბაზისო ბიოლოგიური და მეტაბოლური შეფასებიდან სრულ Concierge მომსახურებამდე.',
 })
 
 export default async function KaPackagesPage() {

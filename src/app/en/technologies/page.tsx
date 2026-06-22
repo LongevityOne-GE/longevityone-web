@@ -7,9 +7,9 @@ import { buildMetadata } from '@/lib/seo/metadata'
 export const metadata: Metadata = buildMetadata({
   locale: 'en',
   path: '/technologies',
-  title: 'Science & Technology',
+  title: 'Diagnostics: Biological Age, VO₂ Max, Microbiome',
   description:
-    'Advanced diagnostic technologies - PNOE, IHHT, Red Light Therapy, TrueDiagnostic, Enbiosis.',
+    "We measure your biological baseline with the world's leading technologies: PNOĒ metabolism, TrueDiagnostic biological age, and Enbiosis microbiome.",
 })
 
 export default async function EnTechnologiesPage() {
