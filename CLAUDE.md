@@ -28,7 +28,7 @@
 
 | Layer | Technology | Notes |
 |---|---|---|
-| Framework | Next.js 14 App Router | No Pages Router patterns ever |
+| Framework | Next.js 16 App Router | No Pages Router patterns ever |
 | Language | TypeScript strict | No `any` — ever |
 | Styling | Tailwind CSS | No inline styles, no CSS modules unless unavoidable |
 | Smooth scroll | Lenis (`@studio-freight/lenis`) | Wrap entire app — foundational luxury feel |

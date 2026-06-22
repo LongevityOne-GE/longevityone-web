@@ -1,12 +1,13 @@
 import type { Metadata, Viewport } from 'next'
 import { headers } from 'next/headers'
 import { mersad, fontGeorgian } from './fonts'
+import { SITE_URL } from '@/lib/seo/metadata'
 import './globals.css'
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? 'https://longevityone.ge'
-  ),
+  // Canonical origin is `www` — every relative URL (incl. the default OG image
+  // from app/opengraph-image.tsx) resolves against this host.
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'Longevity One - პრევენციული მედიცინის ცენტრი, თბილისი',
     template: '%s | Longevity One',
@@ -16,7 +17,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: 'Longevity One',
-    images: [{ url: '/og-image.jpg', width: 1200, height: 630 }],
+    // Default OG image is provided by app/opengraph-image.tsx (1200×630, on `www`).
+    // Per-page metadata may override openGraph.images (e.g. blog cover images).
   },
   twitter: { card: 'summary_large_image' },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },

@@ -171,6 +171,28 @@ export const teamPage = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'seo_title_ka',
+      title: 'SEO Title (Georgian)',
+      type: 'string',
+    }),
+    defineField({
+      name: 'seo_title_en',
+      title: 'SEO Title (English)',
+      type: 'string',
+    }),
+    defineField({
+      name: 'seo_description_ka',
+      title: 'SEO Meta Description (Georgian)',
+      type: 'text',
+      rows: 3,
+    }),
+    defineField({
+      name: 'seo_description_en',
+      title: 'SEO Meta Description (English)',
+      type: 'text',
+      rows: 3,
+    }),
+    defineField({
       name: 'founders_heading_ka',
       title: 'Founders Section Heading (Georgian)',
       type: 'string',

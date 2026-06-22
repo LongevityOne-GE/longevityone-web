@@ -34,15 +34,24 @@ const securityHeaders = [
 ]
 
 const nextConfig: NextConfig = {
+  // Canonical URL form: no trailing slash (Next default, made explicit). Canonicals
+  // emitted by src/lib/seo/metadata.ts match this so /page and /page/ don't both index.
+  trailingSlash: false,
   experimental: {
     optimizePackageImports: ['framer-motion', '@sanity/ui', 'lucide-react'],
   },
   images: {
+    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'cdn.sanity.io',
         pathname: '/images/**',
+      },
+      {
+        // Editorial fallback cover images used by the blog (see BlogGrid).
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
       },
     ],
   },

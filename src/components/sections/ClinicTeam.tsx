@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import type { Locale } from '@/lib/utils'
 import type { TeamMember, TeamData } from '@/lib/sanity/types'
 import { Reveal } from '@/components/animations/Reveal'
@@ -38,9 +39,11 @@ export function ClinicTeam({ locale, team, page }: ClinicTeamProps) {
                 <div className="flex gap-5">
                   <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-bone-white/10">
                     {member.photo?.asset?.url ? (
-                      <img
+                      <Image
                         src={member.photo.asset.url}
                         alt={name}
+                        width={64}
+                        height={64}
                         className="w-full h-full object-cover"
                       />
                     ) : (

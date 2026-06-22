@@ -1,4 +1,7 @@
+'use client'
+
 import type { CSSProperties } from 'react'
+import { useLazyVideo } from './useLazyVideo'
 
 type VideoSource = string | { webm?: string; mp4?: string }
 
@@ -21,8 +24,10 @@ interface GodVideoProps {
   filter?: string
   /** Optional mix-blend-mode. */
   blend?: CSSProperties['mixBlendMode']
-  /** Video preload strategy. Default 'metadata' to save bandwidth. */
+  /** Retained for caller API compatibility — lazy loading always uses 'none'. */
   preload?: 'auto' | 'metadata' | 'none'
+  /** Poster shown instantly (paints LCP). Defaults to /videos/posters/<basename>.jpg. */
+  poster?: string
   className?: string
 }
 
@@ -37,11 +42,22 @@ function normalizeSources(src: VideoSource): { url: string; type: string }[] {
   return out
 }
 
+/** Derive the generated poster path from a video source's basename. */
+function posterFor(src: VideoSource): string | undefined {
+  const url = typeof src === 'string' ? src : (src.webm ?? src.mp4)
+  if (!url) return undefined
+  const base = url.split('/').pop()?.replace(/\.(webm|mp4)$/i, '')
+  return base ? `/videos/posters/${base}.jpg` : undefined
+}
+
 /**
  * Absolutely-positioned background video with configurable overlay treatments.
  * Parent must be `position: relative` + `overflow: hidden`.
- * Respects `prefers-reduced-motion` via a global rule in globals.css that
- * hides autoplaying videos - callers should still set a fallback bg colour.
+ *
+ * Performance: the video uses `preload="none"` and is NOT autoplayed eagerly.
+ * `useLazyVideo` starts playback (and the download) only when it scrolls near
+ * the viewport, and a poster paints instantly meanwhile (LCP-friendly). Respects
+ * `prefers-reduced-motion` — the poster stays and the video never autoplays.
  */
 export function GodVideo({
   src,
@@ -53,10 +69,12 @@ export function GodVideo({
   position = 'center',
   filter,
   blend,
-  preload = 'metadata',
+  poster,
   className = '',
 }: GodVideoProps) {
   const sources = normalizeSources(src)
+  const videoRef = useLazyVideo<HTMLVideoElement>()
+  const resolvedPoster = poster ?? posterFor(src)
 
   const videoStyle: CSSProperties = {
     opacity,
@@ -69,11 +87,12 @@ export function GodVideo({
   return (
     <>
       <video
-        autoPlay
+        ref={videoRef}
         muted
         loop
         playsInline
-        preload={preload}
+        preload="none"
+        poster={resolvedPoster}
         aria-hidden="true"
         className={`absolute inset-0 w-full h-full pointer-events-none ${className}`}
         style={videoStyle}

@@ -458,6 +458,10 @@ export interface TeamData {
   page: {
     h1_ka: string | null
     h1_en: string | null
+    seo_title_ka: string | null
+    seo_title_en: string | null
+    seo_description_ka: string | null
+    seo_description_en: string | null
     founders_heading_ka: string | null
     founders_heading_en: string | null
     founders_subtext_ka: string | null
@@ -475,6 +479,11 @@ export interface TeamData {
 export interface BlogAuthor {
   name: string
   name_en: string | null
+  role_ka?: string | null
+  role_en?: string | null
+  specialty_ka?: string | null
+  specialty_en?: string | null
+  credentials?: string[] | null
   photo: { asset: { url: string } } | null
 }
 
@@ -507,6 +516,7 @@ export interface BlogPostDetail extends BlogPost {
   seoTitle_en: string | null
   seoDescription_ka: string | null
   seoDescription_en: string | null
+  medicalReviewer: BlogAuthor | null
 }
 
 // ─── FAQ ──────────────────────────────────────────────────────────────────────
