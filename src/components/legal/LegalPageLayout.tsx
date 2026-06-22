@@ -23,6 +23,10 @@ function localizedDate(iso: string | null, lang: Locale): string {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
+      // Pin to UTC so the "last updated" date is identical for every visitor
+      // regardless of their local timezone (the Sanity value is a date-only
+      // string parsed as UTC midnight).
+      timeZone: 'UTC',
     }).format(new Date(iso))
   } catch {
     return ''

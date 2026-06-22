@@ -141,12 +141,16 @@ export function TechGallery({
               onClick={() => go(i)}
               aria-label={`Go to image ${i + 1}`}
               aria-current={i === index ? 'true' : undefined}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                i === index
-                  ? 'w-6 bg-burnt-orange'
-                  : 'w-2 bg-dark-brown/20 hover:bg-dark-brown/40'
-              }`}
-            />
+              className="group flex items-center justify-center py-2 px-1.5"
+            >
+              <span
+                className={`block h-2 rounded-full transition-all duration-300 ${
+                  i === index
+                    ? 'w-6 bg-burnt-orange'
+                    : 'w-2 bg-dark-brown/20 group-hover:bg-dark-brown/40'
+                }`}
+              />
+            </button>
           ))}
         </div>
       )}
