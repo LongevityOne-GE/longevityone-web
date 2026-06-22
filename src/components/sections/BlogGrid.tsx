@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import type { Locale } from '@/lib/utils'
 import type { BlogPost } from '@/lib/sanity/types'
 import { Reveal } from '@/components/animations/Reveal'
@@ -39,9 +40,9 @@ const defaultFallbackImage =
   'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1600&q=80'
 
 const slugImages: Record<string, string> = {
-  'biological-age-vs-chronological-age': '/images/blog images/age.png?v=2',
-  'why-traditional-diets-dont-work': '/images/blog images/diets.png?v=2',
-  'vo2-max-longevity-predictor': '/images/blog images/vo2.png?v=2',
+  'biological-age-vs-chronological-age': '/images/blog images/age.png',
+  'why-traditional-diets-dont-work': '/images/blog images/diets.png',
+  'vo2-max-longevity-predictor': '/images/blog images/vo2.png',
 }
 
 function getCoverImage(post: BlogPost, locale: Locale): string {
@@ -100,11 +101,13 @@ export function BlogGrid({ locale, posts }: BlogGridProps) {
             className="group block mb-16 md:mb-20"
           >
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-              <div className="rounded-lg overflow-hidden bg-dark-brown/5">
-                <img
+              <div className="relative aspect-[16/9] rounded-lg overflow-hidden bg-dark-brown/5">
+                <Image
                   src={getCoverImage(featured, locale)}
                   alt={locale === 'ka' ? featured.title_ka || '' : featured.title_en || ''}
-                  className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-700"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
               <div>
@@ -138,11 +141,13 @@ export function BlogGrid({ locale, posts }: BlogGridProps) {
                   href={`${locale === 'en' ? '/en' : ''}/blog/${post.slug}`}
                   className="group block"
                 >
-                  <div className="rounded-lg overflow-hidden bg-dark-brown/5 mb-5 aspect-[16/9]">
-                    <img
+                  <div className="relative rounded-lg overflow-hidden bg-dark-brown/5 mb-5 aspect-[16/9]">
+                    <Image
                       src={getCoverImage(post, locale)}
                       alt={locale === 'ka' ? post.title_ka || '' : post.title_en || ''}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                   </div>
                   {getCategoryLabel(locale === 'ka' ? post.category_ka : post.category_en, locale) && (

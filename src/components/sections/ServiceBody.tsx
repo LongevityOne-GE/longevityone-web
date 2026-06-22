@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { localizedTechName, type Locale } from '@/lib/utils'
 import type { ServiceDetail } from '@/lib/sanity/types'
 import { Reveal } from '@/components/animations/Reveal'
@@ -63,9 +64,11 @@ export function ServiceBody({ locale, service }: ServiceBodyProps) {
                       return (
                       <li key={tech.slug} className="flex items-start gap-3">
                         {tech.heroImage?.asset?.url ? (
-                          <img
+                          <Image
                             src={tech.heroImage.asset.url}
                             alt={techDisplay}
+                            width={40}
+                            height={40}
                             className="w-10 h-10 rounded object-cover flex-shrink-0"
                           />
                         ) : (

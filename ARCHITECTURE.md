@@ -397,22 +397,30 @@ export default defineConfig({
 ## Security Headers (next.config.ts)
 
 ```typescript
+// Mirrors the enforced config in next.config.ts (synced 2026-06).
+// SECURITY NOTES:
+//  - script-src includes 'unsafe-inline' AND 'unsafe-eval' — this weakens XSS
+//    protection. Migrate to a nonce/hash-based CSP; do not treat as acceptable.
+//  - No Strict-Transport-Security (HSTS) is set here; if HSTS is required it is
+//    applied at Cloudflare, not in next.config.ts. Verify before relying on it.
 const securityHeaders = [
-  { key: 'X-Frame-Options', value: 'DENY' },
+  { key: 'X-DNS-Prefetch-Control', value: 'on' },
+  { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
   { key: 'X-Content-Type-Options', value: 'nosniff' },
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
   { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
-  { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
   {
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-eval' https://www.googletagmanager.com https://eu.posthog.com https://cdnjs.cloudflare.com",
-      "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: https://cdn.sanity.io https://www.google-analytics.com",
-      "connect-src 'self' https://*.supabase.co https://eu.posthog.com https://www.google-analytics.com https://api.resend.com",
-      "frame-src https://cal.com https://cal.eu https://app.cal.com",
-      "font-src 'self'",
+      "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://cal.eu https://www.cal.eu https://www.googletagmanager.com https://eu.posthog.com https://challenges.cloudflare.com",
+      "style-src 'self' 'unsafe-inline' https://cal.eu https://www.cal.eu",
+      "img-src 'self' data: blob: https://cdn.sanity.io https://images.unsplash.com https://cal.eu https://www.cal.eu https://www.google-analytics.com https://www.googletagmanager.com",
+      "font-src 'self' data: https://fonts.gstatic.com https://cal.eu https://www.cal.eu",
+      "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.sanity.io https://cal.eu https://www.cal.eu https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://eu.posthog.com https://*.eu.posthog.com https://*.ingest.de.sentry.io https://challenges.cloudflare.com",
+      "frame-src 'self' https://cal.eu https://www.cal.eu https://challenges.cloudflare.com",
+      "worker-src 'self' blob:",
+      "frame-ancestors 'none'",
     ].join('; '),
   },
 ]
