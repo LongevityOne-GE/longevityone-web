@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import type { Locale } from '@/lib/utils'
 import type { TeamMember, TeamData } from '@/lib/sanity/types'
 import { Reveal } from '@/components/animations/Reveal'
@@ -39,11 +40,13 @@ export function FoundersGrid({ locale, founders, page }: FoundersGridProps) {
 
         {groupPhoto?.asset?.url && (
           <Reveal>
-            <div className="mb-16 rounded-lg overflow-hidden">
-              <img
+            <div className="relative mb-16 rounded-lg overflow-hidden h-[260px] sm:h-[360px] md:h-[480px]">
+              <Image
                 src={groupPhoto.asset.url}
                 alt={heading || 'Founders'}
-                className="w-full max-h-[480px] object-cover"
+                fill
+                sizes="(max-width: 1024px) 100vw, 1024px"
+                className="object-cover"
               />
             </div>
           </Reveal>
@@ -77,12 +80,14 @@ function FounderCard({
   return (
     <Reveal delay={delay}>
       <div className="text-center">
-        <div className="aspect-square rounded-lg overflow-hidden mb-4 bg-dark-brown/5">
+        <div className="relative aspect-square rounded-lg overflow-hidden mb-4 bg-dark-brown/5">
           {member.photo?.asset?.url ? (
-            <img
+            <Image
               src={member.photo.asset.url}
               alt={name}
-              className="w-full h-full object-cover"
+              fill
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+              className="object-cover"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
