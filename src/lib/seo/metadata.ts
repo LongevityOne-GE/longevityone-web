@@ -88,6 +88,10 @@ export function buildMetadata({
   const canonical = localizedUrl(locale, path)
   const cleanTitle = title?.trim() || undefined
   const cleanDescription = description?.trim() || undefined
+  // Per-page image (e.g. a blog cover) or the site-default OG card. Set
+  // explicitly because the app/opengraph-image.tsx file convention does not
+  // inject og:image when a page provides its own openGraph object.
+  const ogImage = image ?? `${SITE_URL}/opengraph-image`
 
   const openGraph: Metadata['openGraph'] = {
     type,
@@ -96,7 +100,7 @@ export function buildMetadata({
     alternateLocale: locale === 'ka' ? OG_LOCALE.en : OG_LOCALE.ka,
     title: cleanTitle,
     description: cleanDescription,
-    ...(image ? { images: [{ url: image, width: 1200, height: 630 }] } : {}),
+    images: [{ url: ogImage, width: 1200, height: 630 }],
     ...(type === 'article'
       ? {
           publishedTime: publishedTime ?? undefined,
@@ -117,8 +121,6 @@ export function buildMetadata({
       languages: languageAlternates(path),
     },
     openGraph,
-    ...(image
-      ? { twitter: { card: 'summary_large_image', images: [image] } }
-      : {}),
+    twitter: { card: 'summary_large_image', images: [ogImage] },
   }
 }
