@@ -60,6 +60,11 @@ const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000
 const ipHits = new Map<string, number[]>()
 
 function getClientIp(req: NextRequest): string {
+  // Cloudflare sets cf-connecting-ip to the real client IP and overwrites any
+  // client-supplied value, so it cannot be spoofed. Prefer it over the
+  // client-controllable x-forwarded-for chain.
+  const cf = req.headers.get('cf-connecting-ip')
+  if (cf) return cf.trim()
   const fwd = req.headers.get('x-forwarded-for')
   if (fwd) return (fwd.split(',')[0] ?? '').trim() || 'unknown'
   return req.headers.get('x-real-ip') ?? 'unknown'

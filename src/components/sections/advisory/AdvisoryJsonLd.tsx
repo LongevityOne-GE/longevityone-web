@@ -1,5 +1,6 @@
 import type { Locale } from '@/lib/utils'
 import type { AdvisoryBoardMember, AdvisoryBoardPage } from '@/lib/sanity/types'
+import { safeJsonLd } from '@/lib/text'
 
 interface AdvisoryJsonLdProps {
   locale: Locale
@@ -70,7 +71,7 @@ export function AdvisoryJsonLd({ locale, page, members, baseUrl }: AdvisoryJsonL
     <script
       type="application/ld+json"
       // eslint-disable-next-line react/no-danger
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
     />
   )
 }
