@@ -77,30 +77,23 @@ function GodVideoPanel({ slug, locale }: { slug: string; locale: Locale }) {
   )
 }
 
-function ServiceImage({ src, alt, slug, icon, locale }: { src: string; alt: string; slug: string; icon: string | null; locale: Locale }) {
-  const staticSrc = `/images/services/${slug}.jpg`
-  const [currentSrc, setCurrentSrc] = useState(src || staticSrc)
+function ServiceImage({ src, alt, slug, locale }: { src: string | null; alt: string; slug: string; locale: Locale }) {
   const [errored, setErrored] = useState(false)
 
-  const handleError = () => {
-    if (currentSrc !== staticSrc) {
-      setCurrentSrc(staticSrc)
-    } else {
-      setErrored(true)
-    }
-  }
-
-  if (errored) {
+  // No editorial image set in Sanity (or it failed to load): show the god-video
+  // panel directly rather than requesting a static JPG that does not exist
+  // (avoids a 404 round-trip and a broken-image flash).
+  if (!src || errored) {
     return <GodVideoPanel slug={slug} locale={locale} />
   }
 
   return (
     <div className="relative w-full aspect-[4/5] overflow-hidden rounded-sm shadow-xl group">
       <img
-        src={currentSrc}
+        src={src}
         alt={alt}
         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-        onError={handleError}
+        onError={() => setErrored(true)}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-dark-brown/40 via-dark-brown/10 to-transparent pointer-events-none" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-burnt-orange/60 to-transparent" />
@@ -124,7 +117,7 @@ export function ServiceSection({ locale, service, index }: ServiceSectionProps) 
 
   const sectionBg = isEven ? 'bg-bone-white' : 'bg-dark-brown/[0.03]'
 
-  const imageSrc = service.heroImage?.asset?.url ?? `/images/services/${service.slug}.jpg`
+  const imageSrc = service.heroImage?.asset?.url ?? null
 
   return (
     <section
@@ -213,7 +206,6 @@ export function ServiceSection({ locale, service, index }: ServiceSectionProps) 
                   src={imageSrc}
                   alt={title ?? ''}
                   slug={service.slug}
-                  icon={service.icon}
                   locale={locale}
                 />
                 <div className="absolute top-4 right-4 z-20 bg-bone-white/90 backdrop-blur-sm border border-dark-brown/10 rounded-sm px-3 py-1.5 flex items-center gap-2 shadow-sm">
