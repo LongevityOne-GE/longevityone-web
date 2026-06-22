@@ -9,8 +9,9 @@ import { servicesSchema } from '@/lib/seo/schema'
 export const metadata: Metadata = buildMetadata({
   locale: 'ka',
   path: '/services',
-  title: 'სერვისები',
-  description: 'Longevity One-ის სამი ძირითადი პრევენციული მედიცინის სერვისი - დღეგრძელობა, მეტაბოლური ჯანმრთელობა და ელიტური პერფორმანსი.',
+  title: 'სერვისები — დღეგრძელობა, მეტაბოლიზმი, პერფორმანსი',
+  description:
+    'სამი მიმართულება, ერთი მიზანი: ბიოლოგიური ასაკის მართვა, მეტაბოლიზმის ოპტიმიზაცია და ფიზიკური პერფორმანსის პიკი — ზუსტ მონაცემებზე დაყრდნობით.',
 })
 
 export default async function KaServicesIndexPage() {

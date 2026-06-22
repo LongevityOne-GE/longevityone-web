@@ -9,8 +9,9 @@ import { servicesSchema } from '@/lib/seo/schema'
 export const metadata: Metadata = buildMetadata({
   locale: 'en',
   path: '/services',
-  title: 'Services',
-  description: 'Three science-backed preventive medicine programmes - Longevity, Metabolic Health, and Elite Performance.',
+  title: 'Services: Longevity, Metabolic Health & Performance',
+  description:
+    'Three pillars, one purpose: managing your biological age, optimising metabolism, and reaching peak physical performance, all based on your data.',
 })
 
 export default async function EnServicesIndexPage() {

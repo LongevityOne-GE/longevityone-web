@@ -7,8 +7,9 @@ import { buildMetadata } from '@/lib/seo/metadata'
 export const metadata: Metadata = buildMetadata({
   locale: 'en',
   path: '/packages',
-  title: 'Packages & Pricing',
-  description: 'Diagnostic, membership and session packages at Longevity One.',
+  title: 'Programmes & Pricing: Full Health Assessment',
+  description:
+    'Longevity programmes start from 550 GEL, from a foundational biological and metabolic assessment through to full concierge care.',
 })
 
 export default async function EnPackagesPage() {

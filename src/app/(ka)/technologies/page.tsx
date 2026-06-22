@@ -7,9 +7,9 @@ import { buildMetadata } from '@/lib/seo/metadata'
 export const metadata: Metadata = buildMetadata({
   locale: 'ka',
   path: '/technologies',
-  title: 'მეცნიერება და ტექნოლოგია',
+  title: 'დიაგნოსტიკა — ბიოლოგიური ასაკი, VO₂ Max, მიკრობიომი',
   description:
-    'მოწინავე დიაგნოსტიკური ტექნოლოგიები - PNOE, IHHT, Red Light Therapy, TrueDiagnostic, Enbiosis.',
+    'მსოფლიოს წამყვანი ტექნოლოგიებით ვზომავთ თქვენს ბიოლოგიურ საწყის მდგომარეობას: PNOE მეტაბოლიზმი, TrueDiagnostic ბიოლოგიური ასაკი, Enbiosis მიკრობიომი.',
 })
 
 export default async function KaTechnologiesPage() {
