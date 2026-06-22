@@ -44,25 +44,27 @@ export function CTA({ locale, data }: CTAProps) {
 
         {button && (
           <Reveal delay={0.3}>
-            {BOOKING_ENABLED ? (
-              <Link
-                href={bookingHref}
-                className="btn-primary w-full sm:w-auto sm:min-w-[300px]"
-              >
-                {button} <span>→</span>
-              </Link>
-            ) : (
-              <LeadCaptureForm
-                locale={locale}
-                source="cta"
-                label={CALL_CTA_LABEL[locale]}
-                triggerClassName={cn(
-                  'w-full sm:w-auto sm:min-w-[300px] justify-center gap-3',
-                  'bg-burnt-orange text-white hover:bg-bone-white hover:text-dark-brown px-8 py-4',
-                  'text-[11px] tracking-[0.15em]'
-                )}
-              />
-            )}
+            <div className="flex justify-center">
+              {BOOKING_ENABLED ? (
+                <Link
+                  href={bookingHref}
+                  className="btn-primary w-full sm:w-auto sm:min-w-[300px]"
+                >
+                  {button} <span>→</span>
+                </Link>
+              ) : (
+                <LeadCaptureForm
+                  locale={locale}
+                  source="cta"
+                  label={CALL_CTA_LABEL[locale]}
+                  triggerClassName={cn(
+                    'w-full sm:w-auto sm:min-w-[300px] justify-center gap-3',
+                    'bg-burnt-orange text-white hover:bg-bone-white hover:text-dark-brown px-8 py-4',
+                    'text-[11px] tracking-[0.15em]'
+                  )}
+                />
+              )}
+            </div>
           </Reveal>
         )}
       </div>
