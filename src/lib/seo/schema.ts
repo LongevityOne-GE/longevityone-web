@@ -249,3 +249,24 @@ export function servicesSchema(
       provider: { '@id': ORG_ID },
     }))
 }
+
+/**
+ * MedicalProcedure entries for the diagnostic technologies on /technologies.
+ * Each links to its on-page anchor (#pnoe, #truediagnostic, …). MedicalProcedure
+ * is valid for both diagnostic tests and therapies (IHHT, Red Light).
+ */
+export function technologiesSchema(
+  technologies: Array<{ name: string; description?: string | null; anchor: string }>,
+  locale: Locale,
+): Schema[] {
+  return technologies
+    .filter((t) => t.name)
+    .map((t) => ({
+      '@context': 'https://schema.org',
+      '@type': 'MedicalProcedure',
+      name: t.name,
+      ...(t.description ? { description: t.description } : {}),
+      url: localizedUrl(locale, `/technologies#${t.anchor}`),
+      provider: { '@id': ORG_ID },
+    }))
+}
