@@ -19,9 +19,9 @@ import type { Metadata } from 'next'
 import { HomePage } from '@/components/pages/HomePage'
 import { buildMetadata } from '@/lib/seo/metadata'
 
-const EN_DEFAULT_TITLE = 'Longevity One — Preventive Medicine Center, Tbilisi'
+const EN_DEFAULT_TITLE = 'Longevity One - Preventive Medicine Center, Tbilisi'
 const EN_DEFAULT_DESC =
-  'Longevity One is a preventive medicine center in Tbilisi — advanced diagnostics, personalized programs, scientific precision.'
+  'Longevity One is a preventive medicine center in Tbilisi - advanced diagnostics, personalized programs, scientific precision.'
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await sanityClient.fetch<HomePageData>(
