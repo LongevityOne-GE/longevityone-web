@@ -1,0 +1,52 @@
+# Longevity One
+
+> Longevity One is a luxury preventive medicine center in Tbilisi, Georgia, dedicated to the art of living longer. We measure each person's biological age and build personalized, data-driven strategies to extend healthy years through advanced diagnostics and evidence-based longevity medicine.
+
+The site is bilingual. Georgian (ka) is the default and is served without a URL prefix; English (en) is served under the /en path. Canonical host is https://www.longevityone.ge.
+
+Key facts:
+- Category: Preventive medicine center (longevity clinic)
+- Location: 4a Tamarashvili St, Tbilisi, Georgia
+- Phone: +995 511 70 88 88
+- Email: info@longevityone.ge
+- Hours: Daily 09:00-21:00
+- Languages: Georgian, English
+- Founded by five Georgian physicians
+
+Core diagnostics and technologies: PNOE metabolic analysis, TrueDiagnostic biological age testing, Enbiosis microbiome testing, VO2 Max assessment, IHHT (intermittent hypoxic-hyperoxic therapy), red light therapy.
+
+## Main pages (English)
+
+- [Home](https://www.longevityone.ge/en): Overview of the clinic, biological age measurement, and personalized longevity programs.
+- [About](https://www.longevityone.ge/en/about): The clinic's philosophy and the five founding physicians.
+- [Advisory Board](https://www.longevityone.ge/en/about/advisory-board): The scientific advisory board.
+- [Services](https://www.longevityone.ge/en/services): Three pillars - managing biological age, optimizing metabolism, and peak physical performance.
+- [Technologies](https://www.longevityone.ge/en/technologies): Diagnostic technologies including VO2 Max, biological age, and microbiome testing.
+- [Journey](https://www.longevityone.ge/en/journey): The 8-stage patient journey from digital onboarding through 12 weeks of micro-coaching.
+- [Packages & Pricing](https://www.longevityone.ge/en/packages): Personalized longevity programs, with health assessments starting from 550 GEL.
+- [Team](https://www.longevityone.ge/en/team): The clinic's physicians and their credentials.
+- [Corporate](https://www.longevityone.ge/en/corporate): Corporate wellness and executive health programs.
+- [Blog](https://www.longevityone.ge/en/blog): Articles on longevity, biological age, metabolism, and preventive medicine.
+- [FAQ](https://www.longevityone.ge/en/faq): Answers about services, tests, programs, and pricing.
+- [Contact](https://www.longevityone.ge/en/contact): Address, phone, and opening hours.
+
+## Main pages (Georgian)
+
+- [Home](https://www.longevityone.ge/): პრევენციული მედიცინის ცენტრი თბილისში.
+- [About](https://www.longevityone.ge/about): ჩვენს შესახებ - ხუთი ექიმის ხედვა.
+- [Services](https://www.longevityone.ge/services): დღეგრძელობა, მეტაბოლიზმი, პერფორმანსი.
+- [Technologies](https://www.longevityone.ge/technologies): დიაგნოსტიკა - VO2 Max, ბიოლოგიური ასაკი, მიკრობიომი.
+- [Journey](https://www.longevityone.ge/journey): პაციენტის გზა - 8 ეტაპი.
+- [Packages](https://www.longevityone.ge/packages): პაკეტები და ფასები.
+- [Team](https://www.longevityone.ge/team): ჩვენი გუნდი.
+- [Corporate](https://www.longevityone.ge/corporate): კორპორატიული ჯანმრთელობის პროგრამა.
+- [Blog](https://www.longevityone.ge/blog): ბლოგი.
+- [FAQ](https://www.longevityone.ge/faq): ხშირად დასმული კითხვები.
+- [Contact](https://www.longevityone.ge/contact): კონტაქტი.
+
+## Optional
+
+- [Sitemap](https://www.longevityone.ge/sitemap.xml): Full list of indexable URLs in both locales.
+- [Privacy Policy](https://www.longevityone.ge/en/legal/privacy)
+- [Terms](https://www.longevityone.ge/en/legal/terms)
+- [Medical Disclaimer](https://www.longevityone.ge/en/legal/medical-disclaimer)

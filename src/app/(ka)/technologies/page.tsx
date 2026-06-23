@@ -9,7 +9,7 @@ import { technologiesSchema } from '@/lib/seo/schema'
 export const metadata: Metadata = buildMetadata({
   locale: 'ka',
   path: '/technologies',
-  title: 'დიაგნოსტიკა — ბიოლოგიური ასაკი, VO₂ Max, მიკრობიომი',
+  title: 'დიაგნოსტიკა - ბიოლოგიური ასაკი, VO₂ Max, მიკრობიომი',
   description:
     'მსოფლიოს წამყვანი ტექნოლოგიებით ვზომავთ თქვენს ბიოლოგიურ საწყის მდგომარეობას: PNOE მეტაბოლიზმი, TrueDiagnostic ბიოლოგიური ასაკი, Enbiosis მიკრობიომი.',
 })
