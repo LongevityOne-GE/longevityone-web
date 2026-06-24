@@ -5,6 +5,7 @@ import { SITE_URL, localizedUrl } from './metadata'
 /** Stable @ids so all schema blocks reference one canonical entity graph. */
 export const ORG_ID = `${SITE_URL}/#organization`
 export const WEBSITE_ID = `${SITE_URL}/#website`
+export const CONTACT_PAGE_ID = `${SITE_URL}/contact#webpage`
 
 /** Real brand wordmark (raster, 1773×676) — Organization/publisher logo. */
 const BRAND_LOGO_URL = `${SITE_URL}/images/hero-brand.png`
@@ -26,6 +27,26 @@ const NAP = {
 } as const
 
 const ogLang = (locale: Locale) => (locale === 'ka' ? 'ka-GE' : 'en-US')
+
+const KNOWS_ABOUT = [
+  'longevity medicine',
+  'preventive medicine',
+  'biological age testing',
+  'metabolic health',
+  'VO2 Max testing',
+  'microbiome testing',
+  'personalized health programs',
+  'executive health checkups',
+  'დღეგრძელობა',
+  'პრევენციული მედიცინა',
+  'ბიოლოგიური ასაკი',
+]
+
+const AREA_SERVED = [
+  { '@type': 'Country', name: 'Georgia' },
+  { '@type': 'City', name: 'Tbilisi' },
+  { '@type': 'AdministrativeArea', name: 'Tbilisi, Georgia' },
+]
 
 type Schema = Record<string, unknown>
 
@@ -98,6 +119,8 @@ export function organizationSchema(settings: SiteSettings | null, locale: Locale
     // "preventive medicine" positioning lives in the description.
     medicalSpecialty: 'PublicHealth',
     availableLanguage: ['Georgian', 'English'],
+    areaServed: AREA_SERVED,
+    knowsAbout: KNOWS_ABOUT,
     priceRange: '$$$',
     ...(sameAs.length ? { sameAs } : {}),
   }
@@ -131,6 +154,55 @@ export function breadcrumbSchema(
       item: localizedUrl(locale, item.path),
     })),
   }
+}
+
+export function contactPageSchema(settings: SiteSettings | null, locale: Locale): Schema[] {
+  const pageUrl = localizedUrl(locale, '/contact')
+  const streetAddress =
+    (locale === 'ka' ? settings?.address_ka : settings?.address_en) ||
+    (locale === 'ka' ? NAP.street_ka : NAP.street_en)
+  const phone = (settings?.phone || NAP.phone).replace(/\s+/g, '')
+  const email = settings?.email || NAP.email
+
+  return [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'ContactPage',
+      '@id': locale === 'ka' ? CONTACT_PAGE_ID : `${SITE_URL}/en/contact#webpage`,
+      url: pageUrl,
+      name: locale === 'ka' ? 'კონტაქტი' : 'Contact Longevity One',
+      inLanguage: ogLang(locale),
+      isPartOf: { '@id': WEBSITE_ID },
+      about: { '@id': ORG_ID },
+      mainEntity: { '@id': ORG_ID },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'PostalAddress',
+      '@id': `${pageUrl}#address`,
+      streetAddress,
+      addressLocality: NAP.city,
+      addressRegion: NAP.region,
+      addressCountry: NAP.country,
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'ContactPoint',
+      '@id': `${pageUrl}#contact-point`,
+      telephone: phone,
+      email,
+      contactType: 'customer service',
+      areaServed: AREA_SERVED,
+      availableLanguage: ['Georgian', 'English'],
+    },
+    breadcrumbSchema(
+      [
+        { name: locale === 'ka' ? 'მთავარი' : 'Home', path: '/' },
+        { name: locale === 'ka' ? 'კონტაქტი' : 'Contact', path: '/contact' },
+      ],
+      locale,
+    ),
+  ]
 }
 
 /**
@@ -247,6 +319,8 @@ export function servicesSchema(
       ...(s.description ? { description: s.description } : {}),
       url: localizedUrl(locale, s.path),
       provider: { '@id': ORG_ID },
+      areaServed: AREA_SERVED,
+      medicalSpecialty: 'PublicHealth',
     }))
 }
 
@@ -268,5 +342,7 @@ export function technologiesSchema(
       ...(t.description ? { description: t.description } : {}),
       url: localizedUrl(locale, `/technologies#${t.anchor}`),
       provider: { '@id': ORG_ID },
+      areaServed: AREA_SERVED,
+      medicalSpecialty: 'PublicHealth',
     }))
 }
