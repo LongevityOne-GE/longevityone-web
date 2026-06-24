@@ -12,8 +12,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
     locale: 'ka',
     path: '/faq',
-    title: data?.page?.seo_title_ka || 'ხშირად დასმული კითხვები',
-    description: data?.page?.seo_description_ka,
+    title: data?.page?.seo_title_ka || 'ხშირად დასმული კითხვები დღეგრძელობაზე',
+    description:
+      data?.page?.seo_description_ka ||
+      'პასუხები Longevity One-ის პროგრამებზე, ბიოლოგიური ასაკის ტესტირებაზე, პრევენციულ დიაგნოსტიკაზე, ვიზიტის დაჯავშნაზე და დღეგრძელობის კლინიკის მომსახურებაზე თბილისში.',
+    keywords: ['დღეგრძელობის კითხვები', 'ბიოლოგიური ასაკის ტესტი', 'პრევენციული დიაგნოსტიკა თბილისი'],
   })
 }
 
