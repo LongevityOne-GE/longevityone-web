@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   // Canonical origin is `www` — every relative URL (incl. the default OG image
   // from app/opengraph-image.tsx) resolves against this host.
   metadataBase: new URL(SITE_URL),
+  applicationName: 'Longevity One',
+  creator: 'Longevity One',
+  publisher: 'Longevity One',
+  category: 'health',
+  manifest: '/manifest.webmanifest',
   title: {
     default: 'Longevity One - პრევენციული მედიცინის ცენტრი, თბილისი',
     template: '%s | Longevity One',

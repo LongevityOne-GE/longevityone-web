@@ -22,8 +22,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
     locale: 'ka',
     path: '/corporate',
-    title: data?.seo_title_ka || 'კორპორატიული ჯანმრთელობა',
-    description: data?.seo_description_ka,
+    title: data?.seo_title_ka || 'კორპორატიული ჯანმრთელობა და Executive Checkup საქართველოში',
+    description:
+      data?.seo_description_ka ||
+      'Longevity One ქმნის კორპორატიული ჯანმრთელობის და executive health checkup პროგრამებს თბილისში, პრევენციული დიაგნოსტიკით, ბიოლოგიური ასაკის შეფასებით და პერსონალიზებული რეკომენდაციებით.',
+    keywords: ['კორპორატიული ჯანმრთელობა', 'executive checkup თბილისი', 'ჯანმრთელობის პროგრამები კომპანიებისთვის'],
   })
 }
 

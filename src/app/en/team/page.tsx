@@ -15,8 +15,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
     locale: 'en',
     path: '/team',
-    title: data?.page?.seo_title_en || data?.page?.h1_en || 'Our Team',
-    description: data?.page?.seo_description_en,
+    title: data?.page?.seo_title_en || data?.page?.h1_en || 'Longevity Doctors and Team in Georgia',
+    description:
+      data?.page?.seo_description_en ||
+      'Meet the Longevity One physicians and specialists in Tbilisi working across preventive medicine, biological age, metabolic health, diagnostics, and personalized programs.',
+    keywords: ['longevity doctors Georgia', 'preventive medicine doctors Tbilisi', 'medical team Georgia'],
   })
 }
 

@@ -14,8 +14,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
     locale: 'ka',
     path: '/about',
-    title: data?.seo_title_ka || 'ჩვენს შესახებ',
-    description: data?.seo_description_ka,
+    title: data?.seo_title_ka || 'Longevity One - დღეგრძელობის კლინიკა საქართველოში',
+    description:
+      data?.seo_description_ka ||
+      'გაიცანით Longevity One - პრევენციული მედიცინისა და დღეგრძელობის ცენტრი თბილისში, რომელიც აერთიანებს ექიმებს, მეცნიერებას, ბიოლოგიური ასაკის შეფასებას და პერსონალიზებულ ჯანმრთელობის პროგრამებს.',
+    keywords: ['დღეგრძელობის კლინიკა', 'პრევენციული მედიცინის ცენტრი', 'Longevity One საქართველო'],
   })
 }
 

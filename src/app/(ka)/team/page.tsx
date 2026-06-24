@@ -15,8 +15,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
     locale: 'ka',
     path: '/team',
-    title: data?.page?.seo_title_ka || data?.page?.h1_ka || 'ჩვენი გუნდი',
-    description: data?.page?.seo_description_ka,
+    title: data?.page?.seo_title_ka || data?.page?.h1_ka || 'დღეგრძელობის ექიმები და გუნდი საქართველოში',
+    description:
+      data?.page?.seo_description_ka ||
+      'გაიცანით Longevity One-ის ექიმები და სპეციალისტები თბილისში, რომლებიც მუშაობენ პრევენციულ მედიცინაზე, ბიოლოგიურ ასაკზე, მეტაბოლურ ჯანმრთელობაზე და პერსონალიზებულ პროგრამებზე.',
+    keywords: ['დღეგრძელობის ექიმები', 'პრევენციული მედიცინის ექიმები', 'ექიმები თბილისი'],
   })
 }
 

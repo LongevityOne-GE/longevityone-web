@@ -7,7 +7,15 @@ import { buildMetadata } from '@/lib/seo/metadata'
 export const metadata: Metadata = buildMetadata({
   locale: 'ka',
   path: '/blog',
-  title: 'სტატიები',
+  title: 'სტატიები დღეგრძელობაზე და პრევენციულ მედიცინაზე',
+  description:
+    'წაიკითხეთ Longevity One-ის სტატიები დღეგრძელობაზე, ბიოლოგიურ ასაკზე, პრევენციულ მედიცინაზე, მეტაბოლურ ჯანმრთელობაზე და პერსონალიზებულ ჯანმრთელობის პროგრამებზე საქართველოში.',
+  keywords: [
+    'დღეგრძელობის სტატიები',
+    'ჯანმრთელობის ბლოგი საქართველო',
+    'პრევენციული მედიცინის სტატიები',
+    'ბიოლოგიური ასაკის კვლევა',
+  ],
 })
 
 export default async function KaBlogIndexPage() {

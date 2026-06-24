@@ -14,6 +14,38 @@ export const SITE_URL = (
 /** Open Graph locale codes per app locale. */
 const OG_LOCALE: Record<Locale, string> = { ka: 'ka_GE', en: 'en_US' }
 
+const DEFAULT_KEYWORDS: Record<Locale, string[]> = {
+  ka: [
+    'დღეგრძელობა',
+    'longevity',
+    'longevity clinic Georgia',
+    'longevity center Tbilisi',
+    'პრევენციული მედიცინა',
+    'ბიოლოგიური ასაკი',
+    'ჯანმრთელობის შემოწმება თბილისში',
+    'პერსონალიზებული მედიცინა',
+    'მეტაბოლური ჯანმრთელობა',
+    'VO2 Max ტესტი',
+    'მიკრობიომი',
+    'Longevity One',
+    'longevityone.ge',
+  ],
+  en: [
+    'longevity Georgia',
+    'longevity clinic Georgia',
+    'longevity center Tbilisi',
+    'preventive medicine Tbilisi',
+    'biological age test Georgia',
+    'executive health check Tbilisi',
+    'personalized medicine Georgia',
+    'metabolic health clinic',
+    'VO2 Max test Tbilisi',
+    'microbiome testing Georgia',
+    'Longevity One',
+    'longevityone.ge',
+  ],
+}
+
 /**
  * Absolute canonical URL for a locale-agnostic path.
  * `path` starts with '/', e.g. '/about' or '/'. The Georgian (`ka`) locale is the
@@ -64,6 +96,7 @@ export interface BuildMetadataInput {
   image?: string | null
   /** OG type — 'website' (default) or 'article'. */
   type?: 'website' | 'article'
+  keywords?: string[]
   /** ISO timestamps for article OG (blog posts). */
   publishedTime?: string | null
   modifiedTime?: string | null
@@ -82,6 +115,7 @@ export function buildMetadata({
   titleAbsolute = false,
   image,
   type = 'website',
+  keywords,
   publishedTime,
   modifiedTime,
 }: BuildMetadataInput): Metadata {
@@ -116,6 +150,7 @@ export function buildMetadata({
         : cleanTitle
       : undefined,
     description: cleanDescription,
+    keywords: [...DEFAULT_KEYWORDS[locale], ...(keywords ?? [])],
     alternates: {
       canonical,
       languages: languageAlternates(path),
