@@ -50,12 +50,25 @@ const AREA_SERVED = [
 
 type Schema = Record<string, unknown>
 
-/** Extract { latitude, longitude } from a Google Maps URL's `@lat,lng` segment. */
+/**
+ * Extract { latitude, longitude } from a Google Maps URL. Prefers the precise
+ * point (`?q=lat,lng` query or `!3dlat!4dlng` place data) over the `@lat,lng`
+ * viewport centre, since the viewport can sit ~1km off the actual pin.
+ */
 function parseGeo(mapsUrl?: string | null): { latitude: number; longitude: number } | null {
   if (!mapsUrl) return null
-  const m = mapsUrl.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/)
-  if (!m || !m[1] || !m[2]) return null
-  return { latitude: parseFloat(m[1]), longitude: parseFloat(m[2]) }
+  const patterns = [
+    /[?&](?:q|query)=(-?\d+\.\d+),(-?\d+\.\d+)/, // ?q=lat,lng — explicit point
+    /!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/, // place data lat/lng
+    /@(-?\d+\.\d+),(-?\d+\.\d+)/, // @lat,lng — viewport centre (fallback)
+  ]
+  for (const re of patterns) {
+    const m = mapsUrl.match(re)
+    if (m && m[1] && m[2]) {
+      return { latitude: parseFloat(m[1]), longitude: parseFloat(m[2]) }
+    }
+  }
+  return null
 }
 
 /**
