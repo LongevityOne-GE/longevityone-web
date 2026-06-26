@@ -95,6 +95,7 @@ export function organizationSchema(settings: SiteSettings | null, locale: Locale
     '@type': 'MedicalClinic',
     '@id': ORG_ID,
     name,
+    alternateName: ['Longevity One Tbilisi', 'Longevity One Clinic', 'Longevity One Georgia'],
     url: SITE_URL,
     telephone: (settings?.phone || NAP.phone).replace(/\s+/g, ''),
     email: settings?.email || NAP.email,
@@ -147,6 +148,7 @@ export function websiteSchema(locale: Locale): Schema {
     '@id': WEBSITE_ID,
     url: SITE_URL,
     name: NAP.name,
+    alternateName: ['Longevity One Tbilisi', 'Longevity One Clinic', 'Longevity One Georgia'],
     inLanguage: ogLang(locale),
     publisher: { '@id': ORG_ID },
   }
