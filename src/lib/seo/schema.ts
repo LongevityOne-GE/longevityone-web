@@ -88,6 +88,8 @@ export function organizationSchema(settings: SiteSettings | null, locale: Locale
     settings?.socialFacebook,
     settings?.socialInstagram,
     settings?.socialLinkedIn,
+    settings?.socialTikTok,
+    settings?.socialYouTube,
   ].filter((v): v is string => Boolean(v))
 
   return {

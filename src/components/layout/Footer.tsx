@@ -30,6 +30,22 @@ function LinkedinIcon() {
   )
 }
 
+function TikTokIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M16.6 5.82c-1.007-.986-1.564-2.336-1.564-3.82h-3.077v14.1a2.85 2.85 0 01-5.13 1.7 2.85 2.85 0 011.98-4.87c.28 0 .55.04.81.12V9.98a6.02 6.02 0 00-.81-.06 5.99 5.99 0 00-4.24 10.23 5.99 5.99 0 0010.24-4.24V8.5a9.09 9.09 0 005.31 1.7V7.11a5.99 5.99 0 01-3.51-1.29z"/>
+    </svg>
+  )
+}
+
+function YouTubeIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+    </svg>
+  )
+}
+
 interface FooterProps {
   locale: Locale
   siteSettings?: SiteSettings | null
@@ -84,6 +100,28 @@ export function Footer({ locale, siteSettings }: FooterProps) {
                 className="flex items-center justify-center w-10 h-10 rounded-full border border-dark-brown/15 text-dark-brown/60 hover:border-burnt-orange hover:text-burnt-orange hover:scale-110 transition-all duration-200"
               >
                 <LinkedinIcon />
+              </a>
+            )}
+            {siteSettings?.socialTikTok && (
+              <a
+                href={siteSettings.socialTikTok}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow us on TikTok"
+                className="flex items-center justify-center w-10 h-10 rounded-full border border-dark-brown/15 text-dark-brown/60 hover:border-burnt-orange hover:text-burnt-orange hover:scale-110 transition-all duration-200"
+              >
+                <TikTokIcon />
+              </a>
+            )}
+            {siteSettings?.socialYouTube && (
+              <a
+                href={siteSettings.socialYouTube}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow us on YouTube"
+                className="flex items-center justify-center w-10 h-10 rounded-full border border-dark-brown/15 text-dark-brown/60 hover:border-burnt-orange hover:text-burnt-orange hover:scale-110 transition-all duration-200"
+              >
+                <YouTubeIcon />
               </a>
             )}
           </div>

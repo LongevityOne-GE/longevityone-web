@@ -40,6 +40,8 @@ export interface SiteSettings {
   socialFacebook: string | null
   socialInstagram: string | null
   socialLinkedIn: string | null
+  socialTikTok: string | null
+  socialYouTube: string | null
   nav_cta_ka: string | null
   nav_cta_en: string | null
   cookie_title_ka: string | null
