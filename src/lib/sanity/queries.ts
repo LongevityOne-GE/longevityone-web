@@ -8,7 +8,7 @@ export const siteSettingsQuery = groq`
     address_ka, address_en, maps_url,
     phone, email,
     openingHours_ka, openingHours_en,
-    socialFacebook, socialInstagram, socialLinkedIn,
+    socialFacebook, socialInstagram, socialLinkedIn, socialTikTok, socialYouTube,
     nav_cta_ka, nav_cta_en,
     cookie_title_ka, cookie_title_en,
     cookie_body_ka, cookie_body_en,
