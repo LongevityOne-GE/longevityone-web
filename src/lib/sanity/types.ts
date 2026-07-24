@@ -329,11 +329,24 @@ export interface SimplePackage {
   priceLabel_en: string | null
 }
 
+export interface MetabolicAuditItem {
+  _id: string
+  name_ka: string | null
+  name_en: string | null
+  tagline_ka: string | null
+  tagline_en: string | null
+  price: number | null
+  priceLabel_ka: string | null
+  priceLabel_en: string | null
+  isFeatured: boolean | null
+}
+
 export interface PackagesData {
   diagnostic: DiagnosticPackage[]
   memberships: MembershipPackage[]
   addons: SimplePackage[]
   sessions: SimplePackage[]
+  metabolicAudit: MetabolicAuditItem[]
 }
 
 // ─── Corporate Page ───────────────────────────────────────────────────────────
