@@ -183,6 +183,12 @@ export const packagesQuery = groq`
       tagline_ka, tagline_en,
       price, priceLabel_ka, priceLabel_en,
     },
+    "metabolicAudit": *[_type == "package" && category == "metabolic_audit"] | order(order asc) {
+      _id, name_ka, name_en,
+      tagline_ka, tagline_en,
+      price, priceLabel_ka, priceLabel_en,
+      isFeatured,
+    },
   }
 `
 

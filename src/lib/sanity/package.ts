@@ -28,6 +28,7 @@ export const packageDoc = defineType({
           { title: 'Membership (monthly)', value: 'membership' },
           { title: 'Add-On Test', value: 'addon' },
           { title: 'Therapy Session Pack', value: 'session' },
+          { title: 'Metabolic Audit item', value: 'metabolic_audit' },
         ],
       },
       validation: (Rule) => Rule.required(),
