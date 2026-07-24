@@ -10,6 +10,10 @@ import { DiagnosticTiers } from '@/components/sections/DiagnosticTiers'
 import { MembershipPlans } from '@/components/sections/MembershipPlans'
 import { AddOns } from '@/components/sections/AddOns'
 import { SessionPacks } from '@/components/sections/SessionPacks'
+import { MetabolicAudit } from '@/components/sections/MetabolicAudit'
+import { IndividualSessions } from '@/components/sections/IndividualSessions'
+import { FounderCircleBanner } from '@/components/sections/FounderCircleBanner'
+import { PackagesJsonLd } from '@/components/sections/packages/PackagesJsonLd'
 
 interface PackagesPageProps {
   locale: Locale
@@ -49,7 +53,11 @@ export function PackagesPage({ locale, packages, homeData }: PackagesPageProps) 
         heading={locale === 'ka' ? homeData?.packages_heading_ka : homeData?.packages_heading_en}
         subtext={locale === 'ka' ? homeData?.packages_subtext_ka : homeData?.packages_subtext_en}
       />
-      {/* 
+
+      {/* One-time metabolic audit — sits under the #diagnostics journey step. */}
+      <MetabolicAudit locale={locale} items={packages?.metabolicAudit ?? []} />
+
+      {/*
       <MembershipPlans
         locale={locale}
         memberships={packages?.memberships ?? []}
@@ -57,11 +65,24 @@ export function PackagesPage({ locale, packages, homeData }: PackagesPageProps) 
       />
       */}
       <AddOns locale={locale} addons={packages?.addons ?? []} />
-      {/* 
+
+      {/* Individual therapy sessions — completes the #add-ons journey step
+          ("lab add-ons and individual sessions"). */}
+      <IndividualSessions locale={locale} sessions={packages?.sessions ?? []} />
+      {/*
       <SessionPacks locale={locale} sessions={packages?.sessions ?? []} />
       */}
 
+      {/* Founder Circle 50 fills the #memberships journey step. Reuses the exact
+          homepage component so the two never drift. Placed last, right before
+          the closing CTA, per founder request. */}
+      <div id="memberships" className="scroll-mt-32">
+        <FounderCircleBanner locale={locale} />
+      </div>
+
       <PackagesClosingCta locale={locale} />
+
+      {packages && <PackagesJsonLd locale={locale} packages={packages} />}
     </main>
   )
 }
