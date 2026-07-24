@@ -96,6 +96,16 @@ export const siteSettings = defineType({
       title: 'LinkedIn URL',
       type: 'url',
     }),
+    defineField({
+      name: 'socialTikTok',
+      title: 'TikTok URL',
+      type: 'url',
+    }),
+    defineField({
+      name: 'socialYouTube',
+      title: 'YouTube URL',
+      type: 'url',
+    }),
 
     // ─── Navigation CTA ───────────────────────────────────────────────────────
     defineField({
