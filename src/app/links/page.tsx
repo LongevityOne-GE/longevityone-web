@@ -174,6 +174,27 @@ export default function LinksPage() {
                 <span aria-hidden="true" className="flex-none opacity-35 transition-transform duration-200 group-hover:translate-x-1 group-hover:opacity-70">→</span>
               </a>
             ))}
+
+            {/* Google review */}
+            <a
+              href="https://g.page/r/CeUnX0YVBOYEEBM/review"
+              target="_blank"
+              rel="noopener"
+              className={`${linkBase} mt-4 border-dark-brown/15 bg-white/40 text-dark-brown hover:border-burnt-orange/40 hover:bg-white/70`}
+            >
+              <span className="flex h-[19px] w-[19px] flex-none items-center justify-center text-dark-brown/70 transition-colors duration-200 group-hover:text-burnt-orange">
+                <svg viewBox="0 0 24 24" fill="currentColor" className="h-full w-full">
+                  <path d="M12 2l2.9 6.26L21.5 9l-5 4.87L17.8 21 12 17.6 6.2 21l1.3-7.13-5-4.87 6.6-.74L12 2z" />
+                </svg>
+              </span>
+              <span className="flex-1">
+                Leave us a review
+                <span className="mt-px block text-[11.5px] font-normal text-dark-brown/60">
+                  Share your experience on Google
+                </span>
+              </span>
+              <span aria-hidden="true" className="flex-none opacity-35 transition-transform duration-200 group-hover:translate-x-1 group-hover:opacity-70">→</span>
+            </a>
           </div>
 
           <footer className="mt-11 text-center">
