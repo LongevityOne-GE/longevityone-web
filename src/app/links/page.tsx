@@ -178,6 +178,26 @@ export default function LinksPage() {
               <span aria-hidden="true" className="flex-none opacity-35 transition-transform duration-200 group-hover:translate-x-1 group-hover:opacity-70">→</span>
             </a>
 
+            {/* Email */}
+            <a
+              href="mailto:info@longevityone.ge"
+              className={`${linkBase} border-dark-brown/15 bg-white/40 text-dark-brown hover:border-burnt-orange/40 hover:bg-white/70`}
+            >
+              <span className="flex h-[19px] w-[19px] flex-none items-center justify-center text-dark-brown/70 transition-colors duration-200 group-hover:text-burnt-orange">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="h-full w-full">
+                  <rect x="2.5" y="4.5" width="19" height="15" rx="2.5" />
+                  <path d="M3.5 6.5l8.5 6 8.5-6" />
+                </svg>
+              </span>
+              <span className="flex-1">
+                Email us
+                <span className="mt-px block text-[11.5px] font-normal text-dark-brown/60">
+                  info@longevityone.ge
+                </span>
+              </span>
+              <span aria-hidden="true" className="flex-none opacity-35 transition-transform duration-200 group-hover:translate-x-1 group-hover:opacity-70">→</span>
+            </a>
+
             <p className="mb-1 ml-1 mt-4 text-[10.5px] uppercase tracking-[0.16em] text-dark-brown/60">
               Follow us
             </p>
