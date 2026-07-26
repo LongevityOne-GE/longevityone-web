@@ -89,19 +89,22 @@ export default function LinksPage() {
         </div>
 
         <div className="relative z-10">
-          {/* Crest — brand mark per BRAND.md, same asset as the site header (Logo.tsx) */}
-          <img
-            src="/logos/logo-mark.svg"
-            alt="Longevity One"
-            width={42}
-            height={46}
-            style={{ width: 42, height: 'auto', maxHeight: 46 }}
-            className="mx-auto mb-7 block"
-          />
+          {/* Crest + wordmark — always shown together per brand guidelines */}
+          <div className="mb-7 flex items-center justify-center gap-3">
+            <span className="flex h-11 w-11 flex-none items-center justify-center rounded-full border border-dark-brown/15 bg-white/40">
+              <img
+                src="/logos/logo-mark.svg"
+                alt=""
+                width={22}
+                height={24}
+                style={{ width: 22, height: 'auto', maxHeight: 24 }}
+              />
+            </span>
+            <span className="text-xl font-normal tracking-[0.01em] text-dark-brown">
+              LongevityOne
+            </span>
+          </div>
 
-          <p className="mb-1.5 text-center text-[11px] uppercase tracking-[0.22em] text-dark-brown/60">
-            Longevity One
-          </p>
           <h1 className="mb-2.5 text-center font-serif text-[34px] font-semibold leading-[1.05] tracking-[0.01em]">
             The <span className="text-burnt-orange">Art</span> of
             <br />
