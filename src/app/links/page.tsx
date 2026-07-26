@@ -89,19 +89,20 @@ export default function LinksPage() {
         </div>
 
         <div className="relative z-10">
-          {/* Crest — brand mark per BRAND.md, same asset as the site header (Logo.tsx) */}
-          <img
-            src="/logos/logo-mark.svg"
-            alt="Longevity One"
-            width={42}
-            height={46}
-            style={{ width: 42, height: 'auto', maxHeight: 46 }}
-            className="mx-auto mb-7 block"
-          />
+          {/* Crest + wordmark — always shown together per brand guidelines */}
+          <div className="mb-7 flex items-center justify-center gap-3">
+            <img
+              src="/logos/logo-mark.svg"
+              alt=""
+              width={30}
+              height={33}
+              style={{ width: 30, height: 'auto', maxHeight: 33 }}
+            />
+            <span className="text-xl font-normal tracking-[0.01em] text-dark-brown">
+              LongevityOne
+            </span>
+          </div>
 
-          <p className="mb-1.5 text-center text-[11px] uppercase tracking-[0.22em] text-dark-brown/60">
-            Longevity One
-          </p>
           <h1 className="mb-2.5 text-center font-serif text-[34px] font-semibold leading-[1.05] tracking-[0.01em]">
             The <span className="text-burnt-orange">Art</span> of
             <br />
@@ -150,6 +151,28 @@ export default function LinksPage() {
                 Visit our website
                 <span className="mt-px block text-[11.5px] font-normal text-dark-brown/60">
                   Services, packages, technology
+                </span>
+              </span>
+              <span aria-hidden="true" className="flex-none opacity-35 transition-transform duration-200 group-hover:translate-x-1 group-hover:opacity-70">→</span>
+            </a>
+
+            {/* Directions */}
+            <a
+              href="https://www.google.com/maps/place/LongevityOne/@41.7129569,44.7490121,706m/data=!3m2!1e3!4b1!4m6!3m5!1s0x404473b5f4bab215:0x4e60415465f27e5!8m2!3d41.7129569!4d44.7490121!16s%2Fg%2F11zgf0h5lw!5m1!1e1!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDcyMi4wIKXMDSoASAFQAw%3D%3D"
+              target="_blank"
+              rel="noopener"
+              className={`${linkBase} border-dark-brown/15 bg-white/40 text-dark-brown hover:border-burnt-orange/40 hover:bg-white/70`}
+            >
+              <span className="flex h-[19px] w-[19px] flex-none items-center justify-center text-dark-brown/70 transition-colors duration-200 group-hover:text-burnt-orange">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="h-full w-full">
+                  <path d="M12 22s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z" />
+                  <circle cx="12" cy="10" r="2.5" />
+                </svg>
+              </span>
+              <span className="flex-1">
+                Get directions
+                <span className="mt-px block text-[11.5px] font-normal text-dark-brown/60">
+                  Tamarashvili 4a, Tbilisi
                 </span>
               </span>
               <span aria-hidden="true" className="flex-none opacity-35 transition-transform duration-200 group-hover:translate-x-1 group-hover:opacity-70">→</span>
