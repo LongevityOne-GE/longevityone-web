@@ -16,6 +16,7 @@ import { Pillars } from '@/components/sections/Pillars'
 import { Science } from '@/components/sections/Science'
 import { ProgrammesPreview } from '@/components/sections/ProgrammesPreview'
 import { Team } from '@/components/sections/Team'
+import { ReviewsSection } from '@/components/sections/reviews/ReviewsSection'
 import { CTA } from '@/components/sections/CTA'
 
 interface HomePageProps {
@@ -45,6 +46,8 @@ export function HomePage({
       <Science locale={locale} technologies={technologies} data={homePage} />
       <ProgrammesPreview locale={locale} packages={packages} data={homePage} />
       <Team locale={locale} data={homePage} founders={founders} />
+      {/* Renders nothing until a consented review exists in content/reviews.json */}
+      <ReviewsSection locale={locale} />
       <CTA locale={locale} data={homePage} />
     </main>
   )
