@@ -506,3 +506,18 @@ export const ADVISORY_BOARD_MEMBERS_QUERY = groq`
     order,
   }
 `
+
+// ─── Reviews ──────────────────────────────────────────────────────────────────
+// Hard gate: only documents with consented == true are ever fetched, so a
+// review that fails the Studio's consent validation can never reach the site.
+export const reviewsQuery = groq`
+  *[_type == "review" && consented == true] | order(order asc, _createdAt desc) {
+    _id,
+    name_ka, name_en,
+    rating,
+    date,
+    service_ka, service_en,
+    text_ka, text_en,
+    source,
+  }
+`

@@ -39,6 +39,7 @@ export { technology } from './technology'
 export { packageDoc as package } from './package'
 export { blogPost } from './blogPost'
 export { legalPage } from './legalPage'
+export { review } from './review'
 
 // ─── Global settings singleton ───────────────────────────────────────────────
 export { siteSettings } from './siteSettings'
@@ -57,6 +58,7 @@ import { technology } from './technology'
 import { packageDoc } from './package'
 import { blogPost } from './blogPost'
 import { legalPage } from './legalPage'
+import { review } from './review'
 import { siteSettings } from './siteSettings'
 
 export const schemaTypes = [
@@ -74,6 +76,7 @@ export const schemaTypes = [
   technology,
   packageDoc,
   blogPost,
+  review,
   // Repeatable documents under singletons
   journeyStage,
   faqItem,
