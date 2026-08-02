@@ -1,116 +1,37 @@
-import { z } from 'zod'
-import rawReviews from '@/content/reviews.json'
 import type { Locale } from '@/lib/utils'
+import type { SanityReview } from '@/lib/sanity/types'
 
 /**
- * Client reviews — content pipeline.
+ * Patient reviews — content lives in Sanity (`review` documents), editable in
+ * the Studio at /studio without a code change or deploy.
  *
- * ─── HOW TO ADD A REAL REVIEW ────────────────────────────────────────────────
- * Edit `src/content/reviews.json`. An entry is rendered ONLY if it passes every
- * check below; anything malformed, unconsented, or still containing the
- * `REPLACE_WITH_REAL_REVIEW` sentinel is silently dropped. That is deliberate:
- * it is impossible to ship placeholder or unconsented text to production.
+ * Consent is a hard gate, enforced twice:
+ *   1. The `consented` field's Studio validation blocks Publish unless it is
+ *      explicitly checked true.
+ *   2. `reviewsQuery` (src/lib/sanity/queries.ts) filters on `consented == true`,
+ *      so even a stale cache or draft can never surface an unconsented review.
  *
- *   id        unique string
- *   name      client's real name, exactly as they consented to have it shown
- *   rating    integer 1–5
- *   date      ISO date, e.g. "2026-05-14"
- *   service   MUST match a real service name (see VALID_SERVICES below)
- *   text_ge   Georgian review text, verbatim from the client
- *   text_en   human-supplied English translation, or null. NEVER machine
- *             translate: leave it null and the original Georgian is shown.
- *   consented must be literal boolean true — written consent on file
- *   source    "google" | "direct"
- *
- * Valid `service` values (from Sanity `package` documents):
- *   Metabolic Balance Programme / მეტაბოლური ბალანსის პროგრამა
- *   Longevity Programme (12 Weeks) / დღეგრძელობის პროგრამა (12 კვირა)
- *   Energy Recovery & Peak Performance Programme /
- *     ენერგიის აღდგენის და პიკური პერფორმანსის პროგრამა
- *   Metabolic audit — both together / მეტაბოლური აუდიტი — ორივე ერთად
- *   Resting metabolic test / მოსვენების მეტაბოლური ტესტი
- *   Exercise test with VO₂ Max / დატვირთვის ტესტი VO₂ Max-ით
- *   Epigenetic Test / ეპიგენეტიკური ტესტი
- *   Microbiome Analysis / მიკრობიომის ანალიზი
- *   Silver / Gold / Elite Platinum   (memberships)
- * ─────────────────────────────────────────────────────────────────────────────
+ * `date` is optional in the schema — leave it blank rather than guessing; the
+ * card simply shows no date, and `datePublished` is omitted from the JSON-LD.
  */
-
-/** Sentinel used by the seeded placeholders. Any entry carrying it is dropped. */
-const PLACEHOLDER_SENTINEL = 'REPLACE_WITH_REAL_REVIEW'
-
-const hasSentinel = (value: unknown): boolean =>
-  typeof value === 'string' && value.includes(PLACEHOLDER_SENTINEL)
-
-const reviewSchema = z.object({
-  id: z.string().min(1),
-  name: z.string().min(1),
-  /** Latin transliteration shown on /en. Falls back to `name` when absent. */
-  name_en: z.string().min(1).nullable().optional(),
-  rating: z.number().int().min(1).max(5),
-  /**
-   * ISO date, or null when the real date is not known. Null renders no date at
-   * all rather than a guessed one — we never invent a publication date.
-   */
-  date: z
-    .string()
-    .refine((v) => !Number.isNaN(Date.parse(v)), { message: 'date must be an ISO date string' })
-    .nullable(),
-  service: z.string().min(1),
-  /** English service name shown on /en. Falls back to `service` when absent. */
-  service_en: z.string().min(1).nullable().optional(),
-  text_ge: z.string().min(1),
-  text_en: z.string().min(1).nullable(),
-  // Hard consent gate: only the literal boolean `true` passes.
-  consented: z.literal(true),
-  source: z.enum(['google', 'direct']),
-})
-
-export type Review = z.infer<typeof reviewSchema>
-
-/**
- * Returns only reviews that are structurally valid AND explicitly consented.
- * Placeholder rows fail (`consented` is a string, not `true`) and are dropped,
- * so the seeded file yields an empty list until real reviews are supplied.
- */
-export function getConsentedReviews(): Review[] {
-  if (!Array.isArray(rawReviews)) return []
-
-  return (rawReviews as unknown[]).flatMap((entry) => {
-    // Reject anything still holding the placeholder sentinel in a rendered field.
-    if (entry && typeof entry === 'object') {
-      const values = Object.entries(entry as Record<string, unknown>)
-        .filter(([key]) => key !== 'text_en')
-        .map(([, value]) => value)
-      if (values.some(hasSentinel)) return []
-    }
-
-    const parsed = reviewSchema.safeParse(entry)
-    if (!parsed.success) return []
-
-    // An untranslated English field left as the sentinel falls back to null,
-    // which renders the original Georgian rather than placeholder text.
-    const review = parsed.data
-    return [hasSentinel(review.text_en) ? { ...review, text_en: null } : review]
-  })
-}
+export type Review = SanityReview
 
 /**
  * Review body for the active locale. English falls back to the original
- * Georgian when no human translation exists — we never auto-translate.
+ * Georgian when no human translation exists — never auto-translated.
  */
 export function reviewText(review: Review, locale: Locale): string {
-  return locale === 'en' ? (review.text_en ?? review.text_ge) : review.text_ge
+  return locale === 'en' ? (review.text_en ?? review.text_ka) : review.text_ka
 }
 
 /** Client name for the active locale, falling back to the original. */
 export function reviewName(review: Review, locale: Locale): string {
-  return locale === 'en' ? (review.name_en ?? review.name) : review.name
+  return locale === 'en' ? (review.name_en ?? review.name_ka) : review.name_ka
 }
 
 /** Service name for the active locale, falling back to the original. */
 export function reviewService(review: Review, locale: Locale): string {
-  return locale === 'en' ? (review.service_en ?? review.service) : review.service
+  return locale === 'en' ? (review.service_en ?? review.service_ka) : review.service_ka
 }
 
 const DIVISIONS: Array<{ unit: Intl.RelativeTimeFormatUnit; ms: number }> = [
