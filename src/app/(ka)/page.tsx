@@ -6,6 +6,7 @@ import {
   homePackagesTeaserQuery,
   homeMembershipsTeaserQuery,
   homeFoundersQuery,
+  reviewsQuery,
 } from '@/lib/sanity'
 import type {
   HomePageData,
@@ -14,6 +15,7 @@ import type {
   HomePackage,
   HomeMembership,
   HomeFounder,
+  SanityReview,
 } from '@/lib/sanity/types'
 import type { Metadata } from 'next'
 import { HomePage } from '@/components/pages/HomePage'
@@ -39,14 +41,16 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function KaHomePage() {
-  const [homePage, services, technologies, packages, memberships, founders] = await Promise.all([
-    sanityClient.fetch<HomePageData>(homePageQuery, {}, { next: { tags: ['sanity'] } }),
-    sanityClient.fetch<HomeService[]>(homeServicesQuery, {}, { next: { tags: ['sanity'] } }),
-    sanityClient.fetch<HomeTech[]>(homeTechQuery, {}, { next: { tags: ['sanity'] } }),
-    sanityClient.fetch<HomePackage[]>(homePackagesTeaserQuery, {}, { next: { tags: ['sanity'] } }),
-    sanityClient.fetch<HomeMembership[]>(homeMembershipsTeaserQuery, {}, { next: { tags: ['sanity'] } }),
-    sanityClient.fetch<HomeFounder[]>(homeFoundersQuery, {}, { next: { tags: ['sanity'] } }),
-  ])
+  const [homePage, services, technologies, packages, memberships, founders, reviews] =
+    await Promise.all([
+      sanityClient.fetch<HomePageData>(homePageQuery, {}, { next: { tags: ['sanity'] } }),
+      sanityClient.fetch<HomeService[]>(homeServicesQuery, {}, { next: { tags: ['sanity'] } }),
+      sanityClient.fetch<HomeTech[]>(homeTechQuery, {}, { next: { tags: ['sanity'] } }),
+      sanityClient.fetch<HomePackage[]>(homePackagesTeaserQuery, {}, { next: { tags: ['sanity'] } }),
+      sanityClient.fetch<HomeMembership[]>(homeMembershipsTeaserQuery, {}, { next: { tags: ['sanity'] } }),
+      sanityClient.fetch<HomeFounder[]>(homeFoundersQuery, {}, { next: { tags: ['sanity'] } }),
+      sanityClient.fetch<SanityReview[]>(reviewsQuery, {}, { next: { tags: ['sanity'] } }),
+    ])
 
   return (
     <HomePage
@@ -57,6 +61,7 @@ export default async function KaHomePage() {
       packages={packages}
       memberships={memberships}
       founders={founders}
+      reviews={reviews}
     />
   )
 }

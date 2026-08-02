@@ -603,6 +603,21 @@ export interface AdvisoryBoardMember {
   order: number | null
 }
 
+// ─── Reviews ────────────────────────────────────────────────────────────────
+
+export interface SanityReview {
+  _id: string
+  name_ka: string
+  name_en: string | null
+  rating: number
+  date: string | null
+  service_ka: string
+  service_en: string | null
+  text_ka: string
+  text_en: string | null
+  source: 'google' | 'direct'
+}
+
 export interface AdvisoryBoardPage {
   eyebrow_ka: string | null
   eyebrow_en: string | null

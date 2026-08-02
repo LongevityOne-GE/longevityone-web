@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import type { Locale } from '@/lib/utils'
 import { cn } from '@/lib/utils'
 import {
-  getConsentedReviews,
   reviewText,
   reviewName,
   reviewService,
@@ -17,6 +16,8 @@ import { ReviewsJsonLd } from '@/components/sections/reviews/ReviewsJsonLd'
 
 interface ReviewsSectionProps {
   locale: Locale
+  /** Consented reviews from Sanity (reviewsQuery), fetched by the page. */
+  reviews: Review[]
   /** Auto-advance interval in milliseconds. */
   interval?: number
 }
@@ -151,8 +152,7 @@ function ArrowButton({
   )
 }
 
-export function ReviewsSection({ locale, interval = 6500 }: ReviewsSectionProps) {
-  const reviews = getConsentedReviews()
+export function ReviewsSection({ locale, reviews, interval = 6500 }: ReviewsSectionProps) {
   const count = reviews.length
 
   const [perView, setPerView] = useState(1)
@@ -255,7 +255,7 @@ export function ReviewsSection({ locale, interval = 6500 }: ReviewsSectionProps)
               >
                 {reviews.map((review) => (
                   <div
-                    key={review.id}
+                    key={review._id}
                     className="w-full shrink-0 px-2.5 sm:w-1/2 md:px-3 lg:w-1/3"
                   >
                     <ReviewCard review={review} locale={locale} />

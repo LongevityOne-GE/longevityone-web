@@ -8,6 +8,7 @@ import type {
   HomePackage,
   HomeMembership,
   HomeFounder,
+  SanityReview,
 } from '@/lib/sanity/types'
 import { Hero } from '@/components/sections/Hero'
 import { FounderCircleBanner } from '@/components/sections/FounderCircleBanner'
@@ -27,6 +28,7 @@ interface HomePageProps {
   packages?: HomePackage[] | null
   memberships?: HomeMembership[] | null
   founders?: HomeFounder[] | null
+  reviews?: SanityReview[] | null
 }
 
 export function HomePage({
@@ -36,6 +38,7 @@ export function HomePage({
   technologies,
   packages,
   founders,
+  reviews,
 }: HomePageProps) {
   return (
     <main className="flex flex-col">
@@ -46,8 +49,8 @@ export function HomePage({
       <Science locale={locale} technologies={technologies} data={homePage} />
       <ProgrammesPreview locale={locale} packages={packages} data={homePage} />
       <Team locale={locale} data={homePage} founders={founders} />
-      {/* Renders nothing until a consented review exists in content/reviews.json */}
-      <ReviewsSection locale={locale} />
+      {/* Renders nothing until a consented review exists in Sanity */}
+      <ReviewsSection locale={locale} reviews={reviews ?? []} />
       <CTA locale={locale} data={homePage} />
     </main>
   )
