@@ -1,27 +1,17 @@
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import { createClient, createServiceClient } from '@/lib/supabase/server'
+import { createClient } from '@/lib/supabase/server'
 import { isAllowedAdmin } from '@/lib/admin/allowlist'
+import {
+  fetchLeads,
+  parseFilters,
+  summarise,
+  type LeadFilters,
+  type LeadRow,
+} from '@/lib/admin/leads-query'
 
-// Leads are written continuously; never serve a cached copy of this table.
+// Leads arrive continuously; never serve a cached copy of this table.
 export const dynamic = 'force-dynamic'
-
-/** Most recent leads shown. Keeps the page bounded as the table grows. */
-const PAGE_SIZE = 200
-
-interface LeadRow {
-  id: string
-  name: string
-  phone: string
-  email: string | null
-  lang: string
-  source: string | null
-  created_at: string
-  utm_source: string | null
-  utm_medium: string | null
-  utm_campaign: string | null
-  gclid: string | null
-  fbclid: string | null
-}
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleString('en-GB', {
@@ -34,16 +24,47 @@ function formatDate(iso: string): string {
   })
 }
 
-/** Paid click IDs collapse to a channel label - the raw IDs are long and unreadable. */
-function clickChannel(row: LeadRow): string {
-  if (row.gclid) return 'Google Ads'
-  if (row.fbclid) return 'Meta'
+/** Collapse paid click IDs to a readable channel; the raw IDs are unusable. */
+function channel(row: LeadRow): string {
+  if (row.gclid || row.last_gclid) return 'Google Ads'
+  if (row.fbclid || row.last_fbclid) return 'Meta'
+  if (row.last_utm_source || row.utm_source) return row.last_utm_source ?? row.utm_source ?? ''
   return ''
 }
 
-export default async function AdminLeadsPage() {
-  // Re-verify server-side rather than trusting the middleware alone: middleware
-  // guards navigation, but this is where the data is actually read.
+function queryString(filters: LeadFilters, overrides: Partial<LeadFilters> = {}): string {
+  const merged = { ...filters, ...overrides }
+  const params = new URLSearchParams()
+  if (merged.from && merged.to) {
+    params.set('from', merged.from)
+    params.set('to', merged.to)
+  } else {
+    params.set('range', merged.range)
+  }
+  params.set('form', merged.form)
+  return `?${params.toString()}`
+}
+
+const RANGE_LABELS: Record<string, string> = {
+  '7d': 'Last 7 days',
+  '30d': 'Last 30 days',
+  '90d': 'Last 90 days',
+  all: 'All time',
+}
+
+const FORM_LABELS: Record<string, string> = {
+  all: 'All forms',
+  lead_form: 'Call request',
+  contact_form: 'Contact form',
+}
+
+export default async function AdminLeadsPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>
+}) {
+  // Re-verify server-side rather than trusting the middleware alone: this is
+  // where the data is actually read.
   const supabase = await createClient()
   const {
     data: { user },
@@ -53,54 +74,104 @@ export default async function AdminLeadsPage() {
     redirect('/admin/login')
   }
 
-  // Service client: RLS grants nobody access to this table, so the read has to
-  // happen with the service role. It stays server-side and is never serialised
-  // into the page.
-  const service = createServiceClient()
-  const { data, error } = await service
-    .from('founder_circle_leads')
-    .select(
-      'id, name, phone, email, lang, source, created_at, utm_source, utm_medium, utm_campaign, gclid, fbclid',
-    )
-    .order('created_at', { ascending: false })
-    .limit(PAGE_SIZE)
-
-  if (error) {
-    // Log the failure, never the rows - these contain patient enquiry PII.
-    console.error('[admin] leads query failed', error.message)
-  }
-
-  const leads: LeadRow[] = data ?? []
+  const filters = parseFilters(await searchParams)
+  const { rows, error } = await fetchLeads(filters)
+  const stats = summarise(rows)
 
   const cell = 'px-3 py-3 align-top text-sm text-dark-brown/80 whitespace-nowrap'
   const head =
     'px-3 py-3 text-left text-[10px] font-semibold uppercase tracking-[0.18em] text-dark-brown/50 whitespace-nowrap'
+  const chip =
+    'px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.12em] border transition-colors'
+  const chipOn = 'bg-dark-brown text-bone-white border-dark-brown'
+  const chipOff = 'border-dark-brown/25 text-dark-brown/70 hover:border-dark-brown'
 
   return (
     <main className="px-6 py-12 md:px-10">
-      <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+      <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-burnt-orange">
             Longevity One
           </p>
           <h1 className="text-2xl font-black text-dark-brown">Leads</h1>
-          <p className="mt-2 text-sm text-dark-brown/60">
-            {leads.length === PAGE_SIZE
-              ? `Showing the ${PAGE_SIZE} most recent`
-              : `${leads.length} total`}
-            {' · signed in as '}
-            {user.email}
-          </p>
+          <p className="mt-2 text-sm text-dark-brown/60">Signed in as {user.email}</p>
         </div>
-        <form action="/admin/logout" method="post">
-          <button
-            type="submit"
+        <div className="flex items-center gap-3">
+          <a
+            href={`/admin/leads/export${queryString(filters)}`}
             className="border border-dark-brown/30 px-5 py-2.5 text-[11px] font-medium uppercase tracking-[0.15em] text-dark-brown transition-colors hover:bg-dark-brown hover:text-bone-white"
           >
-            Sign out
-          </button>
-        </form>
+            Download CSV
+          </a>
+          <form action="/admin/logout" method="post">
+            <button
+              type="submit"
+              className="border border-dark-brown/30 px-5 py-2.5 text-[11px] font-medium uppercase tracking-[0.15em] text-dark-brown transition-colors hover:bg-dark-brown hover:text-bone-white"
+            >
+              Sign out
+            </button>
+          </form>
+        </div>
       </div>
+
+      {/* Filters */}
+      <div className="mb-8 flex flex-wrap items-center gap-2">
+        {Object.entries(RANGE_LABELS).map(([value, label]) => (
+          <Link
+            key={value}
+            href={`/admin/leads${queryString(filters, { range: value as LeadFilters['range'], from: undefined, to: undefined })}`}
+            className={`${chip} ${filters.range === value && !filters.from ? chipOn : chipOff}`}
+          >
+            {label}
+          </Link>
+        ))}
+        <span className="mx-2 h-5 w-px bg-dark-brown/15" />
+        {Object.entries(FORM_LABELS).map(([value, label]) => (
+          <Link
+            key={value}
+            href={`/admin/leads${queryString(filters, { form: value as LeadFilters['form'] })}`}
+            className={`${chip} ${filters.form === value ? chipOn : chipOff}`}
+          >
+            {label}
+          </Link>
+        ))}
+      </div>
+
+      {/* Summary */}
+      <div className="mb-10 grid grid-cols-2 gap-4 md:grid-cols-4">
+        {[
+          { label: 'Total leads', value: stats.total },
+          { label: 'Call requests', value: stats.leadForm },
+          { label: 'Contact form', value: stats.contactForm },
+          { label: 'From campaigns', value: stats.fromCampaigns },
+        ].map((stat) => (
+          <div key={stat.label} className="border border-dark-brown/15 px-5 py-4">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-dark-brown/50">
+              {stat.label}
+            </p>
+            <p className="mt-2 text-2xl font-black text-dark-brown">{stat.value}</p>
+          </div>
+        ))}
+      </div>
+
+      {stats.topCampaigns.length > 0 && (
+        <div className="mb-10">
+          <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-dark-brown/50">
+            Top campaigns in this period
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {stats.topCampaigns.map((c) => (
+              <span
+                key={c.campaign}
+                className="border border-dark-brown/15 px-4 py-2 text-sm text-dark-brown/80"
+              >
+                {c.campaign}
+                <span className="ml-2 font-bold text-dark-brown">{c.count}</span>
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
 
       {error && (
         <p className="mb-6 text-sm text-burnt-orange">
@@ -108,62 +179,66 @@ export default async function AdminLeadsPage() {
         </p>
       )}
 
-      {!error && leads.length === 0 && (
-        <p className="text-sm text-dark-brown/60">No leads yet.</p>
+      {!error && rows.length === 0 && (
+        <p className="text-sm text-dark-brown/60">No leads in this period.</p>
       )}
 
-      {leads.length > 0 && (
+      {rows.length > 0 && (
         <div className="overflow-x-auto border border-dark-brown/15">
           <table className="w-full border-collapse">
             <thead className="bg-dark-brown/5">
               <tr>
                 <th className={head}>Received</th>
+                <th className={head}>Form</th>
                 <th className={head}>Name</th>
                 <th className={head}>Phone</th>
                 <th className={head}>Email</th>
                 <th className={head}>Lang</th>
-                <th className={head}>Form</th>
                 <th className={head}>Channel</th>
-                <th className={head}>utm_source</th>
-                <th className={head}>utm_medium</th>
-                <th className={head}>utm_campaign</th>
+                <th className={head}>Campaign (last)</th>
+                <th className={head}>Campaign (first)</th>
+                <th className={head}>Visits</th>
               </tr>
             </thead>
             <tbody>
-              {leads.map((lead) => (
-                <tr key={lead.id} className="border-t border-dark-brown/10">
-                  <td className={cell}>{formatDate(lead.created_at)}</td>
-                  <td className={`${cell} font-medium text-dark-brown`}>{lead.name}</td>
-                  <td className={cell}>
-                    <a href={`tel:${lead.phone.replace(/[^+\d]/g, '')}`} className="hover:text-burnt-orange">
-                      {lead.phone}
-                    </a>
-                  </td>
-                  <td className={cell}>
-                    {lead.email ? (
-                      <a href={`mailto:${lead.email}`} className="hover:text-burnt-orange">
-                        {lead.email}
-                      </a>
-                    ) : (
-                      <span className="text-dark-brown/30">-</span>
-                    )}
-                  </td>
-                  <td className={cell}>{lead.lang}</td>
-                  <td className={cell}>{lead.source ?? <span className="text-dark-brown/30">-</span>}</td>
-                  <td className={cell}>
-                    {clickChannel(lead) || <span className="text-dark-brown/30">-</span>}
-                  </td>
-                  <td className={cell}>
-                    {lead.utm_source ?? <span className="text-dark-brown/30">-</span>}
-                  </td>
-                  <td className={cell}>
-                    {lead.utm_medium ?? <span className="text-dark-brown/30">-</span>}
-                  </td>
-                  <td className={cell}>
-                    {lead.utm_campaign ?? <span className="text-dark-brown/30">-</span>}
-                  </td>
-                </tr>
-              ))}
+              {rows.map((lead) => {
+                const dash = <span className="text-dark-brown/30">-</span>
+                return (
+                  <tr key={lead.id} className="border-t border-dark-brown/10">
+                    <td className={cell}>{formatDate(lead.created_at)}</td>
+                    <td className={cell}>
+                      {FORM_LABELS[lead.form_type] ?? lead.form_type}
+                    </td>
+                    <td className={`${cell} font-medium text-dark-brown`}>{lead.name}</td>
+                    <td className={cell}>
+                      {lead.phone ? (
+                        <a
+                          href={`tel:${lead.phone.replace(/[^+\d]/g, '')}`}
+                          className="hover:text-burnt-orange"
+                        >
+                          {lead.phone}
+                        </a>
+                      ) : (
+                        dash
+                      )}
+                    </td>
+                    <td className={cell}>
+                      {lead.email ? (
+                        <a href={`mailto:${lead.email}`} className="hover:text-burnt-orange">
+                          {lead.email}
+                        </a>
+                      ) : (
+                        dash
+                      )}
+                    </td>
+                    <td className={cell}>{lead.lang}</td>
+                    <td className={cell}>{channel(lead) || dash}</td>
+                    <td className={cell}>{lead.last_utm_campaign ?? dash}</td>
+                    <td className={cell}>{lead.utm_campaign ?? dash}</td>
+                    <td className={cell}>{lead.touch_count ?? dash}</td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
         </div>

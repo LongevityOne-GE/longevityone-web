@@ -1,22 +1,36 @@
+import { z } from 'zod'
+
 /**
  * Campaign attribution capture.
  *
- * A visitor usually lands from an ad on one page and submits a lead several
- * pages later, by which point the UTM params are long gone from the URL. This
- * module snapshots them on the first page of the session and replays them onto
- * every form submission, so paid spend can be tied to the leads it produced.
+ * Nobody books a longevity programme in one browsing session. A visitor clicks
+ * an ad, thinks about it for days, comes back by typing the domain, and only
+ * then submits a form. So attribution is stored in localStorage with a 90-day
+ * window (matching the ad platforms' own lookback) rather than sessionStorage,
+ * which dies with the tab and would report almost every conversion as "direct".
  *
- * First touch wins: once a session has attribution, later navigations never
- * overwrite it. Storage is sessionStorage, so it is scoped to the tab and is
- * discarded when the tab closes.
+ * Both touches are kept:
+ *  - FIRST touch is the campaign that discovered the visitor. It never changes
+ *    inside the window, so paid media keeps credit for creating demand.
+ *  - LAST touch is the campaign that brought them back to convert. Google Ads
+ *    and Meta both attribute on last click, so storing this is what lets the
+ *    dashboard reconcile with what those platforms report.
  */
-
-import { z } from 'zod'
 
 const STORAGE_KEY = 'lo_attribution'
 
-/** The attribution fields mirrored by the founder_circle_leads columns. */
-export interface Attribution {
+/** Matches the 90-day click lookback used by Google Ads and Meta. */
+const WINDOW_DAYS = 90
+const WINDOW_MS = WINDOW_DAYS * 24 * 60 * 60 * 1000
+
+/** A new visit if this long has passed since the last page view. */
+const VISIT_GAP_MS = 30 * 60 * 1000
+
+/** Longest value stored per field. Guards against absurd or hostile URLs. */
+const MAX_VALUE_LENGTH = 500
+
+/** One set of campaign parameters. */
+export interface Touch {
   utm_source?: string
   utm_medium?: string
   utm_campaign?: string
@@ -28,7 +42,30 @@ export interface Attribution {
   referrer?: string
 }
 
-/** Query params copied verbatim from the landing URL. */
+interface StoredAttribution {
+  first: Touch
+  last: Touch
+  /** When the first touch happened - drives window expiry. */
+  firstAt: number
+  /** Last page view, used to decide whether a new visit has started. */
+  seenAt: number
+  touchCount: number
+}
+
+/** Flattened shape sent to the API: first touch unprefixed, last touch prefixed. */
+export interface AttributionPayload extends Touch {
+  last_utm_source?: string
+  last_utm_medium?: string
+  last_utm_campaign?: string
+  last_utm_content?: string
+  last_utm_term?: string
+  last_gclid?: string
+  last_fbclid?: string
+  last_landing_page?: string
+  last_referrer?: string
+  touch_count?: number
+}
+
 const PARAM_KEYS = [
   'utm_source',
   'utm_medium',
@@ -39,79 +76,188 @@ const PARAM_KEYS = [
   'fbclid',
 ] as const
 
-/** Longest value we will store per field - guards against absurd URLs. */
-const MAX_VALUE_LENGTH = 500
+/** Touch fields in display order, used by the emails and the dashboard. */
+export const TOUCH_KEYS = [
+  ...PARAM_KEYS,
+  'landing_page',
+  'referrer',
+] as const satisfies readonly (keyof Touch)[]
 
-function clean(value: string | null): string | undefined {
+function clean(value: string | null | undefined): string | undefined {
   if (!value) return undefined
   const trimmed = value.trim()
-  if (!trimmed) return undefined
-  return trimmed.slice(0, MAX_VALUE_LENGTH)
+  return trimmed ? trimmed.slice(0, MAX_VALUE_LENGTH) : undefined
+}
+
+/** Read the campaign parameters out of the current URL, if any. */
+function readTouchFromUrl(): Touch | null {
+  const params = new URLSearchParams(window.location.search)
+  const touch: Touch = {}
+
+  for (const key of PARAM_KEYS) {
+    const value = clean(params.get(key))
+    if (value) touch[key] = value
+  }
+
+  // No UTM and no click ID means there is nothing to attribute. Recording the
+  // landing page alone would pin the visitor to a meaningless touch.
+  if (Object.keys(touch).length === 0) return null
+
+  touch.landing_page = clean(window.location.pathname)
+
+  const referrer = clean(document.referrer)
+  // Same-origin referrers are internal navigation and say nothing about origin.
+  if (referrer && !referrer.startsWith(window.location.origin)) {
+    touch.referrer = referrer
+  }
+
+  return touch
+}
+
+function read(): StoredAttribution | null {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (!raw) return null
+    const parsed: unknown = JSON.parse(raw)
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return null
+
+    const record = parsed as Partial<StoredAttribution>
+    if (typeof record.firstAt !== 'number' || !record.first || !record.last) return null
+
+    // Outside the window the attribution is stale. Ad platforms would no longer
+    // credit this click either, so we drop it rather than over-report.
+    if (Date.now() - record.firstAt > WINDOW_MS) {
+      localStorage.removeItem(STORAGE_KEY)
+      return null
+    }
+
+    return {
+      first: record.first,
+      last: record.last,
+      firstAt: record.firstAt,
+      seenAt: typeof record.seenAt === 'number' ? record.seenAt : record.firstAt,
+      touchCount: typeof record.touchCount === 'number' ? record.touchCount : 1,
+    }
+  } catch {
+    return null
+  }
+}
+
+function write(record: StoredAttribution): void {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(record))
+  } catch {
+    // Private mode, disabled storage, or quota. Attribution is best-effort and
+    // must never break a page or a form.
+  }
 }
 
 /**
- * Capture UTM / click-ID params on first landing and persist them for the whole
- * session. Safe to call on every mount: it returns immediately once a session
- * already holds attribution.
+ * Record this page view against the visitor's attribution.
+ *
+ * Safe and cheap to call on every mount. A page view carrying campaign
+ * parameters becomes the new last touch (and the first touch if there is none);
+ * a plain page view only advances the visit clock.
  */
 export function captureAttribution(): void {
   if (typeof window === 'undefined') return
 
   try {
-    if (sessionStorage.getItem(STORAGE_KEY)) return // first touch wins
+    const now = Date.now()
+    const existing = read()
+    const incoming = readTouchFromUrl()
 
-    const params = new URLSearchParams(window.location.search)
-    const attribution: Attribution = {}
-
-    for (const key of PARAM_KEYS) {
-      const value = clean(params.get(key))
-      if (value) attribution[key] = value
+    if (!existing) {
+      if (!incoming) return // organic visitor, nothing to store
+      write({ first: incoming, last: incoming, firstAt: now, seenAt: now, touchCount: 1 })
+      return
     }
 
-    // Only record a campaign session, not every organic hit: without at least
-    // one UTM or click ID there is nothing to attribute, and storing the
-    // landing page alone would pin the session to a meaningless first touch.
-    if (Object.keys(attribution).length === 0) return
+    // A gap since the last page view means this is a separate visit.
+    const isNewVisit = now - existing.seenAt > VISIT_GAP_MS
 
-    attribution.landing_page = window.location.pathname.slice(0, MAX_VALUE_LENGTH)
-
-    const referrer = clean(document.referrer)
-    // Drop same-origin referrers: an internal navigation says nothing about
-    // where the visitor came from.
-    if (referrer && !referrer.startsWith(window.location.origin)) {
-      attribution.referrer = referrer
-    }
-
-    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(attribution))
+    write({
+      // First touch is immutable for the life of the window.
+      first: existing.first,
+      // A campaign hit becomes the new last touch; otherwise keep the old one.
+      last: incoming ?? existing.last,
+      firstAt: existing.firstAt,
+      seenAt: now,
+      touchCount: existing.touchCount + (isNewVisit ? 1 : 0),
+    })
   } catch {
-    // sessionStorage throws in private mode / when storage is disabled.
-    // Attribution is best-effort and must never break a page or a form.
+    // Never let analytics break the page.
   }
 }
 
 /**
- * Read the session's attribution, or an empty object when there is none.
- * Returns an object (not null) so callers can spread it into a request body
- * unconditionally.
+ * Flatten stored attribution for sending to the API. Returns an empty object
+ * when there is none, so callers can spread it unconditionally.
  */
-export function getAttribution(): Attribution {
+export function getAttribution(): AttributionPayload {
   if (typeof window === 'undefined') return {}
 
+  const record = read()
+  if (!record) return {}
+
+  const payload: AttributionPayload = { ...record.first, touch_count: record.touchCount }
+
+  for (const key of TOUCH_KEYS) {
+    const value = record.last[key]
+    if (value) payload[`last_${key}` as keyof AttributionPayload] = value as never
+  }
+
+  return payload
+}
+
+/** Clear stored attribution. Exposed for the cookie banner's reject path. */
+export function clearAttribution(): void {
+  if (typeof window === 'undefined') return
   try {
-    const raw = sessionStorage.getItem(STORAGE_KEY)
-    if (!raw) return {}
-    const parsed: unknown = JSON.parse(raw)
-    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return {}
-    return parsed as Attribution
+    localStorage.removeItem(STORAGE_KEY)
   } catch {
-    return {}
+    // ignore
   }
 }
 
+// ─── Server-side validation ──────────────────────────────────────────────────
+
+const touchField = z.string().max(MAX_VALUE_LENGTH).optional()
+
 /**
- * Every attribution field, in the order they should be shown to staff.
- * Shared by the API routes (validation, notification emails) and the leads
- * dashboard so the three never drift apart.
+ * Validation for the attribution block of a submission.
+ *
+ * This data is attacker controlled - anyone can craft a URL - so every field is
+ * optional, length capped, and unknown keys are stripped by Zod.
+ */
+export const attributionSchema = z.object({
+  utm_source: touchField,
+  utm_medium: touchField,
+  utm_campaign: touchField,
+  utm_content: touchField,
+  utm_term: touchField,
+  gclid: touchField,
+  fbclid: touchField,
+  landing_page: touchField,
+  referrer: touchField,
+  last_utm_source: touchField,
+  last_utm_medium: touchField,
+  last_utm_campaign: touchField,
+  last_utm_content: touchField,
+  last_utm_term: touchField,
+  last_gclid: touchField,
+  last_fbclid: touchField,
+  last_landing_page: touchField,
+  last_referrer: touchField,
+  touch_count: z.number().int().min(1).max(1000).optional(),
+})
+
+export type ValidatedAttribution = z.infer<typeof attributionSchema>
+
+/**
+ * Every attribution column, in the order staff should see them.
+ * Spelled out rather than derived from TOUCH_KEYS: a mapped template literal
+ * widens to `string` and loses the key union the typed lookups below rely on.
  */
 export const ATTRIBUTION_KEYS = [
   'utm_source',
@@ -123,38 +269,28 @@ export const ATTRIBUTION_KEYS = [
   'fbclid',
   'landing_page',
   'referrer',
-] as const satisfies readonly (keyof Attribution)[]
+  'last_utm_source',
+  'last_utm_medium',
+  'last_utm_campaign',
+  'last_utm_content',
+  'last_utm_term',
+  'last_gclid',
+  'last_fbclid',
+  'last_landing_page',
+  'last_referrer',
+  'touch_count',
+] as const satisfies readonly (keyof ValidatedAttribution)[]
 
-/**
- * Server-side validation for the attribution block of a form submission.
- *
- * Every field is optional and length-capped: this data is attacker-controlled
- * (anyone can craft a URL), so it is treated as untrusted input and never
- * allowed to grow unbounded. Unknown keys are stripped by Zod's default
- * object behaviour.
- */
-export const attributionSchema = z.object({
-  utm_source: z.string().max(MAX_VALUE_LENGTH).optional(),
-  utm_medium: z.string().max(MAX_VALUE_LENGTH).optional(),
-  utm_campaign: z.string().max(MAX_VALUE_LENGTH).optional(),
-  utm_content: z.string().max(MAX_VALUE_LENGTH).optional(),
-  utm_term: z.string().max(MAX_VALUE_LENGTH).optional(),
-  gclid: z.string().max(MAX_VALUE_LENGTH).optional(),
-  fbclid: z.string().max(MAX_VALUE_LENGTH).optional(),
-  landing_page: z.string().max(MAX_VALUE_LENGTH).optional(),
-  referrer: z.string().max(MAX_VALUE_LENGTH).optional(),
-})
-
-/** Normalise a validated attribution object into DB columns (undefined -> null). */
+/** Normalise validated attribution into DB columns (undefined becomes null). */
 export function attributionToColumns(
-  attribution: Attribution,
-): Record<(typeof ATTRIBUTION_KEYS)[number], string | null> {
+  attribution: ValidatedAttribution,
+): Record<(typeof ATTRIBUTION_KEYS)[number], string | number | null> {
   return Object.fromEntries(
     ATTRIBUTION_KEYS.map((key) => [key, attribution[key] ?? null]),
-  ) as Record<(typeof ATTRIBUTION_KEYS)[number], string | null>
+  ) as Record<(typeof ATTRIBUTION_KEYS)[number], string | number | null>
 }
 
 /** True when at least one attribution field carries a value. */
-export function hasAttribution(attribution: Attribution): boolean {
+export function hasAttribution(attribution: ValidatedAttribution): boolean {
   return ATTRIBUTION_KEYS.some((key) => Boolean(attribution[key]))
 }

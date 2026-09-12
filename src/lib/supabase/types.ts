@@ -1,6 +1,6 @@
 /**
  * Supabase types matching the migrations in supabase/migrations/
- * (through 20260912000000_founder_circle_leads_attribution.sql).
+ * (through 20260912010000_leads_multitouch_and_contact.sql).
  * Regenerate after schema changes:
  *   npx supabase gen types typescript --project-id <id> > src/lib/supabase/types.ts
  */
@@ -35,6 +35,17 @@ export interface Database {
           fbclid: string | null
           landing_page: string | null
           referrer: string | null
+          form_type: string
+          last_utm_source: string | null
+          last_utm_medium: string | null
+          last_utm_campaign: string | null
+          last_utm_content: string | null
+          last_utm_term: string | null
+          last_gclid: string | null
+          last_fbclid: string | null
+          last_landing_page: string | null
+          last_referrer: string | null
+          touch_count: number | null
         }
         Insert: {
           id?: string
@@ -54,6 +65,17 @@ export interface Database {
           fbclid?: string | null
           landing_page?: string | null
           referrer?: string | null
+          form_type?: string
+          last_utm_source?: string | null
+          last_utm_medium?: string | null
+          last_utm_campaign?: string | null
+          last_utm_content?: string | null
+          last_utm_term?: string | null
+          last_gclid?: string | null
+          last_fbclid?: string | null
+          last_landing_page?: string | null
+          last_referrer?: string | null
+          touch_count?: number | null
         }
         Update: {
           id?: string
@@ -73,6 +95,17 @@ export interface Database {
           fbclid?: string | null
           landing_page?: string | null
           referrer?: string | null
+          form_type?: string
+          last_utm_source?: string | null
+          last_utm_medium?: string | null
+          last_utm_campaign?: string | null
+          last_utm_content?: string | null
+          last_utm_term?: string | null
+          last_gclid?: string | null
+          last_fbclid?: string | null
+          last_landing_page?: string | null
+          last_referrer?: string | null
+          touch_count?: number | null
         }
       }
       patients: {

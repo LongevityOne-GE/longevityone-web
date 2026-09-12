@@ -1,12 +1,13 @@
 'use client'
 
-import { useState, useId } from 'react'
+import { useState, useId, useRef } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { ArrowRight, X } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { getAttribution } from '@/lib/attribution'
 import { markLeadPending } from '@/lib/analytics-events'
+import { Turnstile, type TurnstileHandle } from '@/components/forms/Turnstile'
 import { cn } from '@/lib/utils'
 import type { Locale } from '@/lib/utils'
 
@@ -19,7 +20,7 @@ interface LeadCaptureFormProps {
   triggerClassName?: string
 }
 
-type FormState = 'idle' | 'submitting' | 'success' | 'error'
+type FormState = 'idle' | 'submitting' | 'success' | 'error' | 'captcha'
 
 // ─── Generic default headings ─────────────────────────────────────────────────
 const DEFAULT_HEADINGS: Record<Locale, string> = {
@@ -42,6 +43,7 @@ const COPY = {
     successMessage: 'მადლობა. ჩვენ დაგიკავშირდებით მალე.',
     errorMessage:   'დაფიქსირდა შეცდომა. გთხოვთ სცადოთ ხელახლა.',
     closeLabel:     'დახურვა',
+    captcha:        'გთხოვთ, დაასრულოთ უსაფრთხოების შემოწმება.',
   },
   en: {
     tagline:        'Leave your number and our concierge will call you within 24 hours.',
@@ -56,6 +58,7 @@ const COPY = {
     successMessage: "Thank you. We'll be in touch shortly.",
     errorMessage:   'Something went wrong. Please try again.',
     closeLabel:     'Close',
+    captcha:        'Please complete the security check.',
   },
 } as const
 
@@ -65,6 +68,8 @@ const inputClass = cn(
   'text-dark-brown placeholder:text-dark-brown/40 font-light',
   'focus:outline-none focus:border-dark-brown transition-colors duration-300',
 )
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
+
 const labelClass = 'block text-[11px] font-medium uppercase tracking-[0.15em] text-dark-brown/60 mb-2'
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -87,6 +92,8 @@ export function LeadCaptureForm({
   const [email, setEmail] = useState('')
   const [consent, setConsent] = useState(false)
   const [company, setCompany] = useState('') // honeypot: must stay empty
+  const [captchaToken, setCaptchaToken] = useState('')
+  const turnstileRef = useRef<TurnstileHandle>(null)
 
   const canSubmit =
     formState !== 'submitting' &&
@@ -100,6 +107,8 @@ export function LeadCaptureForm({
     setEmail('')
     setConsent(false)
     setCompany('')
+    setCaptchaToken('')
+    turnstileRef.current?.reset()
     setFormState('idle')
   }
 
@@ -111,6 +120,13 @@ export function LeadCaptureForm({
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!canSubmit) return
+
+    // Turnstile guards this endpoint against bot spam, which would otherwise
+    // pollute the conversion data campaigns are optimised against.
+    if (TURNSTILE_SITE_KEY && !captchaToken) {
+      setFormState('captcha')
+      return
+    }
 
     setFormState('submitting')
     try {
@@ -125,6 +141,7 @@ export function LeadCaptureForm({
           consent: true,
           source,
           company,
+          turnstileToken: captchaToken,
           // Which campaign brought this visitor in, captured on landing.
           ...getAttribution(),
         }),
@@ -132,13 +149,16 @@ export function LeadCaptureForm({
 
       if (!res.ok) {
         setFormState('error')
+        turnstileRef.current?.reset()
+        setCaptchaToken('')
         return
       }
 
       // Navigate to a real URL so GTM can trigger on the page view as well as
       // on the dataLayer event. The flag is what tells /thank-you this view
       // followed an actual submission, so a later reload cannot re-count it.
-      markLeadPending(source)
+      const payload = (await res.json().catch(() => ({}))) as { eventId?: string }
+      markLeadPending(source, payload.eventId ?? null)
       setOpen(false)
       router.push(locale === 'en' ? '/en/thank-you' : '/thank-you')
     } catch {
@@ -299,8 +319,25 @@ export function LeadCaptureForm({
                   </div>
                 </div>
 
+                {TURNSTILE_SITE_KEY && (
+                  <div className="mt-6">
+                    <Turnstile
+                      ref={turnstileRef}
+                      siteKey={TURNSTILE_SITE_KEY}
+                      onToken={(token) => {
+                        setCaptchaToken(token)
+                        if (token && formState === 'captcha') setFormState('idle')
+                      }}
+                    />
+                  </div>
+                )}
+
                 {formState === 'error' && (
                   <p className="mt-5 text-xs text-burnt-orange">{t.errorMessage}</p>
+                )}
+
+                {formState === 'captcha' && (
+                  <p className="mt-5 text-xs text-burnt-orange">{t.captcha}</p>
                 )}
 
                 <button

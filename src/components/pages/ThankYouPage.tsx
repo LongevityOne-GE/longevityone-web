@@ -41,8 +41,8 @@ export function ThankYouPage({ locale, settings }: ThankYouPageProps) {
     // Fire the conversion only when this view actually followed a submission.
     // A reload or a direct visit finds no pending flag and pushes nothing, so
     // the conversion count stays honest.
-    const source = consumeLeadPending()
-    if (source) trackLeadSubmitted(source)
+    const pending = consumeLeadPending()
+    if (pending) trackLeadSubmitted(pending.source, pending.eventId)
   }, [])
 
   return (

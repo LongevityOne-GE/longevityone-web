@@ -2,6 +2,7 @@
 
 import { useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -16,12 +17,14 @@ const messages = {
     emailInvalid: 'გთხოვთ, შეიყვანოთ სწორი ელ. ფოსტა',
     messageMin: 'შეტყობინება უნდა შეიცავდეს მინიმუმ 10 სიმბოლოს',
     tooLong: 'ძალიან გრძელი ტექსტი',
+    consentRequired: 'გთხოვთ, დაეთანხმოთ პერსონალური მონაცემების დამუშავებას',
   },
   en: {
     nameMin: 'Please enter your full name',
     emailInvalid: 'Please enter a valid email address',
     messageMin: 'Message must be at least 10 characters',
     tooLong: 'Text is too long',
+    consentRequired: 'Please consent to the processing of your personal data',
   },
 } as const
 
@@ -34,6 +37,9 @@ function buildSchema(locale: Locale) {
     message: z.string().min(10, m.messageMin).max(5000, m.tooLong),
     // Honeypot - must remain empty.
     company: z.string().max(0).optional(),
+    // Required: this form now stores the enquirer's contact details, not just
+    // emails them, so consent has to be explicit.
+    consent: z.literal(true, { error: () => ({ message: m.consentRequired }) }),
   })
 }
 
@@ -55,6 +61,9 @@ const copy = {
     error: 'შეცდომა. გთხოვთ, სცადოთ მოგვიანებით.',
     rateLimited: 'ძალიან ბევრი მოთხოვნა. გთხოვთ, სცადოთ რამდენიმე წუთში.',
     captcha: 'გთხოვთ, დაასრულოთ უსაფრთხოების შემოწმება.',
+    consentText: 'ვეთანხმები პერსონალური მონაცემების დამუშავებას',
+    privacyHref: '/legal/privacy',
+    privacyLabel: 'კონფიდენციალურობის პოლიტიკა',
   },
   en: {
     name: 'Full Name',
@@ -67,6 +76,9 @@ const copy = {
     error: 'Something went wrong. Please try again later.',
     rateLimited: 'Too many attempts. Please try again in a few minutes.',
     captcha: 'Please complete the security check.',
+    consentText: 'I consent to the processing of my personal data',
+    privacyHref: '/en/legal/privacy',
+    privacyLabel: 'Privacy Policy',
   },
 }
 
@@ -125,7 +137,8 @@ export function ContactForm({ locale }: ContactFormProps) {
       // Navigate to a real URL so GTM can trigger on the page view as well as
       // on the dataLayer event. The inline success message above stays as the
       // fallback shown while the navigation completes.
-      markLeadPending('contact_form')
+      const payload = (await res.json().catch(() => ({}))) as { eventId?: string }
+      markLeadPending('contact_form', payload.eventId ?? null)
       router.push(locale === 'en' ? '/en/thank-you' : '/thank-you')
     } catch (err) {
       console.error('[contact] network error', err)
@@ -227,6 +240,30 @@ export function ContactForm({ locale }: ContactFormProps) {
           aria-required="true"
         />
         {errors.message && <p className={errorClass} role="alert">{errors.message.message}</p>}
+      </div>
+
+      <div>
+        <label htmlFor="contact-consent" className="flex items-start gap-3 cursor-pointer">
+          <input
+            {...register('consent')}
+            id="contact-consent"
+            type="checkbox"
+            className="mt-1 h-4 w-4 flex-none accent-burnt-orange"
+            required
+            aria-required="true"
+          />
+          <span className="text-xs leading-relaxed text-dark-brown/70">
+            {t.consentText}{' '}
+            <Link href={t.privacyHref} className="underline hover:text-burnt-orange">
+              {t.privacyLabel}
+            </Link>
+          </span>
+        </label>
+        {errors.consent && (
+          <p className={errorClass} role="alert">
+            {errors.consent.message}
+          </p>
+        )}
       </div>
 
       {TURNSTILE_SITE_KEY && (
