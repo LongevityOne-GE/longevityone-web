@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { PhoneLink } from '@/components/shared/PhoneLink'
 
 export const metadata: Metadata = {
   title: 'Links',
@@ -12,7 +13,6 @@ export const metadata: Metadata = {
 // fonts and one-off hex palette.
 
 const CLINIC_PHONE_DISPLAY = '+995 511 70 88 88'
-const CLINIC_PHONE_HREF = 'tel:+995511708888'
 
 interface SocialLink {
   label: string
@@ -116,8 +116,9 @@ export default function LinksPage() {
 
           <div className="flex flex-col gap-3">
             {/* Primary CTA — call. Phone is the single conversion action per brand rule. */}
-            <a
-              href={CLINIC_PHONE_HREF}
+            <PhoneLink
+              phone={CLINIC_PHONE_DISPLAY}
+              source="links_page"
               className={`${linkBase} border-burnt-orange bg-burnt-orange text-bone-white hover:bg-dark-brown hover:border-dark-brown`}
             >
               <span className="flex h-[19px] w-[19px] flex-none items-center justify-center">
@@ -132,7 +133,7 @@ export default function LinksPage() {
                 </span>
               </span>
               <span aria-hidden="true" className="flex-none opacity-60 transition-transform duration-200 group-hover:translate-x-1">→</span>
-            </a>
+            </PhoneLink>
 
             {/* Website */}
             <a

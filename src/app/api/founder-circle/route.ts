@@ -3,8 +3,16 @@ import { z } from 'zod'
 import { Resend } from 'resend'
 import { createClient } from '@supabase/supabase-js'
 import { createHash } from 'node:crypto'
+import { attributionSchema, attributionToColumns } from '@/lib/attribution'
+import { attributionHtml, attributionText } from '@/lib/attribution-email'
+import { reportLeadConversion } from '@/lib/server-conversions'
+import { randomUUID } from 'node:crypto'
 
 export const runtime = 'nodejs'
+
+/** Nominal lead value for smart bidding. Mirrors NEXT_PUBLIC_LEAD_VALUE. */
+const LEAD_VALUE = Number(process.env.NEXT_PUBLIC_LEAD_VALUE ?? '0')
+const LEAD_CURRENCY = process.env.NEXT_PUBLIC_LEAD_CURRENCY ?? 'GEL'
 
 const schema = z.object({
   name: z.string().min(2).max(120),
@@ -20,6 +28,12 @@ const schema = z.object({
   source: z.string().min(1).max(100).default('founder_circle'),
   // Honeypot: real users never fill this hidden field. Bots often do.
   company: z.string().max(200).optional(),
+  // Cloudflare Turnstile token. Required in production; optional in dev.
+  turnstileToken: z.string().optional(),
+  // Campaign attribution replayed by the browser from sessionStorage. All
+  // fields optional - organic visitors carry none, and a lead must never be
+  // rejected for lacking attribution.
+  ...attributionSchema.shape,
 })
 
 // Best-effort in-memory rate limit: 5 submissions / 10 min / IP
@@ -63,6 +77,58 @@ function isRateLimited(ip: string): boolean {
   return false
 }
 
+/**
+ * GA4 client ID, read from the _ga cookie the browser already set.
+ *
+ * Using the real client ID ties the server-reported conversion to the same
+ * session GA4 saw in the browser. Without it GA4 would count a second,
+ * unrelated user. Falls back to a random ID so the event is still recorded.
+ */
+function ga4ClientId(req: NextRequest): string {
+  const raw = req.cookies.get('_ga')?.value
+  // Format: GA1.1.<clientId part 1>.<part 2>
+  const match = raw?.match(/^GA\d\.\d\.(\d+\.\d+)$/)
+  return match?.[1] ?? `${Math.floor(Math.random() * 1e10)}.${Math.floor(Date.now() / 1000)}`
+}
+
+/**
+ * Verify the Turnstile token.
+ *
+ * This is the endpoint the ads drive traffic to, so it is the one bots will
+ * find. The honeypot alone is not enough: this repository is public, so the
+ * hidden field's name is public too. Spam leads would corrupt the cost-per-lead
+ * the ad manager optimises against, so they are stopped at the door.
+ *
+ * Fails closed in production: a missing secret rejects rather than waves through.
+ */
+async function verifyTurnstile(token: string, ip: string): Promise<boolean> {
+  const secret = process.env.TURNSTILE_SECRET_KEY
+  if (!secret) {
+    if (process.env.NODE_ENV === 'production') {
+      console.error('[founder-circle] TURNSTILE_SECRET_KEY missing in production')
+      return false
+    }
+    console.warn('[founder-circle] TURNSTILE_SECRET_KEY not set; skipping (dev only)')
+    return true
+  }
+  if (!token) return false
+  try {
+    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ secret, response: token, remoteip: ip }),
+    })
+    const data = (await res.json()) as { success: boolean; 'error-codes'?: string[] }
+    if (!data.success) {
+      console.warn('[founder-circle] turnstile verification failed', data['error-codes'])
+    }
+    return data.success
+  } catch (err) {
+    console.error('[founder-circle] turnstile verify error', err)
+    return false
+  }
+}
+
 function escapeHtml(input: string): string {
   return input
     .replace(/&/g, '&amp;')
@@ -94,12 +160,21 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid input' }, { status: 422 })
   }
 
-  const { name, phone, email, lang, source, company } = parsed.data
+  const { name, phone, email, lang, source, company, turnstileToken } = parsed.data
+  // Shared between the server-side conversion and the browser event so the ad
+  // platforms deduplicate the two into one conversion.
+  const eventId = randomUUID()
+  const attribution = attributionSchema.parse(parsed.data)
 
   // Honeypot tripped: respond with a generic success so bots do not learn.
   if (company && company.trim().length > 0) {
     console.warn('[founder-circle] honeypot triggered', { ipHash: hashIp(ip) })
     return NextResponse.json({ success: true })
+  }
+
+  const captchaOk = await verifyTurnstile(turnstileToken ?? '', ip)
+  if (!captchaOk) {
+    return NextResponse.json({ error: 'Captcha verification failed' }, { status: 403 })
   }
 
   // Persist the lead using the service role key (bypasses RLS — server only,
@@ -115,7 +190,16 @@ export async function POST(req: NextRequest) {
     )
     const { error: dbError } = await supabase
       .from('founder_circle_leads')
-      .insert({ name, phone, email: email ?? null, lang, consent: true, source })
+      .insert({
+        name,
+        phone,
+        email: email ?? null,
+        lang,
+        consent: true,
+        source,
+        form_type: 'lead_form',
+        ...attributionToColumns(attribution),
+      })
 
     if (dbError) {
       console.error('[founder-circle] supabase insert error', dbError)
@@ -144,6 +228,7 @@ export async function POST(req: NextRequest) {
       final_cta:      'Packages — closing CTA',
     }
     const sourceLabel = SOURCE_LABELS[source] ?? source
+
     // Flag the email when the DB write failed so staff know to record the lead
     // manually (the row is not in Supabase).
     const dbWarning = leadSaved ? '' : ' [⚠ DB SAVE FAILED — enter this lead manually]'
@@ -163,6 +248,7 @@ export async function POST(req: NextRequest) {
           ${safeEmail ? `<p><strong>Email:</strong> ${safeEmail}</p>` : '<p><strong>Email:</strong> —</p>'}
           <p><strong>Language:</strong> ${lang}</p>
           <p><strong>Source:</strong> ${escapeHtml(source)}</p>
+          ${attributionHtml(attribution, escapeHtml)}
         `,
         text:
           `${emailHeading}\n\n` +
@@ -170,7 +256,8 @@ export async function POST(req: NextRequest) {
           `Phone: ${phone}\n` +
           `Email: ${email ?? '—'}\n` +
           `Language: ${lang}\n` +
-          `Source: ${source}\n`,
+          `Source: ${source}\n` +
+          attributionText(attribution),
       })
       leadEmailed = true
     } catch (err) {
@@ -218,5 +305,28 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Failed to save lead' }, { status: 500 })
   }
 
-  return NextResponse.json({ success: true })
+  // Report the conversion from the server as well. Ad blockers and tracking
+  // prevention stop a real share of browser tags from firing; the platforms
+  // deduplicate against the browser event using this shared eventId, so nothing
+  // is counted twice. No-ops entirely until the ad manager supplies credentials.
+  //
+  // Awaited but fully guarded: reportLeadConversion swallows every failure, so a
+  // slow or broken ad platform cannot fail a lead that is already saved.
+  await reportLeadConversion({
+    eventId,
+    email,
+    phone,
+    fbclid: attribution.fbclid ?? attribution.last_fbclid ?? null,
+    sourceUrl: attribution.last_landing_page ?? attribution.landing_page ?? '/',
+    clientIp: ip,
+    userAgent: req.headers.get('user-agent') ?? undefined,
+    clientId: ga4ClientId(req),
+    leadSource: source,
+    value: LEAD_VALUE > 0 ? LEAD_VALUE : undefined,
+    currency: LEAD_CURRENCY,
+  })
+
+  // eventId goes back to the browser so the client-side lead_submitted event
+  // can carry the same ID and the platforms can match the two.
+  return NextResponse.json({ success: true, eventId })
 }

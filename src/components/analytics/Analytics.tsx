@@ -3,19 +3,59 @@
 import Script from 'next/script'
 import { useEffect, useState } from 'react'
 import { readConsent, type CookieConsent } from '@/lib/cookies'
+import { captureAttribution } from '@/lib/attribution'
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID
 const PH_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY
 const PH_HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? 'https://eu.posthog.com'
+
+/**
+ * Google Consent Mode v2 bootstrap.
+ *
+ * Runs before any Google tag and denies every storage type up front. Google
+ * tags then load in cookieless mode: they set no cookies and store no
+ * identifiers, but still send anonymous pings that let Google model the
+ * conversions it cannot observe.
+ *
+ * Why this matters: previously no Google tag loaded at all until consent, so
+ * every visitor who declined was completely invisible and Google Ads saw no
+ * conversion whatsoever. With Consent Mode the declining visitors are still
+ * modelled, which is both more accurate and the configuration Google requires
+ * for ad personalisation in the EEA.
+ *
+ * This deliberately differs from the older "no Google script before consent"
+ * rule in CLAUDE.md. PostHog has no equivalent mechanism and so remains fully
+ * gated below - it does not load at all without consent.
+ */
+const CONSENT_DEFAULT_SNIPPET = `
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.gtag = gtag;
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    functionality_storage: 'denied',
+    personalization_storage: 'denied',
+    security_storage: 'granted',
+    wait_for_update: 500
+  });
+  gtag('set', 'ads_data_redaction', true);
+  gtag('set', 'url_passthrough', true);
+`
 
 export function Analytics() {
   const [consent, setConsent] = useState<CookieConsent | null>(null)
 
   useEffect(() => {
-    // Read initial consent from localStorage
+    // Snapshot the campaign that brought this visitor in. Stored for 90 days so
+    // a visitor who returns days later still converts against the right ad.
+    captureAttribution()
+
     setConsent(readConsent())
 
-    // Re-evaluate whenever the banner fires an update
     function onConsent(e: Event) {
       setConsent((e as CustomEvent<CookieConsent>).detail)
     }
@@ -24,11 +64,47 @@ export function Analytics() {
   }, [])
 
   const analyticsEnabled = consent?.analytics === true
+  const marketingEnabled = consent?.marketing === true
+
+  // Tell Google the moment consent changes, so tags upgrade from cookieless
+  // pings to full measurement without a page reload.
+  useEffect(() => {
+    if (!consent || typeof window === 'undefined' || !window.gtag) return
+    window.gtag('consent', 'update', {
+      ad_storage: marketingEnabled ? 'granted' : 'denied',
+      ad_user_data: marketingEnabled ? 'granted' : 'denied',
+      ad_personalization: marketingEnabled ? 'granted' : 'denied',
+      analytics_storage: analyticsEnabled ? 'granted' : 'denied',
+      functionality_storage: analyticsEnabled ? 'granted' : 'denied',
+      personalization_storage: marketingEnabled ? 'granted' : 'denied',
+      security_storage: 'granted',
+    })
+  }, [consent, analyticsEnabled, marketingEnabled])
 
   return (
     <>
-      {/* ── Google Analytics 4 ────────────────────────────────── */}
-      {analyticsEnabled && GA_ID && (
+      {/* Consent defaults must execute before any Google tag. */}
+      <Script id="consent-mode-default" strategy="beforeInteractive">
+        {CONSENT_DEFAULT_SNIPPET}
+      </Script>
+
+      {/* Google Tag Manager. Preferred once the container exists: the ad
+          manager then adds and edits tags in GTM without a code deploy. */}
+      {GTM_ID && (
+        <Script id="gtm-init" strategy="afterInteractive">
+          {`
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','${GTM_ID}');
+          `}
+        </Script>
+      )}
+
+      {/* Direct GA4. Only when there is no GTM container, so GA4 is never
+          loaded twice and page views are not double counted. */}
+      {!GTM_ID && GA_ID && (
         <>
           <Script
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
@@ -36,8 +112,6 @@ export function Analytics() {
           />
           <Script id="ga4-init" strategy="afterInteractive">
             {`
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', '${GA_ID}', { anonymize_ip: true });
             `}
@@ -45,7 +119,8 @@ export function Analytics() {
         </>
       )}
 
-      {/* ── PostHog ───────────────────────────────────────────── */}
+      {/* PostHog has no consent-mode equivalent, so it stays fully gated and
+          does not load at all without analytics consent. */}
       {analyticsEnabled && PH_KEY && (
         <Script id="posthog-init" strategy="afterInteractive">
           {`
