@@ -208,6 +208,38 @@ export const siteSettings = defineType({
       type: 'string',
     }),
 
+    // ─── Thank You Page ───────────────────────────────────────────────────────
+    defineField({
+      name: 'thankYou_heading_ka',
+      title: 'Thank You Heading (Georgian)',
+      type: 'string',
+    }),
+    defineField({
+      name: 'thankYou_heading_en',
+      title: 'Thank You Heading (English)',
+      type: 'string',
+    }),
+    defineField({
+      name: 'thankYou_body_ka',
+      title: 'Thank You Body (Georgian)',
+      type: 'string',
+    }),
+    defineField({
+      name: 'thankYou_body_en',
+      title: 'Thank You Body (English)',
+      type: 'string',
+    }),
+    defineField({
+      name: 'thankYou_cta_ka',
+      title: 'Thank You CTA Label (Georgian)',
+      type: 'string',
+    }),
+    defineField({
+      name: 'thankYou_cta_en',
+      title: 'Thank You CTA Label (English)',
+      type: 'string',
+    }),
+
     // ─── Footer ───────────────────────────────────────────────────────────────
     defineField({
       name: 'footer_copyright_ka',

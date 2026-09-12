@@ -60,6 +60,12 @@ export interface SiteSettings {
   notFound_body_en: string | null
   notFound_cta_ka: string | null
   notFound_cta_en: string | null
+  thankYou_heading_ka: string | null
+  thankYou_heading_en: string | null
+  thankYou_body_ka: string | null
+  thankYou_body_en: string | null
+  thankYou_cta_ka: string | null
+  thankYou_cta_en: string | null
   footer_copyright_ka: string | null
   footer_copyright_en: string | null
   default_seo_title_ka: string | null

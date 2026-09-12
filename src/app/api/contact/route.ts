@@ -2,8 +2,28 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { Resend } from 'resend'
 import { createHash } from 'node:crypto'
+import { attributionSchema, attributionToColumns } from '@/lib/attribution'
+import { createClient } from '@supabase/supabase-js'
+import { reportLeadConversion } from '@/lib/server-conversions'
+import { randomUUID } from 'node:crypto'
+import { attributionHtml, attributionText } from '@/lib/attribution-email'
 
 export const runtime = 'nodejs'
+
+/** Nominal lead value for smart bidding. Mirrors NEXT_PUBLIC_LEAD_VALUE. */
+const LEAD_VALUE = Number(process.env.NEXT_PUBLIC_LEAD_VALUE ?? '0')
+const LEAD_CURRENCY = process.env.NEXT_PUBLIC_LEAD_CURRENCY ?? 'GEL'
+
+/**
+ * GA4 client ID, read from the _ga cookie the browser already set, so the
+ * server-reported conversion joins the same GA4 session rather than counting a
+ * second, unrelated user.
+ */
+function ga4ClientId(req: NextRequest): string {
+  const raw = req.cookies.get('_ga')?.value
+  const match = raw?.match(/^GA\d\.\d\.(\d+\.\d+)$/)
+  return match?.[1] ?? `${Math.floor(Math.random() * 1e10)}.${Math.floor(Date.now() / 1000)}`
+}
 
 const schema = z.object({
   name: z.string().min(2).max(120),
@@ -15,6 +35,12 @@ const schema = z.object({
   company: z.string().max(0).optional(),
   // Cloudflare Turnstile token. Required in production; optional in dev.
   turnstileToken: z.string().optional(),
+  // Explicit consent to process personal data. Required because this route now
+  // persists the enquirer's contact details, not just emails them.
+  consent: z.literal(true, { error: () => ({ message: 'Consent is required' }) }),
+  // Campaign attribution replayed by the browser from sessionStorage. Surfaced
+  // in the notification email only - this route intentionally writes no DB row.
+  ...attributionSchema.shape,
 })
 
 async function verifyTurnstile(token: string, ip: string): Promise<boolean> {
@@ -129,6 +155,9 @@ export async function POST(req: NextRequest) {
 
   const { name, email, phone, message, locale, company, turnstileToken } =
     parsed.data
+  const attribution = attributionSchema.parse(parsed.data)
+  // Shared with the browser event so the ad platforms deduplicate the two.
+  const eventId = randomUUID()
 
   // Honeypot tripped: respond with a generic success so bots don't learn.
   if (company && company.length > 0) {
@@ -142,6 +171,39 @@ export async function POST(req: NextRequest) {
       { error: 'Captcha verification failed' },
       { status: 403 },
     )
+  }
+
+  // Persist the enquiry as a lead so it appears in the admin dashboard next to
+  // lead-form submissions - otherwise half the leads are invisible there.
+  //
+  // The MESSAGE BODY IS DELIBERATELY NOT STORED. Free text on a medical site can
+  // contain health information, and this table is not the place for it. Only who
+  // enquired and which campaign brought them is persisted; the message stays in
+  // the inbox. Never add a `message` column here.
+  //
+  // Best effort: the email below is the system of record, so a DB failure must
+  // not fail the request or lose the enquiry.
+  try {
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!,
+      { auth: { autoRefreshToken: false, persistSession: false } },
+    )
+    const { error: dbError } = await supabase.from('founder_circle_leads').insert({
+      name,
+      phone: phone ?? '',
+      email,
+      lang: locale,
+      consent: true,
+      source: 'contact_form',
+      form_type: 'contact_form',
+      ...attributionToColumns(attribution),
+    })
+    if (dbError) {
+      console.error('[contact] supabase insert error', dbError.message)
+    }
+  } catch (err) {
+    console.error('[contact] supabase client error', err)
   }
 
   const apiKey = process.env.RESEND_API_KEY
@@ -162,19 +224,22 @@ export async function POST(req: NextRequest) {
   const safePhone = phone ? escapeHtml(phone) : ''
   const safeMessage = escapeHtml(message).replace(/\n/g, '<br />')
 
+
   const html = `
     <p><strong>Name:</strong> ${safeName}</p>
     <p><strong>Email:</strong> ${safeEmail}</p>
     ${safePhone ? `<p><strong>Phone:</strong> ${safePhone}</p>` : ''}
     <p><strong>Message:</strong></p>
     <p>${safeMessage}</p>
+    ${attributionHtml(attribution, escapeHtml)}
   `
 
   const text =
     `Name: ${name}\n` +
     `Email: ${email}\n` +
     (phone ? `Phone: ${phone}\n` : '') +
-    `\nMessage:\n${message}\n`
+    `\nMessage:\n${message}\n` +
+    attributionText(attribution)
 
   try {
     await resend.emails.send({
@@ -231,5 +296,22 @@ export async function POST(req: NextRequest) {
     console.warn('[contact] auto-reply failed (non-fatal)', err)
   }
 
-  return NextResponse.json({ ok: true })
+  // Report the conversion server-side too, so ad-blocked visitors are still
+  // counted. Deduplicated against the browser event via eventId. No-ops until
+  // the ad manager supplies credentials.
+  await reportLeadConversion({
+    eventId,
+    email,
+    phone,
+    fbclid: attribution.fbclid ?? attribution.last_fbclid ?? null,
+    sourceUrl: attribution.last_landing_page ?? attribution.landing_page ?? '/contact',
+    clientIp: ip,
+    userAgent: req.headers.get('user-agent') ?? undefined,
+    clientId: ga4ClientId(req),
+    leadSource: 'contact_form',
+    value: LEAD_VALUE > 0 ? LEAD_VALUE : undefined,
+    currency: LEAD_CURRENCY,
+  })
+
+  return NextResponse.json({ ok: true, eventId })
 }
