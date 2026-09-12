@@ -17,10 +17,17 @@ const LEAD_CURRENCY = process.env.NEXT_PUBLIC_LEAD_CURRENCY ?? 'GEL'
 const schema = z.object({
   name: z.string().min(2).max(120),
   phone: z.string().min(6).max(40),
-  email: z.preprocess(
-    (v) => (typeof v === 'string' && v.trim() === '' ? undefined : v),
-    z.string().email().max(254).optional(),
-  ),
+  // Optional. The `.optional()` inside the preprocess only covers the value
+  // AFTER the transform runs; the preprocess wrapper itself is still required,
+  // so omitting the key entirely was rejected with a 422. The browser form
+  // always sends a string (possibly empty) so this never bit a real visitor,
+  // but any other client posting a lead without the key would be turned away.
+  email: z
+    .preprocess(
+      (v) => (typeof v === 'string' && v.trim() === '' ? undefined : v),
+      z.string().email().max(254).optional(),
+    )
+    .optional(),
   lang: z.enum(['ka', 'en']),
   consent: z.literal(true, {
     error: () => ({ message: 'Consent is required' }),
