@@ -1,4 +1,14 @@
 import { createServiceClient } from '@/lib/supabase/server'
+import { LEAD_STATUSES, STATUS_FILTERS, type StatusFilter } from './lead-status'
+
+// Re-exported so server-side callers can keep importing from one place.
+export {
+  LEAD_STATUSES,
+  STATUS_LABELS,
+  STATUS_FILTERS,
+  type LeadStatus,
+  type StatusFilter,
+} from './lead-status'
 
 /**
  * Shared lead querying for the admin dashboard and its CSV export, so the table
@@ -7,6 +17,7 @@ import { createServiceClient } from '@/lib/supabase/server'
 
 export const LEAD_COLUMNS =
   'id, name, phone, email, lang, source, form_type, created_at, ' +
+  'status, notes, status_updated_at, submitted_from, ' +
   'utm_source, utm_medium, utm_campaign, utm_content, utm_term, gclid, fbclid, landing_page, referrer, ' +
   'last_utm_source, last_utm_medium, last_utm_campaign, last_gclid, last_fbclid, touch_count'
 
@@ -34,6 +45,10 @@ export interface LeadRow {
   last_gclid: string | null
   last_fbclid: string | null
   touch_count: number | null
+  status: string
+  notes: string | null
+  status_updated_at: string | null
+  submitted_from: string | null
 }
 
 export const FORM_FILTERS = ['all', 'lead_form', 'contact_form'] as const
@@ -42,9 +57,11 @@ export type FormFilter = (typeof FORM_FILTERS)[number]
 export const RANGE_PRESETS = ['7d', '30d', '90d', 'all'] as const
 export type RangePreset = (typeof RANGE_PRESETS)[number]
 
+
 export interface LeadFilters {
   range: RangePreset
   form: FormFilter
+  status: StatusFilter
   /** Explicit dates override the preset when both are supplied. */
   from?: string
   to?: string
@@ -57,6 +74,7 @@ export function parseFilters(params: Record<string, string | string[] | undefine
 
   const rawRange = one(params.range)
   const rawForm = one(params.form)
+  const rawStatus = one(params.status)
   const from = one(params.from)
   const to = one(params.to)
   const isDate = (v?: string) => Boolean(v && /^\d{4}-\d{2}-\d{2}$/.test(v))
@@ -67,6 +85,9 @@ export function parseFilters(params: Record<string, string | string[] | undefine
       : '30d',
     form: (FORM_FILTERS as readonly string[]).includes(rawForm ?? '')
       ? (rawForm as FormFilter)
+      : 'all',
+    status: (STATUS_FILTERS as readonly string[]).includes(rawStatus ?? '')
+      ? (rawStatus as StatusFilter)
       : 'all',
     from: isDate(from) ? from : undefined,
     to: isDate(to) ? to : undefined,
@@ -112,6 +133,7 @@ export async function fetchLeads(
   if (fromIso) query = query.gte('created_at', fromIso)
   if (toIso) query = query.lte('created_at', toIso)
   if (filters.form !== 'all') query = query.eq('form_type', filters.form)
+  if (filters.status !== 'all') query = query.eq('status', filters.status)
 
   const { data, error } = await query
 
@@ -129,19 +151,38 @@ export interface LeadStats {
   leadForm: number
   contactForm: number
   fromCampaigns: number
+  booked: number
+  /** Share of leads in this period that became a booking, as a percentage. */
+  bookedRate: number
+  awaitingContact: number
   topCampaigns: Array<{ campaign: string; count: number }>
+  /** Per campaign: how many leads, and how many of them booked. */
+  campaignOutcomes: Array<{ campaign: string; leads: number; booked: number }>
 }
 
 /** Summary counts for the dashboard header. */
 export function summarise(rows: LeadRow[]): LeadStats {
-  const counts = new Map<string, number>()
+  const counts = new Map<string, { leads: number; booked: number }>()
 
   for (const row of rows) {
     // Last touch is what Google Ads and Meta attribute on, so the dashboard
-    // reports the same basis and the two can be reconciled.
+    // reports on the same basis and the two can be reconciled.
     const campaign = row.last_utm_campaign ?? row.utm_campaign
-    if (campaign) counts.set(campaign, (counts.get(campaign) ?? 0) + 1)
+    if (!campaign) continue
+    const entry = counts.get(campaign) ?? { leads: 0, booked: 0 }
+    entry.leads += 1
+    if (row.status === 'booked') entry.booked += 1
+    counts.set(campaign, entry)
   }
+
+  const booked = rows.filter((r) => r.status === 'booked').length
+
+  const campaignOutcomes = [...counts.entries()]
+    .map(([campaign, v]) => ({ campaign, leads: v.leads, booked: v.booked }))
+    // Booked first: the campaigns that produced patients matter more than the
+    // ones that merely produced leads.
+    .sort((a, b) => b.booked - a.booked || b.leads - a.leads)
+    .slice(0, 8)
 
   return {
     total: rows.length,
@@ -150,9 +191,10 @@ export function summarise(rows: LeadRow[]): LeadStats {
     fromCampaigns: rows.filter(
       (r) => r.utm_source || r.last_utm_source || r.gclid || r.fbclid,
     ).length,
-    topCampaigns: [...counts.entries()]
-      .map(([campaign, count]) => ({ campaign, count }))
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 5),
+    booked,
+    bookedRate: rows.length > 0 ? Math.round((booked / rows.length) * 100) : 0,
+    awaitingContact: rows.filter((r) => r.status === 'new').length,
+    topCampaigns: campaignOutcomes.map((c) => ({ campaign: c.campaign, count: c.leads })),
+    campaignOutcomes,
   }
 }
