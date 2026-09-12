@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { PhoneLink } from '@/components/shared/PhoneLink'
 import type { Locale } from '@/lib/utils'
 import type { SiteSettings } from '@/lib/sanity/types'
 import { Logo } from '@/components/shared/Logo'
@@ -156,9 +157,13 @@ export function Footer({ locale, siteSettings }: FooterProps) {
             {(siteSettings?.phone || siteSettings?.email) && (
               <p className="font-bold">
                 {siteSettings.phone && (
-                  <a href={`tel:${siteSettings.phone.replace(/\s/g, '')}`} className="hover:text-burnt-orange transition-colors">
+                  <PhoneLink
+                    phone={siteSettings.phone}
+                    source="footer"
+                    className="hover:text-burnt-orange transition-colors"
+                  >
                     {siteSettings.phone}
-                  </a>
+                  </PhoneLink>
                 )}
                 {siteSettings.email && (
                   <><br /><a href={`mailto:${siteSettings.email}`} className="text-burnt-orange font-normal hover:underline">{siteSettings.email}</a></>

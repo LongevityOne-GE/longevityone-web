@@ -37,6 +37,29 @@ const SCRIPT_ID = 'cf-turnstile-script'
 const SCRIPT_SRC =
   'https://challenges.cloudflare.com/turnstile/v0/api.js?onload=__turnstileOnload&render=explicit'
 
+/**
+ * Callbacks waiting for the Turnstile API to become available.
+ *
+ * The script's `onload=` parameter fires exactly once, globally. A single
+ * `window.__turnstileOnload = render` assignment therefore breaks as soon as
+ * more than one widget can exist, or when a widget mounts while the script is
+ * already in flight: the second assignment overwrites the first, or the one
+ * shot fires against a component that has since unmounted, and the widget
+ * silently never renders. That is what happened to the widget inside the lead
+ * capture modal, which mounts long after page load.
+ *
+ * Instead every instance registers here and the single global callback drains
+ * the queue.
+ */
+const pending = new Set<() => void>()
+
+function flushPending() {
+  for (const cb of [...pending]) {
+    pending.delete(cb)
+    cb()
+  }
+}
+
 export const Turnstile = forwardRef<TurnstileHandle, TurnstileProps>(
   function Turnstile({ siteKey, onToken, theme = 'auto' }, ref) {
     const containerRef = useRef<HTMLDivElement>(null)
@@ -68,10 +91,16 @@ export const Turnstile = forwardRef<TurnstileHandle, TurnstileProps>(
 
       if (window.turnstile) {
         render()
-        return
+        return () => {
+          if (widgetIdRef.current && window.turnstile) {
+            window.turnstile.remove(widgetIdRef.current)
+            widgetIdRef.current = null
+          }
+        }
       }
 
-      window.__turnstileOnload = render
+      pending.add(render)
+      window.__turnstileOnload = flushPending
 
       if (!document.getElementById(SCRIPT_ID)) {
         const script = document.createElement('script')
@@ -82,7 +111,22 @@ export const Turnstile = forwardRef<TurnstileHandle, TurnstileProps>(
         document.head.appendChild(script)
       }
 
+      // Fallback: if the one-shot onload already fired before this instance
+      // registered (a widget mounting while the script was in flight), poll
+      // briefly for the API rather than leaving the form permanently unusable.
+      const poll = window.setInterval(() => {
+        if (window.turnstile) {
+          window.clearInterval(poll)
+          pending.delete(render)
+          render()
+        }
+      }, 150)
+      const stopPolling = window.setTimeout(() => window.clearInterval(poll), 15000)
+
       return () => {
+        window.clearInterval(poll)
+        window.clearTimeout(stopPolling)
+        pending.delete(render)
         if (widgetIdRef.current && window.turnstile) {
           window.turnstile.remove(widgetIdRef.current)
           widgetIdRef.current = null

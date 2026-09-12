@@ -100,6 +100,13 @@ export interface BuildMetadataInput {
   /** ISO timestamps for article OG (blog posts). */
   publishedTime?: string | null
   modifiedTime?: string | null
+  /**
+   * Keep the page out of search results. Used by conversion-confirmation and
+   * admin pages, which are reachable by URL but must never be indexed. Also
+   * drops the canonical + hreflang block, since advertising alternates for a
+   * page you are asking not to index sends crawlers mixed signals.
+   */
+  noindex?: boolean
 }
 
 /**
@@ -118,6 +125,7 @@ export function buildMetadata({
   keywords,
   publishedTime,
   modifiedTime,
+  noindex = false,
 }: BuildMetadataInput): Metadata {
   const canonical = localizedUrl(locale, path)
   const cleanTitle = title?.trim() || undefined
@@ -141,6 +149,22 @@ export function buildMetadata({
           modifiedTime: modifiedTime ?? undefined,
         }
       : {}),
+  }
+
+  if (noindex) {
+    return {
+      title: cleanTitle
+        ? titleAbsolute
+          ? { absolute: cleanTitle }
+          : cleanTitle
+        : undefined,
+      description: cleanDescription,
+      robots: {
+        index: false,
+        follow: false,
+        googleBot: { index: false, follow: false },
+      },
+    }
   }
 
   return {
