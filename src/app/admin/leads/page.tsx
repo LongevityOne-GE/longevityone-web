@@ -6,9 +6,13 @@ import {
   fetchLeads,
   parseFilters,
   summarise,
+  STATUS_FILTERS,
+  STATUS_LABELS,
   type LeadFilters,
   type LeadRow,
 } from '@/lib/admin/leads-query'
+import { LeadStatusSelect } from '@/components/admin/LeadStatusSelect'
+import { LeadNotes } from '@/components/admin/LeadNotes'
 
 // Leads arrive continuously; never serve a cached copy of this table.
 export const dynamic = 'force-dynamic'
@@ -42,6 +46,7 @@ function queryString(filters: LeadFilters, overrides: Partial<LeadFilters> = {})
     params.set('range', merged.range)
   }
   params.set('form', merged.form)
+  params.set('status', merged.status)
   return `?${params.toString()}`
 }
 
@@ -56,6 +61,18 @@ const FORM_LABELS: Record<string, string> = {
   all: 'All forms',
   lead_form: 'Call request',
   contact_form: 'Contact form',
+}
+
+const STATUS_FILTER_LABELS: Record<string, string> = {
+  all: 'Any status',
+  ...STATUS_LABELS,
+}
+
+/** Turn a submission path into something readable in a table cell. */
+function pageLabel(path: string | null): string | null {
+  if (!path) return null
+  const clean = path.replace(/^\/en/, '').replace(/\/$/, '')
+  return clean === '' ? 'Home' : clean
 }
 
 export default async function AdminLeadsPage({
@@ -135,15 +152,25 @@ export default async function AdminLeadsPage({
             {label}
           </Link>
         ))}
+        <span className="mx-2 h-5 w-px bg-dark-brown/15" />
+        {STATUS_FILTERS.map((value) => (
+          <Link
+            key={value}
+            href={`/admin/leads${queryString(filters, { status: value })}`}
+            className={`${chip} ${filters.status === value ? chipOn : chipOff}`}
+          >
+            {STATUS_FILTER_LABELS[value]}
+          </Link>
+        ))}
       </div>
 
       {/* Summary */}
       <div className="mb-10 grid grid-cols-2 gap-4 md:grid-cols-4">
         {[
-          { label: 'Total leads', value: stats.total },
-          { label: 'Call requests', value: stats.leadForm },
-          { label: 'Contact form', value: stats.contactForm },
-          { label: 'From campaigns', value: stats.fromCampaigns },
+          { label: 'Total leads', value: String(stats.total) },
+          { label: 'Booked', value: `${stats.booked}  (${stats.bookedRate}%)` },
+          { label: 'Awaiting first call', value: String(stats.awaitingContact) },
+          { label: 'From campaigns', value: String(stats.fromCampaigns) },
         ].map((stat) => (
           <div key={stat.label} className="border border-dark-brown/15 px-5 py-4">
             <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-dark-brown/50">
@@ -154,19 +181,22 @@ export default async function AdminLeadsPage({
         ))}
       </div>
 
-      {stats.topCampaigns.length > 0 && (
+      {stats.campaignOutcomes.length > 0 && (
         <div className="mb-10">
           <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-dark-brown/50">
-            Top campaigns in this period
+            Campaigns in this period - leads, and how many became bookings
           </p>
           <div className="flex flex-wrap gap-2">
-            {stats.topCampaigns.map((c) => (
+            {stats.campaignOutcomes.map((c) => (
               <span
                 key={c.campaign}
                 className="border border-dark-brown/15 px-4 py-2 text-sm text-dark-brown/80"
               >
                 {c.campaign}
-                <span className="ml-2 font-bold text-dark-brown">{c.count}</span>
+                <span className="ml-2 font-bold text-dark-brown">{c.leads}</span>
+                <span className="ml-1 text-dark-brown/40">leads</span>
+                <span className="ml-2 font-bold text-[#3C5729]">{c.booked}</span>
+                <span className="ml-1 text-dark-brown/40">booked</span>
               </span>
             ))}
           </div>
@@ -184,12 +214,23 @@ export default async function AdminLeadsPage({
       )}
 
       {rows.length > 0 && (
+        <p className="mb-3 text-xs text-dark-brown/50">
+          Notes are for call context only - for example &ldquo;call after 18:00&rdquo; or
+          &ldquo;asked about VO2 Max&rdquo;. This table is not a medical record and is
+          visible to whoever manages advertising, so never record symptoms,
+          diagnoses or test results here.
+        </p>
+      )}
+
+      {rows.length > 0 && (
         <div className="overflow-x-auto border border-dark-brown/15">
           <table className="w-full border-collapse">
             <thead className="bg-dark-brown/5">
               <tr>
                 <th className={head}>Received</th>
+                <th className={head}>Status</th>
                 <th className={head}>Form</th>
+                <th className={head}>Page</th>
                 <th className={head}>Name</th>
                 <th className={head}>Phone</th>
                 <th className={head}>Email</th>
@@ -198,6 +239,7 @@ export default async function AdminLeadsPage({
                 <th className={head}>Campaign (last)</th>
                 <th className={head}>Campaign (first)</th>
                 <th className={head}>Visits</th>
+                <th className={`${head} min-w-[220px]`}>Notes</th>
               </tr>
             </thead>
             <tbody>
@@ -207,8 +249,12 @@ export default async function AdminLeadsPage({
                   <tr key={lead.id} className="border-t border-dark-brown/10">
                     <td className={cell}>{formatDate(lead.created_at)}</td>
                     <td className={cell}>
+                      <LeadStatusSelect leadId={lead.id} status={lead.status} />
+                    </td>
+                    <td className={cell}>
                       {FORM_LABELS[lead.form_type] ?? lead.form_type}
                     </td>
+                    <td className={cell}>{pageLabel(lead.submitted_from) ?? dash}</td>
                     <td className={`${cell} font-medium text-dark-brown`}>{lead.name}</td>
                     <td className={cell}>
                       {lead.phone ? (
@@ -236,6 +282,9 @@ export default async function AdminLeadsPage({
                     <td className={cell}>{lead.last_utm_campaign ?? dash}</td>
                     <td className={cell}>{lead.utm_campaign ?? dash}</td>
                     <td className={cell}>{lead.touch_count ?? dash}</td>
+                    <td className={`${cell} whitespace-normal`}>
+                      <LeadNotes leadId={lead.id} notes={lead.notes} />
+                    </td>
                   </tr>
                 )
               })}

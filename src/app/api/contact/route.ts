@@ -35,6 +35,8 @@ const schema = z.object({
   company: z.string().max(0).optional(),
   // Cloudflare Turnstile token. Required in production; optional in dev.
   turnstileToken: z.string().optional(),
+  // Page the form was submitted from. Attacker-controllable, so length capped.
+  submitted_from: z.string().max(500).optional(),
   // Explicit consent to process personal data. Required because this route now
   // persists the enquirer's contact details, not just emails them.
   consent: z.literal(true, { error: () => ({ message: 'Consent is required' }) }),
@@ -197,6 +199,7 @@ export async function POST(req: NextRequest) {
       consent: true,
       source: 'contact_form',
       form_type: 'contact_form',
+      submitted_from: parsed.data.submitted_from ?? null,
       ...attributionToColumns(attribution),
     })
     if (dbError) {

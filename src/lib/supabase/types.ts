@@ -1,6 +1,6 @@
 /**
  * Supabase types matching the migrations in supabase/migrations/
- * (through 20260912010000_leads_multitouch_and_contact.sql).
+ * (through 20260912020000_lead_status_and_notes.sql).
  * Regenerate after schema changes:
  *   npx supabase gen types typescript --project-id <id> > src/lib/supabase/types.ts
  */
@@ -46,6 +46,10 @@ export interface Database {
           last_landing_page: string | null
           last_referrer: string | null
           touch_count: number | null
+          status: string
+          notes: string | null
+          status_updated_at: string | null
+          submitted_from: string | null
         }
         Insert: {
           id?: string
@@ -76,6 +80,10 @@ export interface Database {
           last_landing_page?: string | null
           last_referrer?: string | null
           touch_count?: number | null
+          status?: string
+          notes?: string | null
+          status_updated_at?: string | null
+          submitted_from?: string | null
         }
         Update: {
           id?: string
@@ -106,7 +114,12 @@ export interface Database {
           last_landing_page?: string | null
           last_referrer?: string | null
           touch_count?: number | null
+          status?: string
+          notes?: string | null
+          status_updated_at?: string | null
+          submitted_from?: string | null
         }
+        Relationships: []
       }
       patients: {
         Row: {
@@ -139,6 +152,7 @@ export interface Database {
           date_of_birth?: string | null
           created_at?: string
         }
+        Relationships: []
       }
       consent_log: {
         Row: {
@@ -168,6 +182,7 @@ export interface Database {
           ip_address?: string | null
           metadata?: Json | null
         }
+        Relationships: []
       }
       assessments: {
         Row: {
@@ -197,6 +212,7 @@ export interface Database {
           conducted_at?: string
           created_at?: string
         }
+        Relationships: []
       }
       biomarker_readings: {
         Row: {
@@ -232,10 +248,12 @@ export interface Database {
           recorded_at?: string
           created_at?: string
         }
+        Relationships: []
       }
     }
     Views: Record<string, never>
     Functions: Record<string, never>
     Enums: Record<string, never>
+    CompositeTypes: Record<string, never>
   }
 }
