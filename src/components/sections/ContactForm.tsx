@@ -1,11 +1,14 @@
 'use client'
 
 import { useMemo, useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import type { Locale } from '@/lib/utils'
 import { Turnstile, type TurnstileHandle } from '@/components/forms/Turnstile'
+import { getAttribution } from '@/lib/attribution'
+import { markLeadPending } from '@/lib/analytics-events'
 
 const messages = {
   ka: {
@@ -76,6 +79,7 @@ export function ContactForm({ locale }: ContactFormProps) {
   >('idle')
   const [captchaToken, setCaptchaToken] = useState('')
   const turnstileRef = useRef<TurnstileHandle>(null)
+  const router = useRouter()
   const schema = useMemo(() => buildSchema(locale), [locale])
 
   const {
@@ -95,7 +99,13 @@ export function ContactForm({ locale }: ContactFormProps) {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...values, locale, turnstileToken: captchaToken }),
+        body: JSON.stringify({
+          ...values,
+          locale,
+          turnstileToken: captchaToken,
+          // Which campaign brought this visitor in, captured on landing.
+          ...getAttribution(),
+        }),
       })
       if (res.status === 429) {
         setStatus('rateLimited')
@@ -112,6 +122,11 @@ export function ContactForm({ locale }: ContactFormProps) {
       }
       setStatus('success')
       reset()
+      // Navigate to a real URL so GTM can trigger on the page view as well as
+      // on the dataLayer event. The inline success message above stays as the
+      // fallback shown while the navigation completes.
+      markLeadPending('contact_form')
+      router.push(locale === 'en' ? '/en/thank-you' : '/thank-you')
     } catch (err) {
       console.error('[contact] network error', err)
       setStatus('error')

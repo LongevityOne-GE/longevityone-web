@@ -4,6 +4,9 @@ import { useState, useId } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { ArrowRight, X } from 'lucide-react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { getAttribution } from '@/lib/attribution'
+import { markLeadPending } from '@/lib/analytics-events'
 import { cn } from '@/lib/utils'
 import type { Locale } from '@/lib/utils'
 
@@ -74,6 +77,7 @@ export function LeadCaptureForm({
 }: LeadCaptureFormProps) {
   const t = COPY[locale]
   const uid = useId()
+  const router = useRouter()
   const dialogTitle = heading ?? DEFAULT_HEADINGS[locale]
 
   const [open, setOpen] = useState(false)
@@ -121,10 +125,22 @@ export function LeadCaptureForm({
           consent: true,
           source,
           company,
+          // Which campaign brought this visitor in, captured on landing.
+          ...getAttribution(),
         }),
       })
 
-      setFormState(res.ok ? 'success' : 'error')
+      if (!res.ok) {
+        setFormState('error')
+        return
+      }
+
+      // Navigate to a real URL so GTM can trigger on the page view as well as
+      // on the dataLayer event. The flag is what tells /thank-you this view
+      // followed an actual submission, so a later reload cannot re-count it.
+      markLeadPending(source)
+      setOpen(false)
+      router.push(locale === 'en' ? '/en/thank-you' : '/thank-you')
     } catch {
       setFormState('error')
     }

@@ -3,6 +3,7 @@
 import Script from 'next/script'
 import { useEffect, useState } from 'react'
 import { readConsent, type CookieConsent } from '@/lib/cookies'
+import { captureAttribution } from '@/lib/attribution'
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 const PH_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY
@@ -12,6 +13,13 @@ export function Analytics() {
   const [consent, setConsent] = useState<CookieConsent | null>(null)
 
   useEffect(() => {
+    // Snapshot the campaign that brought this visitor in, before they navigate
+    // away from the landing URL. Runs regardless of consent: it stores no
+    // identifier and no cross-site state, only the ad parameters already
+    // present in the URL the visitor opened, kept for this tab alone so a lead
+    // they choose to submit later can be credited to the right campaign.
+    captureAttribution()
+
     // Read initial consent from localStorage
     setConsent(readConsent())
 

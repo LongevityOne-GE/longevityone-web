@@ -2,6 +2,11 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { Resend } from 'resend'
 import { createHash } from 'node:crypto'
+import {
+  ATTRIBUTION_KEYS,
+  attributionSchema,
+  hasAttribution,
+} from '@/lib/attribution'
 
 export const runtime = 'nodejs'
 
@@ -15,6 +20,9 @@ const schema = z.object({
   company: z.string().max(0).optional(),
   // Cloudflare Turnstile token. Required in production; optional in dev.
   turnstileToken: z.string().optional(),
+  // Campaign attribution replayed by the browser from sessionStorage. Surfaced
+  // in the notification email only - this route intentionally writes no DB row.
+  ...attributionSchema.shape,
 })
 
 async function verifyTurnstile(token: string, ip: string): Promise<boolean> {
@@ -129,6 +137,7 @@ export async function POST(req: NextRequest) {
 
   const { name, email, phone, message, locale, company, turnstileToken } =
     parsed.data
+  const attribution = attributionSchema.parse(parsed.data)
 
   // Honeypot tripped: respond with a generic success so bots don't learn.
   if (company && company.length > 0) {
@@ -162,19 +171,40 @@ export async function POST(req: NextRequest) {
   const safePhone = phone ? escapeHtml(phone) : ''
   const safeMessage = escapeHtml(message).replace(/\n/g, '<br />')
 
+  // Campaign attribution, surfaced in the staff notification so the ad manager
+  // can see which campaign produced an enquiry. This route stores no DB row, so
+  // the inbox is the only record.
+  const attributionRows = ATTRIBUTION_KEYS.filter((key) => attribution[key])
+  const attributionHtml = hasAttribution(attribution)
+    ? `<p><strong>Campaign attribution:</strong></p>` +
+      attributionRows
+        .map(
+          (key) =>
+            `<p><strong>${key}:</strong> ${escapeHtml(attribution[key] ?? '')}</p>`,
+        )
+        .join('')
+    : '<p><strong>Campaign attribution:</strong> none (direct or organic)</p>'
+  const attributionText = hasAttribution(attribution)
+    ? '\nCampaign attribution:\n' +
+      attributionRows.map((key) => `${key}: ${attribution[key]}`).join('\n') +
+      '\n'
+    : '\nCampaign attribution: none (direct or organic)\n'
+
   const html = `
     <p><strong>Name:</strong> ${safeName}</p>
     <p><strong>Email:</strong> ${safeEmail}</p>
     ${safePhone ? `<p><strong>Phone:</strong> ${safePhone}</p>` : ''}
     <p><strong>Message:</strong></p>
     <p>${safeMessage}</p>
+    ${attributionHtml}
   `
 
   const text =
     `Name: ${name}\n` +
     `Email: ${email}\n` +
     (phone ? `Phone: ${phone}\n` : '') +
-    `\nMessage:\n${message}\n`
+    `\nMessage:\n${message}\n` +
+    attributionText
 
   try {
     await resend.emails.send({

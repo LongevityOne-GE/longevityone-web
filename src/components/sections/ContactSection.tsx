@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { PhoneLink } from '@/components/shared/PhoneLink'
 import type { Locale } from '@/lib/utils'
 import type { SiteSettings } from '@/lib/sanity/types'
 import { Reveal } from '@/components/animations/Reveal'
@@ -115,12 +116,13 @@ export function ContactSection({ locale, settings }: ContactSectionProps) {
                         <p className="text-[11px] uppercase tracking-[0.28em] text-burnt-orange font-semibold">
                           {phoneLabel}
                         </p>
-                        <a
-                          href={`tel:${settings.phone}`}
+                        <PhoneLink
+                          phone={settings.phone}
+                          source="contact_page"
                           className="text-sm font-bold text-dark-brown hover:text-burnt-orange transition-colors duration-200"
                         >
                           {settings.phone}
-                        </a>
+                        </PhoneLink>
                       </div>
                     </div>
                   )}

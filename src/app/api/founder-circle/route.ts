@@ -3,6 +3,12 @@ import { z } from 'zod'
 import { Resend } from 'resend'
 import { createClient } from '@supabase/supabase-js'
 import { createHash } from 'node:crypto'
+import {
+  ATTRIBUTION_KEYS,
+  attributionSchema,
+  attributionToColumns,
+  hasAttribution,
+} from '@/lib/attribution'
 
 export const runtime = 'nodejs'
 
@@ -20,6 +26,10 @@ const schema = z.object({
   source: z.string().min(1).max(100).default('founder_circle'),
   // Honeypot: real users never fill this hidden field. Bots often do.
   company: z.string().max(200).optional(),
+  // Campaign attribution replayed by the browser from sessionStorage. All
+  // fields optional - organic visitors carry none, and a lead must never be
+  // rejected for lacking attribution.
+  ...attributionSchema.shape,
 })
 
 // Best-effort in-memory rate limit: 5 submissions / 10 min / IP
@@ -95,6 +105,7 @@ export async function POST(req: NextRequest) {
   }
 
   const { name, phone, email, lang, source, company } = parsed.data
+  const attribution = attributionSchema.parse(parsed.data)
 
   // Honeypot tripped: respond with a generic success so bots do not learn.
   if (company && company.trim().length > 0) {
@@ -115,7 +126,15 @@ export async function POST(req: NextRequest) {
     )
     const { error: dbError } = await supabase
       .from('founder_circle_leads')
-      .insert({ name, phone, email: email ?? null, lang, consent: true, source })
+      .insert({
+        name,
+        phone,
+        email: email ?? null,
+        lang,
+        consent: true,
+        source,
+        ...attributionToColumns(attribution),
+      })
 
     if (dbError) {
       console.error('[founder-circle] supabase insert error', dbError)
@@ -144,6 +163,24 @@ export async function POST(req: NextRequest) {
       final_cta:      'Packages — closing CTA',
     }
     const sourceLabel = SOURCE_LABELS[source] ?? source
+
+    // Campaign attribution, rendered into the staff notification so the ad
+    // manager can read it straight from the inbox even if the DB write failed.
+    const attributionRows = ATTRIBUTION_KEYS.filter((key) => attribution[key])
+    const attributionHtml = hasAttribution(attribution)
+      ? `<h3>Campaign attribution</h3>` +
+        attributionRows
+          .map(
+            (key) =>
+              `<p><strong>${key}:</strong> ${escapeHtml(attribution[key] ?? '')}</p>`,
+          )
+          .join('')
+      : '<p><strong>Campaign attribution:</strong> none (direct or organic)</p>'
+    const attributionText = hasAttribution(attribution)
+      ? '\nCampaign attribution:\n' +
+        attributionRows.map((key) => `${key}: ${attribution[key]}`).join('\n') +
+        '\n'
+      : '\nCampaign attribution: none (direct or organic)\n'
     // Flag the email when the DB write failed so staff know to record the lead
     // manually (the row is not in Supabase).
     const dbWarning = leadSaved ? '' : ' [⚠ DB SAVE FAILED — enter this lead manually]'
@@ -163,6 +200,7 @@ export async function POST(req: NextRequest) {
           ${safeEmail ? `<p><strong>Email:</strong> ${safeEmail}</p>` : '<p><strong>Email:</strong> —</p>'}
           <p><strong>Language:</strong> ${lang}</p>
           <p><strong>Source:</strong> ${escapeHtml(source)}</p>
+          ${attributionHtml}
         `,
         text:
           `${emailHeading}\n\n` +
@@ -170,7 +208,8 @@ export async function POST(req: NextRequest) {
           `Phone: ${phone}\n` +
           `Email: ${email ?? '—'}\n` +
           `Language: ${lang}\n` +
-          `Source: ${source}\n`,
+          `Source: ${source}\n` +
+          attributionText,
       })
       leadEmailed = true
     } catch (err) {
