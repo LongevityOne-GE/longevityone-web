@@ -37,6 +37,8 @@ const schema = z.object({
   company: z.string().max(200).optional(),
   // Cloudflare Turnstile token. Required in production; optional in dev.
   turnstileToken: z.string().optional(),
+  // Page the form was submitted from. Attacker-controllable, so length capped.
+  submitted_from: z.string().max(500).optional(),
   // Campaign attribution replayed by the browser from sessionStorage. All
   // fields optional - organic visitors carry none, and a lead must never be
   // rejected for lacking attribution.
@@ -205,6 +207,7 @@ export async function POST(req: NextRequest) {
         consent: true,
         source,
         form_type: 'lead_form',
+        submitted_from: parsed.data.submitted_from ?? null,
         ...attributionToColumns(attribution),
       })
 

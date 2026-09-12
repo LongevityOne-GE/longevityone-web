@@ -117,6 +117,10 @@ export function ContactForm({ locale }: ContactFormProps) {
           turnstileToken: captchaToken,
           // Which campaign brought this visitor in, captured on landing.
           ...getAttribution(),
+          // The page this was submitted from. Gives the marketer service-level
+          // interest with nothing for staff to remember to fill in.
+          submitted_from:
+            typeof window !== 'undefined' ? window.location.pathname : undefined,
         }),
       })
       if (res.status === 429) {

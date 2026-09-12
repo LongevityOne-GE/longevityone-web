@@ -1,7 +1,13 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { isAllowedAdmin } from '@/lib/admin/allowlist'
-import { fetchLeads, parseFilters, type LeadRow } from '@/lib/admin/leads-query'
+import {
+  fetchLeads,
+  parseFilters,
+  STATUS_LABELS,
+  type LeadRow,
+  type LeadStatus,
+} from '@/lib/admin/leads-query'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -9,7 +15,9 @@ export const dynamic = 'force-dynamic'
 /** Columns in the exported file, in the order the ad manager reads them. */
 const COLUMNS: Array<{ key: keyof LeadRow; label: string }> = [
   { key: 'created_at', label: 'Received' },
+  { key: 'status', label: 'Status' },
   { key: 'form_type', label: 'Form' },
+  { key: 'submitted_from', label: 'Submitted from' },
   { key: 'name', label: 'Name' },
   { key: 'phone', label: 'Phone' },
   { key: 'email', label: 'Email' },
@@ -28,6 +36,7 @@ const COLUMNS: Array<{ key: keyof LeadRow; label: string }> = [
   { key: 'landing_page', label: 'Landing page' },
   { key: 'referrer', label: 'Referrer' },
   { key: 'touch_count', label: 'Visits before converting' },
+  { key: 'notes', label: 'Notes' },
 ]
 
 /**
@@ -73,7 +82,18 @@ export async function GET(req: NextRequest) {
   }
 
   const header = COLUMNS.map((c) => csvCell(c.label)).join(',')
-  const body = rows.map((row) => COLUMNS.map((c) => csvCell(row[c.key])).join(',')).join('\n')
+  const body = rows
+    .map((row) =>
+      COLUMNS.map((c) => {
+        // Export the human label, not the database value, so the spreadsheet
+        // reads "Not interested" rather than "not_interested".
+        if (c.key === 'status') {
+          return csvCell(STATUS_LABELS[row.status as LeadStatus] ?? row.status)
+        }
+        return csvCell(row[c.key])
+      }).join(','),
+    )
+    .join('\n')
   // BOM so Excel opens UTF-8 Georgian text correctly instead of mojibake.
   const csv = `﻿${header}\n${body}\n`
 
