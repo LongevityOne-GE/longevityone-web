@@ -25,7 +25,7 @@ const PH_HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? 'https://eu.posthog.com'
  * for ad personalisation in the EEA.
  *
  * This deliberately differs from the older "no Google script before consent"
- * rule in CLAUDE.md. PostHog has no equivalent mechanism and so remains fully
+ * rule. PostHog has no equivalent mechanism and so remains fully
  * gated below - it does not load at all without consent.
  */
 const CONSENT_DEFAULT_SNIPPET = `

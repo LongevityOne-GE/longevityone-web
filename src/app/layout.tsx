@@ -5,7 +5,7 @@ import { SITE_URL } from '@/lib/seo/metadata'
 import './globals.css'
 
 export const metadata: Metadata = {
-  // Canonical origin is `www` — every relative URL (incl. the default OG image
+  // Canonical origin is `www`: every relative URL (incl. the default OG image
   // from app/opengraph-image.tsx) resolves against this host.
   metadataBase: new URL(SITE_URL),
   applicationName: 'Longevity One',

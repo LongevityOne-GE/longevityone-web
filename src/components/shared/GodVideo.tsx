@@ -57,7 +57,7 @@ function posterFor(src: VideoSource): string | undefined {
  * Performance: the video uses `preload="none"` and is NOT autoplayed eagerly.
  * `useLazyVideo` starts playback (and the download) only when it scrolls near
  * the viewport, and a poster paints instantly meanwhile (LCP-friendly). Respects
- * `prefers-reduced-motion` — the poster stays and the video never autoplays.
+ * `prefers-reduced-motion`: the poster stays and the video never autoplays.
  */
 export function GodVideo({
   src,

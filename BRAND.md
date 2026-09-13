@@ -1,7 +1,7 @@
-# Longevity One — Brand Guidelines for Claude Code
+# Longevity One: Brand Guidelines
 
 > Source of truth: Visual Identity Guidelines.pdf in project files
-> Claude Code must follow every rule here on every component it creates.
+> Every component must follow every rule here.
 > When in doubt: look at https://www.cliniquelaprairie.com and ask "does this feel that level of luxury?"
 
 ---
@@ -47,11 +47,11 @@ colors: {
 
 ### Usage rules
 
-- **Bone `#E7DECC`** — primary background on all pages. Conveys warmth and luxury. Use it everywhere.
-- **Brown `#422922`** — all headings and body text. Never use pure black (`#000`) for text.
-- **Orange `#D45800`** — CTAs, price highlights, hover underlines, logo accent. Never as a large background area.
-- **Blue `#AFD1E6`** — subtle UI states, badges, secondary information. Very sparingly.
-- **Black `#000000`** — high-contrast dark sections and poster-style compositions only.
+- **Bone `#E7DECC`**: primary background on all pages. Conveys warmth and luxury. Use it everywhere.
+- **Brown `#422922`**: all headings and body text. Never use pure black (`#000`) for text.
+- **Orange `#D45800`**: CTAs, price highlights, hover underlines, logo accent. Never as a large background area.
+- **Blue `#AFD1E6`**: subtle UI states, badges, secondary information. Very sparingly.
+- **Black `#000000`**: high-contrast dark sections and poster-style compositions only.
 
 ### Forbidden
 - No gradients between any brand colours
@@ -63,7 +63,7 @@ colors: {
 
 ## Typography
 
-### Font: Mersad — 9 weights, self-hosted
+### Font: Mersad: 9 weights, self-hosted
 
 All files live in `/public/fonts/mersad/`. Filenames are all lowercase.
 
@@ -200,8 +200,8 @@ transitionTimingFunction: {
 
 Classical Greek and Roman sculpture is the brand's visual language:
 - **Discobolus** (discus thrower) — movement, athletic peak, elite performance
-- **Classical busts/portraits** — intellectual authority, timeless beauty
-- **Amphora silhouette** — heritage, craft, containment
+- **Classical busts/portraits**: intellectual authority, timeless beauty
+- **Amphora silhouette**: heritage, craft, containment
 
 ### Photographic treatment
 - Desaturated or monochrome with bone-white tint overlay
@@ -210,7 +210,7 @@ Classical Greek and Roman sculpture is the brand's visual language:
 - Scientific imagery: clean macro shots of cells, DNA, lab equipment — minimal and precise
 - Georgian landscape only when specifically relevant to Georgia context
 
-### In code — always
+### In code: always
 ```typescript
 // Always next/image, always dramatic crop, always WebP
 <Image
@@ -241,7 +241,7 @@ maxWidth: {
 - Section padding: `py-section md:py-section-lg`
 - Content wrapper: `max-w-site mx-auto px-6 md:px-12`
 - Grid: 12 columns desktop, 4 columns mobile — use CSS grid not flex for page layouts
-- **Generous whitespace is not wasted space — it is luxury**
+- **Generous whitespace is not wasted space: it is luxury**
 
 ---
 
@@ -315,7 +315,7 @@ className="w-16 h-px bg-orange" // accent divider under headings
 
 ---
 
-## Tone of Voice — Micro-copy
+## Tone of Voice: Micro-copy
 
 **Georgian:** formal "თქვენ/თქვენი", authoritative medical language, warm not cold
 **English:** confident, precise, editorial — short declarative sentences
@@ -331,7 +331,7 @@ className="w-16 h-px bg-orange" // accent divider under headings
 | Empty state | შინაარსი მალე დაემატება. | Coming soon. |
 | Form consent | ვეთანხმები მონაცემთა დამუშავებას | I consent to data processing |
 
-### Content lint rule — formal imperative (`-თ`)
+### Content lint rule: formal imperative (`-თ`)
 
 All Georgian CTAs and instructions must use the **formal plural imperative** (ending in `-თ`),
 never the informal singular. A Georgian imperative ending in a vowel without a trailing `-თ`
@@ -350,7 +350,7 @@ Audit both Sanity content and hardcoded component strings before publishing.
 
 ---
 
-## Forbidden UI Patterns — never implement these
+## Forbidden UI Patterns: never implement these
 
 - No carousels with visible arrows/dots (use seamless GSAP scroll or pinned sections)
 - No modal popups except cookie consent and booking embed

@@ -1,4 +1,4 @@
-# Longevity One — Remaining Pages Design Spec
+# Longevity One: Remaining Pages Design Spec
 
 **Date:** 2026-05-04  
 **Status:** Approved  
@@ -46,12 +46,12 @@ Inner-page hero used by every non-homepage page. Props: `eyebrow`, `title`, `sub
 
 **`PortableTextRenderer`** (`src/components/shared/PortableTextRenderer.tsx`)  
 Renders Sanity Portable Text arrays. Styled to brand:
-- `h2` — Playfair serif, large, with `border-t border-dark-brown/20` rule above
-- `h3` — Playfair serif, medium weight
-- `p` — generous line-height, `text-dark-brown/85`
-- `strong` — `font-bold text-dark-brown`
-- `ul` — bullet list with burnt-orange `•` markers
-- `a` — burnt-orange underline on hover
+- `h2`: Playfair serif, large, with `border-t border-dark-brown/20` rule above
+- `h3`: Playfair serif, medium weight
+- `p`: generous line-height, `text-dark-brown/85`
+- `strong`: `font-bold text-dark-brown`
+- `ul`: bullet list with burnt-orange `•` markers
+- `a`: burnt-orange underline on hover
 Uses `@portabletext/react` package.
 
 **`PageHero`** is used by: About, Technologies, Services, Packages, Journey, Corporate, Team, FAQ, Blog Index, Blog Post, Legal, Contact.  
@@ -59,7 +59,7 @@ Uses `@portabletext/react` package.
 
 ---
 
-## Build Order (Approach B — Component Dependency)
+## Build Order (Approach B: Component Dependency)
 
 | Phase | Pages | New components introduced |
 |-------|-------|--------------------------|
@@ -71,7 +71,7 @@ Uses `@portabletext/react` package.
 
 ---
 
-## Phase 1 — About & Technologies
+## Phase 1: About & Technologies
 
 ### About (`/about`)
 
@@ -81,11 +81,11 @@ Uses `@portabletext/react` package.
 
 **Sections:**
 
-1. **`PageHero`** — H1 from `h1_ka`/`h1_en`, subtitle from `philosophy_ka`/`philosophy_en`
+1. **`PageHero`**: H1 from `h1_ka`/`h1_en`, subtitle from `philosophy_ka`/`philosophy_en`
 
-2. **`WhyPillars`** — bone-white background. 3-column grid. Each of the 3 `why_pillars[]` items: burnt-orange number (01/02/03), bold title, body text. Top border rule on each column. `Reveal` on scroll.
+2. **`WhyPillars`**: bone-white background. 3-column grid. Each of the 3 `why_pillars[]` items: burnt-orange number (01/02/03), bold title, body text. Top border rule on each column. `Reveal` on scroll.
 
-3. **`FoundingStory`** — dark-brown background (mirrors homepage Pillars section). Two columns: left has section heading (`founding_story_heading_ka/en`) in large serif; right has founding story body text in Playfair italic, generous line-height. Uses the same `columns-bg_boomerang` video background already loaded on the homepage Pillars section, at low opacity (`bg-dark-brown/60` overlay).
+3. **`FoundingStory`**: dark-brown background (mirrors homepage Pillars section). Two columns: left has section heading (`founding_story_heading_ka/en`) in large serif; right has founding story body text in Playfair italic, generous line-height. Uses the same `columns-bg_boomerang` video background already loaded on the homepage Pillars section, at low opacity (`bg-dark-brown/60` overlay).
 
 ---
 
@@ -97,7 +97,7 @@ Uses `@portabletext/react` package.
 
 **Sections:**
 
-1. **`PageHero`** — H1 "Science & Technology" / "მეცნიერება და ტექნოლოგია"
+1. **`PageHero`**: H1 "Science & Technology" / "მეცნიერება და ტექნოლოგია"
 
 2. **`TechSideNav`** (desktop only) — sticky left/right rail showing 5 dots with tech names. Active dot fills burnt-orange as section enters viewport. Built with `IntersectionObserver`.
 
@@ -110,7 +110,7 @@ Uses `@portabletext/react` package.
 
 ---
 
-## Phase 2 — Services & Packages
+## Phase 2: Services & Packages
 
 ### Services (`/services/[slug]`)
 
@@ -121,15 +121,15 @@ Uses `@portabletext/react` package.
 
 **Sections:**
 
-1. **`PageHero`** — title as H1, intro as subtitle
+1. **`PageHero`**: title as H1, intro as subtitle
 
-2. **`ServiceBody`** — bone-white, two columns:
+2. **`ServiceBody`**: bone-white, two columns:
    - Left (65%): full body text as plain string paragraphs
-   - Right (35%): `card-ornamental` box listing `technologies[]` — each tech name + tagline, linked to `/technologies#[anchor]`
+   - Right (35%): `card-ornamental` box listing `technologies[]`: each tech name + tagline, linked to `/technologies#[anchor]`
 
-3. **`ServiceDifferentiator`** — dark-brown background, full-width centred. `differentiator_ka`/`en` text rendered large in Playfair serif italic. Visual weight matches homepage CTA section.
+3. **`ServiceDifferentiator`**: dark-brown background, full-width centred. `differentiator_ka`/`en` text rendered large in Playfair serif italic. Visual weight matches homepage CTA section.
 
-4. **`RelatedPackages`** — bone-white. Heading "Recommended Packages" / "რეკომენდებული პაკეტები". Shows 2–3 package cards from `relatedPackages[]`. Reuses existing `Pricing` card component markup directly (card-ornamental shape, hover pattern).
+4. **`RelatedPackages`**: bone-white. Heading "Recommended Packages" / "რეკომენდებული პაკეტები". Shows 2–3 package cards from `relatedPackages[]`. Reuses existing `Pricing` card component markup directly (card-ornamental shape, hover pattern).
 
 ---
 
@@ -141,19 +141,19 @@ Uses `@portabletext/react` package.
 
 **Sections:**
 
-1. **`PageHero`** — H1 from `packages_heading_ka/en`, subtitle from `packages_subtext_ka/en`. The packages route files fetch `homePageQuery` in parallel with `packagesQuery` — the heading lives in the `homePage` Sanity document.
+1. **`PageHero`**: H1 from `packages_heading_ka/en`, subtitle from `packages_subtext_ka/en`. The packages route files fetch `homePageQuery` in parallel with `packagesQuery`: the heading lives in the `homePage` Sanity document.
 
-2. **`DiagnosticTiers`** — three `card-ornamental` cards (STARTER / PERFORMANCE / ELITE). Identical to homepage Pricing section but full-page width with expanded includes list. Reuses existing card markup.
+2. **`DiagnosticTiers`**: three `card-ornamental` cards (STARTER / PERFORMANCE / ELITE). Identical to homepage Pricing section but full-page width with expanded includes list. Reuses existing card markup.
 
-3. **`AddOns`** — bone-white. Two-column ruled table: Enbiosis row and TrueAge row. Each row: name, description, price right-aligned. Clean `border-b border-dark-brown/10` separators. No cards.
+3. **`AddOns`**: bone-white. Two-column ruled table: Enbiosis row and TrueAge row. Each row: name, description, price right-aligned. Clean `border-b border-dark-brown/10` separators. No cards.
 
-4. **`MembershipPlans`** — dark-brown background. Three `card-ornamental` cards (Silver / Gold / Elite Platinum). Monthly price, goal text, includes list. Same hover pattern as diagnostic cards (card darkens further, button turns burnt-orange). Price displays with `/თვე` or `/mo` suffix.
+4. **`MembershipPlans`**: dark-brown background. Three `card-ornamental` cards (Silver / Gold / Elite Platinum). Monthly price, goal text, includes list. Same hover pattern as diagnostic cards (card darkens further, button turns burnt-orange). Price displays with `/თვე` or `/mo` suffix.
 
-5. **`SessionPacks`** — bone-white. Simple 3-row pricing table: IHHT / Red Light / Combo. Three price columns (1 session / 5 sessions / 10 sessions). Styled as a clean ruled grid, not cards.
+5. **`SessionPacks`**: bone-white. Simple 3-row pricing table: IHHT / Red Light / Combo. Three price columns (1 session / 5 sessions / 10 sessions). Styled as a clean ruled grid, not cards.
 
 ---
 
-## Phase 3 — Journey, Corporate & Team
+## Phase 3: Journey, Corporate & Team
 
 ### Patient Journey (`/journey`)
 
@@ -163,9 +163,9 @@ Uses `@portabletext/react` package.
 
 **Sections:**
 
-1. **`PageHero`** — H1 from `h1_ka/en`, subtitle from `intro_ka/en`
+1. **`PageHero`**: H1 from `h1_ka/en`, subtitle from `intro_ka/en`
 
-2. **`JourneyTimeline`** — bone-white. Vertical timeline on mobile, two-column offset grid on desktop. Each of 8 stages:
+2. **`JourneyTimeline`**: bone-white. Vertical timeline on mobile, two-column offset grid on desktop. Each of 8 stages:
    - Burnt-orange serif stage number (01–08)
    - Bold title
    - Duration badge (pill-shaped, `border border-burnt-orange/40 text-burnt-orange text-[10px] uppercase tracking-widest`)
@@ -183,11 +183,11 @@ Uses `@portabletext/react` package.
 
 **Sections:**
 
-1. **`PageHero`** — H1 + intro subtitle
+1. **`PageHero`**: H1 + intro subtitle
 
-2. **`Programmes`** — bone-white. Three `card-ornamental` cards from `programmes[]`. No price — just programme number, title, body text. Same card shape and hover as Pricing.
+2. **`Programmes`**: bone-white. Three `card-ornamental` cards from `programmes[]`. No price — just programme number, title, body text. Same card shape and hover as Pricing.
 
-3. **`CorporateCTA`** — dark-brown full-width section. Centred `cta_label_ka/en` heading + single `btn-primary` linking to `/contact` (or `/en/contact`).
+3. **`CorporateCTA`**: dark-brown full-width section. Centred `cta_label_ka/en` heading + single `btn-primary` linking to `/contact` (or `/en/contact`).
 
 ---
 
@@ -199,15 +199,15 @@ Uses `@portabletext/react` package.
 
 **Sections:**
 
-1. **`PageHero`** — H1 + founders subtext
+1. **`PageHero`**: H1 + founders subtext
 
-2. **`FoundersGrid`** — bone-white. Group photo full-width at top (if present, else omitted). Below: 5-column grid of founder cards. Each card: circular photo crop, name in serif bold, role, specialty. Cards have subtle `border border-dark-brown/10` outline and `Reveal` on scroll. Gracefully renders placeholder silhouette when photo is null.
+2. **`FoundersGrid`**: bone-white. Group photo full-width at top (if present, else omitted). Below: 5-column grid of founder cards. Each card: circular photo crop, name in serif bold, role, specialty. Cards have subtle `border border-dark-brown/10` outline and `Reveal` on scroll. Gracefully renders placeholder silhouette when photo is null.
 
-3. **`ClinicTeam`** — dark-brown background. Section heading + 2-column grid for the 2 remaining team members. Same card pattern as founders but inverted colors (bone-white text on dark-brown bg).
+3. **`ClinicTeam`**: dark-brown background. Section heading + 2-column grid for the 2 remaining team members. Same card pattern as founders but inverted colors (bone-white text on dark-brown bg).
 
 ---
 
-## Phase 4 — FAQ & Blog
+## Phase 4: FAQ & Blog
 
 ### FAQ (`/faq`)
 
@@ -217,9 +217,9 @@ Uses `@portabletext/react` package.
 
 **Sections:**
 
-1. **`PageHero`** — H1 from `page.h1_ka/en`
+1. **`PageHero`**: H1 from `page.h1_ka/en`
 
-2. **`FaqAccordion`** — bone-white. Single column, `max-w-3xl mx-auto`. Each of 8 items:
+2. **`FaqAccordion`**: bone-white. Single column, `max-w-3xl mx-auto`. Each of 8 items:
    - Clickable row: question text + `+` / `−` icon in burnt-orange (right-aligned)
    - Answer expands with CSS `max-height` transition (smooth, no layout shift)
    - `border-b border-dark-brown/10` between items
@@ -236,9 +236,9 @@ Uses `@portabletext/react` package.
 
 **Sections:**
 
-1. **`PageHero`** — H1 "Journal" (hardcoded — no blogPage singleton needed)
+1. **`PageHero`**: H1 "Journal" (hardcoded — no blogPage singleton needed)
 
-2. **`BlogGrid`** — bone-white. 3-column `card-ornamental` grid. Each post card:
+2. **`BlogGrid`**: bone-white. 3-column `card-ornamental` grid. Each post card:
    - Cover image (if present) or decorative bone-white/dark-brown gradient placeholder
    - Category eyebrow in burnt-orange
    - Post title in Playfair serif
@@ -258,9 +258,9 @@ Uses `@portabletext/react` package.
 
 **Sections:**
 
-1. **`PageHero`** — post title as H1, category as eyebrow, published date below subtitle
+1. **`PageHero`**: post title as H1, category as eyebrow, published date below subtitle
 
-2. **`PostBody`** — bone-white. Two columns on desktop:
+2. **`PostBody`**: bone-white. Two columns on desktop:
    - Left (65%): `PortableTextRenderer` rendering `body_ka` or `body_en`
    - Right (35%): sticky sidebar — "Related Technologies" heading, list of `relatedTechnologies[]` each linking to `/technologies#[anchor]`
 
@@ -268,7 +268,7 @@ Uses `@portabletext/react` package.
 
 ---
 
-## Phase 5 — Legal, Contact & 404
+## Phase 5: Legal, Contact & 404
 
 ### Legal Pages (`/legal/[pageType]`)
 
@@ -279,9 +279,9 @@ Uses `@portabletext/react` package.
 
 **Sections:**
 
-1. **`PageHero`** — `title_ka/en` as H1, `lastUpdated` date as subtitle
+1. **`PageHero`**: `title_ka/en` as H1, `lastUpdated` date as subtitle
 
-2. **`LegalBody`** — bone-white. Single column `max-w-2xl mx-auto`. `PortableTextRenderer` renders full Portable Text body. `h2` gets `border-t border-dark-brown/20 pt-8 mt-12` for visual section breaks. Clean, minimal — no decorative elements.
+2. **`LegalBody`**: bone-white. Single column `max-w-2xl mx-auto`. `PortableTextRenderer` renders full Portable Text body. `h2` gets `border-t border-dark-brown/20 pt-8 mt-12` for visual section breaks. Clean, minimal — no decorative elements.
 
 ---
 
@@ -293,11 +293,11 @@ Uses `@portabletext/react` package.
 
 **Sections:**
 
-1. **`PageHero`** — H1 "Contact Us" / "დაგვიკავშირდით"
+1. **`PageHero`**: H1 "Contact Us" / "დაგვიკავშირდით"
 
-2. **`ContactSection`** — bone-white. Two columns on desktop:
-   - **Left** — contact details from `siteSettings`: address, phone, email, opening hours. Each with a small burnt-orange icon (map pin, phone, email, clock from `lucide-react`).
-   - **Right** — `ContactForm` client component
+2. **`ContactSection`**: bone-white. Two columns on desktop:
+   - **Left**: contact details from `siteSettings`: address, phone, email, opening hours. Each with a small burnt-orange icon (map pin, phone, email, clock from `lucide-react`).
+   - **Right**: `ContactForm` client component
 
 **`ContactForm`** (`'use client'`):
 - Fields: Name (required), Email (required), Phone (optional), Message (required, textarea), GDPR consent checkbox (required)
