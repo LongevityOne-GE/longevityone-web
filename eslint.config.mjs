@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Local editor and agent tooling: on disk but not part of the project.
+    // Without these, eslint reports ~960 errors from files we do not ship.
+    ".claude/**",
+    ".cursor/**",
   ]),
 ]);
 
