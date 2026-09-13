@@ -1,4 +1,4 @@
-# Longevity One — Motion & Animation Specification
+# Longevity One: Motion & Animation Specification
 
 > Reference: https://www.cliniquelaprairie.com
 > Goal: Match cinematic, scroll-driven luxury feel. Every interaction feels intentional and premium.
@@ -11,15 +11,15 @@
 Motion at Longevity One is storytelling, not decoration. The site should feel like turning pages of a premium art book: unhurried, deliberate, deeply satisfying. Nothing snaps. Nothing bounces. Everything breathes.
 
 **Three principles:**
-1. **Reveal, don't distract** — animation draws attention to content, never away from it
-2. **Gravity matters** — elements enter as if settling into place, not flying in
-3. **Continuity** — the page feels like one connected experience, not a series of sections
+1. **Reveal, don't distract**: animation draws attention to content, never away from it
+2. **Gravity matters**: elements enter as if settling into place, not flying in
+3. **Continuity**: the page feels like one connected experience, not a series of sections
 
 ---
 
 ## Library Stack
 
-### 1. Lenis — smooth scroll (foundational)
+### 1. Lenis: smooth scroll (foundational)
 ```bash
 npm install @studio-freight/lenis
 ```
@@ -75,7 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-### 2. GSAP + ScrollTrigger — scroll-driven animation
+### 2. GSAP + ScrollTrigger: scroll-driven animation
 ```bash
 npm install gsap
 ```
@@ -97,9 +97,9 @@ if (typeof window !== 'undefined') {
 export { gsap, ScrollTrigger }
 ```
 
-**Always import from `@/lib/gsap` — never re-register plugins.**
+**Always import from `@/lib/gsap`: never re-register plugins.**
 
-### 3. Framer Motion — component animations
+### 3. Framer Motion: component animations
 ```bash
 npm install framer-motion
 ```
@@ -263,7 +263,7 @@ export function Hero({ headline_ka, headline_en, lang }: HeroProps) {
 
 ---
 
-## FadeIn — Reusable Section Entrance
+## FadeIn: Reusable Section Entrance
 
 ```typescript
 // src/components/animations/FadeIn.tsx
@@ -311,7 +311,7 @@ export function FadeIn({ children, delay = 0, direction = 'up', className }: Fad
 
 ---
 
-## TextReveal — Word-by-Word Headline Animation
+## TextReveal: Word-by-Word Headline Animation
 
 ```typescript
 // src/components/animations/TextReveal.tsx
@@ -367,7 +367,7 @@ export function TextReveal({
 
 ---
 
-## Pinned Scroll Section — Services Reveal
+## Pinned Scroll Section: Services Reveal
 
 Three service pillars revealed as user scrolls through a pinned section:
 
@@ -514,7 +514,7 @@ export function CountUp({ to, suffix = '' }: { to: number; suffix?: string }) {
 
 ---
 
-## Reduced Motion — Non-Negotiable
+## Reduced Motion: Non-Negotiable
 
 ```typescript
 // Every component that animates must use useMotionSafe()
@@ -539,7 +539,7 @@ initial={shouldAnimate ? { opacity: 0, y: 32 } : false}
 
 ## Performance Rules
 
-- Only animate `transform` and `opacity` — never width, height, top, left, margin, padding
+- Only animate `transform` and `opacity`: never width, height, top, left, margin, padding
 - Use `will-change: transform` only on actively animating hero elements — remove after animation
 - Always use `gsap.context()` and call `ctx.revert()` on unmount — cleans all ScrollTriggers
 - Lenis: always call `lenis.destroy()` and remove RAF callback on unmount

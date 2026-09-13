@@ -1,6 +1,14 @@
 {
   "name": "longevityone-web",
   "version": "0.1.0",
+  "description": "Bilingual production website and lead-management platform for Longevity One, a preventive medicine clinic in Tbilisi, Georgia.",
+  "author": "Kristine Saralidze (https://github.com/kristisaralidze)",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LongevityOne-GE/longevityone-web.git"
+  },
+  "homepage": "https://www.longevityone.ge",
   "private": true,
   "scripts": {
     "dev": "next dev",

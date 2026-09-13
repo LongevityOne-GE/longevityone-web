@@ -1,4 +1,4 @@
-# Video / Motion Background Specs — Longevity One Homepage
+# Video / Motion Background Specs: Longevity One Homepage
 
 Reference: [Clinique La Prairie](https://www.cliniquelaprairie.com) style — slow cinematic loops, luxury medical aesthetic, muted color grading.
 
@@ -25,7 +25,7 @@ Reference: [Clinique La Prairie](https://www.cliniquelaprairie.com) style — sl
 | **Desktop** | 1920 × 1080 px (16:9) | ≤ 8 MB |
 | **Mobile** | 1080 × 1920 px (9:16) or 1080 × 1080 (1:1) | ≤ 4 MB |
 
-> Mobile versions will be cropped via `object-fit: cover` — keep subject centered.
+> Mobile versions will be cropped via `object-fit: cover`: keep subject centered.
 
 ---
 
@@ -33,12 +33,12 @@ Reference: [Clinique La Prairie](https://www.cliniquelaprairie.com) style — sl
 
 ---
 
-### 1. HERO — Full-Screen Background Video
+### 1. HERO: Full-Screen Background Video
 
 | Property | Value |
 |---|---|
 | **Section height** | `100vh` (full viewport) |
-| **CSS class** | `absolute inset-0` — fills entire section |
+| **CSS class** | `absolute inset-0`: fills entire section |
 | **Overlay** | `bg-bone-white/60` semi-transparent + `backdrop-blur-[2px]` |
 | **Video filter** | `grayscale(100%) contrast(1.1) brightness(1.2)` applied via CSS |
 | **File name** | `hero-bg.mp4` / `hero-bg.webm` |
@@ -54,12 +54,12 @@ Slow aerial or tracking shot of a luxury medical/wellness interior — think war
 
 ---
 
-### 2. JOURNEY — Right-Side Decorative Motion
+### 2. JOURNEY: Right-Side Decorative Motion
 
 | Property | Value |
 |---|---|
 | **Section height** | ~600–900px (content-dependent) |
-| **CSS class** | `absolute right-0 top-0 w-1/2 h-full` — right half only |
+| **CSS class** | `absolute right-0 top-0 w-1/2 h-full`: right half only |
 | **Overlay** | `opacity-15 grayscale mix-blend-multiply` |
 | **File name** | `journey-bg.mp4` / `journey-bg.webm` |
 | **Desktop resolution** | **960 × 1080** (half-width, 8:9) |
@@ -73,13 +73,13 @@ Abstract slow-motion of scientific/medical imagery — DNA helix rotating, molec
 
 ---
 
-### 3. PILLARS — Full-Width Atmospheric Texture
+### 3. PILLARS: Full-Width Atmospheric Texture
 
 | Property | Value |
 |---|---|
 | **Section height** | ~500–800px |
 | **Background** | Dark brown (#422922) solid color behind video |
-| **CSS class** | `absolute inset-0` — full section coverage |
+| **CSS class** | `absolute inset-0`: full section coverage |
 | **Overlay** | `opacity-10 grayscale mix-blend-overlay` |
 | **File name** | `pillars-bg.mp4` / `pillars-bg.webm` |
 | **Desktop resolution** | **1920 × 1080** (16:9) |
@@ -93,12 +93,12 @@ Very subtle atmospheric motion — slow-moving particles, gently drifting smoke 
 
 ---
 
-### 4. SCIENCE — Right-Side Detail Motion
+### 4. SCIENCE: Right-Side Detail Motion
 
 | Property | Value |
 |---|---|
 | **Section height** | ~500–700px |
-| **CSS class** | `absolute right-0 bottom-0 w-1/3 h-full` — right third only |
+| **CSS class** | `absolute right-0 bottom-0 w-1/3 h-full`: right third only |
 | **Overlay** | `opacity-10 grayscale` |
 | **File name** | `science-bg.mp4` / `science-bg.webm` |
 | **Desktop resolution** | **640 × 1080** (1:1.7, roughly right third) |
@@ -112,7 +112,7 @@ Close-up of diagnostic technology in action — a body scanner rotating, data vi
 
 ---
 
-### 5. TEAM — Full Background Video (New)
+### 5. TEAM: Full Background Video (New)
 
 | Property | Value |
 |---|---|
@@ -132,13 +132,13 @@ Soft-focus footage of a medical team in a luxury clinic setting — white coats,
 
 ---
 
-### 6. CTA — Dramatic Full Background
+### 6. CTA: Dramatic Full Background
 
 | Property | Value |
 |---|---|
 | **Section height** | ~400–600px |
 | **Background** | Black (#000000) solid behind video |
-| **CSS class** | `absolute inset-0 scale-110` — slightly zoomed for parallax feel |
+| **CSS class** | `absolute inset-0 scale-110`: slightly zoomed for parallax feel |
 | **Overlay** | `opacity-40 grayscale mix-blend-overlay` |
 | **Video filter** | Grayscale applied via CSS |
 | **File name** | `cta-bg.mp4` / `cta-bg.webm` |
