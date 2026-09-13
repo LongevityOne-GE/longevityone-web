@@ -1,4 +1,4 @@
-# Longevity One — Website Content (COMPLETE FINAL)
+# Longevity One: Website Content (COMPLETE FINAL)
 
 > **Version:** COMPLETE — All blockers from review session resolved.
 > This is the single master content file. All content goes into Sanity CMS.
@@ -86,26 +86,26 @@ Legal
 
 ---
 
-### Client Journey — 4-Stage Homepage Teaser
+### Client Journey: 4-Stage Homepage Teaser
 
 > **Note:** This is an intentional high-level overview (4 conceptual phases). The full 8-stage clinical journey is on the /journey page. The 4 stages here are thematic (Identification → Modelling → Optimisation → Evolution), not the same as the 8 operational stages. Both are correct and serve different purposes.
 
 **Section heading (ka):** თქვენი გზა — ოთხი ნაბიჯი
 **Section heading (en):** Your Journey in Four Steps
 
-**Stage 1 — იდენტიფიკაცია / Identification**
+**Stage 1: იდენტიფიკაცია / Identification**
 - ka: თქვენი მოგზაურობა იწყება 360° ბიოლოგიური აუდიტით. ჩვენ ვაანალიზებთ თქვენს ფიზიკურ მაჩვენებლებს, მეტაბოლიზმს, VO₂ Max-ს, ეპიგენეტიკასა და მიკრობიომს.
 - en: Your journey begins with a 360° biological audit. We analyse your physical metrics, metabolism, VO₂ Max, epigenetics, and microbiome.
 
-**Stage 2 — მოდელირება / Modelling**
+**Stage 2: მოდელირება / Modelling**
 - ka: მიღებული მონაცემების საფუძველზე ვქმნით თქვენი ჯანმრთელობის ინდივიდუალურ მოდელს — პერსონალურ დღეგრძელობის რუქას.
 - en: Based on the gathered data, we build your individual health model — your personal longevity map.
 
-**Stage 3 — ოპტიმიზაცია / Optimisation**
+**Stage 3: ოპტიმიზაცია / Optimisation**
 - ka: ვიწყებთ მიზნობრივ თერაპიებს — IHHT და Red Light — უჯრედული ენერგიის აღსადგენად და შესაძლებლობების მაქსიმიზაციისთვის.
 - en: We begin targeted therapies — IHHT and Red Light — to restore your cellular energy and maximise your capabilities.
 
-**Stage 4 — ევოლუცია / Evolution**
+**Stage 4: ევოლუცია / Evolution**
 - ka: ჩვენი ექსპერტები რეგულარულად აფასებენ თქვენს პროგრესს და განაახლებენ სტრატეგიას — განუწყვეტელი, გაზომვადი გაუმჯობესებისთვის.
 - en: Our experts regularly assess your progress and refine the strategy — for continuous, measurable improvement.
 
@@ -116,21 +116,21 @@ Legal
 **Section heading (ka):** სამი მიმართულება / ერთი მიზანი _(rendered on two lines)_
 **Section heading (en):** Three Pillars / One Purpose _(rendered on two lines)_
 
-**Pillar 1 — დღეგრძელობა / Longevity**
+**Pillar 1: დღეგრძელობა / Longevity**
 - Title (ka): დღეგრძელობა | Title (en): Longevity
 - Summary (ka): დაბერების პროცესის შენელება და ბიოლოგიური ასაკის მართვა — მაღალი პროდუქტიულობის შენარჩუნებისთვის.
 - Summary (en): Slowing the ageing process and managing your biological age to sustain peak productivity.
 - CTA (ka): გაიგეთ მეტი → /services/longevity
 - CTA (en): Explore → /services/longevity
 
-**Pillar 2 — მეტაბოლური ჯანმრთელობა / Metabolic Health**
+**Pillar 2: მეტაბოლური ჯანმრთელობა / Metabolic Health**
 - Title (ka): მეტაბოლური ჯანმრთელობა | Title (en): Metabolic Health
 - Summary (ka): ნივთიერებათა ცვლის ოპტიმიზაცია და პერსონალიზებული კვება — თქვენი უჯრედული მეტაბოლიზმის მონაცემებზე დაყრდნობით.
 - Summary (en): Optimising metabolism and personalised nutrition based entirely on your cellular metabolic data.
 - CTA (ka): გაიგეთ მეტი → /services/metabolic
 - CTA (en): Explore → /services/metabolic
 
-**Pillar 3 — ელიტური პერფორმანსი / Elite Performance**
+**Pillar 3: ელიტური პერფორმანსი / Elite Performance**
 - Title (ka): ელიტური პერფორმანსი | Title (en): Elite Performance
 - Summary (ka): ფიზიკური შესაძლებლობების პიკი და სწრაფი აღდგენა — მეცნიერული უპირატესობით.
 - Summary (en): Peak physical capability and accelerated recovery, backed by science.
@@ -139,7 +139,7 @@ Legal
 
 ---
 
-### Technology Showcase — Homepage Teaser
+### Technology Showcase: Homepage Teaser
 
 **Section heading (ka):** ინოვაციური დიაგნოსტიკა — სიზუსტის ხელოვნება
 **Section heading (en):** The Science Behind the Results
@@ -157,7 +157,7 @@ Legal
 
 ---
 
-### Packages Overview — Homepage Teaser
+### Packages Overview: Homepage Teaser
 
 **Section heading (ka):** ინვესტიცია თქვენს მომავალში
 **Section heading (en):** Invest in Your Future
@@ -187,7 +187,7 @@ Legal
 
 ---
 
-### Team Intro — Homepage Section
+### Team Intro: Homepage Section
 
 **Section heading (ka):** თქვენი დღეგრძელობის გუნდი
 **Section heading (en):** Your Longevity Team
@@ -197,7 +197,7 @@ Legal
 
 ---
 
-### Final CTA — Homepage
+### Final CTA: Homepage
 
 **Heading (ka):** შეწყვიტეთ ვარაუდი / დაიწყეთ გაზომვა _(rendered on two lines)_
 **Heading (en):** Stop Guessing / Start Measuring _(rendered on two lines)_
@@ -218,7 +218,7 @@ Legal
 **Philosophy (ka):** Longevity One არის ინოვაციური პრევენციული მედიცინის ცენტრი, რომელიც სცილდება ტრადიციული მედიცინის ჩარჩოებს. ჩვენი მიზანია ადამიანის ბიოლოგიური პოტენციალის მაქსიმიზაცია — ზუსტი მონაცემებისა და სამეცნიერო მიდგომის საფუძველზე.
 **Philosophy (en):** Longevity One is an innovative preventive medicine centre that steps beyond the boundaries of traditional medicine. Our aim is the maximisation of human biological potential — grounded in precise data and a rigorous scientific approach.
 
-**Why Longevity One — 3 pillars:**
+**Why Longevity One: 3 pillars:**
 - (ka) სამეცნიერო სიზუსტე: ექსკლუზიური პარტნიორობა PNOE-სთან, TrueDiagnostic-თან და Enbiosis-თან საქართველოში.
   (en) Scientific Precision: Exclusive partnership with PNOE, TrueDiagnostic, and Enbiosis in Georgia.
 - (ka) მონაცემებზე დაფუძნებული მიდგომა: საქართველოში პირველი კომპლექსური მეტაბოლური მონაცემთა ბაზის შექმნა.
@@ -246,7 +246,7 @@ Longevity One ერთი ურყევი რწმენით შეიქ
 
 ---
 
-## SERVICES — LONGEVITY (/services/longevity)
+## SERVICES: LONGEVITY (/services/longevity)
 
 **H1 (ka):** დღეგრძელობა
 **H1 (en):** Longevity
@@ -262,7 +262,7 @@ Longevity One ერთი ურყევი რწმენით შეიქ
 
 ---
 
-## SERVICES — METABOLIC HEALTH (/services/metabolic)
+## SERVICES: METABOLIC HEALTH (/services/metabolic)
 
 **H1 (ka):** მეტაბოლური ჯანმრთელობა
 **H1 (en):** Metabolic Health
@@ -277,7 +277,7 @@ Longevity One ერთი ურყევი რწმენით შეიქ
 
 ---
 
-## SERVICES — ELITE PERFORMANCE (/services/performance)
+## SERVICES: ELITE PERFORMANCE (/services/performance)
 
 **H1 (ka):** ელიტური პერფორმანსი
 **H1 (en):** Elite Performance
@@ -304,7 +304,7 @@ Longevity One ერთი ურყევი რწმენით შეიქ
 
 ---
 
-### #pnoe — PNOE Metabolic Audit
+### #pnoe: PNOE Metabolic Audit
 
 **What it is (ka):** ეს არის თქვენი მეტაბოლიზმის „ოქროს სტანდარტი". სპეციალური ნიღბისა და სუნთქვის ანალიზის საშუალებით ჩვენ ზუსტად ვზომავთ, როგორ მოიხმარს თქვენი ორგანიზმი ჟანგბადს და როგორ წვავს ენერგიას — ნახშირწყლებსა და ცხიმებს.
 **What it is (en):** The gold standard of metabolism testing. Using a specialised mask and breath analysis, we precisely measure how your body consumes oxygen and burns energy — carbohydrates and fats.
@@ -317,7 +317,7 @@ Longevity One ერთი ურყევი რწმენით შეიქ
 
 ---
 
-### #ihht — IHHT (Intermittent Hypoxic-Hyperoxic Training)
+### #ihht: IHHT (Intermittent Hypoxic-Hyperoxic Training)
 
 > **Naming standard:** Always use full name "Intermittent Hypoxic-Hyperoxic Training" on first mention per page. Abbreviation IHHT thereafter.
 
@@ -341,7 +341,7 @@ Longevity One ერთი ურყევი რწმენით შეიქ
 
 ---
 
-### #red-light — Red Light Therapy (Photobiomodulation)
+### #red-light: Red Light Therapy (Photobiomodulation)
 
 > **Scientific note:** Red Light Therapy uses specific wavelengths in the red and near-infrared spectrum (~630–850nm). Do NOT describe as "low-frequency."
 
@@ -363,7 +363,7 @@ Longevity One ერთი ურყევი რწმენით შეიქ
 
 ---
 
-### #truediagnostic — TrueDiagnostic Epigenetic Testing (TrueAge)
+### #truediagnostic: TrueDiagnostic Epigenetic Testing (TrueAge)
 
 > **Naming standard:** TrueDiagnostic = company. TrueAge = the specific test. Use both correctly on every page.
 
@@ -380,7 +380,7 @@ Longevity One ერთი ურყევი რწმენით შეიქ
 
 ---
 
-### #enbiosis — Enbiosis Gut Microbiome Analysis
+### #enbiosis: Enbiosis Gut Microbiome Analysis
 
 **What it is (ka):** ხელოვნური ინტელექტის საფუძველზე შემუშავებული ნაწლავის მიკრობიომის სიღრმისეული კვლევა. პროცესი მოიცავს მიკრობიომის გენეტიკური სექვენირებისა და ინტელექტური ანალიზის ეტაპებს — ზუსტად განსაზღვრავს თქვენი შინაგანი ეკოსისტემის მდგომარეობას.
 **What it is (en):** An AI-powered, in-depth gut microbiome analysis. The process involves genetic sequencing followed by intelligent data analysis — accurately determining the state of your internal ecosystem.
@@ -457,7 +457,7 @@ Longevity One ერთი ურყევი რწმენით შეიქ
 **Intro (ka):** გახდით Longevity One-ის წევრი და ისარგებლეთ ექსკლუზიური წვდომით, ფასდაკლებებით და პრიორიტეტული მომსახურებით ყოველ თვე.
 **Intro (en):** Become a Longevity One member and enjoy exclusive access, discounts, and priority service every month.
 
-#### Silver — ფორმის შენარჩუნება / The Maintenance Pass
+#### Silver: ფორმის შენარჩუნება / The Maintenance Pass
 **Price:** 650 GEL / თვე · per month
 **Goal (ka):** მათთვის, ვისაც სურს მიღწეული შედეგების შენარჩუნება.
 **Goal (en):** For those who want to maintain the results they've achieved.
@@ -476,7 +476,7 @@ Longevity One ერთი ურყევი რწმენით შეიქ
 
 ---
 
-#### Gold — ბიოჰაკერის არჩევანი / The Biohacker's Choice
+#### Gold: ბიოჰაკერის არჩევანი / The Biohacker's Choice
 **Price:** 1,200 GEL / თვე · per month
 **Goal (ka):** აქტიური ტრანსფორმაცია და ენერგიის მართვა.
 **Goal (en):** Active transformation and energy management.
@@ -497,7 +497,7 @@ Longevity One ერთი ურყევი რწმენით შეიქ
 
 ---
 
-#### Elite Platinum — ბიოლოგიური დაზღვევა / Biological Insurance
+#### Elite Platinum: ბიოლოგიური დაზღვევა / Biological Insurance
 **Price:** 2,200 GEL / თვე · per month
 **Goal (ka):** სრული Concierge მომსახურება — მათთვის, ვისთვისაც ჯანმრთელობა მთავარი აქტივია.
 **Goal (en):** Full concierge service — for those who treat health as their primary asset.
@@ -581,15 +581,15 @@ Longevity One ერთი ურყევი რწმენით შეიქ
 **Intro (ka):** ჯანმრთელი, ენერგიული გუნდი კომპანიის ყველაზე ძლიერი კონკურენტული უპირატესობაა. Longevity One გთავაზობთ კორპორატიულ ჯანმრთელობის პროგრამებს, რომლებიც ზრდის პროდუქტიულობას, ამცირებს პროფესიული გადაღლის რისკს და იცავს კომპანიის ყველაზე ღირებულ რესურსს.
 **Intro (en):** A healthy, energised team is a company's strongest competitive advantage. Longevity One offers corporate wellness programmes that increase productivity, reduce burnout risk, and protect a company's most valuable resource.
 
-**Programme 1 — Executive Longevity**
+**Programme 1: Executive Longevity**
 - ka: C-level მენეჯერებისთვის — ენერგიის მართვისა და გონებრივი სიცხადის სპეციალიზებული პროგრამები.
 - en: Advanced energy management and mental clarity programmes tailored for C-level leadership.
 
-**Programme 2 — Health & Productivity**
+**Programme 2: Health & Productivity**
 - ka: გუნდური მეტაბოლური აუდიტი პროფესიული გადაღლის რისკების შემცირებისა და შრომისუნარიანობის გაზრდისთვის.
 - en: Team-wide metabolic audits to significantly reduce burnout risk and improve sustained performance.
 
-**Programme 3 — Strategic Partnerships**
+**Programme 3: Strategic Partnerships**
 - ka: კლინიკებთან, სპორტულ ფედერაციებთან და კორპორაციებთან სტრატეგიული თანამშრომლობა.
 - en: Strategic collaborations with clinics, sports federations, and corporations.
 
@@ -606,35 +606,35 @@ Longevity One ერთი ურყევი რწმენით შეიქ
 **Intro (ka):** Longevity One-ში ყველაფერი სისტემატური და პერსონალიზებულია — ციფრული ონბორდინგიდან 12-კვირიანი მიკრო-კოუჩინგით დასრულებამდე.
 **Intro (en):** At Longevity One, everything is systematic and personalised — from digital onboarding through to 12 weeks of micro-coaching.
 
-**Stage 1 — ციფრული ონბორდინგი / Digital Onboarding**
+**Stage 1: ციფრული ონბორდინგი / Digital Onboarding**
 - ka: ჩვენი ქეარ მენეჯერი გიკავშირდებათ, განმარტავს ვიზიტის სტრუქტურას და გაივლის ციფრულ წინასწარ შეფასებასთან ერთად (15–20 წუთი). მოიცავს კითხვარებს ძილის (PSQI), ფიზიკური აქტივობის (IPAQ) და კეთილდღეობის (WHO-5) შესახებ.
 - en: Our care manager contacts you, explains the visit structure, and guides you through a digital pre-assessment (15–20 min). Includes questionnaires on sleep (PSQI), physical activity (IPAQ), and wellbeing (WHO-5).
 
-**Stage 2 — სხეულის და ენერგიის შეფასება / Body & Energy Assessment**
+**Stage 2: სხეულის და ენერგიის შეფასება / Body & Energy Assessment**
 - ka: 35–45 წუთის განმავლობაში ვასრულებთ ვიტალური ნიშნების გაზომვას, დინამომეტრიასა და VO₂ Max ტესტს. ჟანგბადის გამოყენების უნარი — ეს არის თქვენი ჯანმრთელობის ბირთვი.
 - en: Over 35–45 minutes: vital signs, dynamometry, and VO₂ Max test. Oxygen utilisation capacity is the core of your health baseline.
 
-**Stage 3 — მონაცემებზე დაფუძნებული კონსულტაცია / Data-Driven Consultation**
+**Stage 3: მონაცემებზე დაფუძნებული კონსულტაცია / Data-Driven Consultation**
 - ka: 45–60 წუთიანი კონსულტაცია დღეგრძელობის ექიმთან, რომელსაც უკვე გააჩნია თქვენი ყველა საბაზისო მონაცემი. ექიმი ნიშნავს ლაბორატორიულ ანალიზებს და, საჭიროებისამებრ, გთავაზობს TrueAge ან Enbiosis მოდულებს.
 - en: 45–60 minute consultation with your longevity physician, who already has your full baseline data. The physician orders laboratory tests and may propose TrueAge or Enbiosis modules for deeper insight.
 
-**Stage 4 — 360° ჯანმრთელობის სურათი / 360° Health Snapshot**
+**Stage 4: 360° ჯანმრთელობის სურათი / 360° Health Snapshot**
 - ka: გუნდური განხილვა 5 განზომილებაში: გულ-სისხლძარღვოვანი ფიტნესი, სხეულის კომპოზიცია, მეტაბოლური ჯანმრთელობა, აღდგენა და ძილი, გონებრივი ენერგია. შედეგი — Healthspan Snapshot: თქვენი ბიოლოგიური მდგომარეობის სრული სურათი.
 - en: Team review across 5 dimensions: cardiovascular fitness, body composition, metabolic health, recovery & sleep, mental energy. Result: your Healthspan Snapshot — a complete picture of your biological state.
 
-**Stage 5 — პერსონალური დღეგრძელობის გეგმა / Personal Longevity Plan**
+**Stage 5: პერსონალური დღეგრძელობის გეგმა / Personal Longevity Plan**
 - ka: PDF და ციფრულ ფორმატში — ვიზუალური და მოქმედებაზე ორიენტირებული. მოიცავს: „Your Health Today" (1 გვერდი), 3 ჯანმრთელობის პრიორიტეტს, VO₂-ზე ორიენტირებულ მოძრაობის გეგმასა და კვების ძირითად პრინციპებს.
 - en: Delivered in PDF and digital format — visual and action-oriented. Includes: "Your Health Today" summary, your 3 health priorities, VO₂-driven movement plan, and core nutritional principles.
 
-**Stage 6 — თერაპია / Therapy & Treatment**
+**Stage 6: თერაპია / Therapy & Treatment**
 - ka: IHHT სესიები, Red Light Therapy და დამატებითი დიაგნოსტიკა — ყოველი სესია იგეგმება პირადი გეგმის შესაბამისად.
 - en: IHHT sessions, Red Light Therapy, and additional diagnostics as required — every session planned in accordance with your individual plan.
 
-**Stage 7 — 12-კვირიანი მიკრო-კოუჩინგი / 12-Week Micro-Coaching**
+**Stage 7: 12-კვირიანი მიკრო-კოუჩინგი / 12-Week Micro-Coaching**
 - ka: WhatsApp-ის საშუალებით — კვირაში 2–3 მოკლე შეტყობინება ქეარ მენეჯერისგან, თვეში ერთხელ ექიმის ჩეკინი. მინიმალური ძალისხმევა, მაქსიმალური შედეგი. სწორედ აქ ხდება რეალური ცვლილება.
 - en: Via WhatsApp — 2–3 short messages per week from your care manager, one monthly physician check-in. Minimal time investment, maximum adherence. This is where real change happens.
 
-**Stage 8 — ხელახალი შეფასება / Follow-Up & Re-Test**
+**Stage 8: ხელახალი შეფასება / Follow-Up & Re-Test**
 - ka: 12 კვირის შემდეგ — VO₂ Max-ის და ლაბორატორიული ანალიზების გამეორება. Before/After შედარება: ენერგია, გამძლეობა. ეს არის მტკიცებულება.
 - en: After 12 weeks — repeat VO₂ Max and relevant laboratory tests. Before/After comparison: energy, endurance. This is the proof.
 
@@ -652,19 +652,19 @@ Longevity One ერთი ურყევი რწმენით შეიქ
 
 **Group photo:** [CLINIC TO UPLOAD — full group photo of all 5 founders]
 
-**1. ნინო განუგრავა** — Co-Founder / თანადამფუძნებელი
+**1. ნინო განუგრავა**: Co-Founder / თანადამფუძნებელი
 Specialty: [CLINIC TO PROVIDE] | Bio (ka): [CLINIC TO PROVIDE] | Bio (en): [CLINIC TO PROVIDE] | Photo: [CLINIC TO UPLOAD]
 
-**2. ფატი გაბუნია** — Co-Founder / თანადამფუძნებელი
+**2. ფატი გაბუნია**: Co-Founder / თანადამფუძნებელი
 Specialty: [CLINIC TO PROVIDE] | Bio (ka): [CLINIC TO PROVIDE] | Bio (en): [CLINIC TO PROVIDE] | Photo: [CLINIC TO UPLOAD]
 
-**3. ელენ გიორგაძე** — Co-Founder / თანადამფუძნებელი
+**3. ელენ გიორგაძე**: Co-Founder / თანადამფუძნებელი
 Specialty: [CLINIC TO PROVIDE] | Bio (ka): [CLINIC TO PROVIDE] | Bio (en): [CLINIC TO PROVIDE] | Photo: [CLINIC TO UPLOAD]
 
-**4. თინათინ ნაკაიძე** — Co-Founder / თანადამფუძნებელი
+**4. თინათინ ნაკაიძე**: Co-Founder / თანადამფუძნებელი
 Specialty: [CLINIC TO PROVIDE] | Bio (ka): [CLINIC TO PROVIDE] | Bio (en): [CLINIC TO PROVIDE] | Photo: [CLINIC TO UPLOAD]
 
-**5. ნინო გედენიძე** — Co-Founder / თანადამფუძნებელი
+**5. ნინო გედენიძე**: Co-Founder / თანადამფუძნებელი
 Specialty: [CLINIC TO PROVIDE] | Bio (ka): [CLINIC TO PROVIDE] | Bio (en): [CLINIC TO PROVIDE] | Photo: [CLINIC TO UPLOAD]
 
 ### Clinic Team
@@ -672,10 +672,10 @@ Specialty: [CLINIC TO PROVIDE] | Bio (ka): [CLINIC TO PROVIDE] | Bio (en): [CLIN
 **Section heading (ka):** კლინიკის გუნდი
 **Section heading (en):** The Clinic Team
 
-**6. საბა ჯანიაშვილი** — Physician / ექიმი
+**6. საბა ჯანიაშვილი**: Physician / ექიმი
 Specialty: [CLINIC TO PROVIDE] | Bio (ka): [CLINIC TO PROVIDE] | Bio (en): [CLINIC TO PROVIDE] | Photo: [CLINIC TO UPLOAD]
 
-**7. მარინა გორგიძე** — Concierge Manager / კონსიერჟ მენეჯერი
+**7. მარინა გორგიძე**: Concierge Manager / კონსიერჟ მენეჯერი
 Background: [CLINIC TO PROVIDE] | Bio (ka): [CLINIC TO PROVIDE] | Bio (en): [CLINIC TO PROVIDE] | Photo: [CLINIC TO UPLOAD]
 
 > Note: All bios should be 80–120 words each. Georgian always primary, English secondary.
@@ -689,7 +689,7 @@ Background: [CLINIC TO PROVIDE] | Bio (ka): [CLINIC TO PROVIDE] | Bio (en): [CLI
 
 ---
 
-### POST 1 — Biological Age vs. Chronological Age
+### POST 1: Biological Age vs. Chronological Age
 
 **Slug:** biological-age-vs-chronological-age
 **Title (ka):** ბიოლოგიური ასაკი vs. ქრონოლოგიური ასაკი — რომელი მნიშვნელოვანია?
@@ -759,7 +759,7 @@ Your passport age is fixed. Your biological age does not have to be.
 
 სწორედ ეს არის TrueDiagnostic-ის TrueAge ტესტი. ის ასობით ათასი მეთილირების ადგილს აანალიზებს — განსაზღვრავს თქვენს ბიოლოგიურ ასაკსა და დაბერების მიმდინარე ტემპს ერთდროულად. ერთი და იმავე ბიოლოგიური ასაკის მქონე ორ ადამიანს შეიძლება სრულიად განსხვავებული ტემპი ჰქონდეს — და სწორედ ეს ტემპი განსაზღვრავს, სად იქნებიან ისინი ათი წლის შემდეგ.
 
-**სხვაობა — რატომ არის მნიშვნელოვანი**
+**სხვაობა: რატომ არის მნიშვნელოვანი**
 
 ის ადამიანები, რომელთა ბიოლოგიური ასაკი ქრონოლოგიურ ასაკზე ნაკლებია, უფრო ჯანსაღი გულ-სისხლძარღვოვანი სისტემით, მყარი იმუნიტეტით, მეტაბოლური დაავადებების დაბალი მაჩვენებლით და სიკვდილობის მნიშვნელოვნად შემცირებული რისკით გამოირჩევიან. განსაკუთრებული სიბერის მქონე ადამიანების კვლევებში კონსისტენტურად ერთი საერთო მახასიათებელი გამოვლინდა: მათი ბიოლოგიური ასაკი პასპორტის მონაცემებს მნიშვნელოვნად — ზოგ შემთხვევაში 15–20 წლით — ჩამორჩება.
 
@@ -777,7 +777,7 @@ Longevity One-ში TrueAge ტესტი ჩვენი Longevity პრო
 
 ---
 
-### POST 2 — Why Traditional Diets Don't Work
+### POST 2: Why Traditional Diets Don't Work
 
 **Slug:** why-traditional-diets-dont-work
 **Title (ka):** რატომ არ მუშაობს ტრადიციული დიეტები — მეცნიერული ახსნა
@@ -869,7 +869,7 @@ Longevity One-ში ყოველი მეტაბოლური პრო
 
 ---
 
-### POST 3 — VO₂ Max: The Longevity Predictor
+### POST 3: VO₂ Max: The Longevity Predictor
 
 **Slug:** vo2-max-longevity-predictor
 **Title (ka):** VO₂ Max — სიცოცხლის ხანგრძლივობის ყველაზე ზუსტი პრედიქტორი
@@ -1025,7 +1025,7 @@ Longevity One-ში ყოველ კლიენტს PNOE ტესტი 
 
 ---
 
-### /legal/privacy — Privacy Policy / კონფიდენციალობის პოლიტიკა
+### /legal/privacy: Privacy Policy / კონფიდენციალობის პოლიტიკა
 
 **Last updated (ka):** ბოლო განახლება: 2026 წლის იანვარი
 **Last updated (en):** Last updated: January 2026
@@ -1071,11 +1071,11 @@ Longevity One (შემდგომ „ჩვენ" ან „კლინი�
 ## 6. მესამე მხარეები
 
 თქვენი მონაცემები შეიძლება გადაეცეს:
-- **Cal.com** — ჯავშნის სისტემა (EU Cloud)
-- **Resend** — ელ-ფოსტის გაგზავნა (EU, Ireland)
-- **Sanity** — კონტენტ მენეჯმენტის სისტემა (non-health data only)
-- **Google Analytics 4** — ანონიმური ანალიტიკა (ქუქი-ფაილების თანხმობის შემდეგ)
-- **PostHog** — ანონიმური პროდუქტის ანალიტიკა, EU Cloud (ქუქი-ფაილების თანხმობის შემდეგ)
+- **Cal.com**: ჯავშნის სისტემა (EU Cloud)
+- **Resend**: ელ-ფოსტის გაგზავნა (EU, Ireland)
+- **Sanity**: კონტენტ მენეჯმენტის სისტემა (non-health data only)
+- **Google Analytics 4**: ანონიმური ანალიტიკა (ქუქი-ფაილების თანხმობის შემდეგ)
+- **PostHog**: ანონიმური პროდუქტის ანალიტიკა, EU Cloud (ქუქი-ფაილების თანხმობის შემდეგ)
 
 ჩვენ არ ვყიდით თქვენს მონაცემებს. ჩვენ არ ვიყენებთ მათ სარეკლამო მიზნებისთვის.
 
@@ -1135,11 +1135,11 @@ All patient data is stored using Supabase, with servers located within the Europ
 ## 6. Third Parties
 
 Your data may be shared with the following processors:
-- **Cal.com** — Booking system (EU Cloud)
-- **Resend** — Email delivery (EU, Ireland)
-- **Sanity** — Content management (non-health data only)
-- **Google Analytics 4** — Anonymised analytics (only after cookie consent)
-- **PostHog** — Anonymised product analytics, EU Cloud (only after cookie consent)
+- **Cal.com**: Booking system (EU Cloud)
+- **Resend**: Email delivery (EU, Ireland)
+- **Sanity**: Content management (non-health data only)
+- **Google Analytics 4**: Anonymised analytics (only after cookie consent)
+- **PostHog**: Anonymised product analytics, EU Cloud (only after cookie consent)
 
 We do not sell your data. We do not use your data for advertising purposes.
 
@@ -1160,7 +1160,7 @@ When this policy is updated, we will post a notice on the website. For material 
 
 ---
 
-### /legal/terms — Terms & Conditions / წესები და პირობები
+### /legal/terms: Terms & Conditions / წესები და პირობები
 
 ---
 
@@ -1240,7 +1240,7 @@ For enquiries: info@longevityone.ge | +995 511 70 88 88
 
 ---
 
-### /legal/cookies — Cookie Policy / ქუქი-ფაილების პოლიტიკა
+### /legal/cookies: Cookie Policy / ქუქი-ფაილების პოლიტიკა
 
 ---
 
@@ -1261,18 +1261,18 @@ For enquiries: info@longevityone.ge | +995 511 70 88 88
 
 **2.2 ანალიტიკური ქუქი-ფაილები (Analytics)**
 გამოიყენება მხოლოდ თქვენი თანხმობის შემდეგ:
-- **Google Analytics 4** — ვიზიტების სტატისტიკა, გვერდებზე დროის გაზომვა. IP ანონიმიზებულია.
+- **Google Analytics 4**: ვიზიტების სტატისტიკა, გვერდებზე დროის გაზომვა. IP ანონიმიზებულია.
 - **PostHog** (EU Cloud) — ქცევითი ანალიტიკა, ბრაუზინგის სესიები (ანონიმიზებული). ჯანმრთელობის ან პაციენტთა მონაცემები არ იჩეყება.
 
 **2.3 ფუნქციონალური ქუქი-ფაილები**
-- **Cal.com** — ჯავშნის სისტემის სესიური ქუქი-ფაილები, რომლებიც საჭიროა ჯავშნის ფორმის გამართული მუშაობისთვის. Cal.com არის GDPR-სთან თავსებადი პლატფორმა (ISO 27001, SOC 2 Type II სერტიფიცირებული). ეს ქუქი-ფაილები ყოველდღე ვადაგასულია სესიის დასრულებისთანავე და არ გამოიყენება მარკეტინგული მიზნებისთვის.
+- **Cal.com**: ჯავშნის სისტემის სესიური ქუქი-ფაილები, რომლებიც საჭიროა ჯავშნის ფორმის გამართული მუშაობისთვის. Cal.com არის GDPR-სთან თავსებადი პლატფორმა (ISO 27001, SOC 2 Type II სერტიფიცირებული). ეს ქუქი-ფაილები ყოველდღე ვადაგასულია სესიის დასრულებისთანავე და არ გამოიყენება მარკეტინგული მიზნებისთვის.
 
 ## 3. ქუქი-ფაილების მართვა
 
 პირველი ვიზიტისას ჩნდება ბანერი, სადაც შეგიძლიათ:
-- **მიიღოთ ყველა** — ჩაირთვება ანალიტიკური ქუქი-ფაილებიც.
-- **უარყოთ** — ჩაირთვება მხოლოდ აუცილებელი ქუქი-ფაილები.
-- **მართოთ პარამეტრები** — კატეგორიების მიხედვით ინდივიდუალური გადაწყვეტილება.
+- **მიიღოთ ყველა**: ჩაირთვება ანალიტიკური ქუქი-ფაილებიც.
+- **უარყოთ**: ჩაირთვება მხოლოდ აუცილებელი ქუქი-ფაილები.
+- **მართოთ პარამეტრები**: კატეგორიების მიხედვით ინდივიდუალური გადაწყვეტილება.
 
 გადაწყვეტილება შეგიძლიათ შეცვალოთ ნებისმიერ დროს — ფუტერის „ქუქი-ფაილების პარამეტრები" ღილაკით.
 
@@ -1298,18 +1298,18 @@ Cookies are small text files stored on your device when you visit a website. The
 These are required for the website to function. They store: your language preference (Georgian/English), your cookie consent decision. These cannot be disabled — without them, the website will not operate correctly.
 
 **2.2 Analytics Cookies** (only after your consent)
-- **Google Analytics 4** — Visit statistics, time spent on pages. IP addresses are anonymised.
+- **Google Analytics 4**: Visit statistics, time spent on pages. IP addresses are anonymised.
 - **PostHog** (EU Cloud) — Behavioural analytics, anonymised browsing sessions. No health or patient data is captured.
 
 **2.3 Functional Cookies**
-- **Cal.com** — Session cookies required for the booking form to function correctly. Cal.com is a GDPR-compliant platform (ISO 27001 and SOC 2 Type II certified). These cookies expire at the end of each session and are not used for marketing purposes.
+- **Cal.com**: Session cookies required for the booking form to function correctly. Cal.com is a GDPR-compliant platform (ISO 27001 and SOC 2 Type II certified). These cookies expire at the end of each session and are not used for marketing purposes.
 
 ## 3. Managing Cookies
 
 On your first visit, a consent banner will appear. You can:
-- **Accept All** — Enables all analytics cookies.
-- **Reject All** — Only strictly necessary cookies are enabled.
-- **Manage Preferences** — Make category-by-category decisions.
+- **Accept All**: Enables all analytics cookies.
+- **Reject All**: Only strictly necessary cookies are enabled.
+- **Manage Preferences**: Make category-by-category decisions.
 
 You can change your choice at any time by clicking "Cookie Settings" in the website footer.
 
@@ -1319,7 +1319,7 @@ For questions: info@longevityone.ge
 
 ---
 
-### /legal/medical-disclaimer — Medical Disclaimer / სამედიცინო განცხადება
+### /legal/medical-disclaimer: Medical Disclaimer / სამედიცინო განცხადება
 
 ---
 
