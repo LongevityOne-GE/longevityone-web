@@ -1,4 +1,4 @@
-# Longevity One — Technical Architecture
+# Longevity One: Technical Architecture
 
 ---
 
@@ -68,7 +68,7 @@ src/app/
 └── robots.ts
 ```
 
-### Language routing — middleware.ts
+### Language routing: middleware.ts
 
 ```typescript
 // src/middleware.ts
@@ -114,7 +114,7 @@ export const config = {
 
 ## Data Layer
 
-### Sanity — lib/sanity/ directory
+### Sanity: lib/sanity/ directory
 
 ```
 src/lib/sanity/

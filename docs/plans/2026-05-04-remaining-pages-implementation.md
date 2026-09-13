@@ -1,4 +1,4 @@
-# Longevity One — Remaining Pages Implementation Plan
+# Longevity One: Remaining Pages Implementation Plan
 
 **Date:** 2026-05-04  
 **Spec:** `docs/superpowers/specs/2026-05-04-remaining-pages-design.md`  
@@ -14,7 +14,7 @@ pnpm add @portabletext/react
 
 ---
 
-## Phase 0 — Shared Components
+## Phase 0: Shared Components
 
 Create reusable components before any page work.
 
@@ -59,7 +59,7 @@ Update `Pricing.tsx` to import and use `PackageCard`.
 
 ---
 
-## Phase 1 — About & Technologies
+## Phase 1: About & Technologies
 
 ### 1.1 About Page
 
@@ -72,9 +72,9 @@ Update `Pricing.tsx` to import and use `PackageCard`.
 | `src/components/sections/FoundingStory.tsx` | Section | Dark bg, video background, two-column layout |
 
 **Sections flow:**
-1. `PageHero` — h1 + philosophy subtitle
-2. `WhyPillars` — bone-white, 3 pillars with 01/02/03 numbers
-3. `FoundingStory` — dark-brown, columns-bg video, italic story text
+1. `PageHero`: h1 + philosophy subtitle
+2. `WhyPillars`: bone-white, 3 pillars with 01/02/03 numbers
+3. `FoundingStory`: dark-brown, columns-bg video, italic story text
 
 ### 1.2 Technologies Page
 
@@ -87,13 +87,13 @@ Update `Pricing.tsx` to import and use `PackageCard`.
 | `src/components/sections/TechSection.tsx` | Section | Single tech, alternating layout |
 
 **Sections flow:**
-1. `PageHero` — "Science & Technology"
+1. `PageHero`: "Science & Technology"
 2. `TechSideNav` (desktop sticky rail)
 3. `TechSection` ×6 — alternating left/right, anchored by slug
 
 ---
 
-## Phase 2 — Services & Packages
+## Phase 2: Services & Packages
 
 ### 2.1 Service Pages (dynamic)
 
@@ -129,7 +129,7 @@ Update `Pricing.tsx` to import and use `PackageCard`.
 
 ---
 
-## Phase 3 — Journey, Corporate & Team
+## Phase 3: Journey, Corporate & Team
 
 ### 3.1 Journey Page
 
@@ -162,7 +162,7 @@ Update `Pricing.tsx` to import and use `PackageCard`.
 
 ---
 
-## Phase 4 — FAQ & Blog
+## Phase 4: FAQ & Blog
 
 ### 4.1 FAQ Page
 
@@ -195,7 +195,7 @@ Update `Pricing.tsx` to import and use `PackageCard`.
 
 ---
 
-## Phase 5 — Legal, Contact & 404
+## Phase 5: Legal, Contact & 404
 
 ### 5.1 Legal Pages (dynamic)
 
@@ -249,12 +249,12 @@ CONTACT_EMAIL=info@longevityone.ge
 
 ## Execution Order
 
-1. **Phase 0** — shared components (blocks everything else)
-2. **Phase 1** — About + Technologies (introduces `PageHero`, `PortableTextRenderer` usage)
-3. **Phase 2** — Services + Packages (introduces `PackageCard` reuse, dynamic routes)
-4. **Phase 3** — Journey + Corporate + Team (straightforward sections)
-5. **Phase 4** — FAQ + Blog (accordion, Portable Text body)
-6. **Phase 5** — Legal + Contact + 404 (form, API, error page)
+1. **Phase 0**: shared components (blocks everything else)
+2. **Phase 1**: About + Technologies (introduces `PageHero`, `PortableTextRenderer` usage)
+3. **Phase 2**: Services + Packages (introduces `PackageCard` reuse, dynamic routes)
+4. **Phase 3**: Journey + Corporate + Team (straightforward sections)
+5. **Phase 4**: FAQ + Blog (accordion, Portable Text body)
+6. **Phase 5**: Legal + Contact + 404 (form, API, error page)
 
 ---
 
@@ -272,7 +272,7 @@ CONTACT_EMAIL=info@longevityone.ge
 
 ## Notes
 
-- **No new Sanity schemas needed** — all queries and types exist
+- **No new Sanity schemas needed**: all queries and types exist
 - **`@portabletext/react`** is the only new dependency
-- **Footer links** already point to `/privacy`, `/terms`, `/faq` — these will work once pages exist
+- **Footer links** already point to `/privacy`, `/terms`, `/faq`: these will work once pages exist
 - **Services index** (`/services`) can redirect to first service or show a list — decide during implementation
