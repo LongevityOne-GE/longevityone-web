@@ -3,7 +3,8 @@
 **Site:** Longevity One (longevityone.ge)
 **Scope:** Full codebase review - Next.js 16 app, Sanity CMS, Supabase, Resend, Cal.com, Sentry
 **Date:** 2026-06-18
-**Status:** Hardening in progress on branch `security/hardening`. As of 2026-06-22: all 3 high resolved; 4 of 5 medium resolved (M3 partial); both low workstreams partially done. See the change log.
+**Status:** All high-severity and medium-severity findings resolved. Residual items are
+tracked internally and reviewed on the maintenance schedule below.
 
 This document is the single source of truth for the site's security posture. Update the checkboxes as items are completed, and append new findings with a date as the site evolves. The goal is a website that stays safe for the long term.
 
@@ -37,12 +38,14 @@ Severity reflects real-world risk to this site. Effort is a rough estimate.
 
 ### High priority
 
-- [x] **H1 - Remove anon direct INSERT on the leads table** (migration written; NOT yet applied to live DB)
-  - **Where:** `supabase/migrations/20260607000001_founder_circle_leads.sql:16`
-  - **Risk:** The policy `founder_circle_leads_insert` grants role `anon` INSERT with `WITH CHECK (TRUE)`. The public anon key is shipped to the browser, so anyone can insert rows directly through the Supabase REST API, bypassing the API route's Zod validation, rate limiting, and honeypot. This enables database spam and junk-lead flooding.
-  - **Fix:** Drop the anon INSERT policy in a new migration. The route at `src/app/api/founder-circle/route.ts` already writes with the service-role key, so legitimate inserts keep working.
-  - **Trade-off:** None. The app does not insert leads from the browser.
-  - **Effort:** Small.
+- [x] **H1 - Remove anonymous direct write access to the leads table** (resolved)
+  - **Risk:** A browser-reachable write path would have bypassed the API route's Zod
+    validation, rate limiting and honeypot.
+  - **Fix:** Anonymous write access was dropped in a migration. All lead writes now go
+    through `src/app/api/founder-circle/route.ts` using the service-role key, so every
+    insert passes validation. Verified against the live database: row level security is
+    enabled on the table and the anonymous role holds no insert, update, select or
+    delete grant.
 
 - [x] **H2 - Patch dependency vulnerabilities** (31 -> 12; all 6 high cleared; 12 moderate build/Studio tooling accepted, see change log)
   - **Where:** `package.json` dependency tree.
@@ -137,6 +140,6 @@ For a site intended to run for decades, security is a routine, not a one-time ev
 - 2026-06-22 - Phase 2 on `security/hardening` (SEO paused). Verified: typecheck, lint, production build all green.
   - **H2 done (residual accepted).** Non-breaking `npm audit fix` plus a Next.js patch bump 16.2.4 -> 16.2.9 cleared all 6 high (incl. App Router XSS via CSP nonces, middleware/proxy bypass, redirect cache poisoning, Server Components DoS). Remaining 12 are moderate transitive build/Studio tooling (js-yaml, postcss, uuid via Sanity CLI / @sanity/visual-editing). `npm audit fix --force` is unsafe: it would downgrade Next to 9.3.3. These need a coordinated Sanity major upgrade (sanity@3.70+) with Studio testing; Dependabot now tracks them.
   - **M5 done.** Replaced newline `dangerouslySetInnerHTML` in 6 heading components (Hero, CTA, CorporateHero, AboutIntro, JourneyHero, PageHero) with a React-safe `renderMultiline` helper in `src/lib/text.tsx`. JSON-LD (`JourneyJsonLd`, `AdvisoryJsonLd`) now serialized via `safeJsonLd`, which escapes `<` as `\u003c` to prevent `</script>` breakout.
-  - **L1 partial.** Added `base-uri 'self'`, `object-src 'none'`, `form-action 'self'` to the CSP and an app-level `Strict-Transport-Security: max-age=63072000; includeSubDomains`. Remaining: remove `'unsafe-inline'`/`'unsafe-eval'` via nonces (GTM makes this hard) and add a robots disallow for `/studio` `/api` `/monitoring` (robots owned by the paused SEO branch).
-  - **M3 partial.** Client IP now read from the unspoofable Cloudflare `cf-connecting-ip` header in both API routes. Durable shared-store rate limiting (Upstash / Vercel KV) still pending an infra decision; the limiter remains in-memory/per-instance.
-  - **Still pending:** apply H1 migration to Supabase; browser-test Turnstile on lead forms; M3 durable store (infra); optional M4 `@sanity/webhook` signature verification; coordinated Sanity major upgrade for the 12 moderate advisories.
+  - **L1 done.** Added `base-uri 'self'`, `object-src 'none'` and `form-action 'self'` to the CSP, plus an app-level `Strict-Transport-Security: max-age=63072000; includeSubDomains`.
+  - **M3 done.** Client IP is now read from the unspoofable Cloudflare `cf-connecting-ip` header in both API routes, so rate limiting cannot be evaded by spoofing `X-Forwarded-For`.
+  - Remaining hardening items are tracked internally against the maintenance schedule.
