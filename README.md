@@ -115,5 +115,6 @@ Further documentation: [ARCHITECTURE.md](./ARCHITECTURE.md) · [SECURITY-AUDIT.m
 ## Authorship and licence
 
 Authored by **Kristine Saralidze**. Source code ownership is retained by the
-author under written agreement with Longevity One. Brand, clinical copy, and
-media assets remain the property of Longevity One. See [LICENSE](./LICENSE).
+author per written agreement with LongevityOne. Trademarks, branding, clinical
+copy, photography, and media remain the exclusive property of LongevityOne.
+See [LICENSE](./LICENSE).
