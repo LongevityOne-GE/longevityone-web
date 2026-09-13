@@ -9,7 +9,7 @@ User (longevityone.ge)
     ↓
 Cloudflare (DNS, CDN, WAF, DDoS protection, Full strict SSL/TLS 1.3)
     ↓
-Vercel Edge Network (Next.js 14 App Router — renders only, no health data stored)
+Vercel Edge Network (Next.js 16 App Router: renders only, no health data stored)
     ↓
     ├── Sanity CDN (content, images via cdn.sanity.io)
     ├── Supabase EU Frankfurt eu-central-1 (patient data, RLS enforced)
