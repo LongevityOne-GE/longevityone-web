@@ -15,6 +15,7 @@ export const ANALYTICS_EVENTS = {
   phoneClick: 'phone_click',
   leadSubmitted: 'lead_submitted',
   virtualPageView: 'virtual_page_view',
+  leadFormOpen: 'lead_form_open',
 } as const
 
 /**
@@ -41,6 +42,30 @@ function metaTrack(...args: unknown[]): void {
   } catch {
     // Analytics must never break a user interaction.
   }
+}
+
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID
+
+/**
+ * Run `fn` once the GTM container has loaded, or after a timeout.
+ *
+ * The thank-you page fires its lead event on mount, which happens before the
+ * container script has downloaded. GTM does process queued events, but in
+ * queue order: an event queued ahead of `gtm.js` is handled before the
+ * Initialization triggers, so the Google tag has not configured GA4 yet and
+ * the GA4 event tag fires into nothing. Waiting for the container avoids that.
+ * The timeout keeps the event from being lost if GTM is blocked entirely.
+ */
+function whenGtmReady(fn: () => void, timeoutMs = 5000): void {
+  if (typeof window === 'undefined') return
+  const w = window as Window & { google_tag_manager?: Record<string, unknown> }
+  if (!GTM_ID) return fn()
+  const started = Date.now()
+  const tick = () => {
+    if (w.google_tag_manager?.[GTM_ID] || Date.now() - started > timeoutMs) fn()
+    else window.setTimeout(tick, 100)
+  }
+  tick()
 }
 
 function push(event: Record<string, unknown>): void {
@@ -99,6 +124,19 @@ export function trackPhoneClick(source: string): void {
  * @param source Which form produced the lead, matching the DB `source` column.
  */
 export function trackLeadSubmitted(source: string, eventId?: string | null): void {
+  whenGtmReady(() => pushLead(source, eventId))
+}
+
+/**
+ * Fire when the call-request popup opens. Opening it is a real step toward a
+ * lead, and a click on a styled button is awkward to catch with GTM's generic
+ * click trigger. Opens vs. `lead_submitted` gives the form's completion rate.
+ */
+export function trackLeadFormOpen(source: string): void {
+  push({ event: ANALYTICS_EVENTS.leadFormOpen, lead_source: source })
+}
+
+function pushLead(source: string, eventId?: string | null): void {
   push({
     event: ANALYTICS_EVENTS.leadSubmitted,
     lead_source: source,
