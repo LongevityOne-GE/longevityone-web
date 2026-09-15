@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto'
+import { SITE_URL } from '@/lib/seo/metadata'
 
 /**
  * Server-side conversion reporting.
@@ -20,6 +21,19 @@ const META_PIXEL_ID = process.env.META_PIXEL_ID
 const META_ACCESS_TOKEN = process.env.META_CONVERSIONS_API_TOKEN
 const GA4_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 const GA4_API_SECRET = process.env.GA4_API_SECRET
+
+/**
+ * Meta requires `event_source_url` to be a full URL for website events. The
+ * routes only know a path (the page the form was submitted from), so it is
+ * resolved against the canonical origin here. Anything that is already an
+ * absolute http(s) URL is passed through untouched.
+ */
+function absoluteUrl(pathOrUrl: string | null | undefined): string {
+  const value = (pathOrUrl ?? '').trim()
+  if (/^https?:\/\//i.test(value)) return value
+  const path = value.startsWith('/') ? value : `/${value}`
+  return `${SITE_URL}${path === '/' ? '' : path}` || SITE_URL
+}
 
 /** Both platforms require lowercase, trimmed values before hashing. */
 function hash(value: string | null | undefined): string | undefined {
@@ -44,7 +58,7 @@ export interface ConversionInput {
   phone?: string | null
   /** Meta click ID, if this visitor arrived from a Meta ad. */
   fbclid?: string | null
-  /** Page the conversion happened on. */
+  /** Page the conversion happened on. A path is fine; it is made absolute. */
   sourceUrl: string
   clientIp?: string
   userAgent?: string
@@ -85,7 +99,7 @@ export async function sendMetaLead(input: ConversionInput): Promise<void> {
               event_name: 'Lead',
               event_time: Math.floor(Date.now() / 1000),
               event_id: input.eventId,
-              event_source_url: input.sourceUrl,
+              event_source_url: absoluteUrl(input.sourceUrl),
               action_source: 'website',
               user_data: userData,
               ...(input.value
@@ -97,8 +111,16 @@ export async function sendMetaLead(input: ConversionInput): Promise<void> {
       },
     )
     if (!res.ok) {
-      // Never log the body - it echoes the hashed user data back.
-      console.error('[conversions] meta capi rejected', res.status)
+      // Log only Meta's error code and message. The error payload does not
+      // echo user data, and without the message a rejection is undiagnosable.
+      const detail = (await res.json().catch(() => null)) as {
+        error?: { code?: number; error_subcode?: number; message?: string }
+      } | null
+      console.error('[conversions] meta capi rejected', res.status, {
+        code: detail?.error?.code,
+        subcode: detail?.error?.error_subcode,
+        message: detail?.error?.message,
+      })
     }
   } catch (err) {
     console.error('[conversions] meta capi request failed', err)

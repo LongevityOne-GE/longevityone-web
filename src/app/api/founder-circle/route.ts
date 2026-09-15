@@ -327,7 +327,13 @@ export async function POST(req: NextRequest) {
     email,
     phone,
     fbclid: attribution.fbclid ?? attribution.last_fbclid ?? null,
-    sourceUrl: attribution.last_landing_page ?? attribution.landing_page ?? '/',
+    // The page the form was actually submitted on is the most accurate source
+    // URL; fall back to where the campaign landed them.
+    sourceUrl:
+      parsed.data.submitted_from ??
+      attribution.last_landing_page ??
+      attribution.landing_page ??
+      '/',
     clientIp: ip,
     userAgent: req.headers.get('user-agent') ?? undefined,
     clientId: ga4ClientId(req),
