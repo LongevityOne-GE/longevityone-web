@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto'
 import { SITE_URL } from '@/lib/seo/metadata'
 
 /**
- * Server-side conversion reporting.
+ * Server-side conversion reporting (Meta Conversions API).
  *
  * Browser-side tags miss a real share of conversions: ad blockers, tracking
  * prevention (Safari/iOS in particular), and people who close the tab before
@@ -19,8 +19,6 @@ import { SITE_URL } from '@/lib/seo/metadata'
 
 const META_PIXEL_ID = process.env.META_PIXEL_ID
 const META_ACCESS_TOKEN = process.env.META_CONVERSIONS_API_TOKEN
-const GA4_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
-const GA4_API_SECRET = process.env.GA4_API_SECRET
 
 /**
  * Meta requires `event_source_url` to be a full URL for website events. The
@@ -128,53 +126,22 @@ export async function sendMetaLead(input: ConversionInput): Promise<void> {
 }
 
 /**
- * Report a lead to GA4 via the Measurement Protocol.
- * No-ops unless GA4_API_SECRET is set.
- */
-export async function sendGa4Lead(
-  input: ConversionInput & { clientId: string; leadSource: string },
-): Promise<void> {
-  if (!GA4_MEASUREMENT_ID || !GA4_API_SECRET) return
-
-  try {
-    const res = await fetch(
-      `https://www.google-analytics.com/mp/collect?measurement_id=${encodeURIComponent(GA4_MEASUREMENT_ID)}&api_secret=${encodeURIComponent(GA4_API_SECRET)}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          client_id: input.clientId,
-          events: [
-            {
-              name: 'lead_submitted',
-              params: {
-                lead_source: input.leadSource,
-                event_id: input.eventId,
-                ...(input.value
-                  ? { value: input.value, currency: input.currency ?? 'GEL' }
-                  : {}),
-              },
-            },
-          ],
-        }),
-      },
-    )
-    if (!res.ok) {
-      console.error('[conversions] ga4 mp rejected', res.status)
-    }
-  } catch (err) {
-    console.error('[conversions] ga4 mp request failed', err)
-  }
-}
-
-/**
- * Report one lead to every configured platform.
+ * Report one lead to Meta from the server.
  *
- * Deliberately fire-and-forget from the caller's perspective: a slow or broken
- * ad platform must never delay or fail a lead submission.
+ * Only when the visitor granted marketing consent in the cookie banner. The
+ * browser Pixel is gated on the same consent, so the two paths always agree:
+ * either both report (and Meta merges them on event_id) or neither does.
+ *
+ * GA4 is deliberately not reported from the server. Unlike Meta, GA4 does not
+ * deduplicate Measurement Protocol events against browser events, so a server
+ * copy would count every lead twice. GA4 receives leads through GTM only.
+ *
+ * Fire-and-forget from the caller's perspective: a slow or broken ad platform
+ * must never delay or fail a lead submission.
  */
 export async function reportLeadConversion(
-  input: ConversionInput & { clientId: string; leadSource: string },
+  input: ConversionInput & { marketingConsent: boolean },
 ): Promise<void> {
-  await Promise.allSettled([sendMetaLead(input), sendGa4Lead(input)])
+  if (!input.marketingConsent) return
+  await sendMetaLead(input).catch(() => undefined)
 }

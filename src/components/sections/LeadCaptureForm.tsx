@@ -4,8 +4,8 @@ import { useState, useId, useRef } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { ArrowRight, X } from 'lucide-react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { getAttribution } from '@/lib/attribution'
+import { readConsent } from '@/lib/cookies'
 import { markLeadPending } from '@/lib/analytics-events'
 import { Turnstile, type TurnstileHandle } from '@/components/forms/Turnstile'
 import { cn } from '@/lib/utils'
@@ -82,7 +82,6 @@ export function LeadCaptureForm({
 }: LeadCaptureFormProps) {
   const t = COPY[locale]
   const uid = useId()
-  const router = useRouter()
   const dialogTitle = heading ?? DEFAULT_HEADINGS[locale]
 
   const [open, setOpen] = useState(false)
@@ -148,6 +147,8 @@ export function LeadCaptureForm({
           // interest with nothing for staff to remember to fill in.
           submitted_from:
             typeof window !== 'undefined' ? window.location.pathname : undefined,
+          // Server only reports to Meta when marketing consent was granted.
+          marketing_consent: readConsent()?.marketing === true,
         }),
       })
 
@@ -164,7 +165,10 @@ export function LeadCaptureForm({
       const payload = (await res.json().catch(() => ({}))) as { eventId?: string }
       markLeadPending(source, payload.eventId ?? null)
       setOpen(false)
-      router.push(locale === 'en' ? '/en/thank-you' : '/thank-you')
+      // A full page load, not a client-side route change: GTM's Page View
+      // trigger only fires on real loads, so a URL trigger on /thank-you would
+      // otherwise never fire. The pending flag survives the reload.
+      window.location.assign(locale === 'en' ? '/en/thank-you' : '/thank-you')
     } catch {
       setFormState('error')
     }

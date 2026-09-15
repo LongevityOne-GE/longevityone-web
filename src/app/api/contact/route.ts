@@ -14,16 +14,6 @@ export const runtime = 'nodejs'
 const LEAD_VALUE = Number(process.env.NEXT_PUBLIC_LEAD_VALUE ?? '0')
 const LEAD_CURRENCY = process.env.NEXT_PUBLIC_LEAD_CURRENCY ?? 'GEL'
 
-/**
- * GA4 client ID, read from the _ga cookie the browser already set, so the
- * server-reported conversion joins the same GA4 session rather than counting a
- * second, unrelated user.
- */
-function ga4ClientId(req: NextRequest): string {
-  const raw = req.cookies.get('_ga')?.value
-  const match = raw?.match(/^GA\d\.\d\.(\d+\.\d+)$/)
-  return match?.[1] ?? `${Math.floor(Math.random() * 1e10)}.${Math.floor(Date.now() / 1000)}`
-}
 
 const schema = z.object({
   name: z.string().min(2).max(120),
@@ -37,6 +27,9 @@ const schema = z.object({
   turnstileToken: z.string().optional(),
   // Page the form was submitted from. Attacker-controllable, so length capped.
   submitted_from: z.string().max(500).optional(),
+  // Marketing consent from the cookie banner. Meta is only told about the lead
+  // when this is true, matching the browser Pixel's own consent gate.
+  marketing_consent: z.boolean().optional(),
   // Explicit consent to process personal data. Required because this route now
   // persists the enquirer's contact details, not just emails them.
   consent: z.literal(true, { error: () => ({ message: 'Consent is required' }) }),
@@ -303,6 +296,7 @@ export async function POST(req: NextRequest) {
   // counted. Deduplicated against the browser event via eventId. No-ops until
   // the ad manager supplies credentials.
   await reportLeadConversion({
+    marketingConsent: parsed.data.marketing_consent === true,
     eventId,
     email,
     phone,
@@ -316,8 +310,6 @@ export async function POST(req: NextRequest) {
       '/contact',
     clientIp: ip,
     userAgent: req.headers.get('user-agent') ?? undefined,
-    clientId: ga4ClientId(req),
-    leadSource: 'contact_form',
     value: LEAD_VALUE > 0 ? LEAD_VALUE : undefined,
     currency: LEAD_CURRENCY,
   })

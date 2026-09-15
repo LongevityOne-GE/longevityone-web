@@ -39,6 +39,9 @@ const schema = z.object({
   turnstileToken: z.string().optional(),
   // Page the form was submitted from. Attacker-controllable, so length capped.
   submitted_from: z.string().max(500).optional(),
+  // Marketing consent from the cookie banner. Meta is only told about the lead
+  // when this is true, matching the browser Pixel's own consent gate.
+  marketing_consent: z.boolean().optional(),
   // Campaign attribution replayed by the browser from sessionStorage. All
   // fields optional - organic visitors carry none, and a lead must never be
   // rejected for lacking attribution.
@@ -86,19 +89,6 @@ function isRateLimited(ip: string): boolean {
   return false
 }
 
-/**
- * GA4 client ID, read from the _ga cookie the browser already set.
- *
- * Using the real client ID ties the server-reported conversion to the same
- * session GA4 saw in the browser. Without it GA4 would count a second,
- * unrelated user. Falls back to a random ID so the event is still recorded.
- */
-function ga4ClientId(req: NextRequest): string {
-  const raw = req.cookies.get('_ga')?.value
-  // Format: GA1.1.<clientId part 1>.<part 2>
-  const match = raw?.match(/^GA\d\.\d\.(\d+\.\d+)$/)
-  return match?.[1] ?? `${Math.floor(Math.random() * 1e10)}.${Math.floor(Date.now() / 1000)}`
-}
 
 /**
  * Verify the Turnstile token.
@@ -323,6 +313,7 @@ export async function POST(req: NextRequest) {
   // Awaited but fully guarded: reportLeadConversion swallows every failure, so a
   // slow or broken ad platform cannot fail a lead that is already saved.
   await reportLeadConversion({
+    marketingConsent: parsed.data.marketing_consent === true,
     eventId,
     email,
     phone,
@@ -336,8 +327,6 @@ export async function POST(req: NextRequest) {
       '/',
     clientIp: ip,
     userAgent: req.headers.get('user-agent') ?? undefined,
-    clientId: ga4ClientId(req),
-    leadSource: source,
     value: LEAD_VALUE > 0 ? LEAD_VALUE : undefined,
     currency: LEAD_CURRENCY,
   })

@@ -34,7 +34,7 @@ export default async function KaLayout({ children }: { children: React.ReactNode
         <Footer locale="ka" siteSettings={siteSettings} />
       </div>
       <CookieBanner locale="ka" strings={cookieStrings} />
-      <Analytics />
+      <Analytics metaPixelId={process.env.META_PIXEL_ID} />
     </>
   )
 }

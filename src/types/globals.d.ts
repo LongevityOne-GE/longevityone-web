@@ -14,5 +14,9 @@ declare global {
   interface Window {
     dataLayer?: Record<string, unknown>[]
     gtag?: (...args: unknown[]) => void
+    /** Meta Pixel. Only defined after marketing consent. */
+    fbq?: (...args: unknown[]) => void
+    /** Pixel calls made before the Pixel loaded; flushed when it initialises. */
+    __loMeta?: unknown[][]
   }
 }
