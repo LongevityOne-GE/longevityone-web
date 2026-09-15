@@ -1,9 +1,11 @@
 'use client'
 
 import Script from 'next/script'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { readConsent, type CookieConsent } from '@/lib/cookies'
 import { captureAttribution } from '@/lib/attribution'
+import { trackVirtualPageView } from '@/lib/analytics-events'
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID
@@ -46,8 +48,33 @@ const CONSENT_DEFAULT_SNIPPET = `
   gtag('set', 'url_passthrough', true);
 `
 
-export function Analytics() {
+interface AnalyticsProps {
+  /**
+   * Meta Pixel ID, passed from the server layout so the dataset ID lives in one
+   * env var (META_PIXEL_ID) shared with the Conversions API.
+   */
+  metaPixelId?: string
+}
+
+/** Only digits: the ID is interpolated into an inline script. */
+function safePixelId(id?: string): string | null {
+  return id && /^\d{5,20}$/.test(id) ? id : null
+}
+
+export function Analytics({ metaPixelId }: AnalyticsProps = {}) {
   const [consent, setConsent] = useState<CookieConsent | null>(null)
+  const pixelId = safePixelId(metaPixelId)
+  const pathname = usePathname()
+  const isFirstPath = useRef(true)
+
+  useEffect(() => {
+    // The first load is a real page view that GTM and the Pixel already see.
+    if (isFirstPath.current) {
+      isFirstPath.current = false
+      return
+    }
+    trackVirtualPageView(pathname)
+  }, [pathname])
 
   useEffect(() => {
     // Snapshot the campaign that brought this visitor in. Stored for 90 days so
@@ -117,6 +144,26 @@ export function Analytics() {
             `}
           </Script>
         </>
+      )}
+
+      {/* Meta Pixel. Loads only with MARKETING consent: it sets advertising
+          cookies and has no cookieless mode. Queued calls (e.g. the thank-you
+          page's Lead) are flushed once it initialises. Do not also add the
+          Pixel in GTM, or every event is sent twice. */}
+      {marketingEnabled && pixelId && (
+        <Script id="meta-pixel" strategy="afterInteractive">
+          {`
+            !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+            n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+            document,'script','https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '${pixelId}');
+            fbq('track', 'PageView');
+            (window.__loMeta || []).forEach(function (a) { fbq.apply(null, a); });
+            window.__loMeta = [];
+          `}
+        </Script>
       )}
 
       {/* PostHog has no consent-mode equivalent, so it stays fully gated and

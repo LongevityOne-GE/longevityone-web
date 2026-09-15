@@ -1,7 +1,6 @@
 'use client'
 
 import { useMemo, useRef, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -9,6 +8,7 @@ import { z } from 'zod'
 import type { Locale } from '@/lib/utils'
 import { Turnstile, type TurnstileHandle } from '@/components/forms/Turnstile'
 import { getAttribution } from '@/lib/attribution'
+import { readConsent } from '@/lib/cookies'
 import { markLeadPending } from '@/lib/analytics-events'
 
 const messages = {
@@ -91,7 +91,6 @@ export function ContactForm({ locale }: ContactFormProps) {
   >('idle')
   const [captchaToken, setCaptchaToken] = useState('')
   const turnstileRef = useRef<TurnstileHandle>(null)
-  const router = useRouter()
   const schema = useMemo(() => buildSchema(locale), [locale])
 
   const {
@@ -121,6 +120,8 @@ export function ContactForm({ locale }: ContactFormProps) {
           // interest with nothing for staff to remember to fill in.
           submitted_from:
             typeof window !== 'undefined' ? window.location.pathname : undefined,
+          // Server only reports to Meta when marketing consent was granted.
+          marketing_consent: readConsent()?.marketing === true,
         }),
       })
       if (res.status === 429) {
@@ -143,7 +144,10 @@ export function ContactForm({ locale }: ContactFormProps) {
       // fallback shown while the navigation completes.
       const payload = (await res.json().catch(() => ({}))) as { eventId?: string }
       markLeadPending('contact_form', payload.eventId ?? null)
-      router.push(locale === 'en' ? '/en/thank-you' : '/thank-you')
+      // A full page load, not a client-side route change: GTM's Page View
+      // trigger only fires on real loads, so a URL trigger on /thank-you would
+      // otherwise never fire. The pending flag survives the reload.
+      window.location.assign(locale === 'en' ? '/en/thank-you' : '/thank-you')
     } catch (err) {
       console.error('[contact] network error', err)
       setStatus('error')

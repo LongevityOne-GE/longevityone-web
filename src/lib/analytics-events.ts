@@ -14,6 +14,7 @@
 export const ANALYTICS_EVENTS = {
   phoneClick: 'phone_click',
   leadSubmitted: 'lead_submitted',
+  virtualPageView: 'virtual_page_view',
 } as const
 
 /**
@@ -23,6 +24,24 @@ export const ANALYTICS_EVENTS = {
  */
 const LEAD_VALUE = Number(process.env.NEXT_PUBLIC_LEAD_VALUE ?? '0')
 const LEAD_CURRENCY = process.env.NEXT_PUBLIC_LEAD_CURRENCY ?? 'GEL'
+
+/**
+ * Call the Meta Pixel, or queue the call if the Pixel has not loaded yet.
+ *
+ * The thank-you page fires its Lead event on mount, which can run before the
+ * Pixel script has finished loading. Queued calls are flushed when the Pixel
+ * initialises. The Pixel only loads with marketing consent, so without consent
+ * the queue is never flushed and nothing reaches Meta.
+ */
+function metaTrack(...args: unknown[]): void {
+  if (typeof window === 'undefined') return
+  try {
+    if (typeof window.fbq === 'function') window.fbq(...args)
+    else (window.__loMeta = window.__loMeta ?? []).push(args)
+  } catch {
+    // Analytics must never break a user interaction.
+  }
+}
 
 function push(event: Record<string, unknown>): void {
   if (typeof window === 'undefined') return
@@ -70,6 +89,8 @@ export function trackPhoneClick(source: string): void {
     // instead of a regex over the device string.
     phone_click_is_callable: canPlaceCall(),
   })
+  // Same rule as the GTM condition: a desktop click is not a call.
+  if (canPlaceCall()) metaTrack('track', 'Contact', { content_name: source })
 }
 
 /**
@@ -86,6 +107,35 @@ export function trackLeadSubmitted(source: string, eventId?: string | null): voi
     ...(eventId ? { event_id: eventId } : {}),
     ...(LEAD_VALUE > 0 ? { value: LEAD_VALUE, currency: LEAD_CURRENCY } : {}),
   })
+  // eventID must equal the server's event_id: that is how Meta recognises the
+  // browser and server reports as ONE lead instead of two.
+  metaTrack(
+    'track',
+    'Lead',
+    {
+      content_name: source,
+      ...(LEAD_VALUE > 0 ? { value: LEAD_VALUE, currency: LEAD_CURRENCY } : {}),
+    },
+    eventId ? { eventID: eventId } : undefined,
+  )
+}
+
+/**
+ * Fire on client-side route changes. A real page load already gives GTM its
+ * Page View; navigating inside the app does not, so tags on "All Pages" would
+ * miss every page after the first. GTM triggers on this event instead.
+ *
+ * GA4 records these navigations itself (enhanced measurement, browser history
+ * changes), so this must NOT also fire a GA4 page_view or pages double count.
+ */
+export function trackVirtualPageView(path: string): void {
+  push({
+    event: ANALYTICS_EVENTS.virtualPageView,
+    page_path: path,
+    page_location: typeof window !== 'undefined' ? window.location.href : path,
+    page_title: typeof document !== 'undefined' ? document.title : undefined,
+  })
+  metaTrack('track', 'PageView')
 }
 
 /**

@@ -34,7 +34,7 @@ export default async function EnLayout({ children }: { children: React.ReactNode
         <Footer locale="en" siteSettings={siteSettings} />
       </div>
       <CookieBanner locale="en" strings={cookieStrings} />
-      <Analytics />
+      <Analytics metaPixelId={process.env.META_PIXEL_ID} />
     </>
   )
 }
