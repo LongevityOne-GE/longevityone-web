@@ -6,7 +6,7 @@ import { ArrowRight, X } from 'lucide-react'
 import Link from 'next/link'
 import { getAttribution } from '@/lib/attribution'
 import { readConsent } from '@/lib/cookies'
-import { markLeadPending } from '@/lib/analytics-events'
+import { markLeadPending, trackLeadFormOpen } from '@/lib/analytics-events'
 import { Turnstile, type TurnstileHandle } from '@/components/forms/Turnstile'
 import { cn } from '@/lib/utils'
 import type { Locale } from '@/lib/utils'
@@ -112,6 +112,7 @@ export function LeadCaptureForm({
   }
 
   function handleOpenChange(next: boolean) {
+    if (next && !open) trackLeadFormOpen(source)
     setOpen(next)
     if (!next) resetForm()
   }

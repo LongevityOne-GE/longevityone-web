@@ -3,7 +3,7 @@
 import Script from 'next/script'
 import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { readConsent, type CookieConsent } from '@/lib/cookies'
+import { CONSENT_KEY, CONSENT_VERSION, readConsent, type CookieConsent } from '@/lib/cookies'
 import { captureAttribution } from '@/lib/attribution'
 import { trackVirtualPageView } from '@/lib/analytics-events'
 
@@ -46,6 +46,27 @@ const CONSENT_DEFAULT_SNIPPET = `
   });
   gtag('set', 'ads_data_redaction', true);
   gtag('set', 'url_passthrough', true);
+
+  // Returning visitors already chose in the cookie banner. Apply that choice
+  // here, synchronously, before GTM loads. Waiting for React to apply it left
+  // every page's first hits in "denied" mode: GA4 sent them cookieless, so they
+  // never appeared in Realtime and a lead submitted on landing was lost there.
+  try {
+    var c = JSON.parse(localStorage.getItem('${CONSENT_KEY}') || 'null');
+    if (c && c.version === ${CONSENT_VERSION}) {
+      var ad = c.marketing ? 'granted' : 'denied';
+      var an = c.analytics ? 'granted' : 'denied';
+      gtag('consent', 'update', {
+        ad_storage: ad,
+        ad_user_data: ad,
+        ad_personalization: ad,
+        analytics_storage: an,
+        functionality_storage: an,
+        personalization_storage: ad,
+        security_storage: 'granted'
+      });
+    }
+  } catch (e) {}
 `
 
 interface AnalyticsProps {
