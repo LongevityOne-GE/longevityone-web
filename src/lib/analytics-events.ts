@@ -68,6 +68,29 @@ function whenGtmReady(fn: () => void, timeoutMs = 5000): void {
   tick()
 }
 
+/**
+ * Send an event straight to GA4.
+ *
+ * The container already loads Google's tag, and `gtag` is defined by the
+ * consent bootstrap, so a gtag('event') call reaches GA4 the moment the tag is
+ * configured. The site sends its own conversions this way rather than relying
+ * on a GTM tag existing: a `lead_submitted` event that nothing in the container
+ * forwards is invisible in GA4, which is exactly what was happening.
+ *
+ * Consent is handled by Consent Mode, so this needs no gate of its own: without
+ * analytics consent the hit goes out cookieless.
+ *
+ * Do NOT also build a GTM tag for these event names, or GA4 counts them twice.
+ */
+function ga4Event(name: string, params: Record<string, unknown>): void {
+  if (typeof window === 'undefined') return
+  try {
+    window.gtag?.('event', name, params)
+  } catch {
+    // Analytics must never break a user interaction.
+  }
+}
+
 function push(event: Record<string, unknown>): void {
   if (typeof window === 'undefined') return
   try {
@@ -114,8 +137,12 @@ export function trackPhoneClick(source: string): void {
     // instead of a regex over the device string.
     phone_click_is_callable: canPlaceCall(),
   })
-  // Same rule as the GTM condition: a desktop click is not a call.
-  if (canPlaceCall()) metaTrack('track', 'Contact', { content_name: source })
+  // Same rule as the GTM condition: a desktop click is not a call, so only a
+  // tap that can actually dial is reported as a conversion.
+  if (canPlaceCall()) {
+    metaTrack('track', 'Contact', { content_name: source })
+    ga4Event('phone_call_click', { phone_click_source: source })
+  }
 }
 
 /**
@@ -156,6 +183,12 @@ function pushLead(source: string, eventId?: string | null): void {
     },
     eventId ? { eventID: eventId } : undefined,
   )
+  // GA4's own recommended name for a lead, which Google Ads understands when
+  // the key event is imported.
+  ga4Event('generate_lead', {
+    lead_source: source,
+    ...(LEAD_VALUE > 0 ? { value: LEAD_VALUE, currency: LEAD_CURRENCY } : {}),
+  })
 }
 
 /**
