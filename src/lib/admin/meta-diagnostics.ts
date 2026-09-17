@@ -1,75 +1,86 @@
 /**
- * Live check of the Meta Conversions API credentials.
+ * Live check of the Meta Conversions API.
  *
- * Everything the browser does can be watched directly, but the server's call to
- * Meta cannot: it happens inside a serverless function, and a bad token fails
- * silently by design so a broken ad platform can never break a lead. That left
- * "is the Conversions API actually working" as a question nobody could answer
- * without reading Meta's dashboards. This answers it from the server itself.
+ * The first version read the dataset's details to test the token. That was the
+ * wrong test: tokens generated in Events Manager are allowed to SEND events but
+ * usually not to READ the dataset, so a working token failed with
+ * "(#100) Missing Permission". This sends a test event instead, using exactly
+ * the permission real leads use.
  *
- * Read-only: it asks Meta about the dataset rather than sending a conversion,
- * so running it never pollutes reporting with fake leads.
+ * Events sent with a test_event_code appear only in Events Manager's Test
+ * Events tab and are never counted in reporting, so this creates no fake leads.
  */
 
 const GRAPH = 'https://graph.facebook.com/v21.0'
 
-export interface MetaCheck {
-  /** Both credentials present in the environment. */
-  configured: boolean
+export interface MetaConfig {
   pixelIdPresent: boolean
   tokenPresent: boolean
-  /** Meta accepted the token and it can read this dataset. */
-  credentialsValid: boolean
-  datasetId?: string
-  datasetName?: string
-  /** When Meta last received ANY event for this dataset, browser or server. */
-  lastFiredTime?: string
-  /** Meta's own error, when it rejected us. */
+}
+
+export interface MetaSendResult {
+  ok: boolean
+  /** Meta's count of events it accepted. 1 means the send worked. */
+  eventsReceived?: number
+  /** Meta's own error message when it rejected the event. */
   error?: string
 }
 
-export async function checkMetaConversionsApi(): Promise<MetaCheck> {
+export function metaConfig(): MetaConfig {
+  return {
+    pixelIdPresent: Boolean(process.env.META_PIXEL_ID),
+    tokenPresent: Boolean(process.env.META_CONVERSIONS_API_TOKEN),
+  }
+}
+
+/** Test event codes look like TEST12345. Anything else is rejected before sending. */
+export function isValidTestCode(code: string): boolean {
+  return /^TEST[A-Z0-9]{2,20}$/i.test(code)
+}
+
+export async function sendMetaTestEvent(testEventCode: string): Promise<MetaSendResult> {
   const pixelId = process.env.META_PIXEL_ID
   const token = process.env.META_CONVERSIONS_API_TOKEN
-
-  const base: MetaCheck = {
-    configured: Boolean(pixelId && token),
-    pixelIdPresent: Boolean(pixelId),
-    tokenPresent: Boolean(token),
-    credentialsValid: false,
+  if (!pixelId || !token) return { ok: false, error: 'Credentials are not configured' }
+  if (!isValidTestCode(testEventCode)) {
+    return { ok: false, error: 'That does not look like a test code (e.g. TEST12345)' }
   }
-
-  if (!pixelId || !token) return base
 
   try {
     const res = await fetch(
-      `${GRAPH}/${encodeURIComponent(pixelId)}?fields=id,name,last_fired_time&access_token=${encodeURIComponent(token)}`,
-      { cache: 'no-store' },
+      `${GRAPH}/${encodeURIComponent(pixelId)}/events?access_token=${encodeURIComponent(token)}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        cache: 'no-store',
+        body: JSON.stringify({
+          test_event_code: testEventCode.toUpperCase(),
+          data: [
+            {
+              event_name: 'Lead',
+              event_time: Math.floor(Date.now() / 1000),
+              event_id: `diagnostic-${Date.now()}`,
+              event_source_url: 'https://www.longevityone.ge/thank-you',
+              action_source: 'website',
+              // A fixed, obviously synthetic user so the test never resembles a patient.
+              user_data: {
+                client_user_agent: 'LongevityOne tracking check',
+                client_ip_address: '127.0.0.1',
+              },
+            },
+          ],
+        }),
+      },
     )
     const body = (await res.json()) as {
-      id?: string
-      name?: string
-      last_fired_time?: string
-      error?: { message?: string; code?: number }
+      events_received?: number
+      error?: { message?: string }
     }
-
     if (!res.ok || body.error) {
-      return {
-        ...base,
-        // Meta's message names the actual problem: expired token, wrong
-        // dataset, missing permission. Never includes the token itself.
-        error: body.error?.message ?? `Meta returned ${res.status}`,
-      }
+      return { ok: false, error: body.error?.message ?? `Meta returned ${res.status}` }
     }
-
-    return {
-      ...base,
-      credentialsValid: true,
-      datasetId: body.id,
-      datasetName: body.name,
-      lastFiredTime: body.last_fired_time,
-    }
+    return { ok: body.events_received === 1, eventsReceived: body.events_received }
   } catch (err) {
-    return { ...base, error: err instanceof Error ? err.message : 'Request failed' }
+    return { ok: false, error: err instanceof Error ? err.message : 'Request failed' }
   }
 }
