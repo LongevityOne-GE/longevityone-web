@@ -1,4 +1,5 @@
 import { readConsent } from '@/lib/cookies'
+import { META_EVENTS, type MetaEventName } from '@/lib/meta-events'
 
 /**
  * Typed dataLayer event helpers.
@@ -31,7 +32,7 @@ const LEAD_CURRENCY = process.env.NEXT_PUBLIC_LEAD_CURRENCY ?? 'GEL'
 /**
  * Call the Meta Pixel, or queue the call if the Pixel has not loaded yet.
  *
- * The thank-you page fires its Lead event on mount, which can run before the
+ * The thank-you page fires its FormSubmit event on mount, which can run before the
  * Pixel script has finished loading. Queued calls are flushed when the Pixel
  * initialises. The Pixel only loads with marketing consent, so without consent
  * the queue is never flushed and nothing reaches Meta.
@@ -119,29 +120,9 @@ export function trackPhoneClick(source: string): void {
   // Same rule as the GTM condition: a desktop click is not a call.
   if (!canPlaceCall()) return
 
-  // One id shared by the browser Pixel and the server copy, so Meta counts the
-  // tap once whichever reports first.
-  const eventId =
-    typeof crypto !== 'undefined' && 'randomUUID' in crypto
-      ? crypto.randomUUID()
-      : `contact-${Date.now()}-${Math.random().toString(36).slice(2)}`
-  metaTrack('track', 'Contact', { content_name: source }, { eventID: eventId })
-
-  // sendBeacon survives the tel: navigation that follows the tap, where a
-  // normal fetch would be cancelled. The server only forwards to Meta with
-  // marketing consent, the same gate as the Pixel.
-  try {
-    const consent = readConsent()
-    if (consent?.marketing !== true) return
-    const body = JSON.stringify({
-      event_id: eventId,
-      source,
-      page: window.location.pathname,
-    })
-    navigator.sendBeacon?.('/api/track-contact', new Blob([body], { type: 'application/json' }))
-  } catch {
-    // Analytics must never break a user interaction.
-  }
+  const eventId = newEventId('call')
+  metaTrack('trackCustom', META_EVENTS.phoneClick, { content_name: source }, { eventID: eventId })
+  sendServerCopy(META_EVENTS.phoneClick, eventId)
 }
 
 /**
@@ -174,8 +155,8 @@ function pushLead(source: string, eventId?: string | null): void {
   // eventID must equal the server's event_id: that is how Meta recognises the
   // browser and server reports as ONE lead instead of two.
   metaTrack(
-    'track',
-    'Lead',
+    'trackCustom',
+    META_EVENTS.formSubmit,
     {
       content_name: source,
       ...(LEAD_VALUE > 0 ? { value: LEAD_VALUE, currency: LEAD_CURRENCY } : {}),
@@ -199,7 +180,49 @@ export function trackVirtualPageView(path: string): void {
     page_location: typeof window !== 'undefined' ? window.location.href : path,
     page_title: typeof document !== 'undefined' ? document.title : undefined,
   })
-  metaTrack('track', 'PageView')
+  trackMetaPageView()
+}
+
+/**
+ * Meta PageView with an event_id, plus its Conversions API copy. Called for the
+ * first page load and for every client-side navigation after it.
+ */
+export function trackMetaPageView(): void {
+  if (typeof window === 'undefined') return
+  const eventId = newEventId('pv')
+  metaTrack('track', META_EVENTS.pageView, {}, { eventID: eventId })
+  sendServerCopy(META_EVENTS.pageView, eventId)
+}
+
+function newEventId(prefix: string): string {
+  return typeof crypto !== 'undefined' && 'randomUUID' in crypto
+    ? crypto.randomUUID()
+    : `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2)}`
+}
+
+/**
+ * Send the server copy of a browser Meta event to /api/meta-event, which
+ * forwards it through the Conversions API. That recovers events ad blockers and
+ * iOS tracking prevention hide from the Pixel; Meta merges the pair on
+ * event_id. Same marketing-consent gate as the Pixel.
+ *
+ * sendBeacon survives a navigation that follows immediately, such as the tel:
+ * link opening the dialer, where a normal fetch would be cancelled.
+ */
+function sendServerCopy(eventName: MetaEventName, eventId: string): void {
+  try {
+    if (readConsent()?.marketing !== true) return
+    const fbclid = new URLSearchParams(window.location.search).get('fbclid')
+    const body = JSON.stringify({
+      event_name: eventName,
+      event_id: eventId,
+      page: window.location.pathname,
+      ...(fbclid ? { fbclid } : {}),
+    })
+    navigator.sendBeacon?.('/api/meta-event', new Blob([body], { type: 'application/json' }))
+  } catch {
+    // Analytics must never break a user interaction.
+  }
 }
 
 /**

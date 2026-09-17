@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { CONSENT_KEY, CONSENT_VERSION, readConsent, type CookieConsent } from '@/lib/cookies'
 import { captureAttribution } from '@/lib/attribution'
-import { trackVirtualPageView } from '@/lib/analytics-events'
+import { trackMetaPageView, trackVirtualPageView } from '@/lib/analytics-events'
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID
@@ -89,9 +89,12 @@ export function Analytics({ metaPixelId }: AnalyticsProps = {}) {
   const isFirstPath = useRef(true)
 
   useEffect(() => {
-    // The first load is a real page view that GTM and the Pixel already see.
+    // The first load is a real page view that GTM already sees. Meta's is sent
+    // from here (queued until the Pixel loads) so it carries an event_id shared
+    // with its Conversions API copy.
     if (isFirstPath.current) {
       isFirstPath.current = false
+      trackMetaPageView()
       return
     }
     trackVirtualPageView(pathname)
@@ -168,9 +171,9 @@ export function Analytics({ metaPixelId }: AnalyticsProps = {}) {
       )}
 
       {/* Meta Pixel. Loads only with MARKETING consent: it sets advertising
-          cookies and has no cookieless mode. Queued calls (e.g. the thank-you
-          page's Lead) are flushed once it initialises. Do not also add the
-          Pixel in GTM, or every event is sent twice. */}
+          cookies and has no cookieless mode. Queued calls (the first PageView,
+          the thank-you page's FormSubmit) are flushed once it initialises. Do
+          not also add the Pixel in GTM, or every event is sent twice. */}
       {marketingEnabled && pixelId && (
         <Script id="meta-pixel" strategy="afterInteractive">
           {`
@@ -180,7 +183,6 @@ export function Analytics({ metaPixelId }: AnalyticsProps = {}) {
             t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
             document,'script','https://connect.facebook.net/en_US/fbevents.js');
             fbq('init', '${pixelId}');
-            fbq('track', 'PageView');
             (window.__loMeta || []).forEach(function (a) { fbq.apply(null, a); });
             window.__loMeta = [];
           `}

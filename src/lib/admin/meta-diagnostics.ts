@@ -57,7 +57,10 @@ export async function sendMetaTestEvent(testEventCode: string): Promise<MetaSend
           test_event_code: testEventCode.toUpperCase(),
           data: [
             {
-              event_name: 'Contact',
+              // PageView: Meta drops restricted events such as Lead and Contact
+              // for this dataset without an error, so only an unrestricted event
+              // shows up in Test events.
+              event_name: 'PageView',
               event_time: Math.floor(Date.now() / 1000),
               event_id: `diagnostic-${Date.now()}`,
               event_source_url: 'https://www.longevityone.ge/thank-you',
