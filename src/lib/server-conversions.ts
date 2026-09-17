@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto'
 import { SITE_URL } from '@/lib/seo/metadata'
+import { META_EVENTS, type MetaEventName } from '@/lib/meta-events'
 
 /**
  * Server-side conversion reporting (Meta Conversions API).
@@ -64,33 +65,21 @@ export interface ConversionInput {
   currency?: string
 }
 
-/**
- * Report a lead to the Meta Conversions API.
- * No-ops unless META_PIXEL_ID and META_CONVERSIONS_API_TOKEN are set.
- */
-export async function sendMetaLead(input: ConversionInput): Promise<void> {
-  await sendMetaEvent('Lead', input)
+export interface MetaEventInput extends ConversionInput {
+  /** Meta's browser cookies, when the request came from the visitor's browser. */
+  fbp?: string | null
+  fbc?: string | null
 }
 
 /**
- * Report a phone-call tap to Meta.
+ * Send one event to the Meta Conversions API.
  *
- * Meta blocks the Lead event for this site (Health & wellness provider
- * category) but still accepts Contact, and calls are the clinic's main
- * conversion. Sending Contact from the server as well recovers taps the browser
- * Pixel misses to ad blockers and iOS tracking prevention. The browser sends
- * the same event_id, so Meta counts each tap once.
+ * Only names from META_EVENTS: Meta silently drops restricted standard events
+ * such as Lead and Contact for this dataset, so conversions go as custom events
+ * (see meta-events.ts). No-ops unless META_PIXEL_ID and
+ * META_CONVERSIONS_API_TOKEN are set.
  */
-export async function sendMetaContact(
-  input: ConversionInput & { fbp?: string | null; fbc?: string | null },
-): Promise<void> {
-  await sendMetaEvent('Contact', input)
-}
-
-async function sendMetaEvent(
-  eventName: 'Lead' | 'Contact',
-  input: ConversionInput & { fbp?: string | null; fbc?: string | null },
-): Promise<void> {
+export async function sendMetaEvent(eventName: MetaEventName, input: MetaEventInput): Promise<void> {
   if (!META_PIXEL_ID || !META_ACCESS_TOKEN) return
 
   const userData: Record<string, unknown> = {}
@@ -169,5 +158,5 @@ export async function reportLeadConversion(
   input: ConversionInput & { marketingConsent: boolean },
 ): Promise<void> {
   if (!input.marketingConsent) return
-  await sendMetaLead(input).catch(() => undefined)
+  await sendMetaEvent(META_EVENTS.formSubmit, input).catch(() => undefined)
 }
