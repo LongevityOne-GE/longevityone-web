@@ -69,6 +69,28 @@ export interface ConversionInput {
  * No-ops unless META_PIXEL_ID and META_CONVERSIONS_API_TOKEN are set.
  */
 export async function sendMetaLead(input: ConversionInput): Promise<void> {
+  await sendMetaEvent('Lead', input)
+}
+
+/**
+ * Report a phone-call tap to Meta.
+ *
+ * Meta blocks the Lead event for this site (Health & wellness provider
+ * category) but still accepts Contact, and calls are the clinic's main
+ * conversion. Sending Contact from the server as well recovers taps the browser
+ * Pixel misses to ad blockers and iOS tracking prevention. The browser sends
+ * the same event_id, so Meta counts each tap once.
+ */
+export async function sendMetaContact(
+  input: ConversionInput & { fbp?: string | null; fbc?: string | null },
+): Promise<void> {
+  await sendMetaEvent('Contact', input)
+}
+
+async function sendMetaEvent(
+  eventName: 'Lead' | 'Contact',
+  input: ConversionInput & { fbp?: string | null; fbc?: string | null },
+): Promise<void> {
   if (!META_PIXEL_ID || !META_ACCESS_TOKEN) return
 
   const userData: Record<string, unknown> = {}
@@ -80,7 +102,11 @@ export async function sendMetaLead(input: ConversionInput): Promise<void> {
     userData.client_ip_address = input.clientIp
   }
   if (input.userAgent) userData.client_user_agent = input.userAgent
-  if (input.fbclid) {
+  // Browser cookies set by the Pixel give Meta the strongest match, so prefer
+  // them; fall back to building fbc from a click ID.
+  if (input.fbp) userData.fbp = input.fbp
+  if (input.fbc) userData.fbc = input.fbc
+  else if (input.fbclid) {
     // Meta expects the click ID packed as fb.1.<timestamp>.<fbclid>.
     userData.fbc = `fb.1.${Date.now()}.${input.fbclid}`
   }
@@ -94,7 +120,7 @@ export async function sendMetaLead(input: ConversionInput): Promise<void> {
         body: JSON.stringify({
           data: [
             {
-              event_name: 'Lead',
+              event_name: eventName,
               event_time: Math.floor(Date.now() / 1000),
               event_id: input.eventId,
               event_source_url: absoluteUrl(input.sourceUrl),
