@@ -11,6 +11,8 @@
  * Events tab and are never counted in reporting, so this creates no fake leads.
  */
 
+import { META_EVENTS } from '@/lib/meta-events'
+
 const GRAPH = 'https://graph.facebook.com/v21.0'
 
 export interface MetaConfig {
@@ -38,13 +40,42 @@ export function isValidTestCode(code: string): boolean {
   return /^TEST[A-Z0-9]{2,20}$/i.test(code)
 }
 
-export async function sendMetaTestEvent(testEventCode: string): Promise<MetaSendResult> {
+export interface TestClient {
+  ip?: string | null
+  userAgent?: string | null
+}
+
+/**
+ * Send one PageView and one PhoneClick under the test code: the two kinds of
+ * event the site reports that Meta keeps for this dataset (restricted standard
+ * events such as Lead and Contact are accepted and then dropped, so they never
+ * show in Test events). Uses the admin's own IP and browser, because Meta may
+ * discard events with a placeholder IP or user agent.
+ */
+export async function sendMetaTestEvent(
+  testEventCode: string,
+  client: TestClient = {},
+): Promise<MetaSendResult> {
   const pixelId = process.env.META_PIXEL_ID
   const token = process.env.META_CONVERSIONS_API_TOKEN
   if (!pixelId || !token) return { ok: false, error: 'Credentials are not configured' }
   if (!isValidTestCode(testEventCode)) {
     return { ok: false, error: 'That does not look like a test code (e.g. TEST12345)' }
   }
+
+  const now = Math.floor(Date.now() / 1000)
+  const userData = {
+    client_user_agent: client.userAgent || 'Mozilla/5.0',
+    ...(client.ip ? { client_ip_address: client.ip } : {}),
+  }
+  const events = [META_EVENTS.pageView, META_EVENTS.phoneClick].map((eventName) => ({
+    event_name: eventName,
+    event_time: now,
+    event_id: `diagnostic-${eventName}-${Date.now()}`,
+    event_source_url: 'https://www.longevityone.ge/',
+    action_source: 'website',
+    user_data: userData,
+  }))
 
   try {
     const res = await fetch(
@@ -53,26 +84,7 @@ export async function sendMetaTestEvent(testEventCode: string): Promise<MetaSend
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         cache: 'no-store',
-        body: JSON.stringify({
-          test_event_code: testEventCode.toUpperCase(),
-          data: [
-            {
-              // PageView: Meta drops restricted events such as Lead and Contact
-              // for this dataset without an error, so only an unrestricted event
-              // shows up in Test events.
-              event_name: 'PageView',
-              event_time: Math.floor(Date.now() / 1000),
-              event_id: `diagnostic-${Date.now()}`,
-              event_source_url: 'https://www.longevityone.ge/thank-you',
-              action_source: 'website',
-              // A fixed, obviously synthetic user so the test never resembles a patient.
-              user_data: {
-                client_user_agent: 'LongevityOne tracking check',
-                client_ip_address: '127.0.0.1',
-              },
-            },
-          ],
-        }),
+        body: JSON.stringify({ test_event_code: testEventCode.toUpperCase(), data: events }),
       },
     )
     const body = (await res.json()) as {
@@ -82,7 +94,7 @@ export async function sendMetaTestEvent(testEventCode: string): Promise<MetaSend
     if (!res.ok || body.error) {
       return { ok: false, error: body.error?.message ?? `Meta returned ${res.status}` }
     }
-    return { ok: body.events_received === 1, eventsReceived: body.events_received }
+    return { ok: body.events_received === events.length, eventsReceived: body.events_received }
   } catch (err) {
     return { ok: false, error: err instanceof Error ? err.message : 'Request failed' }
   }

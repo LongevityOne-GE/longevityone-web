@@ -25,7 +25,7 @@ export function MetaTestForm() {
           />
         </label>
         <button type="submit" disabled={pending} className="btn-primary disabled:opacity-50">
-          {pending ? 'Sending...' : 'Send test event'}
+          {pending ? 'Sending...' : 'Send test events'}
         </button>
       </form>
 
@@ -40,8 +40,9 @@ export function MetaTestForm() {
         >
           {result.ok ? (
             <>
-              <strong>Working.</strong> Meta accepted the event. It should appear
-              in the Test events tab within a few seconds.
+              <strong>Working.</strong> Meta accepted a PageView and a PhoneClick
+              from the server. Both appear in the Test events tab within a few
+              seconds, marked Server.
             </>
           ) : (
             <>
