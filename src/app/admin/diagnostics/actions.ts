@@ -1,5 +1,6 @@
 'use server'
 
+import { headers } from 'next/headers'
 import { createClient } from '@/lib/supabase/server'
 import { isAllowedAdmin } from '@/lib/admin/allowlist'
 import { sendMetaTestEvent, type MetaSendResult } from '@/lib/admin/meta-diagnostics'
@@ -19,5 +20,11 @@ export async function runMetaTest(_prev: TestState, formData: FormData): Promise
     return { status: 'done', result: { ok: false, error: 'Not authorised' } }
   }
   const code = String(formData.get('code') ?? '').trim()
-  return { status: 'done', result: await sendMetaTestEvent(code) }
+  const h = await headers()
+  const ip =
+    h.get('cf-connecting-ip')?.trim() || (h.get('x-forwarded-for') ?? '').split(',')[0]?.trim()
+  return {
+    status: 'done',
+    result: await sendMetaTestEvent(code, { ip, userAgent: h.get('user-agent') }),
+  }
 }

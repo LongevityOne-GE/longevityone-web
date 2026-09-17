@@ -24,9 +24,9 @@ export default async function AdminDiagnosticsPage() {
       </p>
       <h1 className="text-2xl font-black text-dark-brown">Tracking check</h1>
       <p className="mt-2 max-w-2xl text-sm text-dark-brown/60">
-        Sends Meta a test event through the Conversions API, the same way real
-        leads are sent. Test events show only in Events Manager&rsquo;s Test events
-        tab and are never counted as leads.
+        Sends Meta a test PageView and PhoneClick through the Conversions API, the
+        same way the website does. Test events show only in Events Manager&rsquo;s
+        Test events tab and are never counted in reports.
       </p>
 
       <p className={`mt-8 text-sm ${configured ? 'text-[#3C5729]' : 'text-burnt-orange'}`}>
