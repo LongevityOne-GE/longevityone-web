@@ -21,8 +21,9 @@ const schema = z.object({
   phone: z.string().max(40).optional(),
   message: z.string().min(10).max(5000),
   locale: z.enum(['ka', 'en']),
-  // Honeypot: must be empty. Real users never fill this hidden field.
-  company: z.string().max(0).optional(),
+  // Retired honeypot field. Browser autofill filled it for real visitors, so
+  // it is accepted from old cached pages and ignored. Turnstile blocks bots.
+  company: z.string().max(200).optional(),
   // Cloudflare Turnstile token. Required in production; optional in dev.
   turnstileToken: z.string().optional(),
   // Page the form was submitted from. Attacker-controllable, so length capped.
@@ -148,17 +149,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid input' }, { status: 422 })
   }
 
-  const { name, email, phone, message, locale, company, turnstileToken } =
+  const { name, email, phone, message, locale, turnstileToken } =
     parsed.data
   const attribution = attributionSchema.parse(parsed.data)
   // Shared with the browser event so the ad platforms deduplicate the two.
   const eventId = randomUUID()
-
-  // Honeypot tripped: respond with a generic success so bots don't learn.
-  if (company && company.length > 0) {
-    console.warn('[contact] honeypot triggered', { ipHash: hashIp(ip) })
-    return NextResponse.json({ ok: true })
-  }
 
   const captchaOk = await verifyTurnstile(turnstileToken ?? '', ip)
   if (!captchaOk) {

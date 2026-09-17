@@ -35,8 +35,6 @@ function buildSchema(locale: Locale) {
     email: z.string().email(m.emailInvalid).max(254, m.tooLong),
     phone: z.string().max(40, m.tooLong).optional(),
     message: z.string().min(10, m.messageMin).max(5000, m.tooLong),
-    // Honeypot - must remain empty.
-    company: z.string().max(0).optional(),
     // Required: this form now stores the enquirer's contact details, not just
     // emails them, so consent has to be explicit.
     consent: z.literal(true, { error: () => ({ message: m.consentRequired }) }),
@@ -171,29 +169,6 @@ export function ContactForm({ locale }: ContactFormProps) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-8" noValidate>
-      {/* Honeypot: hidden from real users, attractive to bots. */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          left: '-10000px',
-          top: 'auto',
-          width: '1px',
-          height: '1px',
-          overflow: 'hidden',
-        }}
-      >
-        <label>
-          Company
-          <input
-            {...register('company')}
-            type="text"
-            tabIndex={-1}
-            autoComplete="off"
-          />
-        </label>
-      </div>
-
       <div>
         <label htmlFor="contact-name" className={srOnly}>{t.name}</label>
         <input
