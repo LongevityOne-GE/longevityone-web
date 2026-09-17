@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { Resend } from 'resend'
 import { createClient } from '@supabase/supabase-js'
-import { createHash } from 'node:crypto'
 import { attributionSchema, attributionToColumns } from '@/lib/attribution'
 import { attributionHtml, attributionText } from '@/lib/attribution-email'
 import { reportLeadConversion } from '@/lib/server-conversions'
@@ -33,7 +32,8 @@ const schema = z.object({
     error: () => ({ message: 'Consent is required' }),
   }),
   source: z.string().min(1).max(100).default('founder_circle'),
-  // Honeypot: real users never fill this hidden field. Bots often do.
+  // Retired honeypot field. Browser autofill filled it for real visitors, so
+  // it is accepted from old cached pages and ignored. Turnstile blocks bots.
   company: z.string().max(200).optional(),
   // Cloudflare Turnstile token. Required in production; optional in dev.
   turnstileToken: z.string().optional(),
@@ -65,9 +65,6 @@ function getClientIp(req: NextRequest): string {
 }
 
 // One-way hash so logs can correlate abuse by IP without storing the raw IP.
-function hashIp(ip: string): string {
-  return createHash('sha256').update(ip).digest('hex').slice(0, 16)
-}
 
 function isRateLimited(ip: string): boolean {
   const now = Date.now()
@@ -94,9 +91,8 @@ function isRateLimited(ip: string): boolean {
  * Verify the Turnstile token.
  *
  * This is the endpoint the ads drive traffic to, so it is the one bots will
- * find. The honeypot alone is not enough: this repository is public, so the
- * hidden field's name is public too. Spam leads would corrupt the cost-per-lead
- * the ad manager optimises against, so they are stopped at the door.
+ * find. Spam leads would corrupt the cost-per-lead the ad manager optimises
+ * against, so they are stopped at the door.
  *
  * Fails closed in production: a missing secret rejects rather than waves through.
  */
@@ -159,17 +155,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid input' }, { status: 422 })
   }
 
-  const { name, phone, email, lang, source, company, turnstileToken } = parsed.data
+  const { name, phone, email, lang, source, turnstileToken } = parsed.data
   // Shared between the server-side conversion and the browser event so the ad
   // platforms deduplicate the two into one conversion.
   const eventId = randomUUID()
   const attribution = attributionSchema.parse(parsed.data)
-
-  // Honeypot tripped: respond with a generic success so bots do not learn.
-  if (company && company.trim().length > 0) {
-    console.warn('[founder-circle] honeypot triggered', { ipHash: hashIp(ip) })
-    return NextResponse.json({ success: true })
-  }
 
   const captchaOk = await verifyTurnstile(turnstileToken ?? '', ip)
   if (!captchaOk) {
