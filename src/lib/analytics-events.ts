@@ -1,3 +1,5 @@
+import { readConsent } from '@/lib/cookies'
+
 /**
  * Typed dataLayer event helpers.
  *
@@ -115,7 +117,31 @@ export function trackPhoneClick(source: string): void {
     phone_click_is_callable: canPlaceCall(),
   })
   // Same rule as the GTM condition: a desktop click is not a call.
-  if (canPlaceCall()) metaTrack('track', 'Contact', { content_name: source })
+  if (!canPlaceCall()) return
+
+  // One id shared by the browser Pixel and the server copy, so Meta counts the
+  // tap once whichever reports first.
+  const eventId =
+    typeof crypto !== 'undefined' && 'randomUUID' in crypto
+      ? crypto.randomUUID()
+      : `contact-${Date.now()}-${Math.random().toString(36).slice(2)}`
+  metaTrack('track', 'Contact', { content_name: source }, { eventID: eventId })
+
+  // sendBeacon survives the tel: navigation that follows the tap, where a
+  // normal fetch would be cancelled. The server only forwards to Meta with
+  // marketing consent, the same gate as the Pixel.
+  try {
+    const consent = readConsent()
+    if (consent?.marketing !== true) return
+    const body = JSON.stringify({
+      event_id: eventId,
+      source,
+      page: window.location.pathname,
+    })
+    navigator.sendBeacon?.('/api/track-contact', new Blob([body], { type: 'application/json' }))
+  } catch {
+    // Analytics must never break a user interaction.
+  }
 }
 
 /**
