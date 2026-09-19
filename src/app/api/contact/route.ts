@@ -31,6 +31,8 @@ const schema = z.object({
   // Marketing consent from the cookie banner. Meta is only told about the lead
   // when this is true, matching the browser Pixel's own consent gate.
   marketing_consent: z.boolean().optional(),
+  // First-party visitor ID, sent to Meta as external_id. Never personal data.
+  visitor_id: z.string().min(8).max(64).regex(/^[\w-]+$/).optional(),
   // Explicit consent to process personal data. Required because this route now
   // persists the enquirer's contact details, not just emails them.
   consent: z.literal(true, { error: () => ({ message: 'Consent is required' }) }),
@@ -295,7 +297,9 @@ export async function POST(req: NextRequest) {
     eventId,
     email,
     phone,
-    fbclid: attribution.fbclid ?? attribution.last_fbclid ?? null,
+    // Most recent click wins: that is the ad Meta attributes against.
+    fbclid: attribution.last_fbclid ?? attribution.fbclid ?? null,
+    externalId: parsed.data.visitor_id ?? null,
     // The page the form was actually submitted on is the most accurate source
     // URL; fall back to where the campaign landed them.
     sourceUrl:
