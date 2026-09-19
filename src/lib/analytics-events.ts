@@ -1,5 +1,7 @@
 import { readConsent } from '@/lib/cookies'
 import { META_EVENTS, type MetaEventName } from '@/lib/meta-events'
+import { getAttribution } from '@/lib/attribution'
+import { getVisitorId } from '@/lib/visitor-id'
 
 /**
  * Typed dataLayer event helpers.
@@ -212,12 +214,21 @@ function newEventId(prefix: string): string {
 function sendServerCopy(eventName: MetaEventName, eventId: string): void {
   try {
     if (readConsent()?.marketing !== true) return
-    const fbclid = new URLSearchParams(window.location.search).get('fbclid')
+    // The click ID is only in the URL on the landing page. Later pages fall back
+    // to the stored attribution, so a visitor who clicked an ad yesterday is
+    // still matched to that ad today.
+    const stored = getAttribution()
+    const fbclid =
+      new URLSearchParams(window.location.search).get('fbclid') ||
+      stored.last_fbclid ||
+      stored.fbclid
+    const vid = getVisitorId()
     const body = JSON.stringify({
       event_name: eventName,
       event_id: eventId,
       page: window.location.pathname,
       ...(fbclid ? { fbclid } : {}),
+      ...(vid ? { vid } : {}),
     })
     navigator.sendBeacon?.('/api/meta-event', new Blob([body], { type: 'application/json' }))
   } catch {

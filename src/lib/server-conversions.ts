@@ -57,6 +57,8 @@ export interface ConversionInput {
   phone?: string | null
   /** Meta click ID, if this visitor arrived from a Meta ad. */
   fbclid?: string | null
+  /** First-party visitor ID (see visitor-id.ts). Sent hashed as external_id. */
+  externalId?: string | null
   /** Page the conversion happened on. A path is fine; it is made absolute. */
   sourceUrl: string
   clientIp?: string
@@ -93,6 +95,10 @@ export async function sendMetaEvent(eventName: MetaEventName, input: MetaEventIn
   if (input.userAgent) userData.client_user_agent = input.userAgent
   // Browser cookies set by the Pixel give Meta the strongest match, so prefer
   // them; fall back to building fbc from a click ID.
+  // Meta hashes external_id itself in the browser, so the server sends the
+  // SHA-256 of the same value and the two sides line up.
+  const ext = hash(input.externalId)
+  if (ext) userData.external_id = [ext]
   if (input.fbp) userData.fbp = input.fbp
   if (input.fbc) userData.fbc = input.fbc
   else if (input.fbclid) {

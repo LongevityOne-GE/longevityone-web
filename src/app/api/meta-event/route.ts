@@ -18,6 +18,7 @@ const schema = z.object({
   event_id: z.string().min(8).max(80).regex(/^[\w-]+$/),
   page: z.string().max(500).startsWith('/'),
   fbclid: z.string().max(500).regex(/^[\w-]+$/).optional(),
+  vid: z.string().min(8).max(64).regex(/^[\w-]+$/).optional(),
 })
 
 // Best-effort per-instance rate limit. Generous enough for someone browsing
@@ -59,6 +60,7 @@ export async function POST(req: NextRequest) {
     eventId: parsed.data.event_id,
     sourceUrl: parsed.data.page,
     fbclid: parsed.data.fbclid ?? null,
+    externalId: parsed.data.vid ?? null,
     clientIp: ip,
     userAgent: req.headers.get('user-agent') ?? undefined,
     fbp: req.cookies.get('_fbp')?.value ?? null,

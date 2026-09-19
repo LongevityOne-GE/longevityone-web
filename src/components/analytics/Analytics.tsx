@@ -182,7 +182,20 @@ export function Analytics({ metaPixelId }: AnalyticsProps = {}) {
             n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
             t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
             document,'script','https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '${pixelId}');
+            var lv = null;
+            try {
+              lv = localStorage.getItem('lo_vid');
+              if (!lv) {
+                lv = (window.crypto && crypto.randomUUID)
+                  ? crypto.randomUUID()
+                  : 'v-' + Date.now() + '-' + Math.random().toString(36).slice(2);
+                localStorage.setItem('lo_vid', lv);
+              }
+            } catch (e) {}
+            // Advanced matching with the same first-party ID the server sends as
+            // external_id (see lib/visitor-id.ts), which is what lets Meta match
+            // and deduplicate the browser and server copies of an event.
+            fbq('init', '${pixelId}', lv ? { external_id: lv } : {});
             (window.__loMeta || []).forEach(function (a) { fbq.apply(null, a); });
             window.__loMeta = [];
           `}

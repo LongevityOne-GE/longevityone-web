@@ -6,6 +6,7 @@ import { ArrowRight, X } from 'lucide-react'
 import Link from 'next/link'
 import { getAttribution } from '@/lib/attribution'
 import { readConsent } from '@/lib/cookies'
+import { getVisitorId } from '@/lib/visitor-id'
 import { markLeadPending, trackLeadFormOpen } from '@/lib/analytics-events'
 import { Turnstile, type TurnstileHandle } from '@/components/forms/Turnstile'
 import { cn } from '@/lib/utils'
@@ -147,6 +148,7 @@ export function LeadCaptureForm({
             typeof window !== 'undefined' ? window.location.pathname : undefined,
           // Server only reports to Meta when marketing consent was granted.
           marketing_consent: readConsent()?.marketing === true,
+          visitor_id: getVisitorId(),
         }),
       })
 

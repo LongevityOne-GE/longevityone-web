@@ -9,6 +9,7 @@ import type { Locale } from '@/lib/utils'
 import { Turnstile, type TurnstileHandle } from '@/components/forms/Turnstile'
 import { getAttribution } from '@/lib/attribution'
 import { readConsent } from '@/lib/cookies'
+import { getVisitorId } from '@/lib/visitor-id'
 import { markLeadPending } from '@/lib/analytics-events'
 
 const messages = {
@@ -120,6 +121,7 @@ export function ContactForm({ locale }: ContactFormProps) {
             typeof window !== 'undefined' ? window.location.pathname : undefined,
           // Server only reports to Meta when marketing consent was granted.
           marketing_consent: readConsent()?.marketing === true,
+          visitor_id: getVisitorId(),
         }),
       })
       if (res.status === 429) {
