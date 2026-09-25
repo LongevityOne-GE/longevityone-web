@@ -26,6 +26,10 @@ export const metadata: Metadata = {
     // Per-page metadata may override openGraph.images (e.g. blog cover images).
   },
   twitter: { card: 'summary_large_image' },
+  // Proves to Meta that this domain is ours, which is what unlocks event
+  // priority configuration (Aggregated Event Measurement) and full attribution
+  // on iOS. Public value, safe in the repo; issued in Business settings.
+  other: { 'facebook-domain-verification': 'jqncu0qhg48qswkncrarrumufitiwi' },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
 }
 
