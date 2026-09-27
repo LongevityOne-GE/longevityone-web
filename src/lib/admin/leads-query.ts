@@ -198,3 +198,60 @@ export function summarise(rows: LeadRow[]): LeadStats {
     campaignOutcomes,
   }
 }
+
+/**
+ * Readable channel for one lead. Paid click IDs are the strongest signal and
+ * survive when a link is missing its UTM tags, so they win; then the campaign
+ * source; then a plain referral or direct visit.
+ */
+export function channelOf(row: LeadRow): string {
+  if (row.gclid || row.last_gclid) return 'Google Ads'
+  if (row.fbclid || row.last_fbclid) return 'Meta'
+  const source = row.last_utm_source ?? row.utm_source
+  if (source) return source
+  if (row.referrer) return 'Referral'
+  return 'Direct'
+}
+
+export interface SourceRow {
+  channel: string
+  campaign: string
+  ad: string
+  leads: number
+  booked: number
+  /** Share of this row's leads that became a booking, as a percentage. */
+  bookedRate: number
+}
+
+/** Placeholder for a lead whose link carried no campaign or ad name. */
+const UNTAGGED = 'not tagged'
+
+/**
+ * Leads grouped by where they came from: channel, then campaign, then ad.
+ *
+ * This is the table the ad manager reconciles against Ads Manager. It reports
+ * on LAST touch, the same basis Meta and Google attribute on, and it always
+ * has rows: a lead with no UTM tags still lands under its channel rather than
+ * disappearing, which is what makes missing tags visible instead of silent.
+ */
+export function breakdown(rows: LeadRow[], limit = 20): SourceRow[] {
+  const groups = new Map<string, SourceRow>()
+
+  for (const row of rows) {
+    const channel = channelOf(row)
+    const campaign = row.last_utm_campaign ?? row.utm_campaign ?? UNTAGGED
+    const ad = row.utm_content ?? UNTAGGED
+    const key = `${channel}|${campaign}|${ad}`
+    const entry = groups.get(key) ?? { channel, campaign, ad, leads: 0, booked: 0, bookedRate: 0 }
+    entry.leads += 1
+    if (row.status === 'booked') entry.booked += 1
+    groups.set(key, entry)
+  }
+
+  return [...groups.values()]
+    .map((g) => ({ ...g, bookedRate: g.leads > 0 ? Math.round((g.booked / g.leads) * 100) : 0 }))
+    // Bookings first, then volume: the row that produced patients is the one
+    // worth spending more on.
+    .sort((a, b) => b.booked - a.booked || b.leads - a.leads)
+    .slice(0, limit)
+}

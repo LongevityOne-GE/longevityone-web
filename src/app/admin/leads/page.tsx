@@ -3,13 +3,14 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { isAllowedAdmin } from '@/lib/admin/allowlist'
 import {
+  breakdown,
+  channelOf,
   fetchLeads,
   parseFilters,
   summarise,
   STATUS_FILTERS,
   STATUS_LABELS,
   type LeadFilters,
-  type LeadRow,
 } from '@/lib/admin/leads-query'
 import { LeadStatusSelect } from '@/components/admin/LeadStatusSelect'
 import { LeadNotes } from '@/components/admin/LeadNotes'
@@ -26,14 +27,6 @@ function formatDate(iso: string): string {
     minute: '2-digit',
     timeZone: 'Asia/Tbilisi',
   })
-}
-
-/** Collapse paid click IDs to a readable channel; the raw IDs are unusable. */
-function channel(row: LeadRow): string {
-  if (row.gclid || row.last_gclid) return 'Google Ads'
-  if (row.fbclid || row.last_fbclid) return 'Meta'
-  if (row.last_utm_source || row.utm_source) return row.last_utm_source ?? row.utm_source ?? ''
-  return ''
 }
 
 function queryString(filters: LeadFilters, overrides: Partial<LeadFilters> = {}): string {
@@ -94,6 +87,7 @@ export default async function AdminLeadsPage({
   const filters = parseFilters(await searchParams)
   const { rows, error } = await fetchLeads(filters)
   const stats = summarise(rows)
+  const sources = breakdown(rows)
 
   const cell = 'px-3 py-3 align-top text-sm text-dark-brown/80 whitespace-nowrap'
   const head =
@@ -181,25 +175,45 @@ export default async function AdminLeadsPage({
         ))}
       </div>
 
-      {stats.campaignOutcomes.length > 0 && (
+      {sources.length > 0 && (
         <div className="mb-10">
           <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-dark-brown/50">
-            Campaigns in this period - leads, and how many became bookings
+            Where these leads came from
           </p>
-          <div className="flex flex-wrap gap-2">
-            {stats.campaignOutcomes.map((c) => (
-              <span
-                key={c.campaign}
-                className="border border-dark-brown/15 px-4 py-2 text-sm text-dark-brown/80"
-              >
-                {c.campaign}
-                <span className="ml-2 font-bold text-dark-brown">{c.leads}</span>
-                <span className="ml-1 text-dark-brown/40">leads</span>
-                <span className="ml-2 font-bold text-[#3C5729]">{c.booked}</span>
-                <span className="ml-1 text-dark-brown/40">booked</span>
-              </span>
-            ))}
+          <div className="overflow-x-auto border border-dark-brown/15">
+            <table className="w-full border-collapse">
+              <thead className="bg-dark-brown/5">
+                <tr>
+                  <th className={head}>Channel</th>
+                  <th className={head}>Campaign</th>
+                  <th className={head}>Ad</th>
+                  <th className={head}>Leads</th>
+                  <th className={head}>Booked</th>
+                  <th className={head}>Booked %</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sources.map((s) => (
+                  <tr
+                    key={`${s.channel}|${s.campaign}|${s.ad}`}
+                    className="border-t border-dark-brown/10"
+                  >
+                    <td className={cell}>{s.channel}</td>
+                    <td className={cell}>{s.campaign}</td>
+                    <td className={cell}>{s.ad}</td>
+                    <td className={`${cell} font-bold text-dark-brown`}>{s.leads}</td>
+                    <td className={`${cell} font-bold text-[#3C5729]`}>{s.booked}</td>
+                    <td className={cell}>{s.bookedRate}%</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
+          <p className="mt-3 text-xs text-dark-brown/50">
+            Compare these numbers with Results in Ads Manager for the same dates.
+            Rows reading &ldquo;not tagged&rdquo; came from links without UTM
+            parameters, so the campaign and ad behind them cannot be identified.
+          </p>
         </div>
       )}
 
@@ -278,7 +292,7 @@ export default async function AdminLeadsPage({
                       )}
                     </td>
                     <td className={cell}>{lead.lang}</td>
-                    <td className={cell}>{channel(lead) || dash}</td>
+                    <td className={cell}>{channelOf(lead)}</td>
                     <td className={cell}>{lead.last_utm_campaign ?? dash}</td>
                     <td className={cell}>{lead.utm_campaign ?? dash}</td>
                     <td className={cell}>{lead.touch_count ?? dash}</td>
