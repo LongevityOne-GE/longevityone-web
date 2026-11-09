@@ -30,6 +30,9 @@ export const metadata: Metadata = {
   // priority configuration (Aggregated Event Measurement) and full attribution
   // on iOS. Public value, safe in the repo; issued in Business settings.
   other: { 'facebook-domain-verification': 'jqncu0qhg48qswkncrarrumufitiwi' },
+  // Google Search Console ownership tag. Set GOOGLE_SITE_VERIFICATION in Vercel;
+  // when it is unset Next renders no tag at all.
+  verification: { google: process.env.GOOGLE_SITE_VERIFICATION },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
 }
 
