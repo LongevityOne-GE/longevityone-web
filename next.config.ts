@@ -13,17 +13,20 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      // Cal.com, Google Tag Manager, PostHog, Cloudflare Turnstile.
+      // Cal.com, Google Tag Manager, Google Ads, PostHog, Cloudflare Turnstile.
       // GTM loads tag scripts from *.googletagmanager.com and Meta Pixel from
       // connect.facebook.net; without these the ad manager's tags fail silently.
-      "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://cal.eu https://www.cal.eu https://www.googletagmanager.com https://*.googletagmanager.com https://connect.facebook.net https://eu.posthog.com https://*.posthog.com https://challenges.cloudflare.com",
+      "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://cal.eu https://www.cal.eu https://www.googletagmanager.com https://*.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://connect.facebook.net https://eu.posthog.com https://*.posthog.com https://challenges.cloudflare.com",
       "style-src 'self' 'unsafe-inline' https://cal.eu https://www.cal.eu",
       // Sanity CDN, GA4 tracking pixel, and the conversion pixels fired by
       // Google Ads (doubleclick, google.com/.ge) and Meta.
-      "img-src 'self' data: blob: https://cdn.sanity.io https://images.unsplash.com https://cal.eu https://www.cal.eu https://www.google-analytics.com https://www.googletagmanager.com https://*.googletagmanager.com https://googleads.g.doubleclick.net https://www.google.com https://www.google.ge https://www.facebook.com",
+      "img-src 'self' data: blob: https://cdn.sanity.io https://images.unsplash.com https://cal.eu https://www.cal.eu https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://*.googletagmanager.com https://googleads.g.doubleclick.net https://www.google.com https://www.google.ge https://www.facebook.com",
       "font-src 'self' data: https://fonts.gstatic.com https://cal.eu https://www.cal.eu",
-      // API calls: Supabase, Sanity, Cal, GA4, PostHog, Sentry tunnel, Turnstile
-      "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.sanity.io https://cal.eu https://www.cal.eu https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.googletagmanager.com https://*.googletagmanager.com https://googleads.g.doubleclick.net https://connect.facebook.net https://www.facebook.com https://eu.posthog.com https://*.eu.posthog.com https://*.posthog.com https://*.ingest.de.sentry.io https://challenges.cloudflare.com",
+      // API calls: Supabase, Sanity, Cal, GA4, PostHog, Sentry tunnel, Turnstile.
+      // Google Ads conversion and remarketing pings go to pagead2.googlesyndication,
+      // googleadservices and google.com / google.ge (Georgian visitors); Tag
+      // Diagnostics reported these blocked.
+      "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.sanity.io https://cal.eu https://www.cal.eu https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.googletagmanager.com https://*.googletagmanager.com https://googleads.g.doubleclick.net https://www.googleadservices.com https://pagead2.googlesyndication.com https://www.google.com https://www.google.ge https://connect.facebook.net https://www.facebook.com https://eu.posthog.com https://*.eu.posthog.com https://*.posthog.com https://*.ingest.de.sentry.io https://challenges.cloudflare.com",
       // Google Maps embed on the contact page (classic ?output=embed, no API key).
       // td.doubleclick.net is Google Ads remarketing; googletagmanager.com is the
       // GTM Preview/Debug pane the ad manager needs to verify her own tags.

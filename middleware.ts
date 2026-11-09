@@ -1,6 +1,7 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { isAllowedAdmin } from '@/lib/admin/allowlist'
 
 /** Admin paths reachable without a session: the login screen and the magic-link landing. */
 const PUBLIC_ADMIN_PATHS = ['/admin/login', '/admin/auth']
@@ -56,13 +57,22 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  if (!user && !isPublicAdminPath(pathname)) {
-    // Redirect, never render: an unauthenticated request must not reach a page
-    // that reads lead data.
-    return NextResponse.redirect(new URL('/admin/login', request.url))
+  // A session alone is not access: the address must also be on the allowlist.
+  // Treating a signed-in but non-allowlisted user as signed-out is what breaks
+  // the old loop, where /admin/leads sent them to /admin/login and this
+  // middleware sent them straight back because a session existed.
+  const isAdmin = user !== null && isAllowedAdmin(user.email)
+
+  if (!isAdmin && !isPublicAdminPath(pathname)) {
+    // Redirect, never render: a request without admin access must not reach a
+    // page that reads lead data. A stale non-admin session gets the error
+    // message so the person is not left looking at a silent login form.
+    const loginUrl = new URL('/admin/login', request.url)
+    if (user) loginUrl.searchParams.set('error', '1')
+    return NextResponse.redirect(loginUrl)
   }
 
-  if (user && pathname === '/admin/login') {
+  if (isAdmin && pathname === '/admin/login') {
     return NextResponse.redirect(new URL('/admin/leads', request.url))
   }
 
