@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto'
 import { SITE_URL } from '@/lib/seo/metadata'
 import { META_EVENTS, type MetaEventName } from '@/lib/meta-events'
+import { isProductionBuild } from '@/lib/tracking-environment'
 
 /**
  * Server-side conversion reporting (Meta Conversions API).
@@ -79,9 +80,12 @@ export interface MetaEventInput extends ConversionInput {
  * Only names from META_EVENTS: Meta silently drops restricted standard events
  * such as Lead and Contact for this dataset, so conversions go as custom events
  * (see meta-events.ts). No-ops unless META_PIXEL_ID and
- * META_CONVERSIONS_API_TOKEN are set.
+ * META_CONVERSIONS_API_TOKEN are set, and on any non-production build: preview
+ * deployments share the production credentials, so without this guard every
+ * test lead and page view on a preview would land in the live Meta dataset.
  */
 export async function sendMetaEvent(eventName: MetaEventName, input: MetaEventInput): Promise<void> {
+  if (!isProductionBuild()) return
   if (!META_PIXEL_ID || !META_ACCESS_TOKEN) return
 
   const userData: Record<string, unknown> = {}

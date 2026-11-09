@@ -1,11 +1,12 @@
 'use client'
 
 import Script from 'next/script'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { usePathname } from 'next/navigation'
 import { CONSENT_KEY, CONSENT_VERSION, readConsent, type CookieConsent } from '@/lib/cookies'
 import { captureAttribution } from '@/lib/attribution'
 import { trackMetaPageView, trackVirtualPageView } from '@/lib/analytics-events'
+import { isTrackingEnvironment } from '@/lib/tracking-environment'
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID
@@ -77,6 +78,11 @@ interface AnalyticsProps {
   metaPixelId?: string
 }
 
+/** The deployment environment never changes during a page's lifetime. */
+function noSubscription(): () => void {
+  return () => {}
+}
+
 /** Only digits: the ID is interpolated into an inline script. */
 function safePixelId(id?: string): string | null {
   return id && /^\d{5,20}$/.test(id) ? id : null
@@ -84,6 +90,10 @@ function safePixelId(id?: string): string | null {
 
 export function Analytics({ metaPixelId }: AnalyticsProps = {}) {
   const [consent, setConsent] = useState<CookieConsent | null>(null)
+  // Production build on the real domain only; previews and localhost load no
+  // tags at all (see lib/tracking-environment). False on the server and during
+  // hydration, since the hostname is only known in the browser.
+  const trackingAllowed = useSyncExternalStore(noSubscription, isTrackingEnvironment, () => false)
   const pixelId = safePixelId(metaPixelId)
   const pathname = usePathname()
   const isFirstPath = useRef(true)
@@ -141,7 +151,7 @@ export function Analytics({ metaPixelId }: AnalyticsProps = {}) {
 
       {/* Google Tag Manager. Preferred once the container exists: the ad
           manager then adds and edits tags in GTM without a code deploy. */}
-      {GTM_ID && (
+      {trackingAllowed && GTM_ID && (
         <Script id="gtm-init" strategy="afterInteractive">
           {`
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -155,7 +165,7 @@ export function Analytics({ metaPixelId }: AnalyticsProps = {}) {
 
       {/* Direct GA4. Only when there is no GTM container, so GA4 is never
           loaded twice and page views are not double counted. */}
-      {!GTM_ID && GA_ID && (
+      {trackingAllowed && !GTM_ID && GA_ID && (
         <>
           <Script
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
@@ -174,7 +184,7 @@ export function Analytics({ metaPixelId }: AnalyticsProps = {}) {
           cookies and has no cookieless mode. Queued calls (the first PageView,
           the thank-you page's FormSubmit) are flushed once it initialises. Do
           not also add the Pixel in GTM, or every event is sent twice. */}
-      {marketingEnabled && pixelId && (
+      {trackingAllowed && marketingEnabled && pixelId && (
         <Script id="meta-pixel" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -204,7 +214,7 @@ export function Analytics({ metaPixelId }: AnalyticsProps = {}) {
 
       {/* PostHog has no consent-mode equivalent, so it stays fully gated and
           does not load at all without analytics consent. */}
-      {analyticsEnabled && PH_KEY && (
+      {trackingAllowed && analyticsEnabled && PH_KEY && (
         <Script id="posthog-init" strategy="afterInteractive">
           {`
             !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]);t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+" (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys getNextSurveyStep onSessionId setPersonPropertiesForFlags".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
