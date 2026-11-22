@@ -33,6 +33,7 @@ export interface SiteSettings {
   address_ka: string | null
   address_en: string | null
   maps_url: string | null
+  googleBusinessProfile: string | null
   phone: string | null
   email: string | null
   openingHours_ka: string[] | null

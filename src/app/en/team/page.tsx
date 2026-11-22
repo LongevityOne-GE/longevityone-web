@@ -33,6 +33,7 @@ export default async function EnTeamPage() {
     name: m.name_en || m.name || '',
     jobTitle: m.role_en,
     specialty: m.specialty_en,
+    credentials: m.credentials,
   }))
   return (
     <>
