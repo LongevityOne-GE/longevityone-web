@@ -1,3 +1,4 @@
+import { headers } from 'next/headers'
 import { sanityClient, siteSettingsQuery } from '@/lib/sanity'
 import type { SiteSettings } from '@/lib/sanity/types'
 import { AnnouncementBar } from '@/components/layout/AnnouncementBar'
@@ -7,11 +8,14 @@ import { CookieBanner } from '@/components/cookies/CookieBanner'
 import { Analytics } from '@/components/analytics/Analytics'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { organizationSchema, websiteSchema } from '@/lib/seo/schema'
+import { isLandingPath } from '@/components/landing/sections'
 
 export default async function KaLayout({ children }: { children: React.ReactNode }) {
   const siteSettings = await sanityClient.fetch<SiteSettings>(
     siteSettingsQuery, {}, { next: { tags: ['sanity'] } }
   )
+
+  const landing = isLandingPath((await headers()).get('x-pathname'))
 
   const cookieStrings = {
     title: siteSettings?.cookie_title_ka ?? 'ჩვენ ვიყენებთ ქუქი-ფაილებს',
@@ -26,12 +30,14 @@ export default async function KaLayout({ children }: { children: React.ReactNode
     <>
       <JsonLd data={[organizationSchema(siteSettings, 'ka'), websiteSchema('ka')]} />
       <div className="flex flex-col min-h-screen">
-        <AnnouncementBar locale="ka" />
-        <Nav locale="ka" siteSettings={siteSettings} />
+        {/* The ad landing page brings its own header; the site navigation
+            and announcement bar would lead ad visitors away from the form. */}
+        {!landing && <AnnouncementBar locale="ka" />}
+        {!landing && <Nav locale="ka" siteSettings={siteSettings} />}
         <div id="main-content" className="flex flex-col flex-1">
           {children}
         </div>
-        <Footer locale="ka" siteSettings={siteSettings} />
+        <Footer locale="ka" siteSettings={siteSettings} minimal={landing} />
       </div>
       <CookieBanner locale="ka" strings={cookieStrings} />
       <Analytics metaPixelId={process.env.META_PIXEL_ID} />
