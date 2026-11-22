@@ -10,11 +10,9 @@ interface PillarsProps {
   locale: Locale
   services?: HomeService[] | null
   data?: HomePageData | null
-  /** Link each pillar to its section on /services. Off on the ad landing page, which must not send visitors elsewhere. */
-  showLinks?: boolean
 }
 
-export function Pillars({ locale, services, data, showLinks = true }: PillarsProps) {
+export function Pillars({ locale, services, data }: PillarsProps) {
   const pillars = services ?? []
 
   return (
@@ -54,14 +52,12 @@ export function Pillars({ locale, services, data, showLinks = true }: PillarsPro
                       <p className="leading-relaxed opacity-90">{desc}</p>
                     </div>
                   )}
-                  {showLinks && (
                   <a
                     href={`${locale === 'en' ? '/en' : ''}/services#${pillar.slug}`}
                     className="flex items-center text-burnt-orange font-bold uppercase tracking-[0.2em] text-[10px] group-hover:pl-2 transition-all"
                   >
                     {locale === 'ka' ? 'გაიგეთ მეტი' : 'EXPLORE'} <ArrowRight size={14} className="ml-2" />
                   </a>
-                  )}
                 </div>
                 </Reveal>
               )

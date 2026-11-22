@@ -4,14 +4,14 @@ import type {
   AboutPage,
   HomeFounder,
   HomePageData,
-  HomeService,
   SanityReview,
   SiteSettings,
+  Technology,
 } from '@/lib/sanity/types'
 import type { ActivePromotion } from '@/lib/promotions'
 import { renderMultiline } from '@/lib/text'
-import { LeadForm } from '@/components/forms/LeadForm'
-import { Pillars } from '@/components/sections/Pillars'
+import { localizedTechName } from '@/lib/utils'
+import { LeadCaptureForm } from '@/components/sections/LeadCaptureForm'
 import { ReviewsSection } from '@/components/sections/reviews/ReviewsSection'
 import { PhoneLink } from '@/components/shared/PhoneLink'
 import { CALL_CTA_LABEL } from '@/lib/features'
@@ -21,7 +21,7 @@ interface LandingPageProps {
   locale: Locale
   homePage: HomePageData | null
   about: AboutPage | null
-  services: HomeService[]
+  technologies: Technology[]
   team: HomeFounder[]
   reviews: SanityReview[]
   settings: SiteSettings | null
@@ -30,35 +30,39 @@ interface LandingPageProps {
 
 const COPY = {
   ka: {
-    formHeading: 'მოითხოვეთ ზარი',
-    formTagline: 'დატოვეთ ნომერი და ჩვენი კონსიერჟი დაგიკავშირდებათ 24 საათში.',
+    proceduresHeading: 'რა პროცედურებს გთავაზობთ',
     teamHeading: 'ჩვენი გუნდი',
     contactHeading: 'დაიწყეთ დღესვე',
     contactTagline: 'მოითხოვეთ ზარი, ან დაგვირეკეთ პირდაპირ.',
   },
   en: {
-    formHeading: 'Request a call',
-    formTagline: 'Leave your number and our concierge will call you within 24 hours.',
+    proceduresHeading: 'Procedures we offer',
     teamHeading: 'Our team',
     contactHeading: 'Start today',
     contactTagline: 'Request a call, or call us directly.',
   },
 } as const
 
+/** The orange call-request button, shared by the hero and the closing section. */
+const CTA_BUTTON =
+  'mt-8 w-full sm:w-auto sm:min-w-[260px] justify-center gap-3 bg-burnt-orange px-8 py-4 text-white hover:bg-dark-brown'
+const CTA_BUTTON_ON_DARK =
+  'w-full sm:w-auto sm:min-w-[260px] justify-center gap-3 bg-burnt-orange px-8 py-4 text-white hover:bg-bone-white hover:text-dark-brown'
+
 /** Offsets in-page anchors so a section heading is not hidden under the sticky header. */
 const ANCHOR = 'scroll-mt-32 lg:scroll-mt-24'
 
 /**
- * One-page landing for paid traffic: what LongevityOne is with the form
- * immediately visible, then about, services, team, reviews and a closing call
- * to action that scrolls back to the form. No links lead off the page.
+ * One-page landing for paid traffic: what LongevityOne is with a call-request
+ * button right under it, then the procedures offered, about, team, reviews and
+ * a closing call to action. The form opens in a popup. No links lead off the page.
  * Content comes from the same Sanity documents as the main site.
  */
 export function LandingPage({
   locale,
   homePage,
   about,
-  services,
+  technologies,
   team,
   reviews,
   settings,
@@ -90,10 +94,10 @@ export function LandingPage({
           </div>
         )}
 
-        {/* What LongevityOne is, with the form right beside it. */}
-        <section className="bg-bone-white py-14 md:py-24">
-          <div className="section-container grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-20">
-            <div className="lg:pt-6">
+        {/* What LongevityOne is, with the call-request button right under it. */}
+        <section className="bg-bone-white py-12 md:py-20">
+          <div className="section-container">
+            <div className="max-w-3xl">
               {h1 && (
                 <h1 className="mb-6 text-3xl font-black leading-[1.1] text-dark-brown sm:text-4xl lg:text-5xl">
                   {renderMultiline(h1)}
@@ -109,17 +113,39 @@ export function LandingPage({
                   {body}
                 </p>
               )}
-            </div>
-
-            <div id="form" className={`${ANCHOR} border border-dark-brown/15 bg-bone-white p-7 md:p-10`}>
-              <h2 className="mb-2 text-2xl font-black text-dark-brown">{t.formHeading}</h2>
-              <p className="mb-8 text-sm font-light leading-relaxed text-dark-brown/70">
-                {t.formTagline}
-              </p>
-              <LeadForm locale={locale} source="landing_hero" trackOpenOnFocus />
+              <LeadCaptureForm
+                locale={locale}
+                source="landing_hero"
+                label={CALL_CTA_LABEL[locale]}
+                triggerClassName={CTA_BUTTON}
+              />
             </div>
           </div>
         </section>
+
+        <div id="services" className={ANCHOR}>
+          {technologies.length > 0 && (
+            <section className="border-t border-dark-brown/10 bg-bone-white py-16 md:py-24">
+              <div className="section-container">
+                <h2 className="mb-12 text-3xl font-black text-dark-brown md:text-5xl">
+                  {t.proceduresHeading}
+                </h2>
+                <div className="grid grid-cols-1 gap-x-10 gap-y-8 md:grid-cols-2 lg:grid-cols-3">
+                  {technologies.map((tech) => (
+                    <div key={tech._id} className="border-t border-dark-brown/20 pt-6">
+                      <h3 className="mb-2 text-lg font-bold text-dark-brown">
+                        {localizedTechName(tech, locale)}
+                      </h3>
+                      <p className="text-sm font-light leading-relaxed text-dark-brown/75">
+                        {pick(tech.tagline_ka, tech.tagline_en)}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+        </div>
 
         {pillars.length > 0 && (
           <section id="about" className={`${ANCHOR} border-t border-dark-brown/10 bg-bone-white py-16 md:py-28`}>
@@ -145,9 +171,6 @@ export function LandingPage({
           </section>
         )}
 
-        <div id="services" className={ANCHOR}>
-          <Pillars locale={locale} services={services} data={homePage} showLinks={false} />
-        </div>
 
         {team.length > 0 && (
           <section id="team" className={`${ANCHOR} bg-bone-white py-16 md:py-28`}>
@@ -204,12 +227,12 @@ export function LandingPage({
               {t.contactTagline}
             </p>
             <div className="flex flex-col items-center gap-6">
-              <a
-                href="#form"
-                className="bg-burnt-orange px-8 py-4 text-[11px] font-bold uppercase tracking-[0.2em] text-bone-white transition-colors hover:bg-bone-white hover:text-dark-brown"
-              >
-                {CALL_CTA_LABEL[locale]}
-              </a>
+              <LeadCaptureForm
+                locale={locale}
+                source="landing_final"
+                label={CALL_CTA_LABEL[locale]}
+                triggerClassName={CTA_BUTTON_ON_DARK}
+              />
               {phone && (
                 <PhoneLink
                   phone={phone}

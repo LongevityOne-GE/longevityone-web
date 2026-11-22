@@ -14,8 +14,8 @@ export function isLandingPath(pathname: string | null | undefined): boolean {
 
 /** Section anchors, in page order. Each is linkable, e.g. /start#services. */
 export const LANDING_SECTIONS = [
-  { id: 'about', label: { ka: 'ჩვენს შესახებ', en: 'About' } },
   { id: 'services', label: { ka: 'სერვისები', en: 'Services' } },
+  { id: 'about', label: { ka: 'ჩვენს შესახებ', en: 'About' } },
   { id: 'team', label: { ka: 'გუნდი', en: 'Team' } },
   { id: 'reviews', label: { ka: 'შეფასებები', en: 'Reviews' } },
   { id: 'contact', label: { ka: 'კონტაქტი', en: 'Contact' } },
