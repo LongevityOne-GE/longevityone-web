@@ -7,6 +7,7 @@ import {
   homeServicesQuery,
   reviewsQuery,
   siteSettingsQuery,
+  technologiesQuery,
 } from '@/lib/sanity'
 import type {
   AboutPage,
@@ -15,6 +16,7 @@ import type {
   HomeService,
   SanityReview,
   SiteSettings,
+  Technology,
 } from '@/lib/sanity/types'
 import { buildMetadata } from '@/lib/seo/metadata'
 import { activePromotion } from '@/lib/promotions'
@@ -34,10 +36,11 @@ export const metadata: Metadata = buildMetadata({
 const opts = { next: { tags: ['sanity'] } }
 
 export default async function KaLandingPage() {
-  const [homePage, about, services, team, reviews, settings] = await Promise.all([
+  const [homePage, about, services, technologies, team, reviews, settings] = await Promise.all([
     sanityClient.fetch<HomePageData>(homePageQuery, {}, opts),
     sanityClient.fetch<AboutPage>(aboutPageQuery, {}, opts),
     sanityClient.fetch<HomeService[]>(homeServicesQuery, {}, opts),
+    sanityClient.fetch<Technology[]>(technologiesQuery, {}, opts),
     sanityClient.fetch<HomeFounder[]>(homeFoundersQuery, {}, opts),
     sanityClient.fetch<SanityReview[]>(reviewsQuery, {}, opts),
     sanityClient.fetch<SiteSettings>(siteSettingsQuery, {}, opts),
@@ -49,6 +52,7 @@ export default async function KaLandingPage() {
       homePage={homePage ?? null}
       about={about ?? null}
       services={services ?? []}
+      technologies={technologies ?? []}
       team={team ?? []}
       reviews={reviews ?? []}
       settings={settings ?? null}

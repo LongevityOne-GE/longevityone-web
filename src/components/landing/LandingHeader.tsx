@@ -2,6 +2,7 @@ import Link from 'next/link'
 import type { Locale } from '@/lib/utils'
 import { Logo } from '@/components/shared/Logo'
 import { CALL_CTA_LABEL } from '@/lib/features'
+import { LeadCaptureForm } from '@/components/sections/LeadCaptureForm'
 import { LANDING_SECTIONS, landingPath } from './sections'
 
 interface LandingHeaderProps {
@@ -46,12 +47,12 @@ export function LandingHeader({ locale }: LandingHeaderProps) {
           >
             {other === 'en' ? 'EN' : 'ქარ'}
           </Link>
-          <a
-            href="#form"
-            className="whitespace-nowrap bg-burnt-orange px-3 py-2.5 text-[10px] font-bold uppercase tracking-[0.1em] text-bone-white transition-colors hover:bg-dark-brown md:px-5 md:tracking-[0.2em]"
-          >
-            {CALL_CTA_LABEL[locale]}
-          </a>
+          <LeadCaptureForm
+            locale={locale}
+            source="landing_header"
+            label={CALL_CTA_LABEL[locale]}
+            triggerClassName="whitespace-nowrap gap-2 bg-burnt-orange px-3 py-2.5 text-[10px] tracking-[0.1em] text-bone-white hover:bg-dark-brown md:px-5 md:tracking-[0.2em]"
+          />
         </div>
       </div>
 
