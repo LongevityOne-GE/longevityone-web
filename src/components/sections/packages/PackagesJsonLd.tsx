@@ -9,7 +9,7 @@ interface PackagesJsonLdProps {
 
 const PROVIDER = {
   '@type': 'MedicalClinic',
-  name: 'Longevity One',
+  name: 'LongevityOne',
   address: {
     '@type': 'PostalAddress',
     streetAddress: '4a Tamarashvili St',

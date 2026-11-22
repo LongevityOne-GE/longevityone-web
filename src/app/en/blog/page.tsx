@@ -9,7 +9,7 @@ export const metadata: Metadata = buildMetadata({
   path: '/blog',
   title: 'Longevity and Preventive Medicine Articles',
   description:
-    'Read Longevity One articles on longevity, biological age, preventive medicine, metabolic health, diagnostics, and personalized health programs in Georgia.',
+    'Read LongevityOne articles on longevity, biological age, preventive medicine, metabolic health, diagnostics, and personalized health programs in Georgia.',
   keywords: [
     'longevity articles Georgia',
     'preventive medicine blog Georgia',

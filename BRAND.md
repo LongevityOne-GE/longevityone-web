@@ -1,4 +1,4 @@
-# Longevity One: Brand Guidelines
+# LongevityOne: Brand Guidelines
 
 > Source of truth: Visual Identity Guidelines.pdf in project files
 > Every component must follow every rule here.
@@ -8,8 +8,8 @@
 
 ## Brand Essence
 
-- **Display name:** Longevity One (two words, space between)
-- **Georgian logo name:** Longevity One — logo/brand assets ONLY, never in body copy
+- **Display name:** LongevityOne (two words, space between)
+- **Georgian logo name:** LongevityOne — logo/brand assets ONLY, never in body copy
 - **Tagline (en):** The Art of Living Longer
 - **Tagline (ka):** დღეგრძელობის ხელოვნება
 - **Category:** Preventive Medicine Center — luxury longevity clinic
@@ -185,8 +185,8 @@ transitionTimingFunction: {
 
 ## Logo
 
-- **On Georgian pages:** use Longevity One version (logo asset)
-- **On English pages:** use Longevity One version (logo asset)
+- **On Georgian pages:** use LongevityOne version (logo asset)
+- **On English pages:** use LongevityOne version (logo asset)
 - **Minimum sizes:** 120px (full lockup), 80px (compact), 32px (icon only)
 - **Exclusion zone:** clear space equal to the height of the "L" in LONGEVITY on all sides
 - **On dark backgrounds:** bone-white version of logo

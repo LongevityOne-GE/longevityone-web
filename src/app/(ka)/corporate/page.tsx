@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: data?.seo_title_ka || 'კორპორატიული ჯანმრთელობა და Executive Checkup საქართველოში',
     description:
       data?.seo_description_ka ||
-      'Longevity One ქმნის კორპორატიული ჯანმრთელობის და executive health checkup პროგრამებს თბილისში, პრევენციული დიაგნოსტიკით, ბიოლოგიური ასაკის შეფასებით და პერსონალიზებული რეკომენდაციებით.',
+      'LongevityOne ქმნის კორპორატიული ჯანმრთელობის და executive health checkup პროგრამებს თბილისში, პრევენციული დიაგნოსტიკით, ბიოლოგიური ასაკის შეფასებით და პერსონალიზებული რეკომენდაციებით.',
     keywords: ['კორპორატიული ჯანმრთელობა', 'executive checkup თბილისი', 'ჯანმრთელობის პროგრამები კომპანიებისთვის'],
   })
 }

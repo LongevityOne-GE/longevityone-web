@@ -22,13 +22,13 @@ export function ContactSection({ locale, settings }: ContactSectionProps) {
   const clinicLabel = locale === 'ka' ? 'ჩვენი კლინიკა' : 'Our clinic'
   const clinicPhotoAlt =
     locale === 'ka'
-      ? 'Longevity One კლინიკის სივრცე'
-      : 'Longevity One clinic interior'
+      ? 'LongevityOne კლინიკის სივრცე'
+      : 'LongevityOne clinic interior'
 
   const address = locale === 'ka' ? settings?.address_ka : settings?.address_en
   const hours = locale === 'ka' ? settings?.openingHours_ka : settings?.openingHours_en
   const sanitizedAddress = address?.replace(/^\s*[-\u2013]\s*/, '') ?? address
-  const mapLabel = locale === 'ka' ? 'Longevity One \u10d9\u10da\u10d8\u10dc\u10d8\u10d9\u10d8\u10e1 \u10e0\u10e3\u10d9\u10d0' : 'Map to Longevity One clinic'
+  const mapLabel = locale === 'ka' ? 'LongevityOne \u10d9\u10da\u10d8\u10dc\u10d8\u10d9\u10d8\u10e1 \u10e0\u10e3\u10d9\u10d0' : 'Map to LongevityOne clinic'
 
   const geo = parseGeo(settings?.maps_url)
   const mapEmbedSrc = geo
@@ -60,7 +60,7 @@ export function ContactSection({ locale, settings }: ContactSectionProps) {
                     {clinicLabel}
                   </span>
                   <span className="text-[11px] font-light tracking-[0.18em]">
-                    Longevity One
+                    LongevityOne
                   </span>
                 </figcaption>
               </figure>
@@ -178,7 +178,7 @@ export function ContactSection({ locale, settings }: ContactSectionProps) {
             <div className="bg-bone-white/90 backdrop-blur-sm rounded-[32px] border border-dark-brown/10 shadow-[0_32px_80px_rgba(66,41,34,0.14)] p-8 md:p-10 lg:p-12 h-full flex flex-col">
               <div className="mb-8 space-y-3">
                 <span className="text-[11px] uppercase tracking-[0.32em] text-burnt-orange font-semibold">
-                  {locale === 'ka' ? 'დაგვიკავშირდით' : 'Contact Longevity One'}
+                  {locale === 'ka' ? 'დაგვიკავშირდით' : 'Contact LongevityOne'}
                 </span>
                 <h2 className="text-2xl md:text-3xl font-black text-dark-brown leading-tight">
                   {formHeading}

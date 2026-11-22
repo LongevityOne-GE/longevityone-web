@@ -4,7 +4,7 @@ export function ContactHero() {
   return (
     <section
       className="relative w-full overflow-hidden bg-dark-brown"
-      aria-label="Longevity One contact film"
+      aria-label="LongevityOne contact film"
     >
       <div className="relative aspect-video w-full max-h-[100vh]">
         <video

@@ -13,7 +13,7 @@ interface AboutTeamSectionProps {
 export function AboutTeamSection({ locale, members }: AboutTeamSectionProps) {
   if (!members.length) return null
 
-  const heading = locale === 'ka' ? 'Longevity One-ის გუნდი' : 'The Longevity One Team'
+  const heading = locale === 'ka' ? 'LongevityOne-ის გუნდი' : 'The LongevityOne Team'
 
   return (
     <section className="relative bg-bone-white text-dark-brown py-20 md:py-28 overflow-hidden">

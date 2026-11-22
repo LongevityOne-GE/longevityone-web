@@ -27,6 +27,7 @@ const DEFAULT_KEYWORDS: Record<Locale, string[]> = {
     'მეტაბოლური ჯანმრთელობა',
     'VO2 Max ტესტი',
     'მიკრობიომი',
+    'LongevityOne',
     'Longevity One',
     'longevityone.ge',
   ],
@@ -41,6 +42,7 @@ const DEFAULT_KEYWORDS: Record<Locale, string[]> = {
     'metabolic health clinic',
     'VO2 Max test Tbilisi',
     'microbiome testing Georgia',
+    'LongevityOne',
     'Longevity One',
     'longevityone.ge',
   ],
@@ -88,7 +90,7 @@ export interface BuildMetadataInput {
   title?: string | null
   description?: string | null
   /**
-   * Use the title verbatim, bypassing the root `%s | Longevity One` template.
+   * Use the title verbatim, bypassing the root `%s | LongevityOne` template.
    * Set on the homepage where the title already contains the brand.
    */
   titleAbsolute?: boolean

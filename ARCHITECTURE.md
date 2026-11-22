@@ -1,4 +1,4 @@
-# Longevity One: Technical Architecture
+# LongevityOne: Technical Architecture
 
 ---
 
@@ -434,8 +434,8 @@ const securityHeaders = [
 const clinicSchema = {
   "@context": "https://schema.org",
   "@type": "MedicalClinic",
-  "name": "Longevity One",
-  "alternateName": "Longevity One Preventive Medicine Center",
+  "name": "LongevityOne",
+  "alternateName": "LongevityOne Preventive Medicine Center",
   "url": "https://www.longevityone.ge",
   "telephone": "+995511708888",
   "email": "info@longevityone.ge",

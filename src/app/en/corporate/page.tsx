@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: data?.seo_title_en || 'Corporate Wellness and Executive Checkups in Georgia',
     description:
       data?.seo_description_en ||
-      'Longevity One builds corporate wellness and executive health checkup programs in Tbilisi with preventive diagnostics, biological age assessment, and personalized recommendations.',
+      'LongevityOne builds corporate wellness and executive health checkup programs in Tbilisi with preventive diagnostics, biological age assessment, and personalized recommendations.',
     keywords: ['corporate wellness Georgia', 'executive health checkup Tbilisi', 'company health programs Georgia'],
   })
 }

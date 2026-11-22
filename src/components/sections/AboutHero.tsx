@@ -14,7 +14,7 @@ export function AboutHero() {
   return (
     <section
       className="relative w-full overflow-hidden bg-dark-brown"
-      aria-label="Longevity One brand film"
+      aria-label="LongevityOne brand film"
     >
       <div className="relative aspect-video w-full max-h-[100vh]">
         <video

@@ -33,10 +33,10 @@ export const aboutPage = defineType({
       rows: 4,
     }),
 
-    // ─── Why Longevity One - 3 pillars ────────────────────────────────────────
+    // ─── Why LongevityOne - 3 pillars ────────────────────────────────────────
     defineField({
       name: 'why_pillars',
-      title: 'Why Longevity One - 3 Pillars',
+      title: 'Why LongevityOne - 3 Pillars',
       type: 'array',
       of: [
         {

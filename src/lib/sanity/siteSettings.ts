@@ -251,7 +251,7 @@ export const siteSettings = defineType({
       name: 'footer_copyright_ka',
       title: 'Footer Copyright Text (Georgian)',
       type: 'string',
-      description: 'e.g. © 2026 Longevity One. ყველა უფლება დაცულია.',
+      description: 'e.g. © 2026 LongevityOne. ყველა უფლება დაცულია.',
     }),
     defineField({
       name: 'footer_copyright_en',

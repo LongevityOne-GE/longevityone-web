@@ -6,7 +6,7 @@ import { ImageResponse } from 'next/og'
  * canonical `www` host via metadataBase. Per-page metadata may override this
  * (e.g. blog posts use their Sanity cover image).
  */
-export const alt = 'Longevity One — Preventive Medicine Center, Tbilisi'
+export const alt = 'LongevityOne - Preventive Medicine Center, Tbilisi'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -35,7 +35,7 @@ export default function OpengraphImage() {
           }}
         />
         <div style={{ fontSize: '92px', fontWeight: 700, letterSpacing: '-2px' }}>
-          Longevity One
+          LongevityOne
         </div>
         <div style={{ fontSize: '42px', marginTop: '20px', opacity: 0.85 }}>
           The Art of Living Longer

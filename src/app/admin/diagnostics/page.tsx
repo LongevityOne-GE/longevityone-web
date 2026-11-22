@@ -20,7 +20,7 @@ export default async function AdminDiagnosticsPage() {
   return (
     <main className="px-6 py-12 md:px-10">
       <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-burnt-orange">
-        Longevity One
+        LongevityOne
       </p>
       <h1 className="text-2xl font-black text-dark-brown">Tracking check</h1>
       <p className="mt-2 max-w-2xl text-sm text-dark-brown/60">
