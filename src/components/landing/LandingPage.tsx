@@ -4,7 +4,6 @@ import type {
   AboutPage,
   HomeFounder,
   HomePageData,
-  HomeService,
   SanityReview,
   SiteSettings,
   Technology,
@@ -13,8 +12,6 @@ import type { ActivePromotion } from '@/lib/promotions'
 import { renderMultiline } from '@/lib/text'
 import { localizedTechName } from '@/lib/utils'
 import { LeadCaptureForm } from '@/components/sections/LeadCaptureForm'
-import { Pillars } from '@/components/sections/Pillars'
-import { GodVideo } from '@/components/shared/GodVideo'
 import { ReviewsSection } from '@/components/sections/reviews/ReviewsSection'
 import { PhoneLink } from '@/components/shared/PhoneLink'
 import { CALL_CTA_LABEL } from '@/lib/features'
@@ -24,7 +21,6 @@ interface LandingPageProps {
   locale: Locale
   homePage: HomePageData | null
   about: AboutPage | null
-  services: HomeService[]
   technologies: Technology[]
   team: HomeFounder[]
   reviews: SanityReview[]
@@ -58,7 +54,7 @@ const ANCHOR = 'scroll-mt-32 lg:scroll-mt-24'
 
 /**
  * One-page landing for paid traffic: what LongevityOne is with a call-request
- * button right under it, then about, services and procedures, team, reviews and
+ * button right under it, then the procedures offered, about, team, reviews and
  * a closing call to action. The form opens in a popup. No links lead off the page.
  * Content comes from the same Sanity documents as the main site.
  */
@@ -66,7 +62,6 @@ export function LandingPage({
   locale,
   homePage,
   about,
-  services,
   technologies,
   team,
   reviews,
@@ -99,10 +94,10 @@ export function LandingPage({
           </div>
         )}
 
-        {/* What LongevityOne is, the call-request button, and the brand motion. */}
-        <section className="bg-bone-white py-10 md:py-16">
-          <div className="section-container grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
-            <div className="lg:pt-6">
+        {/* What LongevityOne is, with the call-request button right under it. */}
+        <section className="bg-bone-white py-12 md:py-20">
+          <div className="section-container">
+            <div className="max-w-3xl">
               {h1 && (
                 <h1 className="mb-6 text-3xl font-black leading-[1.1] text-dark-brown sm:text-4xl lg:text-5xl">
                   {renderMultiline(h1)}
@@ -125,20 +120,32 @@ export function LandingPage({
                 triggerClassName={CTA_BUTTON}
               />
             </div>
-
-            <div className="relative mx-auto aspect-square w-full max-w-md overflow-hidden lg:max-w-none lg:aspect-[5/4]">
-              <GodVideo
-                src={{
-                  webm: '/videos/gods/webm/god-discobolus-original-boomerang.webm',
-                  mp4: '/videos/gods/god-discobolus.mp4',
-                }}
-                poster="/videos/posters/god-discobolus-original-boomerang.jpg"
-                fit="contain"
-                position="center"
-              />
-            </div>
           </div>
         </section>
+
+        <div id="services" className={ANCHOR}>
+          {technologies.length > 0 && (
+            <section className="border-t border-dark-brown/10 bg-bone-white py-16 md:py-24">
+              <div className="section-container">
+                <h2 className="mb-12 text-3xl font-black text-dark-brown md:text-5xl">
+                  {t.proceduresHeading}
+                </h2>
+                <div className="grid grid-cols-1 gap-x-10 gap-y-8 md:grid-cols-2 lg:grid-cols-3">
+                  {technologies.map((tech) => (
+                    <div key={tech._id} className="border-t border-dark-brown/20 pt-6">
+                      <h3 className="mb-2 text-lg font-bold text-dark-brown">
+                        {localizedTechName(tech, locale)}
+                      </h3>
+                      <p className="text-sm font-light leading-relaxed text-dark-brown/75">
+                        {pick(tech.tagline_ka, tech.tagline_en)}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+        </div>
 
         {pillars.length > 0 && (
           <section id="about" className={`${ANCHOR} border-t border-dark-brown/10 bg-bone-white py-16 md:py-28`}>
@@ -164,30 +171,6 @@ export function LandingPage({
           </section>
         )}
 
-        <div id="services" className={ANCHOR}>
-          <Pillars locale={locale} services={services} data={homePage} showLinks={false} />
-          {technologies.length > 0 && (
-            <section className="bg-bone-white py-16 md:py-24">
-              <div className="section-container">
-                <h2 className="mb-12 text-3xl font-black text-dark-brown md:text-5xl">
-                  {t.proceduresHeading}
-                </h2>
-                <div className="grid grid-cols-1 gap-x-10 gap-y-8 md:grid-cols-2 lg:grid-cols-3">
-                  {technologies.map((tech) => (
-                    <div key={tech._id} className="border-t border-dark-brown/20 pt-6">
-                      <h3 className="mb-2 text-lg font-bold text-dark-brown">
-                        {localizedTechName(tech, locale)}
-                      </h3>
-                      <p className="text-sm font-light leading-relaxed text-dark-brown/75">
-                        {pick(tech.tagline_ka, tech.tagline_en)}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-          )}
-        </div>
 
         {team.length > 0 && (
           <section id="team" className={`${ANCHOR} bg-bone-white py-16 md:py-28`}>
