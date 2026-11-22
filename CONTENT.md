@@ -1,4 +1,4 @@
-# Longevity One: Website Content (COMPLETE FINAL)
+# LongevityOne: Website Content (COMPLETE FINAL)
 
 > **Version:** COMPLETE — All blockers from review session resolved.
 > This is the single master content file. All content goes into Sanity CMS.
@@ -71,8 +71,8 @@ Legal
 **H1 (ka):** მართეთ თქვენი ბიოლოგიური დრო
 **H1 (en):** Master Your Biological Time
 
-**H2 (ka):** Longevity One — პრევენციული მედიცინის ცენტრი, სადაც სამეცნიერო სიზუსტე შეხვდება დღეგრძელობის ხელოვნებას.
-**H2 (en):** Longevity One — a preventive medicine centre where scientific precision meets the art of longevity.
+**H2 (ka):** LongevityOne — პრევენციული მედიცინის ცენტრი, სადაც სამეცნიერო სიზუსტე შეხვდება დღეგრძელობის ხელოვნებას.
+**H2 (en):** LongevityOne — a preventive medicine centre where scientific precision meets the art of longevity.
 
 **Body (ka):** ჩვენი მიზანია არა მხოლოდ დაავადების არარსებობა, არამედ ადამიანის ბიოლოგიური პოტენციალის მაქსიმიზაცია — ზუსტ მონაცემებსა და მეცნიერებაზე დაყრდნობით.
 **Body (en):** Our goal is not merely the absence of disease, but the maximisation of human biological potential — grounded in precise data and science.
@@ -215,10 +215,10 @@ Legal
 **H1 (ka):** ერთი მეცნიერება / ერთი ჯანმრთელობა / ერთი მომავალი _(rendered on three lines)_
 **H1 (en):** One Science / One Health / One Future _(rendered on three lines)_
 
-**Philosophy (ka):** Longevity One არის ინოვაციური პრევენციული მედიცინის ცენტრი, რომელიც სცილდება ტრადიციული მედიცინის ჩარჩოებს. ჩვენი მიზანია ადამიანის ბიოლოგიური პოტენციალის მაქსიმიზაცია — ზუსტი მონაცემებისა და სამეცნიერო მიდგომის საფუძველზე.
-**Philosophy (en):** Longevity One is an innovative preventive medicine centre that steps beyond the boundaries of traditional medicine. Our aim is the maximisation of human biological potential — grounded in precise data and a rigorous scientific approach.
+**Philosophy (ka):** LongevityOne არის ინოვაციური პრევენციული მედიცინის ცენტრი, რომელიც სცილდება ტრადიციული მედიცინის ჩარჩოებს. ჩვენი მიზანია ადამიანის ბიოლოგიური პოტენციალის მაქსიმიზაცია — ზუსტი მონაცემებისა და სამეცნიერო მიდგომის საფუძველზე.
+**Philosophy (en):** LongevityOne is an innovative preventive medicine centre that steps beyond the boundaries of traditional medicine. Our aim is the maximisation of human biological potential — grounded in precise data and a rigorous scientific approach.
 
-**Why Longevity One: 3 pillars:**
+**Why LongevityOne: 3 pillars:**
 - (ka) სამეცნიერო სიზუსტე: ექსკლუზიური პარტნიორობა PNOE-სთან, TrueDiagnostic-თან და Enbiosis-თან საქართველოში.
   (en) Scientific Precision: Exclusive partnership with PNOE, TrueDiagnostic, and Enbiosis in Georgia.
 - (ka) მონაცემებზე დაფუძნებული მიდგომა: საქართველოში პირველი კომპლექსური მეტაბოლური მონაცემთა ბაზის შექმნა.
@@ -231,18 +231,18 @@ Legal
 ### Founding Story
 
 **English:**
-Longevity One was founded by five Georgian physicians who have been close friends since medical school. Each built a distinguished career — some in Georgia, some abroad — and for years they shared one ambition: to bring their collective expertise home and make a genuine, lasting contribution to people's health in their country.
+LongevityOne was founded by five Georgian physicians who have been close friends since medical school. Each built a distinguished career — some in Georgia, some abroad — and for years they shared one ambition: to bring their collective expertise home and make a genuine, lasting contribution to people's health in their country.
 
 The choice of field was clear. Longevity medicine — preventive, data-driven, deeply personalised — was a discipline Georgia simply lacked. The science existed. The technology existed. The commitment to build something real around it did too.
 
-They founded Longevity One on a single conviction: medicine should not stop at the absence of disease. Its true purpose is to help people live not just longer — but better.
+They founded LongevityOne on a single conviction: medicine should not stop at the absence of disease. Its true purpose is to help people live not just longer — but better.
 
 **Georgian:**
-Longevity One ხუთი ქართველი ექიმის მიერ დაარსდა, რომელთაც სამედიცინო უნივერსიტეტიდან მოყოლებული მრავალწლიანი მეგობრობა აკავშირებთ. თითოეულმა მათგანმა გამორჩეული კარიერა შექმნა — ზოგმა საქართველოში, ზოგმა კი საზღვარგარეთ — თუმცა წლების განმავლობაში მათ ერთი საერთო მიზანი აერთიანებდათ: საკუთარი ცოდნის სამშობლოში დაბრუნება და ადამიანების ჯანმრთელობაზე ნამდვილი, გრძელვადიანი გავლენის მოხდენა.
+LongevityOne ხუთი ქართველი ექიმის მიერ დაარსდა, რომელთაც სამედიცინო უნივერსიტეტიდან მოყოლებული მრავალწლიანი მეგობრობა აკავშირებთ. თითოეულმა მათგანმა გამორჩეული კარიერა შექმნა — ზოგმა საქართველოში, ზოგმა კი საზღვარგარეთ — თუმცა წლების განმავლობაში მათ ერთი საერთო მიზანი აერთიანებდათ: საკუთარი ცოდნის სამშობლოში დაბრუნება და ადამიანების ჯანმრთელობაზე ნამდვილი, გრძელვადიანი გავლენის მოხდენა.
 
 სამუშაო სფეროს არჩევანი ბუნებრივი იყო. სიცოცხლის ხანგრძლივობის მედიცინა — პრევენციული, მონაცემებზე დაფუძნებული და პერსონალიზებული — სწორედ ის მიმართულება აღმოჩნდა, რომლის ნაკლებობასაც საქართველო განიცდიდა. მეცნიერება და ტექნოლოგია უკვე არსებობდა, ჩვენი მისია კი ამ ყველაფრისთვის რეალური ფორმის მიცემა და მისი ქვეყანაში დანერგვა გახდა.
 
-Longevity One ერთი ურყევი რწმენით შეიქმნა: მედიცინა მხოლოდ დაავადების არარსებობით არ უნდა შემოიფარგლებოდეს. მისი ჭეშმარიტი დანიშნულებაა, დაეხმაროს ადამიანს იცხოვროს არა მხოლოდ უფრო დიდხანს — არამედ უკეთესად.
+LongevityOne ერთი ურყევი რწმენით შეიქმნა: მედიცინა მხოლოდ დაავადების არარსებობით არ უნდა შემოიფარგლებოდეს. მისი ჭეშმარიტი დანიშნულებაა, დაეხმაროს ადამიანს იცხოვროს არა მხოლოდ უფრო დიდხანს — არამედ უკეთესად.
 
 ---
 
@@ -287,8 +287,8 @@ Longevity One ერთი ურყევი რწმენით შეიქ
 **Intro (ka):** ფიზიკური შესაძლებლობების პიკი და სწრაფი აღდგენა — მეცნიერული უპირატესობით.
 **Intro (en):** Peak physical capability and accelerated recovery, backed by science.
 
-**Full body (ka):** Longevity One-ის Elite Performance პროგრამა გთავაზობთ მეცნიერულ უპირატესობას — პროფესიონალი სპორტსმენისთვის და მაღალი ეფექტიანობის მქონე ლიდერისთვის. IHHT თერაპია ქმნის „მაღალმთიანი შეკრების" ეფექტს თბილისში, განაახლებს მიტოქონდრიებს და ზრდის ენერგეტიკულ გამომავლობას. Red Light თერაპია კი უზრუნველყოფს კუნთოვანი ქსოვილის სწრაფ რეგენერაციას ფიზიკური დატვირთვის შემდეგ. PNOE-ს VO₂ Max ტესტი გვიჩვენებს თქვენს ზუსტ ფიზიკურ პოტენციალს — და სად არის ზრდის ყველაზე დიდი რეზერვი.
-**Full body (en):** Longevity One's Elite Performance programme delivers a scientific edge for professional athletes and high-performing leaders alike. IHHT creates an altitude training effect in Tbilisi, renewing mitochondria and boosting energy output. Red Light therapy ensures rapid muscle tissue regeneration post-exertion. PNOE VO₂ Max testing reveals your precise physical potential — and where the greatest room for growth lies.
+**Full body (ka):** LongevityOne-ის Elite Performance პროგრამა გთავაზობთ მეცნიერულ უპირატესობას — პროფესიონალი სპორტსმენისთვის და მაღალი ეფექტიანობის მქონე ლიდერისთვის. IHHT თერაპია ქმნის „მაღალმთიანი შეკრების" ეფექტს თბილისში, განაახლებს მიტოქონდრიებს და ზრდის ენერგეტიკულ გამომავლობას. Red Light თერაპია კი უზრუნველყოფს კუნთოვანი ქსოვილის სწრაფ რეგენერაციას ფიზიკური დატვირთვის შემდეგ. PNOE-ს VO₂ Max ტესტი გვიჩვენებს თქვენს ზუსტ ფიზიკურ პოტენციალს — და სად არის ზრდის ყველაზე დიდი რეზერვი.
+**Full body (en):** LongevityOne's Elite Performance programme delivers a scientific edge for professional athletes and high-performing leaders alike. IHHT creates an altitude training effect in Tbilisi, renewing mitochondria and boosting energy output. Red Light therapy ensures rapid muscle tissue regeneration post-exertion. PNOE VO₂ Max testing reveals your precise physical potential — and where the greatest room for growth lies.
 
 **Technologies used:** PNOE (VO₂ Max), IHHT, Red Light Therapy
 
@@ -376,7 +376,7 @@ Longevity One ერთი ურყევი რწმენით შეიქ
 **Your benefit (ka):** შეძლებთ მართოთ თქვენი ბიოლოგიური დრო. თუ თქვენი ბიოლოგიური ასაკი პასპორტის მონაცემებს აჭარბებს, ჩვენი გეგმა დაგეხმარებათ ამ პროცესის შეფერხებასა და შებრუნებაში.
 **Your benefit (en):** You gain the ability to manage your biological time. If your biological age exceeds your passport age, our plan will help slow and reverse that process.
 
-**Note:** US-based laboratory. Longevity One holds exclusive partnership for TrueDiagnostic in Georgia.
+**Note:** US-based laboratory. LongevityOne holds exclusive partnership for TrueDiagnostic in Georgia.
 
 ---
 
@@ -391,7 +391,7 @@ Longevity One ერთი ურყევი რწმენით შეიქ
 **Your benefit (ka):** მიკრობიომის ბალანსის აღდგენით ვაუმჯობესებთ ნივთიერებათა ცვლას უჯრედულ დონეზე და გთავაზობთ პერსონალიზებულ კვებით რეკომენდაციებს — სწორედ თქვენი ფლორის შემადგენლობის მიხედვით.
 **Your benefit (en):** By restoring microbiome balance, we improve metabolism at the cellular level and provide highly personalised nutritional recommendations tailored to your specific flora.
 
-**Note:** Longevity One holds exclusive partnership for Enbiosis in Georgia.
+**Note:** LongevityOne holds exclusive partnership for Enbiosis in Georgia.
 
 ---
 
@@ -454,8 +454,8 @@ Longevity One ერთი ურყევი რწმენით შეიქ
 **Section heading (ka):** საწევრო პაკეტები
 **Section heading (en):** Membership Plans
 
-**Intro (ka):** გახდით Longevity One-ის წევრი და ისარგებლეთ ექსკლუზიური წვდომით, ფასდაკლებებით და პრიორიტეტული მომსახურებით ყოველ თვე.
-**Intro (en):** Become a Longevity One member and enjoy exclusive access, discounts, and priority service every month.
+**Intro (ka):** გახდით LongevityOne-ის წევრი და ისარგებლეთ ექსკლუზიური წვდომით, ფასდაკლებებით და პრიორიტეტული მომსახურებით ყოველ თვე.
+**Intro (en):** Become a LongevityOne member and enjoy exclusive access, discounts, and priority service every month.
 
 #### Silver: ფორმის შენარჩუნება / The Maintenance Pass
 **Price:** 650 GEL / თვე · per month
@@ -507,14 +507,14 @@ Longevity One ერთი ურყევი რწმენით შეიქ
 - სრული სხეულის მონიტორინგი: ყოველთვიური დინამომეტრია + კვარტალური PNOE აუდიტი
 - უფასო TrueAge ტესტი — წელიწადში ერთხელ
 - Personal Health Concierge — პირდაპირი ხაზი კლინიკის ექსპერტთან
-- Elite Network — მოწვევა დახურულ „Longevity One-on-One" სემინარებზე
+- Elite Network — მოწვევა დახურულ „LongevityOne-on-One" სემინარებზე
 
 **Includes (en):**
 - 8 IHHT sessions + 8 Red Light Therapy sessions
 - Full body monitoring: monthly Dynamometry + quarterly PNOE audit
 - Complimentary TrueAge test — once per year
 - Personal Health Concierge — direct line to a clinic expert
-- Elite Network — invitation to exclusive Longevity One-on-One seminars
+- Elite Network — invitation to exclusive LongevityOne-on-One seminars
 
 ---
 
@@ -524,10 +524,10 @@ Longevity One ერთი ურყევი რწმენით შეიქ
 **H1 (en):** Frequently Asked Questions
 
 **Q1:**
-- ka: რა არის Longevity One და რით განსხვავდება ტრადიციული კლინიკისგან?
-- en: What is Longevity One and how does it differ from a traditional clinic?
-- ka (answer): Longevity One არის პრევენციული და ინტეგრაციული მედიცინის ცენტრი. ტრადიციული მედიცინისგან განსხვავებით, ჩვენი მიზანია არა მხოლოდ დაავადების არარსებობა, არამედ ადამიანის ბიოლოგიური პოტენციალის მაქსიმიზაცია — ზუსტ მონაცემებსა და მეცნიერებაზე დაყრდნობით.
-- en (answer): Longevity One is a preventive and integrative medicine centre. Unlike traditional medicine, our goal isn't merely the absence of disease, but the maximisation of human biological potential — grounded in precise data and science.
+- ka: რა არის LongevityOne და რით განსხვავდება ტრადიციული კლინიკისგან?
+- en: What is LongevityOne and how does it differ from a traditional clinic?
+- ka (answer): LongevityOne არის პრევენციული და ინტეგრაციული მედიცინის ცენტრი. ტრადიციული მედიცინისგან განსხვავებით, ჩვენი მიზანია არა მხოლოდ დაავადების არარსებობა, არამედ ადამიანის ბიოლოგიური პოტენციალის მაქსიმიზაცია — ზუსტ მონაცემებსა და მეცნიერებაზე დაყრდნობით.
+- en (answer): LongevityOne is a preventive and integrative medicine centre. Unlike traditional medicine, our goal isn't merely the absence of disease, but the maximisation of human biological potential — grounded in precise data and science.
 
 **Q2:**
 - ka: რა არის ბიოლოგიური ასაკი და რატომ უნდა ვიცოდე ის?
@@ -566,8 +566,8 @@ Longevity One ერთი ურყევი რწმენით შეიქ
 - en (answer): No. Our target audience includes professional athletes, C-level executives, and anyone focused on high productivity and a long, healthy life.
 
 **Q8:**
-- ka: როგორ დავიწყო Longevity One-ში?
-- en: How do I start my journey at Longevity One?
+- ka: როგორ დავიწყო LongevityOne-ში?
+- en: How do I start my journey at LongevityOne?
 - ka (answer): საუკეთესო გამოსავალია STARTER პაკეტით დაწყება — ის საბაზისო ბიოლოგიურ და მეტაბოლურ შეფასებას გვაძლევს. ამის შემდეგ ჩვენი ექსპერტები დაგეხმარებიან გრძელვადიანი პროგრამის შერჩევაში, თქვენი მიზნებისა და შედეგების მიხედვით.
 - en (answer): The best starting point is the STARTER package, which provides a foundational biological and metabolic assessment. Our experts will then help select the ideal long-term programme tailored to your goals and results.
 
@@ -578,8 +578,8 @@ Longevity One ერთი ურყევი რწმენით შეიქ
 **H1 (ka):** ინვესტიცია ადამიანურ კაპიტალში
 **H1 (en):** Investing in Human Capital
 
-**Intro (ka):** ჯანმრთელი, ენერგიული გუნდი კომპანიის ყველაზე ძლიერი კონკურენტული უპირატესობაა. Longevity One გთავაზობთ კორპორატიულ ჯანმრთელობის პროგრამებს, რომლებიც ზრდის პროდუქტიულობას, ამცირებს პროფესიული გადაღლის რისკს და იცავს კომპანიის ყველაზე ღირებულ რესურსს.
-**Intro (en):** A healthy, energised team is a company's strongest competitive advantage. Longevity One offers corporate wellness programmes that increase productivity, reduce burnout risk, and protect a company's most valuable resource.
+**Intro (ka):** ჯანმრთელი, ენერგიული გუნდი კომპანიის ყველაზე ძლიერი კონკურენტული უპირატესობაა. LongevityOne გთავაზობთ კორპორატიულ ჯანმრთელობის პროგრამებს, რომლებიც ზრდის პროდუქტიულობას, ამცირებს პროფესიული გადაღლის რისკს და იცავს კომპანიის ყველაზე ღირებულ რესურსს.
+**Intro (en):** A healthy, energised team is a company's strongest competitive advantage. LongevityOne offers corporate wellness programmes that increase productivity, reduce burnout risk, and protect a company's most valuable resource.
 
 **Programme 1: Executive Longevity**
 - ka: C-level მენეჯერებისთვის — ენერგიის მართვისა და გონებრივი სიცხადის სპეციალიზებული პროგრამები.
@@ -603,8 +603,8 @@ Longevity One ერთი ურყევი რწმენით შეიქ
 **H1 (ka):** თქვენი მოგზაურობა — 8 ეტაპი
 **H1 (en):** Your Journey — 8 Stages
 
-**Intro (ka):** Longevity One-ში ყველაფერი სისტემატური და პერსონალიზებულია — ციფრული ონბორდინგიდან 12-კვირიანი მიკრო-კოუჩინგით დასრულებამდე.
-**Intro (en):** At Longevity One, everything is systematic and personalised — from digital onboarding through to 12 weeks of micro-coaching.
+**Intro (ka):** LongevityOne-ში ყველაფერი სისტემატური და პერსონალიზებულია — ციფრული ონბორდინგიდან 12-კვირიანი მიკრო-კოუჩინგით დასრულებამდე.
+**Intro (en):** At LongevityOne, everything is systematic and personalised — from digital onboarding through to 12 weeks of micro-coaching.
 
 **Stage 1: ციფრული ონბორდინგი / Digital Onboarding**
 - ka: ჩვენი ქეარ მენეჯერი გიკავშირდებათ, განმარტავს ვიზიტის სტრუქტურას და გაივლის ციფრულ წინასწარ შეფასებასთან ერთად (15–20 წუთი). მოიცავს კითხვარებს ძილის (PSQI), ფიზიკური აქტივობის (IPAQ) და კეთილდღეობის (WHO-5) შესახებ.
@@ -685,7 +685,7 @@ Background: [CLINIC TO PROVIDE] | Bio (ka): [CLINIC TO PROVIDE] | Bio (en): [CLI
 ## BLOG (/blog)
 
 > Tone: scientific authority with accessible language. Premium, never sensationalist.
-> Research sources are used as factual reference only — not affiliated with Longevity One.
+> Research sources are used as factual reference only — not affiliated with LongevityOne.
 
 ---
 
@@ -733,7 +733,7 @@ This is the central insight: biological age is not fixed. Unlike the year you we
 
 Discovering that your biological age is younger than your chronological age is genuinely encouraging — confirmation that how you are living is working. Discovering the opposite is not cause for alarm. It is cause for action.
 
-At Longevity One, TrueAge testing is the foundation of our Longevity programme. It transforms the conversation from a vague "you should take care of your health" to a precise "your cells are functioning like someone ten years older — and here is the exact plan to change that." Twelve weeks later, we retest. The before-and-after comparison is not a theory. It is measurable proof.
+At LongevityOne, TrueAge testing is the foundation of our Longevity programme. It transforms the conversation from a vague "you should take care of your health" to a precise "your cells are functioning like someone ten years older — and here is the exact plan to change that." Twelve weeks later, we retest. The before-and-after comparison is not a theory. It is measurable proof.
 
 Your passport age is fixed. Your biological age does not have to be.
 
@@ -771,7 +771,7 @@ Your passport age is fixed. Your biological age does not have to be.
 
 თუ თქვენი ბიოლოგიური ასაკი ქრონოლოგიურ ასაკზე ნაკლებია — ეს ნამდვილი სიხარულის მიზეზია. დასტური, რომ ცხოვრების წესი მუშაობს. თუ საპირისპიროა — ეს პანიკის კი არ არის, მოქმედების საფუძველია.
 
-Longevity One-ში TrueAge ტესტი ჩვენი Longevity პროგრამის საფუძველია. ის საუბარს გარდაქმნის ბუნდოვანი „ჯანმრთელობაზე ზრუნვა ჯობია"-დან ზუსტ „თქვენი უჯრედები ათი წლით უფროსის მსგავსად ფუნქციონირებს — და ეს არის ზუსტი გეგმა ამის შესაცვლელად." 12 კვირის შემდეგ ტესტი მეორდება. შედეგების შედარება — ეს თეორია კი არ არის. ეს გაზომვადი მტკიცებულებაა.
+LongevityOne-ში TrueAge ტესტი ჩვენი Longevity პროგრამის საფუძველია. ის საუბარს გარდაქმნის ბუნდოვანი „ჯანმრთელობაზე ზრუნვა ჯობია"-დან ზუსტ „თქვენი უჯრედები ათი წლით უფროსის მსგავსად ფუნქციონირებს — და ეს არის ზუსტი გეგმა ამის შესაცვლელად." 12 კვირის შემდეგ ტესტი მეორდება. შედეგების შედარება — ეს თეორია კი არ არის. ეს გაზომვადი მტკიცებულებაა.
 
 პასპორტის ასაკი ფიქსირებულია. ბიოლოგიური ასაკი — სულ სხვა ამბავია.
 
@@ -823,7 +823,7 @@ Enbiosis microbiome analysis identifies the specific composition of your gut flo
 
 The solution is not a better diet. It is a better method. Measure first, prescribe second.
 
-Every metabolic programme at Longevity One begins with PNOE testing to establish your exact resting metabolic rate and fat-burning profile. For clients seeking deeper insight, Enbiosis microbiome analysis is added to understand how your gut processes what you eat. From these two precise data points, a nutritional approach is designed that works with your specific biology — not against it.
+Every metabolic programme at LongevityOne begins with PNOE testing to establish your exact resting metabolic rate and fat-burning profile. For clients seeking deeper insight, Enbiosis microbiome analysis is added to understand how your gut processes what you eat. From these two precise data points, a nutritional approach is designed that works with your specific biology — not against it.
 
 There is no willpower required when the plan actually fits. The yo-yo effect disappears when the prescription is accurate. Weight management becomes the predictable outcome of a scientific process — not a test of character.
 
@@ -863,7 +863,7 @@ Enbiosis მიკრობიომის ანალიზი განსა
 
 გამოსავალი უკეთესი დიეტა კი არ არის — გამოსავალი უკეთესი მეთოდია. ჯერ გაზომე, შემდეგ დანიშნე.
 
-Longevity One-ში ყოველი მეტაბოლური პროგრამა PNOE ტესტით იწყება — ზუსტი RMR-ისა და ცხიმის წვის პროფილის დასადგენად. კლიენტებისთვის, ვინც სიღრმისეულ სურათს ეძებს, ემატება Enbiosis მიკრობიომის ანალიზი. ამ ორი ზუსტი გაზომვის საფუძველზე მუშავდება კვებითი მიდგომა, რომელიც თქვენს ბიოლოგიასთან თანხმობაში მუშაობს — და არა მის საწინააღმდეგოდ.
+LongevityOne-ში ყოველი მეტაბოლური პროგრამა PNOE ტესტით იწყება — ზუსტი RMR-ისა და ცხიმის წვის პროფილის დასადგენად. კლიენტებისთვის, ვინც სიღრმისეულ სურათს ეძებს, ემატება Enbiosis მიკრობიომის ანალიზი. ამ ორი ზუსტი გაზომვის საფუძველზე მუშავდება კვებითი მიდგომა, რომელიც თქვენს ბიოლოგიასთან თანხმობაში მუშაობს — და არა მის საწინააღმდეგოდ.
 
 ნებისყოფა არ გჭირდება, როცა გეგმა ჯდება. „იო-იო" ეფექტი ქრება, როცა დანიშნულება ზუსტია. წონის მართვა ხდება სამეცნიერო პროცესის პროგნოზირებადი შედეგი — არა ხასიათის გამოცდა.
 
@@ -911,9 +911,9 @@ Improving VO₂ Max requires a specific and evidence-based combination of traini
 
 Supplemented by one weekly high-intensity session specifically targeting the upper limit of aerobic capacity — intervals performed at or near VO₂ Max effort — meaningful improvement becomes achievable within eight to twelve weeks. The combination is well supported by research and practically accessible to anyone who is not managing a cardiac contraindication.
 
-**The Longevity One Approach**
+**The LongevityOne Approach**
 
-At Longevity One, every client receives PNOE testing that establishes their current VO₂ Max precisely, their exact heart rate training zones, their resting metabolic rate, and their fat oxidation capacity. From these measurements, a personalised, VO₂-driven movement plan is built — specific enough to be effective, simple enough to be followed.
+At LongevityOne, every client receives PNOE testing that establishes their current VO₂ Max precisely, their exact heart rate training zones, their resting metabolic rate, and their fat oxidation capacity. From these measurements, a personalised, VO₂-driven movement plan is built — specific enough to be effective, simple enough to be followed.
 
 The target we set for clients committed to a full programme: a 10 percent improvement in VO₂ Max within 12 weeks. It is ambitious. It is achievable. And the evidence for what that improvement does to long-term health is overwhelming.
 
@@ -951,9 +951,9 @@ VO₂ Max-ის გაუმჯობესება მოითხოვს �
 
 ამას ემატება კვირაში ერთი მაღალინტენსიური სეანსი, რომელიც მიმართულია VO₂ Max-ის ზედა ზღვრისკენ — ინტერვალები, რომლებიც VO₂ Max-ის სიახლოვეს ტარდება. ამ კომბინაციით, 8–12 კვირაში მნიშვნელოვანი გაუმჯობესება მიღწევადია.
 
-**Longevity One-ის მიდგომა**
+**LongevityOne-ის მიდგომა**
 
-Longevity One-ში ყოველ კლიენტს PNOE ტესტი ადგენს: VO₂ Max-ს, ინდივიდუალურ გულისცემის ტრენინგ-ზონებს, RMR-ს და ცხიმის წვის ტევადობას. ამ გაზომვებიდან იგება პერსონალიზებული, VO₂-ზე ორიენტირებული მოძრაობის გეგმა — საკმარისად ზუსტი, რომ ეფექტური იყოს; საკმარისად მარტივი, რომ დაიცვან.
+LongevityOne-ში ყოველ კლიენტს PNOE ტესტი ადგენს: VO₂ Max-ს, ინდივიდუალურ გულისცემის ტრენინგ-ზონებს, RMR-ს და ცხიმის წვის ტევადობას. ამ გაზომვებიდან იგება პერსონალიზებული, VO₂-ზე ორიენტირებული მოძრაობის გეგმა — საკმარისად ზუსტი, რომ ეფექტური იყოს; საკმარისად მარტივი, რომ დაიცვან.
 
 სრული პროგრამისთვის ჩვენ დასახული სამიზნე: VO₂ Max-ის 10%-იანი გაუმჯობესება 12 კვირაში. ამბიციურია. მიღწევადია. და ამ გაუმჯობესების გრძელვადიანი ეფექტი ჯანმრთელობაზე — სამეცნიეროდ განმსჭვალავია.
 
@@ -1000,8 +1000,8 @@ Longevity One-ში ყოველ კლიენტს PNOE ტესტი 
 **Email:** info@longevityone.ge
 
 **Copyright:**
-- ka: © 2026 Longevity One. ყველა უფლება დაცულია.
-- en: © 2026 Longevity One. All rights reserved.
+- ka: © 2026 LongevityOne. ყველა უფლება დაცულია.
+- en: © 2026 LongevityOne. All rights reserved.
 
 ---
 
@@ -1021,7 +1021,7 @@ Longevity One-ში ყოველ კლიენტს PNOE ტესტი 
 
 ## LEGAL PAGES
 
-> These are original documents written for Longevity One. Do NOT replace with copies from other websites — this creates plagiarism and legal liability. All pages are in Georgian (primary) and English (secondary). Reference laws: საქართველოს კანონი „პერსონალური მონაცემების დაცვის შესახებ" (Law of Georgia on Personal Data Protection) and GDPR (applicable as EU-based infrastructure is used).
+> These are original documents written for LongevityOne. Do NOT replace with copies from other websites — this creates plagiarism and legal liability. All pages are in Georgian (primary) and English (secondary). Reference laws: საქართველოს კანონი „პერსონალური მონაცემების დაცვის შესახებ" (Law of Georgia on Personal Data Protection) and GDPR (applicable as EU-based infrastructure is used).
 
 ---
 
@@ -1038,7 +1038,7 @@ Longevity One-ში ყოველ კლიენტს PNOE ტესტი 
 
 ## 1. მონაცემთა დამმუშავებელი
 
-Longevity One (შემდგომ „ჩვენ" ან „კლინიკა") — პრევენციული მედიცინის ცენტრი, მდებარე: თამარაშვილის 4ა, სადარბაზო 3, სართული 3, ბინა 50, თბილისი, საქართველო. საკონტაქტო: info@longevityone.ge
+LongevityOne (შემდგომ „ჩვენ" ან „კლინიკა") — პრევენციული მედიცინის ცენტრი, მდებარე: თამარაშვილის 4ა, სადარბაზო 3, სართული 3, ბინა 50, თბილისი, საქართველო. საკონტაქტო: info@longevityone.ge
 
 ეს კონფიდენციალობის პოლიტიკა განმარტავს, თუ რა სახის პერსონალურ მონაცემებს ვაგროვებთ, როგორ ვამუშავებთ და ვიცავთ მათ, და რა უფლებები გაქვთ. ჩვენ ვმოქმედებთ საქართველოს კანონის „პერსონალური მონაცემების დაცვის შესახებ" შესაბამისად.
 
@@ -1102,7 +1102,7 @@ Longevity One (შემდგომ „ჩვენ" ან „კლინი�
 
 ## 1. Data Controller
 
-Longevity One, Preventive Medicine Centre, located at 4a Tamarashvili Street, Entrance 3, Floor 3, Apt. 50, Tbilisi, Georgia. Contact: info@longevityone.ge
+LongevityOne, Preventive Medicine Centre, located at 4a Tamarashvili Street, Entrance 3, Floor 3, Apt. 50, Tbilisi, Georgia. Contact: info@longevityone.ge
 
 This Privacy Policy explains what personal data we collect, how we process and protect it, and your rights. We operate in accordance with the Law of Georgia on Personal Data Protection and, where applicable, the General Data Protection Regulation (GDPR) of the European Union.
 
@@ -1172,7 +1172,7 @@ When this policy is updated, we will post a notice on the website. For material 
 
 ## 1. ზოგადი დებულებები
 
-ამ ვებ-საიტის (www.longevityone.ge) გამოყენებით თქვენ ეთანხმებით ამ წესებსა და პირობებს. ვებ-საიტი ეკუთვნის და მართულია Longevity One-ის მიერ — პრევენციული მედიცინის ცენტრი, მდებარე: თამარაშვილის 4ა, სადარბაზო 3, სართული 3, ბინა 50, თბილისი, საქართველო.
+ამ ვებ-საიტის (www.longevityone.ge) გამოყენებით თქვენ ეთანხმებით ამ წესებსა და პირობებს. ვებ-საიტი ეკუთვნის და მართულია LongevityOne-ის მიერ — პრევენციული მედიცინის ცენტრი, მდებარე: თამარაშვილის 4ა, სადარბაზო 3, სართული 3, ბინა 50, თბილისი, საქართველო.
 
 ## 2. სერვისების გამოყენება
 
@@ -1180,17 +1180,17 @@ When this policy is updated, we will post a notice on the website. For material 
 
 **2.2** ჯავშნის დასადასტურებლად კლიენტი ვალდებულია გადაიხადოს შეთანხმებული ფასი.
 
-**2.3** Longevity One-ი იტოვებს უფლებას, შეცვალოს ფასები ან სერვისების შეთავაზება წინასწარი შეტყობინებით.
+**2.3** LongevityOne-ი იტოვებს უფლებას, შეცვალოს ფასები ან სერვისების შეთავაზება წინასწარი შეტყობინებით.
 
 ## 3. ინტელექტუალური საკუთრება
 
-ამ ვებ-საიტის ყველა კონტენტი — ტექსტი, გრაფიკა, ლოგო, გამოსახულებები — Longevity One-ის ინტელექტუალური საკუთრებაა. კომერციული გამოყენება ან კოპირება პირდაპირი წერილობითი ნებართვის გარეშე აკრძალულია.
+ამ ვებ-საიტის ყველა კონტენტი — ტექსტი, გრაფიკა, ლოგო, გამოსახულებები — LongevityOne-ის ინტელექტუალური საკუთრებაა. კომერციული გამოყენება ან კოპირება პირდაპირი წერილობითი ნებართვის გარეშე აკრძალულია.
 
 ## 4. პასუხისმგებლობის შეზღუდვა
 
 **4.1** ვებ-საიტზე განთავსებული ინფორმაცია განათლებისა და ინფორმირების მიზნებისთვისაა. ეს არ არის ინდივიდუალური სამედიცინო რჩევა.
 
-**4.2** Longevity One-ი არ არის პასუხისმგებელი ზარალზე, რომელიც გამოწვეულია ვებ-საიტის ტექნიკური გაუმართაობით, მომხმარებლის მონაცემების არასწორი შეყვანით ან მომხმარებლის მიერ სამედიცინო რჩევის გაუთვალისწინებლობით.
+**4.2** LongevityOne-ი არ არის პასუხისმგებელი ზარალზე, რომელიც გამოწვეულია ვებ-საიტის ტექნიკური გაუმართაობით, მომხმარებლის მონაცემების არასწორი შეყვანით ან მომხმარებლის მიერ სამედიცინო რჩევის გაუთვალისწინებლობით.
 
 ## 5. მარეგულირებელი სამართალი
 
@@ -1210,7 +1210,7 @@ When this policy is updated, we will post a notice on the website. For material 
 
 ## 1. General
 
-By using this website (www.longevityone.ge), you agree to these Terms & Conditions. The website is owned and operated by Longevity One, Preventive Medicine Centre, 4a Tamarashvili Street, Entrance 3, Floor 3, Apt. 50, Tbilisi, Georgia.
+By using this website (www.longevityone.ge), you agree to these Terms & Conditions. The website is owned and operated by LongevityOne, Preventive Medicine Centre, 4a Tamarashvili Street, Entrance 3, Floor 3, Apt. 50, Tbilisi, Georgia.
 
 ## 2. Use of Services
 
@@ -1218,17 +1218,17 @@ By using this website (www.longevityone.ge), you agree to these Terms & Conditio
 
 **2.2** Bookings are confirmed upon payment of the agreed fee.
 
-**2.3** Longevity One reserves the right to modify pricing or service offerings with prior notice.
+**2.3** LongevityOne reserves the right to modify pricing or service offerings with prior notice.
 
 ## 3. Intellectual Property
 
-All content on this website — text, graphics, logo, images — is the intellectual property of Longevity One. Commercial use or copying without express written permission is prohibited.
+All content on this website — text, graphics, logo, images — is the intellectual property of LongevityOne. Commercial use or copying without express written permission is prohibited.
 
 ## 4. Limitation of Liability
 
 **4.1** Information on this website is provided for educational and informational purposes only and does not constitute individual medical advice.
 
-**4.2** Longevity One accepts no liability for losses arising from technical failure of the website, incorrect data entry by users, or a user's failure to follow medical guidance received in a clinical setting.
+**4.2** LongevityOne accepts no liability for losses arising from technical failure of the website, incorrect data entry by users, or a user's failure to follow medical guidance received in a clinical setting.
 
 ## 5. Governing Law
 
@@ -1339,7 +1339,7 @@ For questions: info@longevityone.ge
 
 ## 3. ინდივიდუალური შედეგები
 
-Longevity One-ის პროგრამების შედეგები ინდივიდუალურია. ვებ-საიტზე მოყვანილი შედეგების მაჩვენებლები წარმოადგენს ტიპური შედეგების ილუსტრაციას და არ გარანტიას. ყველა პაციენტი განსხვავებულია — ასაკის, ჯანმრთელობის მდგომარეობის, ცხოვრების წესისა და გენეტიკის მიხედვით.
+LongevityOne-ის პროგრამების შედეგები ინდივიდუალურია. ვებ-საიტზე მოყვანილი შედეგების მაჩვენებლები წარმოადგენს ტიპური შედეგების ილუსტრაციას და არ გარანტიას. ყველა პაციენტი განსხვავებულია — ასაკის, ჯანმრთელობის მდგომარეობის, ცხოვრების წესისა და გენეტიკის მიხედვით.
 
 ## 4. გადაუდებელი შემთხვევები
 
@@ -1347,7 +1347,7 @@ Longevity One-ის პროგრამების შედეგები 
 
 ## 5. მარეგულირებელი ზედამხედველობა
 
-Longevity One მოქმედებს საქართველოს ჯანდაცვის სამინისტროს მარეგულირებელი ჩარჩოს ფარგლებში.
+LongevityOne მოქმედებს საქართველოს ჯანდაცვის სამინისტროს მარეგულირებელი ჩარჩოს ფარგლებში.
 
 ---
 
@@ -1367,7 +1367,7 @@ Before making any health-related decision — including starting a new health pr
 
 ## 3. Individual Results
 
-Results from Longevity One programmes vary between individuals. Any outcomes referenced on this website illustrate typical results and do not constitute a guarantee. Each patient is different — in terms of age, health status, lifestyle, and genetics.
+Results from LongevityOne programmes vary between individuals. Any outcomes referenced on this website illustrate typical results and do not constitute a guarantee. Each patient is different — in terms of age, health status, lifestyle, and genetics.
 
 ## 4. Emergencies
 
@@ -1375,7 +1375,7 @@ This website is not designed for emergency medical situations. In case of a medi
 
 ## 5. Regulatory Oversight
 
-Longevity One operates within the regulatory framework of the Ministry of Health of Georgia.
+LongevityOne operates within the regulatory framework of the Ministry of Health of Georgia.
 
 ---
 

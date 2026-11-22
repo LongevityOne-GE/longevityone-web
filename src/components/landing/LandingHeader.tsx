@@ -19,7 +19,7 @@ export function LandingHeader({ locale }: LandingHeaderProps) {
   return (
     <header className="sticky top-0 z-40 border-b border-dark-brown/10 bg-bone-white/95 backdrop-blur-sm">
       <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-5 py-3 md:px-8">
-        <a href="#top" className="flex-shrink-0" aria-label="Longevity One">
+        <a href="#top" className="flex-shrink-0" aria-label="LongevityOne">
           <Logo />
         </a>
 

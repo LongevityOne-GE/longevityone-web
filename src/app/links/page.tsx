@@ -4,7 +4,7 @@ import { PhoneLink } from '@/components/shared/PhoneLink'
 export const metadata: Metadata = {
   title: 'Links',
   description:
-    'Longevity One — preventive & integrative medicine in Tbilisi. Call the clinic, visit our website, and follow us.',
+    'LongevityOne - preventive & integrative medicine in Tbilisi. Call the clinic, visit our website, and follow us.',
 }
 
 // Link-in-bio landing. Standalone page (uses only the minimal root layout — no

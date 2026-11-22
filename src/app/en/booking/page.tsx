@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     path: '/booking',
     title: 'Book a Visit',
     description:
-      'Book a visit at Longevity One preventive medicine center. Choose a time that suits you.',
+      'Book a visit at LongevityOne preventive medicine center. Choose a time that suits you.',
   }),
   // Booking is temporarily disabled — keep this page out of the index.
   ...(BOOKING_ENABLED ? {} : { robots: { index: false, follow: false } }),

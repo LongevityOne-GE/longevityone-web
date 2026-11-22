@@ -3,8 +3,8 @@ import { SITE_URL } from '@/lib/seo/metadata'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Longevity One - Preventive Medicine Center in Tbilisi',
-    short_name: 'Longevity One',
+    name: 'LongevityOne - Preventive Medicine Center in Tbilisi',
+    short_name: 'LongevityOne',
     description:
       'Preventive medicine and longevity clinic in Tbilisi, Georgia focused on biological age, diagnostics, metabolic health, and personalized health programs.',
     start_url: '/',

@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: data?.page?.seo_title_en || 'Longevity Clinic Frequently Asked Questions',
     description:
       data?.page?.seo_description_en ||
-      'Answers about Longevity One programs, biological age testing, preventive diagnostics, booking a visit, and longevity clinic services in Tbilisi, Georgia.',
+      'Answers about LongevityOne programs, biological age testing, preventive diagnostics, booking a visit, and longevity clinic services in Tbilisi, Georgia.',
     keywords: ['longevity clinic FAQ', 'biological age test Georgia', 'preventive diagnostics Tbilisi'],
   })
 }

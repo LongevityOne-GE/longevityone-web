@@ -11,11 +11,11 @@ export const metadata: Metadata = buildMetadata({
   path: '/contact',
   title: 'Contact: Tbilisi, 4a Tamarashvili St',
   description:
-    'Contact Longevity One. Address: 4a Tamarashvili St, Tbilisi · Tel: +995 511 70 88 88 · Daily 09:00–21:00.',
+    'Contact LongevityOne. Address: 4a Tamarashvili St, Tbilisi · Tel: +995 511 70 88 88 · Daily 09:00–21:00.',
   keywords: [
     'longevity clinic Tbilisi address',
     'preventive medicine Tamarashvili',
-    'Longevity One contact Georgia',
+    'LongevityOne contact Georgia',
   ],
 })
 

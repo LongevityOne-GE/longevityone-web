@@ -58,8 +58,8 @@ const GALLERIES: Record<string, GalleryImage[]> = {
     },
     {
       src: '/images/technologies/IHHT3.jpg',
-      alt_ka: 'IHHT თერაპიის ოთახი Longevity One-ში',
-      alt_en: 'IHHT therapy room at Longevity One',
+      alt_ka: 'IHHT თერაპიის ოთახი LongevityOne-ში',
+      alt_en: 'IHHT therapy room at LongevityOne',
       caption_ka: 'IHHT თერაპიის ოთახი',
       caption_en: 'The IHHT therapy suite',
     },

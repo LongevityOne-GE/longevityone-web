@@ -14,11 +14,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
     locale: 'en',
     path: '/about',
-    title: data?.seo_title_en || 'Longevity One - Longevity Clinic in Georgia',
+    title: data?.seo_title_en || 'LongevityOne - Longevity Clinic in Georgia',
     description:
       data?.seo_description_en ||
-      'Meet Longevity One, a preventive medicine and longevity center in Tbilisi combining physicians, science, biological age testing, and personalized health programs in Georgia.',
-    keywords: ['longevity clinic Georgia', 'preventive medicine center Tbilisi', 'Longevity One Georgia'],
+      'Meet LongevityOne, a preventive medicine and longevity center in Tbilisi combining physicians, science, biological age testing, and personalized health programs in Georgia.',
+    keywords: ['longevity clinic Georgia', 'preventive medicine center Tbilisi', 'LongevityOne Georgia'],
   })
 }
 

@@ -49,7 +49,7 @@ const COPY = {
 const ANCHOR = 'scroll-mt-32 lg:scroll-mt-24'
 
 /**
- * One-page landing for paid traffic: what Longevity One is with the form
+ * One-page landing for paid traffic: what LongevityOne is with the form
  * immediately visible, then about, services, team, reviews and a closing call
  * to action that scrolls back to the form. No links lead off the page.
  * Content comes from the same Sanity documents as the main site.
@@ -90,7 +90,7 @@ export function LandingPage({
           </div>
         )}
 
-        {/* What Longevity One is, with the form right beside it. */}
+        {/* What LongevityOne is, with the form right beside it. */}
         <section className="bg-bone-white py-14 md:py-24">
           <div className="section-container grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-20">
             <div className="lg:pt-6">

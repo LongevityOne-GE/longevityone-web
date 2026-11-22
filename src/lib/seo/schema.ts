@@ -17,7 +17,7 @@ const OG_IMAGE_URL = `${SITE_URL}/opengraph-image`
 // always matches the citation source of truth, independent of the fuller
 // entrance/floor/apt wayfinding copy shown to patients on the contact page.
 const NAP = {
-  name: 'Longevity One',
+  name: 'LongevityOne',
   phone: '+995511708888',
   email: 'info@longevityone.ge',
   street_ka: '4ა, მიხეილ თამარაშვილის ქუჩა',
@@ -104,7 +104,7 @@ export function organizationSchema(settings: SiteSettings | null, locale: Locale
     '@type': 'MedicalClinic',
     '@id': ORG_ID,
     name,
-    alternateName: ['Longevity One Tbilisi', 'Longevity One Clinic', 'Longevity One Georgia'],
+    alternateName: ['Longevity One', 'LongevityOne Tbilisi', 'LongevityOne Clinic', 'LongevityOne Georgia'],
     url: SITE_URL,
     telephone: (settings?.phone || NAP.phone).replace(/\s+/g, ''),
     email: settings?.email || NAP.email,
@@ -157,7 +157,7 @@ export function websiteSchema(locale: Locale): Schema {
     '@id': WEBSITE_ID,
     url: SITE_URL,
     name: NAP.name,
-    alternateName: ['Longevity One Tbilisi', 'Longevity One Clinic', 'Longevity One Georgia'],
+    alternateName: ['Longevity One', 'LongevityOne Tbilisi', 'LongevityOne Clinic', 'LongevityOne Georgia'],
     inLanguage: ogLang(locale),
     publisher: { '@id': ORG_ID },
   }
@@ -195,7 +195,7 @@ export function contactPageSchema(settings: SiteSettings | null, locale: Locale)
       '@type': 'ContactPage',
       '@id': locale === 'ka' ? CONTACT_PAGE_ID : `${SITE_URL}/en/contact#webpage`,
       url: pageUrl,
-      name: locale === 'ka' ? 'კონტაქტი' : 'Contact Longevity One',
+      name: locale === 'ka' ? 'კონტაქტი' : 'Contact LongevityOne',
       inLanguage: ogLang(locale),
       isPartOf: { '@id': WEBSITE_ID },
       about: { '@id': ORG_ID },

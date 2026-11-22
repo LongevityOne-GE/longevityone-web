@@ -57,7 +57,7 @@ export function AdvisoryJsonLd({ locale, page, members, baseUrl }: AdvisoryJsonL
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'MedicalOrganization',
-    name: 'Longevity One',
+    name: 'LongevityOne',
     url: baseUrl,
     description:
       locale === 'ka'

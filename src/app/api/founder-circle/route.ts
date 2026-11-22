@@ -230,7 +230,7 @@ export async function POST(req: NextRequest) {
     // Notification to clinic
     try {
       await resend.emails.send({
-        from: 'Longevity One <noreply@longevityone.ge>',
+        from: 'LongevityOne <noreply@longevityone.ge>',
         to: 'info@longevityone.ge',
         subject: emailSubject,
         html: `
@@ -261,21 +261,21 @@ export async function POST(req: NextRequest) {
       try {
         const isKa = lang === 'ka'
         const replySubject = isKa
-          ? 'მოთხოვნა მიღებულია - Longevity One'
-          : 'Request received - Longevity One'
+          ? 'მოთხოვნა მიღებულია - LongevityOne'
+          : 'Request received - LongevityOne'
         const replyHtml = isKa
           ? `<p>გამარჯობა ${safeName},</p>
              <p>მივიღეთ თქვენი განაცხადი. ჩვენი კონსიერჟი 24 საათის განმავლობაში დაგიკავშირდებათ.</p>
-             <p>— Longevity One-ის გუნდი</p>`
+             <p>- LongevityOne-ის გუნდი</p>`
           : `<p>Hello ${safeName},</p>
              <p>We received your request. Our concierge will call you within 24 hours.</p>
-             <p>— The Longevity One team</p>`
+             <p>- The LongevityOne team</p>`
         const replyText = isKa
-          ? `გამარჯობა ${name},\n\nმივიღეთ თქვენი განაცხადი. ჩვენი კონსიერჟი 24 საათის განმავლობაში დაგიკავშირდებათ.\n\n— Longevity One-ის გუნდი`
-          : `Hello ${name},\n\nWe received your request. Our concierge will call you within 24 hours.\n\n— The Longevity One team`
+          ? `გამარჯობა ${name},\n\nმივიღეთ თქვენი განაცხადი. ჩვენი კონსიერჟი 24 საათის განმავლობაში დაგიკავშირდებათ.\n\n- LongevityOne-ის გუნდი`
+          : `Hello ${name},\n\nWe received your request. Our concierge will call you within 24 hours.\n\n- The LongevityOne team`
 
         await resend.emails.send({
-          from: 'Longevity One <noreply@longevityone.ge>',
+          from: 'LongevityOne <noreply@longevityone.ge>',
           to: email,
           replyTo: 'info@longevityone.ge',
           subject: replySubject,

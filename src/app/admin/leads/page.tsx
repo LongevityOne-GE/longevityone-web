@@ -102,7 +102,7 @@ export default async function AdminLeadsPage({
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-burnt-orange">
-            Longevity One
+            LongevityOne
           </p>
           <h1 className="text-2xl font-black text-dark-brown">Leads</h1>
           <p className="mt-2 text-sm text-dark-brown/60">Signed in as {user.email}</p>

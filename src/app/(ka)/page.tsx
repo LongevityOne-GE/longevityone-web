@@ -21,9 +21,9 @@ import type { Metadata } from 'next'
 import { HomePage } from '@/components/pages/HomePage'
 import { buildMetadata } from '@/lib/seo/metadata'
 
-const KA_DEFAULT_TITLE = 'Longevity One - პრევენციული მედიცინის ცენტრი, თბილისი'
+const KA_DEFAULT_TITLE = 'LongevityOne - პრევენციული მედიცინის ცენტრი, თბილისი'
 const KA_DEFAULT_DESC =
-  'Longevity One - პრევენციული მედიცინის ცენტრი თბილისში. მოწინავე დიაგნოსტიკა, პერსონალიზებული პროგრამები, სამეცნიერო სიზუსტე.'
+  'LongevityOne - პრევენციული მედიცინის ცენტრი თბილისში. მოწინავე დიაგნოსტიკა, პერსონალიზებული პროგრამები, სამეცნიერო სიზუსტე.'
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await sanityClient.fetch<HomePageData>(

@@ -40,7 +40,7 @@ export function LoginForm({ linkFailed }: LoginFormProps) {
     <main className="flex min-h-screen items-center justify-center px-6">
       <div className="w-full max-w-sm">
         <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-burnt-orange">
-          Longevity One
+          LongevityOne
         </p>
         <h1 className="mb-8 text-2xl font-black text-dark-brown">Leads dashboard</h1>
 

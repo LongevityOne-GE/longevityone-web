@@ -1,4 +1,4 @@
-# Longevity One: Motion & Animation Specification
+# LongevityOne: Motion & Animation Specification
 
 > Reference: https://www.cliniquelaprairie.com
 > Goal: Match cinematic, scroll-driven luxury feel. Every interaction feels intentional and premium.
@@ -8,7 +8,7 @@
 
 ## Philosophy
 
-Motion at Longevity One is storytelling, not decoration. The site should feel like turning pages of a premium art book: unhurried, deliberate, deeply satisfying. Nothing snaps. Nothing bounces. Everything breathes.
+Motion at LongevityOne is storytelling, not decoration. The site should feel like turning pages of a premium art book: unhurried, deliberate, deeply satisfying. Nothing snaps. Nothing bounces. Everything breathes.
 
 **Three principles:**
 1. **Reveal, don't distract**: animation draws attention to content, never away from it

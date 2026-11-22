@@ -25,7 +25,7 @@ import { LandingPage } from '@/components/landing/LandingPage'
 export const metadata: Metadata = buildMetadata({
   locale: 'en',
   path: '/start',
-  title: 'Longevity One: Preventive Medicine Centre in Tbilisi',
+  title: 'LongevityOne: Preventive Medicine Centre in Tbilisi',
   description: 'Request a call and our concierge will contact you within 24 hours.',
   titleAbsolute: true,
   noindex: true,

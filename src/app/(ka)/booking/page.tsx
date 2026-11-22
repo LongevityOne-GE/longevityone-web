@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     path: '/booking',
     title: 'დაჯავშნეთ ვიზიტი',
     description:
-      'დაჯავშნეთ ვიზიტი Longevity One-ს პრევენციული მედიცინის ცენტრში. აირჩიეთ თქვენთვის სასურველი დრო.',
+      'დაჯავშნეთ ვიზიტი LongevityOne-ს პრევენციული მედიცინის ცენტრში. აირჩიეთ თქვენთვის სასურველი დრო.',
   }),
   // Booking is temporarily disabled — keep this page out of the index.
   ...(BOOKING_ENABLED ? {} : { robots: { index: false, follow: false } }),

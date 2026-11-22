@@ -8,20 +8,20 @@ export const metadata: Metadata = {
   // Canonical origin is `www`: every relative URL (incl. the default OG image
   // from app/opengraph-image.tsx) resolves against this host.
   metadataBase: new URL(SITE_URL),
-  applicationName: 'Longevity One',
-  creator: 'Longevity One',
-  publisher: 'Longevity One',
+  applicationName: 'LongevityOne',
+  creator: 'LongevityOne',
+  publisher: 'LongevityOne',
   category: 'health',
   manifest: '/manifest.webmanifest',
   title: {
-    default: 'Longevity One - პრევენციული მედიცინის ცენტრი, თბილისი',
-    template: '%s | Longevity One',
+    default: 'LongevityOne - პრევენციული მედიცინის ცენტრი, თბილისი',
+    template: '%s | LongevityOne',
   },
   description:
-    'Longevity One - პრევენციული მედიცინის ცენტრი თბილისში. მოწინავე დიაგნოსტიკა, პერსონალიზებული პროგრამები, სამეცნიერო სიზუსტე.',
+    'LongevityOne - პრევენციული მედიცინის ცენტრი თბილისში. მოწინავე დიაგნოსტიკა, პერსონალიზებული პროგრამები, სამეცნიერო სიზუსტე.',
   openGraph: {
     type: 'website',
-    siteName: 'Longevity One',
+    siteName: 'LongevityOne',
     // Default OG image is provided by app/opengraph-image.tsx (1200×630, on `www`).
     // Per-page metadata may override openGraph.images (e.g. blog cover images).
   },
