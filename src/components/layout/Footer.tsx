@@ -50,9 +50,14 @@ function YouTubeIcon() {
 interface FooterProps {
   locale: Locale
   siteSettings?: SiteSettings | null
+  /**
+   * Ad landing page: drop the site menu so visitors are not sent elsewhere.
+   * Contact, social and legal links stay (the form's consent links to privacy).
+   */
+  minimal?: boolean
 }
 
-export function Footer({ locale, siteSettings }: FooterProps) {
+export function Footer({ locale, siteSettings, minimal = false }: FooterProps) {
   const prefix = locale === 'en' ? '/en' : ''
 
   const address = locale === 'ka' ? siteSettings?.address_ka : siteSettings?.address_en
@@ -174,6 +179,7 @@ export function Footer({ locale, siteSettings }: FooterProps) {
         </div>
         </Reveal>
 
+        {!minimal && (
         <Reveal delay={0.2}>
         <div className="space-y-6">
           <h2 className="font-bold uppercase text-xs tracking-widest">
@@ -187,6 +193,7 @@ export function Footer({ locale, siteSettings }: FooterProps) {
           </ul>
         </div>
         </Reveal>
+        )}
 
         <Reveal delay={0.3}>
         <div className="space-y-6">
@@ -194,7 +201,9 @@ export function Footer({ locale, siteSettings }: FooterProps) {
             {locale === 'ka' ? 'ინფორმაცია' : 'Legal'}
           </h2>
           <ul className="text-sm font-medium space-y-3">
-            <li><Link href={`${prefix}/faq`} className="hover:text-burnt-orange transition-colors uppercase">{locale === 'ka' ? 'ხშირი კითხვები' : 'FAQ'}</Link></li>
+            {!minimal && (
+              <li><Link href={`${prefix}/faq`} className="hover:text-burnt-orange transition-colors uppercase">{locale === 'ka' ? 'ხშირი კითხვები' : 'FAQ'}</Link></li>
+            )}
             <li><Link href={`${prefix}/legal/privacy`} className="hover:text-burnt-orange transition-colors uppercase">{locale === 'ka' ? 'კონფიდენციალურობა' : 'Privacy Policy'}</Link></li>
             <li><Link href={`${prefix}/legal/terms`} className="hover:text-burnt-orange transition-colors uppercase">{locale === 'ka' ? 'წესები და პირობები' : 'Terms'}</Link></li>
             <li><Link href={`${prefix}/legal/cookies`} className="hover:text-burnt-orange transition-colors uppercase">{locale === 'ka' ? 'ქუქი-ფაილები' : 'Cookies'}</Link></li>

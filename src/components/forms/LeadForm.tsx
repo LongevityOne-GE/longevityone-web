@@ -21,8 +21,6 @@ interface LeadFormProps {
   trackOpenOnFocus?: boolean
   /** Called right before navigating to the thank-you page. */
   onSubmitted?: () => void
-  /** `dark` for placement on dark sections (light text, light borders). */
-  tone?: 'light' | 'dark'
 }
 
 type FormState = 'idle' | 'submitting' | 'error' | 'captcha'
@@ -67,11 +65,9 @@ export function LeadForm({
   source,
   trackOpenOnFocus = false,
   onSubmitted,
-  tone = 'light',
 }: LeadFormProps) {
   const t = COPY[locale]
   const uid = useId()
-  const dark = tone === 'dark'
 
   const [formState, setFormState] = useState<FormState>('idle')
   const [name, setName] = useState('')
@@ -83,16 +79,11 @@ export function LeadForm({
   const openTracked = useRef(false)
 
   const inputClass = cn(
-    'bg-transparent border-b pb-2 w-full font-light',
-    'focus:outline-none transition-colors duration-300',
-    dark
-      ? 'border-bone-white/40 text-bone-white placeholder:text-bone-white/40 focus:border-bone-white'
-      : 'border-dark-brown/40 text-dark-brown placeholder:text-dark-brown/40 focus:border-dark-brown',
+    'bg-transparent border-b border-dark-brown/40 pb-2 w-full',
+    'text-dark-brown placeholder:text-dark-brown/40 font-light',
+    'focus:outline-none focus:border-dark-brown transition-colors duration-300',
   )
-  const labelClass = cn(
-    'block text-[11px] font-medium uppercase tracking-[0.15em] mb-2',
-    dark ? 'text-bone-white/60' : 'text-dark-brown/60',
-  )
+  const labelClass = 'block text-[11px] font-medium uppercase tracking-[0.15em] text-dark-brown/60 mb-2'
 
   const canSubmit =
     formState !== 'submitting' &&
@@ -222,20 +213,14 @@ export function LeadForm({
           />
           <label
             htmlFor={`${uid}-consent`}
-            className={cn(
-              'text-xs font-light leading-relaxed cursor-pointer',
-              dark ? 'text-bone-white/70' : 'text-dark-brown/70',
-            )}
+            className="text-xs font-light text-dark-brown/70 leading-relaxed cursor-pointer"
           >
             {t.consentText}{' '}
             <Link
               href={t.privacyHref}
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(
-                'underline underline-offset-2 transition-colors',
-                dark ? 'hover:text-bone-white' : 'hover:text-dark-brown',
-              )}
+              className="underline underline-offset-2 hover:text-dark-brown transition-colors"
             >
               {t.privacyLabel}
             </Link>
@@ -275,7 +260,7 @@ export function LeadForm({
           'mt-8 w-full flex items-center justify-center',
           'px-6 py-4 text-[11px] font-bold uppercase tracking-widest',
           'bg-burnt-orange text-bone-white transition-colors duration-300',
-          dark ? 'hover:bg-bone-white hover:text-dark-brown' : 'hover:bg-dark-brown',
+          'hover:bg-dark-brown',
           'disabled:opacity-40 disabled:cursor-not-allowed',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burnt-orange',
         )}

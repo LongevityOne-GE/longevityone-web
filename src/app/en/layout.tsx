@@ -37,7 +37,7 @@ export default async function EnLayout({ children }: { children: React.ReactNode
         <div id="main-content" className="flex flex-col flex-1">
           {children}
         </div>
-        <Footer locale="en" siteSettings={siteSettings} />
+        <Footer locale="en" siteSettings={siteSettings} minimal={landing} />
       </div>
       <CookieBanner locale="en" strings={cookieStrings} />
       <Analytics metaPixelId={process.env.META_PIXEL_ID} />

@@ -37,7 +37,7 @@ export default async function KaLayout({ children }: { children: React.ReactNode
         <div id="main-content" className="flex flex-col flex-1">
           {children}
         </div>
-        <Footer locale="ka" siteSettings={siteSettings} />
+        <Footer locale="ka" siteSettings={siteSettings} minimal={landing} />
       </div>
       <CookieBanner locale="ka" strings={cookieStrings} />
       <Analytics metaPixelId={process.env.META_PIXEL_ID} />

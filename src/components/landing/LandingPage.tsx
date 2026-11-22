@@ -14,6 +14,7 @@ import { LeadForm } from '@/components/forms/LeadForm'
 import { Pillars } from '@/components/sections/Pillars'
 import { ReviewsSection } from '@/components/sections/reviews/ReviewsSection'
 import { PhoneLink } from '@/components/shared/PhoneLink'
+import { CALL_CTA_LABEL } from '@/lib/features'
 import { LandingHeader } from './LandingHeader'
 
 interface LandingPageProps {
@@ -31,16 +32,16 @@ const COPY = {
   ka: {
     formHeading: 'მოითხოვეთ ზარი',
     formTagline: 'დატოვეთ ნომერი და ჩვენი კონსიერჟი დაგიკავშირდებათ 24 საათში.',
-    teamHeading: 'ვინ ვართ',
+    teamHeading: 'ჩვენი გუნდი',
     contactHeading: 'დაიწყეთ დღესვე',
-    contactTagline: 'დატოვეთ ნომერი, ან დაგვირეკეთ პირდაპირ.',
+    contactTagline: 'მოითხოვეთ ზარი, ან დაგვირეკეთ პირდაპირ.',
   },
   en: {
     formHeading: 'Request a call',
     formTagline: 'Leave your number and our concierge will call you within 24 hours.',
-    teamHeading: 'Who we are',
+    teamHeading: 'Our team',
     contactHeading: 'Start today',
-    contactTagline: 'Leave your number, or call us directly.',
+    contactTagline: 'Request a call, or call us directly.',
   },
 } as const
 
@@ -49,7 +50,8 @@ const ANCHOR = 'scroll-mt-32 lg:scroll-mt-24'
 
 /**
  * One-page landing for paid traffic: what Longevity One is with the form
- * immediately visible, then about, services, team, reviews and the form again.
+ * immediately visible, then about, services, team, reviews and a closing call
+ * to action that scrolls back to the form. No links lead off the page.
  * Content comes from the same Sanity documents as the main site.
  */
 export function LandingPage({
@@ -109,7 +111,7 @@ export function LandingPage({
               )}
             </div>
 
-            <div className="border border-dark-brown/15 bg-bone-white p-7 md:p-10">
+            <div id="form" className={`${ANCHOR} border border-dark-brown/15 bg-bone-white p-7 md:p-10`}>
               <h2 className="mb-2 text-2xl font-black text-dark-brown">{t.formHeading}</h2>
               <p className="mb-8 text-sm font-light leading-relaxed text-dark-brown/70">
                 {t.formTagline}
@@ -144,7 +146,7 @@ export function LandingPage({
         )}
 
         <div id="services" className={ANCHOR}>
-          <Pillars locale={locale} services={services} data={homePage} />
+          <Pillars locale={locale} services={services} data={homePage} showLinks={false} />
         </div>
 
         {team.length > 0 && (
@@ -188,20 +190,26 @@ export function LandingPage({
           </div>
         )}
 
-        <section id="contact" className={`${ANCHOR} bg-dark-brown py-16 text-bone-white md:py-28`}>
-          <div className="section-container grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-20">
-            <div>
-              {promotion && (
-                <p className="mb-4 text-xl font-black text-burnt-orange md:text-2xl">
-                  {promotion.headline}
-                </p>
-              )}
-              <h2 className="mb-5 text-4xl font-black leading-tight md:text-6xl">
-                {t.contactHeading}
-              </h2>
-              <p className="mb-8 text-base font-light leading-relaxed text-bone-white/75 md:text-lg">
-                {t.contactTagline}
+        <section id="contact" className={`${ANCHOR} bg-dark-brown py-16 text-center text-bone-white md:py-24`}>
+          <div className="section-container max-w-2xl">
+            {promotion && (
+              <p className="mb-4 text-xl font-black text-burnt-orange md:text-2xl">
+                {promotion.headline}
               </p>
+            )}
+            <h2 className="mb-5 text-4xl font-black leading-tight md:text-6xl">
+              {t.contactHeading}
+            </h2>
+            <p className="mb-8 text-base font-light leading-relaxed text-bone-white/75 md:text-lg">
+              {t.contactTagline}
+            </p>
+            <div className="flex flex-col items-center gap-6">
+              <a
+                href="#form"
+                className="bg-burnt-orange px-8 py-4 text-[11px] font-bold uppercase tracking-[0.2em] text-bone-white transition-colors hover:bg-bone-white hover:text-dark-brown"
+              >
+                {CALL_CTA_LABEL[locale]}
+              </a>
               {phone && (
                 <PhoneLink
                   phone={phone}
@@ -211,9 +219,6 @@ export function LandingPage({
                   {phone}
                 </PhoneLink>
               )}
-            </div>
-            <div className="border border-bone-white/15 p-7 md:p-10">
-              <LeadForm locale={locale} source="landing_final" trackOpenOnFocus tone="dark" />
             </div>
           </div>
         </section>

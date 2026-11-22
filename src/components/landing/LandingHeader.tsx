@@ -47,7 +47,7 @@ export function LandingHeader({ locale }: LandingHeaderProps) {
             {other === 'en' ? 'EN' : 'ქარ'}
           </Link>
           <a
-            href="#contact"
+            href="#form"
             className="whitespace-nowrap bg-burnt-orange px-3 py-2.5 text-[10px] font-bold uppercase tracking-[0.1em] text-bone-white transition-colors hover:bg-dark-brown md:px-5 md:tracking-[0.2em]"
           >
             {CALL_CTA_LABEL[locale]}
