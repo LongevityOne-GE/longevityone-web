@@ -232,22 +232,7 @@ export function ServiceSection({ locale, service, index }: ServiceSectionProps) 
                     {service.technologies.map((tech) => {
                       const techDisplay = localizedTechName(tech, locale)
                       return (
-                      <li key={tech.slug} className="flex items-start gap-3">
-                        {tech.heroImage?.asset?.url ? (
-                          <Image
-                            src={tech.heroImage.asset.url}
-                            alt={techDisplay}
-                            width={40}
-                            height={40}
-                            className="w-10 h-10 rounded-sm object-cover flex-shrink-0"
-                          />
-                        ) : (
-                          <div className="w-10 h-10 rounded-sm bg-dark-brown/8 border border-dark-brown/10 flex items-center justify-center flex-shrink-0">
-                            <span className="text-sm font-black text-dark-brown/30">
-                              {techDisplay.charAt(0)}
-                            </span>
-                          </div>
-                        )}
+                      <li key={tech.slug} className="flex items-start">
                         <div>
                           <p className="text-sm font-bold text-dark-brown">{techDisplay}</p>
                           <p className="text-xs text-dark-brown/60 leading-relaxed mt-0.5">

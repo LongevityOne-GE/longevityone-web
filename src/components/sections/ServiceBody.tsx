@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { localizedTechName, type Locale } from '@/lib/utils'
 import type { ServiceDetail } from '@/lib/sanity/types'
 import { Reveal } from '@/components/animations/Reveal'
@@ -62,22 +61,7 @@ export function ServiceBody({ locale, service }: ServiceBodyProps) {
                     {service.technologies.map((tech) => {
                       const techDisplay = localizedTechName(tech, locale)
                       return (
-                      <li key={tech.slug} className="flex items-start gap-3">
-                        {tech.heroImage?.asset?.url ? (
-                          <Image
-                            src={tech.heroImage.asset.url}
-                            alt={techDisplay}
-                            width={40}
-                            height={40}
-                            className="w-10 h-10 rounded object-cover flex-shrink-0"
-                          />
-                        ) : (
-                          <div className="w-10 h-10 rounded bg-dark-brown/10 flex items-center justify-center flex-shrink-0">
-                            <span className="text-sm font-black text-dark-brown/30">
-                              {techDisplay.charAt(0)}
-                            </span>
-                          </div>
-                        )}
+                      <li key={tech.slug} className="flex items-start">
                         <div>
                           <p className="text-sm font-bold text-dark-brown">{techDisplay}</p>
                           <p className="text-xs text-dark-brown/60 leading-relaxed mt-0.5">
