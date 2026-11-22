@@ -6,6 +6,7 @@ import type { Locale } from '@/lib/utils'
 import type { SiteSettings } from '@/lib/sanity/types'
 import { Reveal } from '@/components/animations/Reveal'
 import { ContactForm } from '@/components/sections/ContactForm'
+import { parseGeo } from '@/lib/seo/schema'
 
 interface ContactSectionProps {
   locale: Locale
@@ -27,6 +28,12 @@ export function ContactSection({ locale, settings }: ContactSectionProps) {
   const address = locale === 'ka' ? settings?.address_ka : settings?.address_en
   const hours = locale === 'ka' ? settings?.openingHours_ka : settings?.openingHours_en
   const sanitizedAddress = address?.replace(/^\s*[-\u2013]\s*/, '') ?? address
+  const mapLabel = locale === 'ka' ? 'Longevity One \u10d9\u10da\u10d8\u10dc\u10d8\u10d9\u10d8\u10e1 \u10e0\u10e3\u10d9\u10d0' : 'Map to Longevity One clinic'
+
+  const geo = parseGeo(settings?.maps_url)
+  const mapEmbedSrc = geo
+    ? `https://www.google.com/maps?q=${geo.latitude},${geo.longitude}&z=16&output=embed`
+    : null
 
   return (
     <section className="py-20 md:py-32 bg-bone-white">
@@ -148,6 +155,20 @@ export function ContactSection({ locale, settings }: ContactSectionProps) {
                     </div>
                   )}
                 </div>
+
+                {mapEmbedSrc && (
+                  <div className="overflow-hidden rounded-[18px] border border-dark-brown/10">
+                    <iframe
+                      src={mapEmbedSrc}
+                      title={mapLabel}
+                      width="100%"
+                      height="220"
+                      style={{ border: 0 }}
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </Reveal>

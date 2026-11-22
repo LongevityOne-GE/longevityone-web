@@ -12,17 +12,19 @@ const BRAND_LOGO_URL = `${SITE_URL}/images/hero-brand.png`
 /** Generated 1200×630 OG card — used as the organization image. */
 const OG_IMAGE_URL = `${SITE_URL}/opengraph-image`
 
-// Authoritative NAP (mirrors CLAUDE.md) — used when a Sanity field is absent.
-// postalCode left blank until verified (see Phase 5 / GBP); never guessed.
+// Authoritative NAP — verbatim from the Google Business Profile listing
+// (cid=352974110216628197, confirmed live 2026-08-02) so structured data
+// always matches the citation source of truth, independent of the fuller
+// entrance/floor/apt wayfinding copy shown to patients on the contact page.
 const NAP = {
   name: 'Longevity One',
   phone: '+995511708888',
   email: 'info@longevityone.ge',
-  street_ka: 'თამარაშვილის 4ა',
-  street_en: '4a Tamarashvili St',
+  street_ka: '4ა, მიხეილ თამარაშვილის ქუჩა',
+  street_en: '4ა, Mikheil Tamarashvili St',
   city: 'Tbilisi',
   region: 'Tbilisi',
-  postalCode: '',
+  postalCode: '0186',
   country: 'GE',
 } as const
 
@@ -55,7 +57,7 @@ type Schema = Record<string, unknown>
  * point (`?q=lat,lng` query or `!3dlat!4dlng` place data) over the `@lat,lng`
  * viewport centre, since the viewport can sit ~1km off the actual pin.
  */
-function parseGeo(mapsUrl?: string | null): { latitude: number; longitude: number } | null {
+export function parseGeo(mapsUrl?: string | null): { latitude: number; longitude: number } | null {
   if (!mapsUrl) return null
   const patterns = [
     /[?&](?:q|query)=(-?\d+\.\d+),(-?\d+\.\d+)/, // ?q=lat,lng — explicit point
@@ -72,17 +74,18 @@ function parseGeo(mapsUrl?: string | null): { latitude: number; longitude: numbe
 }
 
 /**
- * MedicalClinic (Organization) — the central entity. NAP from siteSettings with
- * CLAUDE.md fallbacks; opening hours are Daily 09:00–21:00 per the brand source
+ * MedicalClinic (Organization): the central entity. NAP from siteSettings with
+ * hardcoded fallbacks; opening hours are Daily 09:00–21:00 per the brand source
  * of truth. Geo coordinates are intentionally omitted until verified in Phase 5.
  */
 export function organizationSchema(settings: SiteSettings | null, locale: Locale): Schema {
   const name =
     (locale === 'ka' ? settings?.clinicName_ka : settings?.clinicName_en) || NAP.name
   const description = (locale === 'ka' ? settings?.tagline_ka : settings?.tagline_en) || undefined
-  const streetAddress =
-    (locale === 'ka' ? settings?.address_ka : settings?.address_en) ||
-    (locale === 'ka' ? NAP.street_ka : NAP.street_en)
+  // Always the GBP-verbatim short form for citation consistency — the fuller
+  // entrance/floor/apt copy in settings?.address_ka/en is display-only (footer,
+  // contact page) and intentionally not used here.
+  const streetAddress = locale === 'ka' ? NAP.street_ka : NAP.street_en
   const image = settings?.og_image?.asset?.url
   const sameAs = [
     settings?.socialFacebook,
@@ -90,7 +93,11 @@ export function organizationSchema(settings: SiteSettings | null, locale: Locale
     settings?.socialLinkedIn,
     settings?.socialTikTok,
     settings?.socialYouTube,
+    settings?.googleBusinessProfile,
   ].filter((v): v is string => Boolean(v))
+  // hasMap prefers the Google Business Profile listing (photos, reviews, category)
+  // over the bare coordinate pin, since it's the stronger local-trust signal.
+  const hasMap = settings?.googleBusinessProfile || settings?.maps_url || undefined
 
   return {
     '@context': 'https://schema.org',
@@ -112,7 +119,7 @@ export function organizationSchema(settings: SiteSettings | null, locale: Locale
       ...(NAP.postalCode ? { postalCode: NAP.postalCode } : {}),
       addressCountry: NAP.country,
     },
-    ...(settings?.maps_url ? { hasMap: settings.maps_url } : {}),
+    ...(hasMap ? { hasMap } : {}),
     ...(() => {
       const geo = parseGeo(settings?.maps_url)
       return geo ? { geo: { '@type': 'GeoCoordinates', ...geo } } : {}
@@ -175,9 +182,10 @@ export function breadcrumbSchema(
 
 export function contactPageSchema(settings: SiteSettings | null, locale: Locale): Schema[] {
   const pageUrl = localizedUrl(locale, '/contact')
-  const streetAddress =
-    (locale === 'ka' ? settings?.address_ka : settings?.address_en) ||
-    (locale === 'ka' ? NAP.street_ka : NAP.street_en)
+  // Always the GBP-verbatim short form for citation consistency — the fuller
+  // entrance/floor/apt copy in settings?.address_ka/en is display-only (footer,
+  // contact page) and intentionally not used here.
+  const streetAddress = locale === 'ka' ? NAP.street_ka : NAP.street_en
   const phone = (settings?.phone || NAP.phone).replace(/\s+/g, '')
   const email = settings?.email || NAP.email
 
@@ -200,6 +208,7 @@ export function contactPageSchema(settings: SiteSettings | null, locale: Locale)
       streetAddress,
       addressLocality: NAP.city,
       addressRegion: NAP.region,
+      ...(NAP.postalCode ? { postalCode: NAP.postalCode } : {}),
       addressCountry: NAP.country,
     },
     {
@@ -308,7 +317,12 @@ export function faqSchema(
 
 /** Physician entries for clinic team members, affiliated with the organization. */
 export function physiciansSchema(
-  members: Array<{ name: string; jobTitle?: string | null; specialty?: string | null }>,
+  members: Array<{
+    name: string
+    jobTitle?: string | null
+    specialty?: string | null
+    credentials?: string[] | null
+  }>,
 ): Schema[] {
   return members
     .filter((m) => m.name)
@@ -318,6 +332,14 @@ export function physiciansSchema(
       name: m.name,
       ...(m.jobTitle ? { jobTitle: m.jobTitle } : {}),
       ...(m.specialty ? { medicalSpecialty: m.specialty } : {}),
+      ...(m.credentials && m.credentials.length
+        ? {
+            hasCredential: m.credentials.map((cr) => ({
+              '@type': 'EducationalOccupationalCredential',
+              credentialCategory: cr,
+            })),
+          }
+        : {}),
       worksFor: { '@id': ORG_ID },
     }))
 }

@@ -33,6 +33,7 @@ export default async function KaTeamPage() {
     name: m.name || '',
     jobTitle: m.role_ka,
     specialty: m.specialty_ka,
+    credentials: m.credentials,
   }))
   return (
     <>

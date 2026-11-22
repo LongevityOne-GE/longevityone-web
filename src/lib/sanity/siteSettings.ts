@@ -52,6 +52,12 @@ export const siteSettings = defineType({
       description: 'Paste the Google Maps link for the clinic location. Use google.com/maps/search/?api=1&query=LAT,LNG format for best cross-platform support.',
     }),
     defineField({
+      name: 'googleBusinessProfile',
+      title: 'Google Business Profile URL',
+      type: 'url',
+      description: 'The public link to the clinic\'s Google Business Profile listing (e.g. https://g.page/... or the share link from Google Maps → "Share" on the business listing itself, not just the pin).',
+    }),
+    defineField({
       name: 'phone',
       title: 'Phone',
       type: 'string',
